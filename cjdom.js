@@ -145,12 +145,12 @@ function Java_cjdom_HTMLCanvasElement_setHeightImpl(lib, canvasJS, aValue)  { ca
 /**
  * HTMLImageElement method: Return image source.
  */
-function getSrcImpl(lib, imgJS)  { return imgJS.src; }
+function Java_cjdom_HTMLImageElement_getSrcImpl(lib, imgJS)  { return imgJS.src; }
 
 /**
  * HTMLImageElement method: Set image source.
  */
-async function setSrcImpl(lib, imgJS, srcStrJNI)
+async function Java_cjdom_HTMLImageElement_setSrcImpl(lib, imgJS, srcStrJNI)
 {
     var srcStrJS = await lib.getObjectWrapper(srcStrJNI).toString();
     imgJS.src = srcStrJS;
@@ -230,6 +230,7 @@ var cjdomNativeMethods = {
     Java_cjdom_HTMLCanvasElement_getWidthImpl, Java_cjdom_HTMLCanvasElement_setWidthImpl,
     Java_cjdom_HTMLCanvasElement_getHeightImpl, Java_cjdom_HTMLCanvasElement_setHeightImpl,
 
+    Java_cjdom_HTMLImageElement_getSrcImpl, Java_cjdom_HTMLImageElement_setSrcImpl,
     Java_cjdom_HTMLImageElement_getWidthImpl, Java_cjdom_HTMLImageElement_setWidthImpl,
     Java_cjdom_HTMLImageElement_getHeightImpl, Java_cjdom_HTMLImageElement_setHeightImpl,
 

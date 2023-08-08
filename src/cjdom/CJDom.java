@@ -1,5 +1,7 @@
 package cjdom;
 
+import cjdomtest.BallBounce;
+
 /**
  * Central class for some utility methods and testing.
  */
@@ -31,6 +33,7 @@ public class CJDom {
         testWindow();
         testArrays();
         testDocument();
+        new BallBounce();
     }
 
     /**
