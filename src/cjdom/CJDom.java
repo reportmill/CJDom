@@ -75,6 +75,9 @@ public class CJDom {
         System.out.println("Create image element");
         HTMLImageElement imageElement = (HTMLImageElement) document.createElement("img");
         log(imageElement);
+        imageElement.setWidth(120);
+        imageElement.setHeight(120);
+        System.out.println("Image width: " + imageElement.getWidth() + ", height: " + imageElement.getHeight());
 
         System.out.println("Create canvas element");
         HTMLCanvasElement canvasElement = (HTMLCanvasElement) document.createElement("canvas");

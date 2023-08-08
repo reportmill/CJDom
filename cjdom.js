@@ -66,7 +66,12 @@ function Java_cjdom_Float32Array_newArrayForLengthImpl(lib, length)
 }
 
 /**
- * Document method.
+ * Document method: Return document.body.
+ */
+function Java_cjdom_Document_getBodyImpl(lib, docObj)  { return docObj.body; }
+
+/**
+ * Document method: Create and return new element for given tag name.
  */
 async function Java_cjdom_Document_createElementImpl(lib, docJS, tagName)
 {
@@ -77,22 +82,42 @@ async function Java_cjdom_Document_createElementImpl(lib, docJS, tagName)
 /**
  * HTMLCanvasElement method: Return canvas width.
  */
-function Java_cjdom_HTMLCanvasElement_getWidthImpl(lib, jsObj)  { return jsObj.width; }
+function Java_cjdom_HTMLCanvasElement_getWidthImpl(lib, canvasJS)  { return canvasJS.width; }
 
 /**
  * HTMLCanvasElement method: Set canvas height.
  */
-function Java_cjdom_HTMLCanvasElement_setWidthImpl(lib, jsObj, aValue)  { jsObj.width = aValue; }
+function Java_cjdom_HTMLCanvasElement_setWidthImpl(lib, canvasJS, aValue)  { canvasJS.width = aValue; }
 
 /**
  * HTMLCanvasElement method: Return canvas height.
  */
-function Java_cjdom_HTMLCanvasElement_getHeightImpl(lib, jsObj)  { return jsObj.height; }
+function Java_cjdom_HTMLCanvasElement_getHeightImpl(lib, canvasJS)  { return canvasJS.height; }
 
 /**
  * HTMLCanvasElement method: Set canvas height.
  */
-function Java_cjdom_HTMLCanvasElement_setHeightImpl(lib, jsObj, aValue)  { jsObj.height = aValue; }
+function Java_cjdom_HTMLCanvasElement_setHeightImpl(lib, canvasJS, aValue)  { canvasJS.height = aValue; }
+
+/**
+ * HTMLImageElement method: Return image width.
+ */
+function Java_cjdom_HTMLImageElement_getWidthImpl(lib, imgJS)  { return imgJS.width; }
+
+/**
+ * HTMLImageElement method: Set image height.
+ */
+function Java_cjdom_HTMLImageElement_setWidthImpl(lib, imgJS, aValue)  { imgJS.width = aValue; }
+
+/**
+ * HTMLImageElement method: Return image height.
+ */
+function Java_cjdom_HTMLImageElement_getHeightImpl(lib, imgJS)  { return imgJS.height; }
+
+/**
+ * HTMLImageElement method: Set image height.
+ */
+function Java_cjdom_HTMLImageElement_setHeightImpl(lib, imgJS, aValue)  { imgJS.height = aValue; }
 
 /**
  * Window method.
@@ -125,10 +150,13 @@ var cjdomNativeMethods = {
 
     Java_cjdom_Float32Array_newArrayForLengthImpl, Java_cjdom_Float32Array_setImpl,
 
-    Java_cjdom_Document_createElementImpl, Java_cjdom_HTMLCanvasElement_setWidthImpl,
+    Java_cjdom_Document_getBodyImpl, Java_cjdom_Document_createElementImpl,
+
+    Java_cjdom_HTMLCanvasElement_getWidthImpl, Java_cjdom_HTMLCanvasElement_setWidthImpl,
     Java_cjdom_HTMLCanvasElement_getHeightImpl, Java_cjdom_HTMLCanvasElement_setHeightImpl,
 
-    Java_cjdom_HTMLCanvasElement_getWidthImpl,
+    Java_cjdom_HTMLImageElement_getWidthImpl, Java_cjdom_HTMLImageElement_setWidthImpl,
+    Java_cjdom_HTMLImageElement_getHeightImpl, Java_cjdom_HTMLImageElement_setHeightImpl,
 
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
     Java_cjdom_Window_openImpl,
