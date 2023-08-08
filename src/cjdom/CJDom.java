@@ -51,5 +51,15 @@ public class CJDom {
         byte[] bytes = { 1, 2, 3, 4, 5 };
         Int8Array int8Array = new Int8Array(bytes);
         log(int8Array);
+
+        // Uint16Array
+        int[] intValues = { 1, 2, 3, 4, 5 };
+        Uint16Array uint16Array = new Uint16Array(intValues);
+        log(uint16Array);
+
+        // Float32Array
+        double[] floatValues = { 1, 2, 3, 4, 5 };
+        Float32Array float32Array = new Float32Array(floatValues);
+        log(float32Array);
     }
 }

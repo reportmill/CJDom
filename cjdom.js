@@ -34,7 +34,7 @@ function Java_cjdom_Int8Array_newArrayForLengthImpl(lib, length)
 }
 
 /**
- * Int8Array methods.
+ * Uint16Array methods.
  */
 function Java_cjdom_Uint16Array_setImpl(lib, array, index, aValue)
 {
@@ -42,11 +42,27 @@ function Java_cjdom_Uint16Array_setImpl(lib, array, index, aValue)
 }
 
 /**
- * Int8Array methods.
+ * Uint16Array methods.
  */
 function Java_cjdom_Uint16Array_newArrayForLengthImpl(lib, length)
 {
     return new Uint16Array(length);
+}
+
+/**
+ * Float32Array methods.
+ */
+function Java_cjdom_Float32Array_setImpl(lib, array, index, dummy, aValue)
+{
+    array[index] = aValue;
+}
+
+/**
+ * Float32Array methods.
+ */
+function Java_cjdom_Float32Array_newArrayForLengthImpl(lib, length)
+{
+    return new Float32Array(length);
 }
 
 /**
@@ -72,5 +88,6 @@ var cjdomNativeMethods = {
     Java_cjdom_CJDom_logImpl,
     Java_cjdom_Int8Array_newArrayForLengthImpl, Java_cjdom_Int8Array_setImpl,
     Java_cjdom_Uint16Array_newArrayForLengthImpl, Java_cjdom_Uint16Array_setImpl,
+    Java_cjdom_Float32Array_newArrayForLengthImpl, Java_cjdom_Float32Array_setImpl,
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_openImpl,
 };
