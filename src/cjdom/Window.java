@@ -15,6 +15,26 @@ public class Window extends JSObject {
     }
 
     /**
+     * Return window InnerWidth.
+     */
+    public int getInnerWidth()  { return getInnerWidthImpl(_jsObj); }
+
+    /**
+     * Return window InnerHeight.
+     */
+    public int getInnerHeight()  { return getInnerHeightImpl(_jsObj); }
+
+    /**
+     * Window method: Return window InnerWidth.
+     */
+    private static native int getInnerWidthImpl(Object winJS);
+
+    /**
+     * Window method: Return window InnerHeight.
+     */
+    private static native int getInnerHeightImpl(Object winJS);
+
+    /**
      * Wrapper method for Web API method.
      */
     public void open(String url, String target)

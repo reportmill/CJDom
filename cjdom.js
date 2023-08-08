@@ -80,6 +80,30 @@ async function Java_cjdom_CSSStyleDeclaration_setCssTextImpl(lib, cssJS, cssStrJ
 }
 
 /**
+ * Node method: Add given child node.
+ */
+function Java_cjdom_Node_appendChildImpl(lib, parentJS, childJS)  { parentJS.appendChild(childJS); }
+
+/**
+ * Node method: Remove given child node.
+ */
+function Java_cjdom_Node_removeChildImpl(lib, parentJS, childJS)  { parentJS.removeChild(childJS); }
+
+/**
+ * Element method: Returns the InnerHTML string.
+ */
+function Java_cjdom_Element_getInnerHTMLImpl(lib, elementJS)  { return elementJS.innerHTML; }
+
+/**
+ * Element method: Sets the InnerHTML string.
+ */
+async function Java_cjdom_Element_setInnerHTMLImpl(lib, elementJS, htmlStrJNI)
+{
+    var htmlStrJS = await lib.getObjectWrapper(htmlStrJNI).toString();
+    return elementJS.innerHTML = htmlStrJS;
+}
+
+/**
  * Document method: Return document.body.
  */
 function Java_cjdom_Document_getBodyImpl(lib, docObj)  { return docObj.body; }
@@ -87,9 +111,9 @@ function Java_cjdom_Document_getBodyImpl(lib, docObj)  { return docObj.body; }
 /**
  * Document method: Create and return new element for given tag name.
  */
-async function Java_cjdom_Document_createElementImpl(lib, docJS, tagName)
+async function Java_cjdom_Document_createElementImpl(lib, docJS, tagNameJNI)
 {
-    var tagNameJS = await lib.getObjectWrapper(tagName).toString();
+    var tagNameJS = await lib.getObjectWrapper(tagNameJNI).toString();
     return docJS.createElement(tagNameJS);
 }
 
@@ -163,6 +187,16 @@ function Java_cjdom_Window_currentImpl(lib)  { return window; }
 function Java_cjdom_Window_getDocumentImpl(lib)  { return window.document; }
 
 /**
+ * Window method: Return window InnerWidth.
+ */
+function Java_cjdom_Window_getInnerWidthImpl(lib, winJS)  { return winJS.innerWidth; }
+
+/**
+ * Window method: Return window InnerHeight.
+ */
+function Java_cjdom_Window_getInnerHeightImpl(lib, winJS)  { return winJS.innerHeight; }
+
+/**
  * Window method.
  */
 async function Java_cjdom_Window_openImpl(lib, winJS, url, target, windowFeatures)
@@ -185,6 +219,10 @@ var cjdomNativeMethods = {
 
     Java_cjdom_CSSStyleDeclaration_getCssTextImpl,
 
+    Java_cjdom_Node_appendChildImpl, Java_cjdom_Node_removeChildImpl,
+
+    Java_cjdom_Element_getInnerHTMLImpl, Java_cjdom_Element_setInnerHTMLImpl,
+
     Java_cjdom_Document_getBodyImpl, Java_cjdom_Document_createElementImpl,
 
     Java_cjdom_HTMLElement_getStyleImpl, Java_cjdom_CSSStyleDeclaration_setCssTextImpl,
@@ -196,5 +234,6 @@ var cjdomNativeMethods = {
     Java_cjdom_HTMLImageElement_getHeightImpl, Java_cjdom_HTMLImageElement_setHeightImpl,
 
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
-    Java_cjdom_Window_openImpl,
+    Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,
+    Java_cjdom_Window_openImpl
 };
