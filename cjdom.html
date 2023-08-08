@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SnapCode Web</title>
+    <script src="https://cjrtnc.leaningtech.com/3_20230805_161/cj3loader.js"></script>
+  </head>
+
+  <body></body>
+
+  <script src="cjdom.js"></script>
+  <script>
+
+      async function myInit() {
+        await cheerpjInit({natives: cjdomNativeMethods});
+        await cheerpjRunMain("cjdom.CJDom", "/app/CJDom-2023.08.jar");
+      }
+      myInit();
+  </script>
+
+</html>

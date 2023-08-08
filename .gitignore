@@ -1,0 +1,9 @@
+# Ignore build dirs and Gradle cache directory
+/bin/
+/build/
+/out/
+/target/
+.gradle
+gradle.properties
+
+.DS_Store
