@@ -49,4 +49,18 @@ public class Window extends JSObject {
      * Returns the current window.
      */
     public static native Object currentImpl();
+
+    /**
+     * Returns the current window.
+     */
+    public static HTMLDocument getDocument()
+    {
+        Object htmlDocumentJS = getDocumentImpl();
+        return new HTMLDocument(htmlDocumentJS);
+    }
+
+    /**
+     * Returns JavaScript Window.document.
+     */
+    private static native Object getDocumentImpl();
 }

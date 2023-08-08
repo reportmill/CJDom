@@ -30,6 +30,7 @@ public class CJDom {
 
         testWindow();
         testArrays();
+        testDocument();
     }
 
     /**
@@ -61,5 +62,25 @@ public class CJDom {
         double[] floatValues = { 1, 2, 3, 4, 5 };
         Float32Array float32Array = new Float32Array(floatValues);
         log(float32Array);
+    }
+
+    /**
+     * Test Document.
+     */
+    private static void testDocument()
+    {
+        System.out.println("Get Document");
+        HTMLDocument document = HTMLDocument.current();
+
+        System.out.println("Create image element");
+        HTMLImageElement imageElement = (HTMLImageElement) document.createElement("img");
+        log(imageElement);
+
+        System.out.println("Create canvas element");
+        HTMLCanvasElement canvasElement = (HTMLCanvasElement) document.createElement("canvas");
+        log(canvasElement);
+        canvasElement.setWidth(120);
+        canvasElement.setHeight(120);
+        System.out.println("Canvas width: " + canvasElement.getWidth() + ", height: " + canvasElement.getHeight());
     }
 }
