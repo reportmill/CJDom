@@ -14,6 +14,16 @@ public class HTMLImageElement extends HTMLElement {
     }
 
     /**
+     * Returns the image source.
+     */
+    public String getSrc()  { return getSrcImpl(_jsObj).toString(); }
+
+    /**
+     * Sets the image source.
+     */
+    public void setSrc(String aSrc)  { setSrcImpl(_jsObj, aSrc); }
+
+    /**
      * Return image width.
      */
     public int getWidth()  { return getWidthImpl(_jsObj); }
@@ -34,22 +44,32 @@ public class HTMLImageElement extends HTMLElement {
     public void setHeight(int aValue)  { setHeightImpl(_jsObj, aValue);}
 
     /**
+     * HTMLImageElement method: Return image source.
+     */
+    private static native Object getSrcImpl(Object imgJS);
+
+    /**
+     * HTMLImageElement method: Set image source.
+     */
+    private static native void setSrcImpl(Object imgJS, String srcStr);
+
+    /**
      * HTMLImageElement method: Return image width.
      */
-    private static native int getWidthImpl(Object jsObj);
+    private static native int getWidthImpl(Object imgJS);
 
     /**
      * HTMLImageElement method: Set image height.
      */
-    private static native void setWidthImpl(Object jsObj, int aValue);
+    private static native void setWidthImpl(Object imgJS, int aValue);
 
     /**
      * HTMLImageElement method: Return image height.
      */
-    private static native int getHeightImpl(Object jsObj);
+    private static native int getHeightImpl(Object imgJS);
 
     /**
      * HTMLImageElement method: Set image height.
      */
-    private static native void setHeightImpl(Object jsObj, int aValue);
+    private static native void setHeightImpl(Object imgJS, int aValue);
 }

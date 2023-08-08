@@ -12,4 +12,18 @@ public class HTMLElement extends Element {
     {
         super(jsoObj);
     }
+
+    /**
+     * Returns the inline style of an element.
+     */
+    public CSSStyleDeclaration getStyle()
+    {
+        Object styleJS = getStyleImpl(_jsObj);
+        return new CSSStyleDeclaration(styleJS);
+    }
+
+    /**
+     * HTMLElement method: Returns the htmlElement.style.
+     */
+    private static native Object getStyleImpl(Object elementJS);
 }
