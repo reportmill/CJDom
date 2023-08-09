@@ -3,7 +3,7 @@
 async function Java_cjdom_CJDom_printString(lib, str)
 {
     // 'str' is an opaque Java object as used by the CheerpJ VM, convert it a usable object
-    var strWrapper = lib.getObjectWrapper(str);
+    let strWrapper = lib.getObjectWrapper(str);
 
     // 'toString' is specially handled in wrapper objects to return a JS string
     console.log(await strWrapper.toString());
@@ -75,7 +75,7 @@ function Java_cjdom_CSSStyleDeclaration_getCssTextImpl(lib, cssJS)  { return css
  */
 async function Java_cjdom_CSSStyleDeclaration_setCssTextImpl(lib, cssJS, cssStrJNI)
 {
-    var cssStrJS = await lib.getObjectWrapper(cssStrJNI).toString();
+    let cssStrJS = await lib.getObjectWrapper(cssStrJNI).toString();
     cssJS.cssText = cssStrJS;
 }
 
@@ -99,7 +99,7 @@ function Java_cjdom_Element_getInnerHTMLImpl(lib, elementJS)  { return elementJS
  */
 async function Java_cjdom_Element_setInnerHTMLImpl(lib, elementJS, htmlStrJNI)
 {
-    var htmlStrJS = await lib.getObjectWrapper(htmlStrJNI).toString();
+    let htmlStrJS = await lib.getObjectWrapper(htmlStrJNI).toString();
     return elementJS.innerHTML = htmlStrJS;
 }
 
@@ -113,7 +113,7 @@ function Java_cjdom_Document_getBodyImpl(lib, docObj)  { return docObj.body; }
  */
 async function Java_cjdom_Document_createElementImpl(lib, docJS, tagNameJNI)
 {
-    var tagNameJS = await lib.getObjectWrapper(tagNameJNI).toString();
+    let tagNameJS = await lib.getObjectWrapper(tagNameJNI).toString();
     return docJS.createElement(tagNameJS);
 }
 
@@ -152,7 +152,7 @@ function Java_cjdom_HTMLImageElement_getSrcImpl(lib, imgJS)  { return imgJS.src;
  */
 async function Java_cjdom_HTMLImageElement_setSrcImpl(lib, imgJS, srcStrJNI)
 {
-    var srcStrJS = await lib.getObjectWrapper(srcStrJNI).toString();
+    let srcStrJS = await lib.getObjectWrapper(srcStrJNI).toString();
     imgJS.src = srcStrJS;
 }
 
@@ -207,7 +207,16 @@ async function Java_cjdom_Window_openImpl(lib, winJS, url, target, windowFeature
     window.open(urlJS, targetJS, windowFeaturesJS);
 }
 
-var cjdomNativeMethods = {
+/**
+ * Window method: Wrapper for setInterval().
+ */
+function Java_cjdom_Window_setIntervalImpl(lib, aRun, aPeriod)
+{
+    var runWrapper = lib.getObjectWrapper(aRun);
+    return window.setInterval(() => runWrapper.run(), aPeriod);
+}
+
+let cjdomNativeMethods = {
 
     Java_cjdom_CJDom_logImpl,
 
@@ -236,5 +245,5 @@ var cjdomNativeMethods = {
 
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
     Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,
-    Java_cjdom_Window_openImpl
+    Java_cjdom_Window_openImpl, Java_cjdom_Window_setIntervalImpl,
 };

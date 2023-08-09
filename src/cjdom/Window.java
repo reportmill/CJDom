@@ -1,7 +1,7 @@
 package cjdom;
 
 /**
- * Wrapper class for WebAPI Window.
+ * This class is a wrapper for Web API Window (https://developer.mozilla.org/en-US/docs/Web/API/Window).
  */
 public class Window extends JSObject {
 
@@ -56,12 +56,24 @@ public class Window extends JSObject {
     protected static native void openImpl(Object winJS, String url, String target, String windowFeatures);
 
     /**
+     * Schedules a runnable to execute every time a given number of milliseconds elapses.
+     */
+    public static int setInterval(Runnable aRun, int aPeriod)
+    {
+        return setIntervalImpl(aRun, aPeriod);
+    }
+
+    /**
+     * Schedules a runnable to execute every time a given number of milliseconds elapses.
+     */
+    public static native int setIntervalImpl(Runnable aRun, int aPeriod);
+
+    /**
      * Returns the current window.
      */
     public static Window current()
     {
         Object winJS = currentImpl();
-        System.out.println("Window: got currentImpl");
         return new Window(winJS);
     }
 
