@@ -251,8 +251,8 @@ function Java_cjdom_MouseEvent_getClientYImpl(lib, eventJS)  { return eventJS.cl
 // This wrapped promise is used to trigger getNextEvent
 var _eventNotifyMutex = createMutex();
 
-// This array is used to return event name, lambda function and optional arg
-var _eventPropsArray;
+// This array holds event records (which are also arrays of name, lambda func and optional arg)
+var _eventQueue = [ ];
 
 function createMutex()
 {
@@ -264,16 +264,21 @@ function createMutex()
 
 function fireEvent(name, callback, arg)
 {
-    _eventPropsArray = [ name, callback, arg ];
+    _eventQueue.push([ name, callback, arg ]);
     _eventNotifyMutex.fulfill();
     _eventNotifyMutex = createMutex();
 }
 
 async function Java_cjdom_EventQueue_getNextEvent(lib)
 {
+    // If event already in queue, just return
+    if (_eventQueue.length > 0)
+        return _eventQueue.shift();
+
+    // Otherwise wait for next event
     var mutexPromise = _eventNotifyMutex.promise.then(() => null);
     await mutexPromise;
-    return _eventPropsArray;
+    return _eventQueue.shift();
 }
 
 function Java_cjdom_EventQueue_setTimeoutImpl(lib, aName, aRun, aDelay)
@@ -339,7 +344,7 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
     Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,
-    Java_cjdom_Window_openImpl, clearInterval,
+    Java_cjdom_Window_openImpl, Java_cjdom_Window_clearInterval,
 
     Java_cjdom_EventQueue_getNextEvent,
     Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl,

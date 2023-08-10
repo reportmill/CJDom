@@ -7,7 +7,7 @@ import cjdom.*;
 public class BallBounce {
 
     // The list of balls
-    private Ball[] _balls = new Ball[50];
+    private Ball[] _balls = new Ball[MAX_BALL_COUNT];
 
     // The number of balls
     private int _ballCount;
@@ -23,6 +23,9 @@ public class BallBounce {
 
     // Last add time
     private long _lastAddTime;
+
+    // Max number of balls
+    private static final int MAX_BALL_COUNT = 1000;
 
     /**
      * Create new BouncePane.
@@ -77,6 +80,10 @@ public class BallBounce {
      */
     public void addBall(double aX, double aY)
     {
+        // If too many balls, just return
+        if (_ballCount >= MAX_BALL_COUNT) return;
+
+        // Add ball
         Ball ball = new Ball(aX, aY);
         _mainEmt.appendChild(ball.img);
         _balls[_ballCount++] = ball;
@@ -89,6 +96,19 @@ public class BallBounce {
     public void removeBall(Ball aBall)
     {
         _mainEmt.removeChild(aBall.img);
+    }
+
+    /**
+     * Clears balls.
+     */
+    public void clearBalls()
+    {
+        for (int i = 0; i < _ballCount; i++) {
+            removeBall(_balls[i]);
+            _balls[i] = null;
+        }
+        _ballCount = 0;
+        stop();
     }
 
     /**
@@ -137,14 +157,8 @@ public class BallBounce {
         _mouseDown = true;
 
         // If hit button, clear balls
-        if (aX > getWidth() - 80 && aY > getHeight() - 40) {
-            for (int i = 0; i < _ballCount; i++) {
-                removeBall(_balls[i]);
-                _balls[i] = null;
-            }
-            _ballCount = 0;
-            stop();
-        }
+        if (aX > getWidth() - 80 && aY > getHeight() - 40)
+            clearBalls();
 
         // Otherwise, add ball
         else {
