@@ -22,6 +22,25 @@ public class Node extends JSObject {
     }
 
     /**
+     * Returns the node name: e.g.: div, img, canvas.
+     */
+    public String getNodeName()
+    {
+        return getNodeNameImpl(_jsObj);
+    }
+
+    /**
+     * Returns the parent node.
+     */
+    public Node getParentNode()
+    {
+        Object parentNodeJS = getParentNodeImpl(_jsObj);
+        if (parentNodeJS == null)
+            return null;
+        return new HTMLElement(parentNodeJS);
+    }
+
+    /**
      * Add given child node.
      */
     public void appendChild(Node childNode)
@@ -38,6 +57,16 @@ public class Node extends JSObject {
     }
 
     /**
+     * Node method: Return node name.
+     */
+    private static native String getNodeNameImpl(Object nodeJS);
+
+    /**
+     * Node method: Return parentNode.
+     */
+    private static native Object getParentNodeImpl(Object nodeJS);
+
+    /**
      * Node method: Add given child node.
      */
     private static native void appendChildImpl(Object parentJS, Object childJS);
@@ -46,4 +75,29 @@ public class Node extends JSObject {
      * Node method: Remove given child node.
      */
     private static native void removeChildImpl(Object parentJS, Object childJS);
+
+    //String getNodeValue();
+    //void setNodeValue(String var1);
+    //short getNodeType();
+    //NodeList<Node> getChildNodes();
+    //Node getFirstChild();
+    //Node getLastChild();
+    //Node getPreviousSibling();
+    //Node getNextSibling();
+    //NamedNodeMap<Attr> getAttributes();
+    //Node insertBefore(Node var1, Node var2);
+    //Node replaceChild(Node var1, Node var2);
+    //boolean hasChildNodes();
+    //boolean hasChildNodesJS();
+    //Node cloneNode(boolean var1);
+    //void normalize();
+    //boolean isSupported(String var1, String var2);
+    //String getNamespaceURI();
+    //String getPrefix();
+    //void setPrefix(String var1);
+    //String getLocalName();
+    //boolean hasAttributes();
+    //String getTextContent();
+    //void setTextContent(String var1);
+    //Document getOwnerDocument();
 }

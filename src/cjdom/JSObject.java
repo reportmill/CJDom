@@ -26,6 +26,11 @@ public class JSObject {
     }
 
     /**
+     * Returns the JSObject.
+     */
+    public Object getJS()  { return _jsObj; }
+
+    /**
      * Standard toString implementation.
      */
     public String toString()

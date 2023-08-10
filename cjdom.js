@@ -10,12 +10,28 @@ async function Java_cjdom_CJDom_printString(lib, str)
 }
 
 /**
- * CJDom method log().
+ * CJDom method: log().
  */
 function Java_cjdom_CJDom_logImpl(lib, anObj)
 {
     console.log(anObj);
 }
+
+/**
+ * CJDom method: Returns Viewport width.
+ * Web suggested: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+ */
+function Java_cjdom_CJDom_getViewportWidth(lib)  { return document.documentElement.clientWidth; }
+
+/**
+ * CJDom method: Returns Viewport height.
+ */
+function Java_cjdom_CJDom_getViewportHeight(lib)  { return document.documentElement.clientHeight; }
+
+/**
+ * CJDom method: Return device pixel ratio.
+ */
+function Java_cjdom_CJDom_getDevicePixelRatio(lib)  { return window.devicePixelRatio; }
 
 /**
  * Array method: getImpl()
@@ -101,6 +117,20 @@ async function Java_cjdom_CSSStyleDeclaration_setCssTextImpl(lib, cssJS, cssStrJ
 }
 
 /**
+ * Node method: Return node name.
+ */
+async function getNodeNameImpl(lib, nodeJS)
+{
+    var nodeNameJS = nodeJS.nodeName;
+    return await lib.getObjectWrapper(nodeNameJS).toString();
+}
+
+/**
+ * Node method: Return parentNode.
+ */
+function getParentNodeImpl(lib, nodeJS)  { return nodeJS.parentNode; }
+
+/**
  * Node method: Add given child node.
  */
 function Java_cjdom_Node_appendChildImpl(lib, parentJS, childJS)  { parentJS.appendChild(childJS); }
@@ -137,6 +167,16 @@ async function Java_cjdom_Document_createElementImpl(lib, docJS, tagNameJNI)
     let tagNameJS = await lib.getObjectWrapper(tagNameJNI).toString();
     return docJS.createElement(tagNameJS);
 }
+
+/**
+ * HTMLElement method: getOffsetTopImpl().
+ */
+function Java_cjdom_HTMLElement_getOffsetTopImpl(lib, elementJS)  { return elementJS.offsetTop; }
+
+/**
+ * HTMLElement method: getOffsetLeftImpl().
+ */
+function Java_cjdom_HTMLElement_getOffsetLeftImpl(lib, elementJS)  { return elementJS.offsetLeft; }
 
 /**
  * HTMLElement method: Returns the htmlElement.style.
@@ -322,6 +362,8 @@ function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, 
 let cjdomNativeMethods = {
 
     Java_cjdom_CJDom_logImpl,
+    Java_cjdom_CJDom_getViewportWidth, Java_cjdom_CJDom_getViewportHeight,
+    Java_cjdom_CJDom_getDevicePixelRatio,
 
     Java_cjdom_Array_newArrayForLengthImpl, Java_cjdom_Array_setImpl, Java_cjdom_Array_getImpl,
 
@@ -339,6 +381,7 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Document_getBodyImpl, Java_cjdom_Document_createElementImpl,
 
+    Java_cjdom_HTMLElement_getOffsetTopImpl, Java_cjdom_HTMLElement_getOffsetLeftImpl,
     Java_cjdom_HTMLElement_getStyleImpl, Java_cjdom_CSSStyleDeclaration_setCssTextImpl,
 
     Java_cjdom_HTMLCanvasElement_getWidthImpl, Java_cjdom_HTMLCanvasElement_setWidthImpl,
