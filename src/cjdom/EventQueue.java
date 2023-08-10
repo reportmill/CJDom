@@ -1,7 +1,13 @@
 package cjdom;
 
 /**
- * An event queue.
+ * This class is meant to handle JavaScript callbacks like setTimeout(), setInterval(), addEventListener(), etc.
+ *
+ *    - An "_eventNotifyMutex" mutex is created in cjdom.js as a promise (wrapped in a dictionary)
+ *    - EventQueue.eventLoop() calls getNextEvent() to get next event as array [ name, lambda func, [ arg ] ]
+ *    - JS callback functions register with callback to fireEvent(name, func, arg)
+ *    - fireEvent() triggers the promise
+ *    - getNextEventImpl() returns the event arg array after resolved mutext promise
  */
 public class EventQueue {
 
