@@ -1,29 +1,30 @@
 package cjdom;
 
 /**
- * Wrapper class for WebAPI File.
+ * This class is a wrapper for Web API File (https://developer.mozilla.org/en-US/docs/Web/API/File).
  */
 public class File extends Blob {
 
     /**
      * Constructor.
      */
-    protected File(Object jsObj)
+    public File(Object jsObj)
     {
         super(jsObj);
     }
 
     /**
-     * Returns the current window.
+     * Constructor for name, type and bytes.
      */
-    public static File current()
+    public File(String aName, String aType, byte[] theBytes)
     {
-        Object winJS = currentImpl();
-        return new File(winJS);
+        super(null);
+        Int8Array int8Array = new Int8Array(theBytes);
+        _jsObj = createFileForNameAndTypeAndBytes(aName, aType, int8Array._jsObj);
     }
 
     /**
-     * Returns the current window.
+     * Creates a File from given bytes in JS.
      */
-    protected static native Object currentImpl();
+    private static native Object createFileForNameAndTypeAndBytes(String aName, String aType, Object int8ArrayJS);
 }

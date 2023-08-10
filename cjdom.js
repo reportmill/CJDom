@@ -103,6 +103,33 @@ function Java_cjdom_Float32Array_newArrayForLengthImpl(lib, length)
 }
 
 /**
+ * Blob method: Creates a Blob from given bytes in JS.
+ */
+async function Java_cjdom_Blob_createBlobForBytesAndType(lib, int8ArrayJS, typeJNI)
+{
+    let typeJS = await lib.getObjectWrapper(typeJNI).toString();
+    return new Blob([ int8ArrayJS ], typeJS ? { type: typeJS } : null);
+}
+
+/**
+ * Creates a URL from given blob.
+ */
+function Java_cjdom_Blob_createURL(lib, blobJS)
+{
+    return URL.createObjectURL(blobJS);
+}
+
+/**
+ * Creates a File from given bytes in JS.
+ */
+async function Java_cjdom_File_createFileForNameAndTypeAndBytes(lib, nameJNI, typeJNI, int8ArrayJS)
+{
+    let nameJS = await lib.getObjectWrapper(nameJNI).toString();
+    let typeJS = await lib.getObjectWrapper(typeJNI).toString();
+    return new File([ int8ArrayJS ], nameJS, typeJS ? { type: typeJS } : null);
+}
+
+/**
  * CSSStyleDeclaration method: Returns the textual representation of the declaration block.
  */
 function Java_cjdom_CSSStyleDeclaration_getCssTextImpl(lib, cssJS)  { return cssJS.cssText; }
@@ -112,23 +139,22 @@ function Java_cjdom_CSSStyleDeclaration_getCssTextImpl(lib, cssJS)  { return css
  */
 async function Java_cjdom_CSSStyleDeclaration_setCssTextImpl(lib, cssJS, cssStrJNI)
 {
-    let cssStrJS = await lib.getObjectWrapper(cssStrJNI).toString();
-    cssJS.cssText = cssStrJS;
+    cssJS.cssText = await lib.getObjectWrapper(cssStrJNI).toString();
 }
 
 /**
  * Node method: Return node name.
  */
-async function getNodeNameImpl(lib, nodeJS)
+async function Java_cjdom_Node_getNodeNameImpl(lib, nodeJS)
 {
-    var nodeNameJS = nodeJS.nodeName;
+    let nodeNameJS = nodeJS.nodeName;
     return await lib.getObjectWrapper(nodeNameJS).toString();
 }
 
 /**
  * Node method: Return parentNode.
  */
-function getParentNodeImpl(lib, nodeJS)  { return nodeJS.parentNode; }
+function Java_cjdom_Node_getParentNodeImpl(lib, nodeJS)  { return nodeJS.parentNode; }
 
 /**
  * Node method: Add given child node.
@@ -184,6 +210,15 @@ function Java_cjdom_HTMLElement_getOffsetLeftImpl(lib, elementJS)  { return elem
 function Java_cjdom_HTMLElement_getStyleImpl(lib, elementJS)  { return elementJS.style; }
 
 /**
+ * Creates a URL from given blob.
+ */
+function Java_cjdom_HTMLElement_setContentEditableImpl(lib, htmlElementJS, aValue)
+{
+    htmlElementJS.contentEditable = aValue;
+    htmlElementJS.tabIndex = 0;
+}
+
+/**
  * HTMLCanvasElement method: Return canvas width.
  */
 function Java_cjdom_HTMLCanvasElement_getWidthImpl(lib, canvasJS)  { return canvasJS.width; }
@@ -213,8 +248,7 @@ function Java_cjdom_HTMLImageElement_getSrcImpl(lib, imgJS)  { return imgJS.src;
  */
 async function Java_cjdom_HTMLImageElement_setSrcImpl(lib, imgJS, srcStrJNI)
 {
-    let srcStrJS = await lib.getObjectWrapper(srcStrJNI).toString();
-    imgJS.src = srcStrJS;
+    imgJS.src = await lib.getObjectWrapper(srcStrJNI).toString();
 }
 
 /**
@@ -262,9 +296,9 @@ function Java_cjdom_Window_getInnerHeightImpl(lib, winJS)  { return winJS.innerH
  */
 async function Java_cjdom_Window_openImpl(lib, winJS, url, target, windowFeatures)
 {
-    var urlJS = await lib.getObjectWrapper(url).toString();
-    var targetJS = await lib.getObjectWrapper(target).toString();
-    var windowFeaturesJS = null; //await lib.getObjectWrapper(windowFeatures).toString();
+    let urlJS = await lib.getObjectWrapper(url).toString();
+    let targetJS = await lib.getObjectWrapper(target).toString();
+    let windowFeaturesJS = null; //await lib.getObjectWrapper(windowFeatures).toString();
     window.open(urlJS, targetJS, windowFeaturesJS);
 }
 
@@ -292,7 +326,7 @@ function Java_cjdom_MouseEvent_getClientYImpl(lib, eventJS)  { return eventJS.cl
 var _eventNotifyMutex = createMutex();
 
 // This array holds event records (which are also arrays of name, lambda func and optional arg)
-var _eventQueue = [ ];
+let _eventQueue = [ ];
 
 function createMutex()
 {
@@ -373,8 +407,15 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Float32Array_newArrayForLengthImpl, Java_cjdom_Float32Array_setImpl,
 
+    Java_cjdom_Blob_createBlobForBytesAndType,
+
+    Java_cjdom_Blob_createURL,
+
+    Java_cjdom_File_createFileForNameAndTypeAndBytes,
+
     Java_cjdom_CSSStyleDeclaration_getCssTextImpl,
 
+    Java_cjdom_Node_getNodeNameImpl, Java_cjdom_Node_getParentNodeImpl,
     Java_cjdom_Node_appendChildImpl, Java_cjdom_Node_removeChildImpl,
 
     Java_cjdom_Element_getInnerHTMLImpl, Java_cjdom_Element_setInnerHTMLImpl,
@@ -383,6 +424,7 @@ let cjdomNativeMethods = {
 
     Java_cjdom_HTMLElement_getOffsetTopImpl, Java_cjdom_HTMLElement_getOffsetLeftImpl,
     Java_cjdom_HTMLElement_getStyleImpl, Java_cjdom_CSSStyleDeclaration_setCssTextImpl,
+    Java_cjdom_HTMLElement_setContentEditableImpl,
 
     Java_cjdom_HTMLCanvasElement_getWidthImpl, Java_cjdom_HTMLCanvasElement_setWidthImpl,
     Java_cjdom_HTMLCanvasElement_getHeightImpl, Java_cjdom_HTMLCanvasElement_setHeightImpl,

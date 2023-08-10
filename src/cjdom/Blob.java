@@ -1,37 +1,43 @@
 package cjdom;
 
 /**
- * Wrapper class for WebAPI Blob.
+ * This class is a wrapper for Web API Blob (https://developer.mozilla.org/en-US/docs/Web/API/Blob).
  */
 public class Blob extends JSObject {
 
     /**
      * Constructor.
      */
-    protected Blob(Object jsObj)
+    public Blob(Object jsObj)
     {
         super(jsObj);
     }
 
     /**
-     * Creates a URL from given blob.
+     * Constructor for given bytes and type.
      */
-    //@JSBody(params = {"theBlob"}, script = "return URL.createObjectURL(theBlob);")
-    public static native String createURL(Blob theBlob);
-
-    /**
-     * Creates a Blob from given bytes in Java.
-     */
-    public static Blob createBlob(byte[] theBytes, String aType)
+    public Blob(byte[] theBytes, String aType)
     {
-        Int8Array bytesJS = new Int8Array(theBytes);
-        Blob blob = createBlob(bytesJS, aType);
-        return blob;
+        super();
+        Int8Array int8Array = new Int8Array(theBytes);
+        _jsObj = createBlobForBytesAndType(int8Array._jsObj, aType);
     }
 
     /**
-     * Creates a Blob from given bytes in JS.
+     * Returns a URL for this blob.
      */
-    //@JSBody(params = {"theBytes", "aType"}, script = "return new Blob([theBytes], aType? { type:aType } : null);")
-    public static native Blob createBlob(Int8Array theBytes, String aType);
+    public String createURL()
+    {
+        return createURL(_jsObj);
+    }
+
+    /**
+     * Blob method: Creates a Blob from given bytes in JS.
+     */
+    private static native Object createBlobForBytesAndType(Object int8ArrayJS, String aType);
+
+    /**
+     * Creates a URL from given blob.
+     */
+    public static native String createURL(Object blobJS);
 }

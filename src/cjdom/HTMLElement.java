@@ -33,6 +33,14 @@ public class HTMLElement extends Element implements EventTarget {
     }
 
     /**
+     * Sets whether html element has content editable.
+     */
+    public void setContentEditable(boolean aValue)
+    {
+        setContentEditableImpl(_jsObj, aValue);
+    }
+
+    /**
      * HTMLElement method: getOffsetTopImpl().
      */
     private static native int getOffsetTopImpl(Object elementJS);
@@ -46,4 +54,9 @@ public class HTMLElement extends Element implements EventTarget {
      * HTMLElement method: Returns the htmlElement.style.
      */
     private static native Object getStyleImpl(Object elementJS);
+
+    /**
+     * Creates a URL from given blob.
+     */
+    private static native void setContentEditableImpl(Object htmlElementJS, boolean aValue);
 }
