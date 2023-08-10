@@ -35,9 +35,9 @@ public class BallBounce {
 
         // Get main element and register mouse listeners
         _mainEmt = body;
-//        _mainEmt.addEventListener("mousedown", e -> mouseDown((MouseEvent) e));
-//        _mainEmt.addEventListener("mousemove", e -> mouseMove((MouseEvent) e));
-//        _mainEmt.addEventListener("mouseup", e -> _mouseDown = false);
+        _mainEmt.addEventListener("mousedown", e -> mouseDown((MouseEvent) e));
+        _mainEmt.addEventListener("mousemove", e -> mouseMove((MouseEvent) e));
+        _mainEmt.addEventListener("mouseup", e -> _mouseDown = false);
 
         // Add Touch Listeners
 //        _mainEmt.addEventListener("touchstart", e -> touchStart((TouchEvent) e));
@@ -51,7 +51,7 @@ public class BallBounce {
         body.appendChild(btn);
 
         // Seed some starter balls
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 10; i++)
             addBall(30, 30);
         body.getStyle().setCssText("margin:0;");
     }
@@ -122,11 +122,11 @@ public class BallBounce {
     /**
      * Handle mouse down event.
      */
-//    public void mouseDown(MouseEvent anEvent)
-//    {
-//        mouseDown(anEvent.getClientX(), anEvent.getClientY());
-//        anEvent.preventDefault(); // Stop browser from potentially dragging hit image
-//    }
+    public void mouseDown(MouseEvent anEvent)
+    {
+        mouseDown(anEvent.getClientX(), anEvent.getClientY());
+        anEvent.preventDefault(); // Stop browser from potentially dragging hit image
+    }
 
     /**
      * Handle mouse down event.
@@ -156,10 +156,10 @@ public class BallBounce {
     /**
      * Handle mouse move event.
      */
-//    public void mouseMove(MouseEvent anEvent)
-//    {
-//        mouseMove(anEvent.getClientX(), anEvent.getClientY());
-//    }
+    public void mouseMove(MouseEvent anEvent)
+    {
+        mouseMove(anEvent.getClientX(), anEvent.getClientY());
+    }
 
     /**
      * Handle mouse move event.

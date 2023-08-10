@@ -3,7 +3,7 @@ package cjdom;
 /**
  * This class is a wrapper for Web API Node (https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement).
  */
-public class HTMLElement extends Element {
+public class HTMLElement extends Element implements EventTarget {
 
     /**
      * Constructor.

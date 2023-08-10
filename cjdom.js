@@ -231,7 +231,22 @@ async function Java_cjdom_Window_openImpl(lib, winJS, url, target, windowFeature
 /**
  * Stops intervals for given id.
  */
-function clearInterval(lib, anId)  { clearInterval(anId); }
+function Java_cjdom_Window_clearInterval(lib, anId)  { clearInterval(anId); }
+
+/**
+ * Event method: preventDefaultImpl()
+ */
+function Java_cjdom_Event_preventDefaultImpl(lib, eventJS)  { eventJS.preventDefault(); }
+
+/**
+ * MouseEvent method: getClientX().
+ */
+function Java_cjdom_MouseEvent_getClientXImpl(lib, eventJS)  { return eventJS.clientX; }
+
+/**
+ * MouseEvent method: getClientY().
+ */
+function Java_cjdom_MouseEvent_getClientYImpl(lib, eventJS)  { return eventJS.clientY; }
 
 // This wrapped promise is used to trigger getNextEvent
 var _eventNotifyMutex = createMutex();
@@ -271,6 +286,28 @@ function Java_cjdom_EventQueue_setIntervalImpl(lib, aName, aRun, aDelay)
     return setInterval(() => fireEvent(aName, aRun), aDelay);
 }
 
+/**
+ * Registers an event handler of a specific event type on the EventTarget
+ */
+async function Java_cjdom_EventQueue_addEventListenerImpl(lib, eventTargetJS, nameJNI, eventLsnr, useCapture)
+{
+    let nameJava = lib.getObjectWrapper(nameJNI);
+    let nameJS = await nameJava.toString();
+    eventTargetJS.addEventListener(nameJS, e => fireEvent(nameJNI, eventLsnr, e), useCapture);
+}
+
+/**
+ * Removes an event handler of a specific event type from the EventTarget
+ */
+function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, eventLsnr, useCapture)
+{
+    //eventTarget.removeEventListener(e => fireEvent(aName, eventLsnr, e), useCapture);
+    console.log("EventQueue.removeEventListener: Not implemented yet");
+}
+
+/**
+ * Constant for registering with CJ.
+ */
 let cjdomNativeMethods = {
 
     Java_cjdom_CJDom_logImpl,
@@ -305,5 +342,10 @@ let cjdomNativeMethods = {
     Java_cjdom_Window_openImpl, clearInterval,
 
     Java_cjdom_EventQueue_getNextEvent,
-    Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl
+    Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl,
+    Java_cjdom_EventQueue_addEventListenerImpl, Java_cjdom_EventQueue_removeEventListenerImpl,
+
+    Java_cjdom_Event_preventDefaultImpl,
+
+    Java_cjdom_MouseEvent_getClientXImpl, Java_cjdom_MouseEvent_getClientYImpl
 };

@@ -47,6 +47,17 @@ public class EventQueue {
                 case "invocation":
                     Runnable run = (Runnable) func;
                     run.run();
+                    break;
+
+                // Handle invocation
+                case "mousedown":
+                case "mousemove":
+                case "mouseup":
+                    EventListener<Event> eventLsnr = (EventListener<Event>) func;
+                    Object eventJS = eventRecordArray.get(2);
+                    Event event = new MouseEvent(eventJS);
+                    eventLsnr.handleEvent(event);
+                    break;
             }
         }
     }
@@ -81,6 +92,34 @@ public class EventQueue {
      * Sets a interval.
      */
     private static native int setIntervalImpl(String aName, Runnable aRun, double aDelay);
+
+    /**
+     * Registers an event handler of a specific event type on the EventTarget
+     */
+    public static void addEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
+    {
+        JSObject jsobj = (JSObject) eventTarget;
+        addEventListenerImpl(jsobj._jsObj, aName, eventLsnr, useCapture);
+    }
+
+    /**
+     * Removes an event handler of a specific event type from the EventTarget
+     */
+    public static void removeEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
+    {
+        JSObject jsobj = (JSObject) eventTarget;
+        removeEventListenerImpl(jsobj._jsObj, aName, eventLsnr, useCapture);
+    }
+
+    /**
+     * Registers an event handler of a specific event type on the EventTarget
+     */
+    private static native void addEventListenerImpl(Object eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
+
+    /**
+     * Removes an event handler of a specific event type from the EventTarget
+     */
+    private static native void removeEventListenerImpl(Object eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
 
     /*
     // This wrapped promise is used to trigger getNextEvent
