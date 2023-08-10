@@ -25,4 +25,11 @@ public class JSObject {
         _jsObj = jsObj;
     }
 
+    /**
+     * Standard toString implementation.
+     */
+    public String toString()
+    {
+        return getClass().getName();
+    }
 }

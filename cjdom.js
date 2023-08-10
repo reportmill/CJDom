@@ -18,6 +18,27 @@ function Java_cjdom_CJDom_logImpl(lib, anObj)
 }
 
 /**
+ * Array method: getImpl()
+ */
+function Java_cjdom_Array_getImpl(lib, array, index)  { return array[index]; }
+
+/**
+ * Array method: setImpl()
+ */
+function Java_cjdom_Array_setImpl(lib, array, index, aValue)
+{
+    array[index] = aValue;
+}
+
+/**
+ * Array method: newArrayForLength()
+ */
+function Java_cjdom_Array_newArrayForLengthImpl(lib, length)
+{
+    return new Array(length);
+}
+
+/**
  * Int8Array method.
  */
 function Java_cjdom_Int8Array_setImpl(lib, int8Array, index, aValue)
@@ -216,9 +237,49 @@ function Java_cjdom_Window_setIntervalImpl(lib, aRun, aPeriod)
     return window.setInterval(() => runWrapper.run(), aPeriod);
 }
 
+// This wrapped promise is used to trigger getNextEvent
+var _eventNotifyMutex = createMutex();
+
+// This array is used to return event name, lambda function and optional arg
+var _eventPropsArray;
+
+function createMutex()
+{
+    let fulfill = null;
+    let reject = null;
+    let promise = new Promise((f, r) => { fulfill = f; reject = r; });
+    return { fulfill, reject, promise };
+}
+
+function fireEvent(name, callback, arg)
+{
+    _eventPropsArray = [ name, callback, arg ];
+    _eventNotifyMutex.fulfill();
+    _eventNotifyMutex = createMutex();
+}
+
+async function Java_cjdom_EventQueue_getNextEvent(lib)
+{
+    var mutexPromise = _eventNotifyMutex.promise.then(() => null);
+    await mutexPromise;
+    return _eventPropsArray;
+}
+
+function Java_cjdom_EventQueue_setTimeoutImpl(lib, aRun, aDelay)
+{
+    setTimeout(() => fireEvent("invocation", aRun), aDelay);
+}
+
+function Java_cjdom_EventQueue_setIntervalImpl(lib, aName, aRun, aDelay)
+{
+    return setInterval(() => fireEvent(aName, aRun), aDelay);
+}
+
 let cjdomNativeMethods = {
 
     Java_cjdom_CJDom_logImpl,
+
+    Java_cjdom_Array_newArrayForLengthImpl, Java_cjdom_Array_setImpl, Java_cjdom_Array_getImpl,
 
     Java_cjdom_Int8Array_newArrayForLengthImpl, Java_cjdom_Int8Array_setImpl,
 
@@ -246,4 +307,7 @@ let cjdomNativeMethods = {
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
     Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,
     Java_cjdom_Window_openImpl, Java_cjdom_Window_setIntervalImpl,
+
+    Java_cjdom_EventQueue_getNextEvent,
+    Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl
 };
