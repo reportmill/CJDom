@@ -264,6 +264,12 @@ function createMutex()
 
 function fireEvent(name, callback, arg)
 {
+    // Assume we want to steal all events, since preventDefault won't work with async event delivery)
+    if (arg instanceof Event) {
+        arg.preventDefault();
+        arg.stopPropagation();
+    }
+
     _eventQueue.push([ name, callback, arg ]);
     _eventNotifyMutex.fulfill();
     _eventNotifyMutex = createMutex();
