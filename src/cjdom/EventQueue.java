@@ -14,6 +14,9 @@ public class EventQueue {
     // Shared event queue
     private static EventQueue _shared = new EventQueue();
 
+    // Constants for event types
+    public static final String INVOCATION_EVENT = "invocation";
+
     /**
      * Constructor.
      */
@@ -58,20 +61,20 @@ public class EventQueue {
      */
     public static void setTimeout(Runnable aRun, int aDelay)
     {
-        setTimeoutImpl(aRun, aDelay);
+        setTimeoutImpl(INVOCATION_EVENT, aRun, aDelay);
     }
 
     /**
      * Sets a timeout.
      */
-    private static native Object setTimeoutImpl(Runnable aRun, double ms);
+    private static native Object setTimeoutImpl(String aName, Runnable aRun, double ms);
 
     /**
      * Sets an interval.
      */
     public static int setInterval(Runnable aRun, int aDelay)
     {
-        return setIntervalImpl("invocation", aRun, aDelay);
+        return setIntervalImpl(INVOCATION_EVENT, aRun, aDelay);
     }
 
     /**

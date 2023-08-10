@@ -229,13 +229,9 @@ async function Java_cjdom_Window_openImpl(lib, winJS, url, target, windowFeature
 }
 
 /**
- * Window method: Wrapper for setInterval().
+ * Stops intervals for given id.
  */
-function Java_cjdom_Window_setIntervalImpl(lib, aRun, aPeriod)
-{
-    var runWrapper = lib.getObjectWrapper(aRun);
-    return window.setInterval(() => runWrapper.run(), aPeriod);
-}
+function clearInterval(lib, anId)  { clearInterval(anId); }
 
 // This wrapped promise is used to trigger getNextEvent
 var _eventNotifyMutex = createMutex();
@@ -265,9 +261,9 @@ async function Java_cjdom_EventQueue_getNextEvent(lib)
     return _eventPropsArray;
 }
 
-function Java_cjdom_EventQueue_setTimeoutImpl(lib, aRun, aDelay)
+function Java_cjdom_EventQueue_setTimeoutImpl(lib, aName, aRun, aDelay)
 {
-    setTimeout(() => fireEvent("invocation", aRun), aDelay);
+    setTimeout(() => fireEvent(aName, aRun), aDelay);
 }
 
 function Java_cjdom_EventQueue_setIntervalImpl(lib, aName, aRun, aDelay)
@@ -306,7 +302,7 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
     Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,
-    Java_cjdom_Window_openImpl, Java_cjdom_Window_setIntervalImpl,
+    Java_cjdom_Window_openImpl, clearInterval,
 
     Java_cjdom_EventQueue_getNextEvent,
     Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl

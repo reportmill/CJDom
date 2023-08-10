@@ -1,6 +1,5 @@
 package cjdomtest;
 import cjdom.*;
-import java.util.TimerTask;
 
 /**
  * A simple app to bounce balls around page.
@@ -24,9 +23,6 @@ public class BallBounce {
 
     // Last add time
     private long _lastAddTime;
-
-    // The currently running timer task
-    private java.util.TimerTask _timerTask;
 
     /**
      * Create new BouncePane.
@@ -101,12 +97,7 @@ public class BallBounce {
     public void play()
     {
         if (_playing >= 0) return;
-//        _playing = Window.setInterval(() -> moveBalls(), 25);
-
-        // Create task
-        _timerTask = new TimerTask() { public void run()  { moveBalls(); } };
-        new java.util.Timer().schedule(_timerTask, 0, 25);
-        _playing = 1;
+        _playing = Window.setInterval(() -> moveBalls(), 25);
     }
 
     /**
@@ -115,8 +106,7 @@ public class BallBounce {
     public void stop()
     {
         if (_playing < 0) return;
-//        Window.clearInterval(_playing);
-        _timerTask.cancel();
+        Window.clearInterval(_playing);
         _playing = -1;
     }
 

@@ -56,17 +56,27 @@ public class Window extends JSObject {
     protected static native void openImpl(Object winJS, String url, String target, String windowFeatures);
 
     /**
-     * Schedules a runnable to execute every time a given number of milliseconds elapses.
+     * Schedules a runnable to execute after a delay of given milliseconds.
      */
-    public static int setInterval(Runnable aRun, int aPeriod)
+    public static void setTimeout(Runnable aRun, int aDelay)
     {
-        return setIntervalImpl(aRun, aPeriod);
+        EventQueue.setTimeout(aRun, aDelay);
     }
 
     /**
      * Schedules a runnable to execute every time a given number of milliseconds elapses.
      */
-    public static native int setIntervalImpl(Runnable aRun, int aPeriod);
+    public static int setInterval(Runnable aRun, int aPeriod)
+    {
+        //java.util.TimerTask timerTask = new TimerTask() { public void run()  { moveBalls(); } };
+        //new java.util.Timer().schedule(timerTask, 0, 25);
+        return EventQueue.setInterval(aRun, aPeriod);
+    }
+
+    /**
+     * Stops intervals for given id.
+     */
+    public static native void clearInterval(int anId);
 
     /**
      * Returns the current window.
