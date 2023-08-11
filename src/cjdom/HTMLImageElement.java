@@ -46,7 +46,7 @@ public class HTMLImageElement extends HTMLElement {
     /**
      * HTMLImageElement method: Return image source.
      */
-    private static native Object getSrcImpl(Object imgJS);
+    private static native String getSrcImpl(Object imgJS);
 
     /**
      * HTMLImageElement method: Set image source.

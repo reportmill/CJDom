@@ -40,7 +40,7 @@ public class Element extends Node {
     /**
      * Element method: Returns the InnerHTML string.
      */
-    private static native Object getInnerHTMLImpl(Object elementJS);
+    private static native String getInnerHTMLImpl(Object elementJS);
 
     /**
      * Element method: Sets the InnerHTML string.

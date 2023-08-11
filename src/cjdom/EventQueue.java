@@ -88,7 +88,7 @@ public class EventQueue {
     /**
      * Sets a timeout.
      */
-    private static native Object setTimeoutImpl(String aName, Runnable aRun, double ms);
+    private static native void setTimeoutImpl(String aName, Runnable aRun, double ms);
 
     /**
      * Sets an interval.
