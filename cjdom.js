@@ -322,6 +322,26 @@ function Java_cjdom_MouseEvent_getClientXImpl(lib, eventJS)  { return eventJS.cl
  */
 function Java_cjdom_MouseEvent_getClientYImpl(lib, eventJS)  { return eventJS.clientY; }
 
+/**
+ * MouseEvent method: getPageX().
+ */
+function Java_cjdom_MouseEvent_getPageXImpl(lib, eventJS)  { return eventJS.pageX; }
+
+/**
+ * MouseEvent method: getPageY().
+ */
+function Java_cjdom_MouseEvent_getPageYImpl(lib, eventJS)  { return eventJS.pageY; }
+
+/**
+ * MouseEvent method: getScreenX().
+ */
+function Java_cjdom_MouseEvent_getScreenXImpl(lib, eventJS)  { return eventJS.screenX; }
+
+/**
+ * MouseEvent method: getScreenY().
+ */
+function Java_cjdom_MouseEvent_getScreenYImpl(lib, eventJS)  { return eventJS.screenY; }
+
 // This wrapped promise is used to trigger getNextEvent
 var _eventNotifyMutex = createMutex();
 
@@ -443,5 +463,7 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Event_preventDefaultImpl,
 
-    Java_cjdom_MouseEvent_getClientXImpl, Java_cjdom_MouseEvent_getClientYImpl
+    Java_cjdom_MouseEvent_getClientXImpl, Java_cjdom_MouseEvent_getClientYImpl,
+    Java_cjdom_MouseEvent_getPageXImpl, Java_cjdom_MouseEvent_getPageYImpl,
+    Java_cjdom_MouseEvent_getScreenXImpl, Java_cjdom_MouseEvent_getScreenYImpl
 };

@@ -43,9 +43,9 @@ public class BallBounce {
         _mainEmt.addEventListener("mouseup", e -> _mouseDown = false);
 
         // Add Touch Listeners
-//        _mainEmt.addEventListener("touchstart", e -> touchStart((TouchEvent) e));
-//        _mainEmt.addEventListener("touchmove", e -> touchMove((TouchEvent) e));
-//        _mainEmt.addEventListener("touchend", e -> touchEnd((TouchEvent) e));
+        _mainEmt.addEventListener("touchstart", e -> touchStart((TouchEvent) e));
+        _mainEmt.addEventListener("touchmove", e -> touchMove((TouchEvent) e));
+        _mainEmt.addEventListener("touchend", e -> touchEnd((TouchEvent) e));
 
         // Add button
         HTMLElement btn = doc.createElement("button");
@@ -198,35 +198,35 @@ public class BallBounce {
     /**
      * Called when body gets TouchStart.
      */
-//    public void touchStart(TouchEvent anEvent)
-//    {
-//        // Get event touches and first touch
-//        Touch[] touches = anEvent.getTouches();
-//        if (touches == null || touches.length == 0) return;
-//        Touch touch = touches[0];
-//        mouseDown(touch.getClientX(), touch.getClientY());
-//        anEvent.stopPropagation();
-//        anEvent.preventDefault();
-//    }
+    public void touchStart(TouchEvent anEvent)
+    {
+        // Get event touches and first touch
+        Touch[] touches = anEvent.getTouches();
+        if (touches == null || touches.length == 0) return;
+        Touch touch = touches[0];
+        mouseDown(touch.getClientX(), touch.getClientY());
+        anEvent.stopPropagation();
+        anEvent.preventDefault();
+    }
 
     /**
      * Called when body gets touchMove.
      */
-//    public void touchMove(TouchEvent anEvent)
-//    {
-//        // Get event touches and first touch
-//        Touch[] touches = anEvent.getTouches();
-//        if (touches == null || touches.length == 0) return;
-//        Touch touch = touches[0];
-//        mouseMove(touch.getClientX(), touch.getClientY());
-//        anEvent.stopPropagation();
-//        anEvent.preventDefault();
-//    }
+    public void touchMove(TouchEvent anEvent)
+    {
+        // Get event touches and first touch
+        Touch[] touches = anEvent.getTouches();
+        if (touches == null || touches.length == 0) return;
+        Touch touch = touches[0];
+        mouseMove(touch.getClientX(), touch.getClientY());
+        anEvent.stopPropagation();
+        anEvent.preventDefault();
+    }
 
     /**
      * Called when body gets touchEnd.
      */
-//    public void touchEnd(TouchEvent anEvent)  { _mouseDown = false; }
+    public void touchEnd(TouchEvent anEvent)  { _mouseDown = false; }
 
     /**
      * Returns whether bounds contains x/y.

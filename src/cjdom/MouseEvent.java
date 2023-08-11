@@ -3,7 +3,7 @@ package cjdom;
 /**
  * This class is a wrapper for Web API MouseEvent (https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent).
  */
-public class MouseEvent extends Event {
+public class MouseEvent extends UIEvent {
 
     // Constants for types
     public static final String CLICK = "click";
@@ -26,11 +26,6 @@ public class MouseEvent extends Event {
         super(eventJS);
     }
 
-
-    //int getScreenX();
-
-    //int getScreenY();
-
     /**
      * MouseEvent method: getClientX().
      */
@@ -42,34 +37,58 @@ public class MouseEvent extends Event {
     public int getClientY()  { return getClientYImpl(_jsObj); }
 
     /**
+     * MouseEvent method: getPageX().
+     */
+    public int getPageX()  { return getPageXImpl(_jsObj); }
+
+    /**
+     * MouseEvent method: getPageY().
+     */
+    public int getPageY()  { return getPageYImpl(_jsObj); }
+
+    /**
+     * MouseEvent method: getScreenX().
+     */
+    public int getScreenX()  { return getScreenXImpl(_jsObj); }
+
+    /**
+     * MouseEvent method: getScreenY().
+     */
+    public int getScreenY()  { return getScreenYImpl(_jsObj); }
+
+    /**
      * MouseEvent method: getClientX().
      */
-    private static native int getClientXImpl(Object eventJS);
+    protected static native int getClientXImpl(Object eventJS);
 
     /**
      * MouseEvent method: getClientY().
      */
-    private static native int getClientYImpl(Object eventJS);
+    protected static native int getClientYImpl(Object eventJS);
+
+    /**
+     * MouseEvent method: getPageX().
+     */
+    protected static native int getPageXImpl(Object eventJS);
+
+    /**
+     * MouseEvent method: getPageY().
+     */
+    protected static native int getPageYImpl(Object eventJS);
+
+    /**
+     * MouseEvent method: getScreenX().
+     */
+    protected static native int getScreenXImpl(Object eventJS);
+
+    /**
+     * MouseEvent method: getScreenY().
+     */
+    protected static native int getScreenYImpl(Object eventJS);
 
     //int getOffsetX();
 
     //int getOffsetY();
-
-    //int getPageX();
-
-    //int getPageY();
-
-    //boolean getCtrlKey();
-
-    //boolean getShiftKey();
-
-    //boolean getAltKey();
-
-    //boolean getMetaKey();
-
-    //short getButton();
-
-    //short getButtons();
 
     //EventTarget getRelatedTarget();
 

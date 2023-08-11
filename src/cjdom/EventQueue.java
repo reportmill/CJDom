@@ -49,7 +49,7 @@ public class EventQueue {
                     run.run();
                     break;
 
-                // Handle invocation
+                // Handle MouseEvents
                 case "mousedown":
                 case "mousemove":
                 case "mouseup":
@@ -57,6 +57,16 @@ public class EventQueue {
                     Object eventJS = eventRecordArray.get(2);
                     Event event = new MouseEvent(eventJS);
                     eventLsnr.handleEvent(event);
+                    break;
+
+                // Handle TouchEvents
+                case "touchstart":
+                case "touchmove":
+                case "touchend":
+                    EventListener<Event> touchLsnr = (EventListener<Event>) func;
+                    Object touchEventJS = eventRecordArray.get(2);
+                    Event touchEvent = new TouchEvent(touchEventJS);
+                    touchLsnr.handleEvent(touchEvent);
                     break;
             }
         }
