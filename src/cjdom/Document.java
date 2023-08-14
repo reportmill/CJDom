@@ -19,12 +19,7 @@ public class Document extends Node {
     public HTMLElement createElement(String tagName)
     {
         Object jsObj = createElementImpl(_jsObj, tagName);
-
-        switch (tagName) {
-            case "canvas": return new HTMLCanvasElement(jsObj);
-            case "img": return new HTMLImageElement(jsObj);
-            default: return new HTMLElement(jsObj);
-        }
+        return HTMLElement.getElementForName(tagName, jsObj);
     }
 
     /**

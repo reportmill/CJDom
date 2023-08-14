@@ -22,6 +22,16 @@ public class Element extends Node {
     }
 
     /**
+     * Returns element attribute for attribute name.
+     */
+    public String getAttribute(String aName)  { return getMemberAsString(aName); }
+
+    /**
+     * Sets element attribute for attribute name.
+     */
+    public void setAttribute(String aName, String aValue)  { setMemberAsString(aName, aValue);}
+
+    /**
      * Returns the InnerHTML string.
      */
     public String getInnerHTML()

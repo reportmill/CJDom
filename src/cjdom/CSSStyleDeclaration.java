@@ -31,6 +31,22 @@ public class CSSStyleDeclaration extends JSObject {
     }
 
     /**
+     * Returns a property value for string.
+     */
+    public String getPropertyValue(String aString)
+    {
+        return getMemberAsString(aString);
+    }
+
+    /**
+     * Returns a property value for string.
+     */
+    public void setProperty(String aString, String aValue)
+    {
+        setMemberAsString(aString, aValue);
+    }
+
+    /**
      * Sets the textual representation of the declaration block.
      */
     public void setCssText(String aValue)

@@ -14,6 +14,22 @@ public class HTMLDocument extends Document {
     }
 
     /**
+     * Return.
+     */
+    public HTMLHtmlElement getDocumentElement()
+    {
+        Object htmlElement = getMember("documentElement");
+        return new HTMLHtmlElement(htmlElement);
+    }
+
+    public HTMLElement getElementById(String idStr)
+    {
+        Object elementByIdJS = call("getElementById", idStr);
+        String tagName = JSObject.getMemberAsStringImpl(elementByIdJS, "nodeName");
+        return HTMLElement.getElementForName(tagName, elementByIdJS);
+    }
+
+    /**
      * Returns Window.current().getDocument().
      */
     public static HTMLDocument current()

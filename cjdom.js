@@ -9,6 +9,35 @@ async function Java_cjdom_CJDom_printString(lib, str)
     console.log(await strWrapper.toString());
 }
 
+
+/**
+ * JSObject method: getMemberImpl()
+ */
+function Java_cjdom_JSObject_getMemberImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+
+/**
+ * JSObject method: setMemberImpl()
+ */
+function Java_cjdom_JSObject_setMemberImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
+
+/**
+ * JSObject method: getMemberImpl()
+ */
+function Java_cjdom_JSObject_getMemberAsStringImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+
+/**
+ * JSObject method: setMemberAsStringImpl()
+ */
+function Java_cjdom_JSObject_setMemberAsStringImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
+
+/**
+ * JSObject method: call().
+ */
+function Java_cjdom_JSObject_callImpl(lib, jsObj, aName, theArg)
+{
+    aName.call(jsObj, theArg);
+}
+
 /**
  * CJDom method: log().
  */
@@ -414,6 +443,10 @@ function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, 
  * Constant for registering with CJ.
  */
 let cjdomNativeMethods = {
+
+    Java_cjdom_JSObject_getMemberImpl, Java_cjdom_JSObject_setMemberImpl,
+    Java_cjdom_JSObject_getMemberAsStringImpl, Java_cjdom_JSObject_setMemberAsStringImpl,
+    Java_cjdom_JSObject_callImpl,
 
     Java_cjdom_CJDom_logImpl,
     Java_cjdom_CJDom_getViewportWidth, Java_cjdom_CJDom_getViewportHeight,

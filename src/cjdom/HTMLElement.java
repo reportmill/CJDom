@@ -40,6 +40,42 @@ public class HTMLElement extends Element implements EventTarget {
         setContentEditableImpl(_jsObj, aValue);
     }
 
+    public int getClientWidth()
+    {
+//        return getClientWidthImpl();
+        return 0;
+    }
+
+    public int getClientHeight()
+    {
+//        return getClientHeightImpl();
+        return 0;
+    }
+
+    public void focus()
+    {
+//        focusImpl();
+    }
+
+    public void blur()
+    {
+//        blurImpl();
+    }
+
+    /**
+     * Returns the wrapped HTML element for given tag name.
+     */
+    public static HTMLElement getElementForName(String tagName, Object jsObj)
+    {
+        switch (tagName) {
+            case "canvas": return new HTMLCanvasElement(jsObj);
+            case "img": return new HTMLImageElement(jsObj);
+            case "body": return new HTMLBodyElement(jsObj);
+            case "html": return new HTMLHtmlElement(jsObj);
+            default: return new HTMLElement(jsObj);
+        }
+    }
+
     /**
      * HTMLElement method: getOffsetTopImpl().
      */

@@ -33,6 +33,13 @@ public class HTMLCanvasElement extends HTMLElement {
      */
     public void setHeight(int aValue)  { setHeightImpl(_jsObj, aValue);}
 
+    public Object getContext(String var1)
+    {
+//        Object contextJS = getContextImpl(typeName);
+//        return new CanvasRenderingContext2D(contextJS);
+        return null;
+    }
+
     /**
      * HTMLCanvasElement method: Return canvas width.
      */
