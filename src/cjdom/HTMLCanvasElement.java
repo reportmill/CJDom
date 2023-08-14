@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API HTMLImageElement (https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement).
@@ -8,7 +9,7 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
     /**
      * Constructor.
      */
-    public HTMLCanvasElement(netscape.javascript.JSObject jsObj)
+    public HTMLCanvasElement(JSObject jsObj)
     {
         super(jsObj);
     }
@@ -16,22 +17,22 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
     /**
      * Return canvas width.
      */
-    public int getWidth()  { return getWidthImpl(_jsObj); }
+    public int getWidth()  { return getMemberInt("width"); }
 
     /**
      * Set canvas height.
      */
-    public void setWidth(int aValue)  { setWidthImpl(_jsObj, aValue); }
+    public void setWidth(int aValue)  { setMemberInt("width", aValue); }
 
     /**
      * Return canvas height.
      */
-    public int getHeight()  { return getHeightImpl(_jsObj); }
+    public int getHeight()  { return getMemberInt("height"); }
 
     /**
      * Set canvas height.
      */
-    public void setHeight(int aValue)  { setHeightImpl(_jsObj, aValue);}
+    public void setHeight(int aValue)  { setMemberInt("height", aValue);}
 
     public Object getContext(String var1)
     {
@@ -45,24 +46,4 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
 //        return null;
         return null;
     }
-
-    /**
-     * HTMLCanvasElement method: Return canvas width.
-     */
-    private static native int getWidthImpl(Object jsObj);
-
-    /**
-     * HTMLCanvasElement method: Set canvas height.
-     */
-    private static native void setWidthImpl(Object jsObj, int aValue);
-
-    /**
-     * HTMLCanvasElement method: Return canvas height.
-     */
-    private static native int getHeightImpl(Object jsObj);
-
-    /**
-     * HTMLCanvasElement method: Set canvas height.
-     */
-    private static native void setHeightImpl(Object jsObj, int aValue);
 }

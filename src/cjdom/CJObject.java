@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * Base class for objects that wrap JavaScript objects.
@@ -6,7 +7,7 @@ package cjdom;
 public class CJObject {
 
     // The JavaScript Blob object
-    protected netscape.javascript.JSObject _jsObj;
+    protected JSObject _jsObj;
 
     /**
      * Constructor.
@@ -19,7 +20,7 @@ public class CJObject {
     /**
      * Constructor.
      */
-    public CJObject(netscape.javascript.JSObject jsObj)
+    public CJObject(JSObject jsObj)
     {
         super();
         _jsObj = jsObj;
@@ -28,15 +29,12 @@ public class CJObject {
     /**
      * Returns a named member of a JavaScript object.
      */
-    public netscape.javascript.JSObject getMember(String aName)  { return getMemberImpl(_jsObj, aName); }
+    public JSObject getMember(String aName)  { return getMemberImpl(_jsObj, aName); }
 
     /**
      * Sets a named member of a JavaScript object.
      */
-    public void setMember(String aName, Object aValue)
-    {
-        setMemberImpl(_jsObj, aName, aValue);
-    }
+    public void setMember(String aName, JSObject aValue)  { setMemberImpl(_jsObj, aName, aValue); }
 
     /**
      * Returns a named member of a JavaScript object.
@@ -46,15 +44,17 @@ public class CJObject {
     /**
      * Sets a named member of a JavaScript object.
      */
-    public void setMemberString(String aName, String aValue)
-    {
-        setMemberStringImpl(_jsObj, aName, aValue);
-    }
+    public void setMemberString(String aName, String aValue)  { setMemberStringImpl(_jsObj, aName, aValue); }
 
     /**
      * Returns a named member of a JavaScript object as int.
      */
     public int getMemberInt(String aName)  { return getMemberIntImpl(_jsObj, aName); }
+
+    /**
+     * Sets a named member of a JavaScript object.
+     */
+    public void setMemberInt(String aName, int aValue)  { setMemberIntImpl(_jsObj, aName, aValue); }
 
     /**
      * Returns a named member of a JavaScript object as float.
@@ -85,7 +85,7 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
-    public netscape.javascript.JSObject callWithString(String aName, String theArg)
+    public JSObject callWithString(String aName, String theArg)
     {
         return callWithStringImpl(_jsObj, aName, theArg);
     }
@@ -106,50 +106,55 @@ public class CJObject {
     /**
      * JSObject method: getMemberImpl()
      */
-    public static native netscape.javascript.JSObject getMemberImpl(netscape.javascript.JSObject jsObj, String aName);
+    public static native JSObject getMemberImpl(JSObject jsObj, String aName);
 
     /**
      * JSObject method: setMemberImpl()
      */
-    public static native void setMemberImpl(netscape.javascript.JSObject jsObj, String aName, Object aValue);
+    public static native void setMemberImpl(JSObject jsObj, String aName, JSObject aValue);
 
     /**
      * JSObject method: getMemberImpl()
      */
-    public static native String getMemberStringImpl(netscape.javascript.JSObject jsObj, String aName);
+    public static native String getMemberStringImpl(JSObject jsObj, String aName);
 
     /**
-     * JSObject method: setMemberAsStringImpl()
+     * JSObject method: setMemberStringImpl()
      */
-    public static native void setMemberStringImpl(netscape.javascript.JSObject jsObj, String aName, Object aValue);
+    public static native void setMemberStringImpl(JSObject jsObj, String aName, String aValue);
 
     /**
      * JSObject method: getMemberIntImpl()
      */
-    public static native int getMemberIntImpl(netscape.javascript.JSObject jsObj, String aName);
+    public static native int getMemberIntImpl(JSObject jsObj, String aName);
+
+    /**
+     * JSObject method: setMemberIntImpl()
+     */
+    public static native void setMemberIntImpl(JSObject jsObj, String aName, int aValue);
 
     /**
      * JSObject method: getMemberFloatImpl()
      */
-    public static native float getMemberFloatImpl(netscape.javascript.JSObject jsObj, String aName);
+    public static native float getMemberFloatImpl(JSObject jsObj, String aName);
 
     /**
      * JSObject method: getMemberDoubleImpl()
      */
-    public static native double getMemberDoubleImpl(netscape.javascript.JSObject jsObj, String aName);
+    public static native double getMemberDoubleImpl(JSObject jsObj, String aName);
 
     /**
      * JSObject method: call().
      */
-    public static native void callImpl(netscape.javascript.JSObject jsObj, String aName);
+    public static native void callImpl(JSObject jsObj, String aName);
 
     /**
      * JSObject method: call().
      */
-    public static native Object callWithObjectImpl(netscape.javascript.JSObject jsObj, String aName, Object theArg);
+    public static native Object callWithObjectImpl(JSObject jsObj, String aName, Object theArg);
 
     /**
      * JSObject method: call().
      */
-    public static native netscape.javascript.JSObject callWithStringImpl(netscape.javascript.JSObject jsObj, String aName, String theArg);
+    public static native JSObject callWithStringImpl(JSObject jsObj, String aName, String theArg);
 }
