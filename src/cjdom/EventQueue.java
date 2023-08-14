@@ -34,12 +34,12 @@ public class EventQueue {
         while(true) {
 
             // Wait for next event
-            Object eventRecordArrayJS = getNextEvent();
+            netscape.javascript.JSObject eventRecordArrayJS = getNextEvent();
             Array eventRecordArray = new Array(eventRecordArrayJS);
 
             // Get event type and function
-            String type = (String) eventRecordArray.get(0);
-            Object func = eventRecordArray.get(1);
+            String type = eventRecordArray.getString(0);
+            Object func = eventRecordArray.getObject(1);
 
             switch (type) {
 
@@ -54,7 +54,7 @@ public class EventQueue {
                 case "mousemove":
                 case "mouseup":
                     EventListener<Event> eventLsnr = (EventListener<Event>) func;
-                    Object eventJS = eventRecordArray.get(2);
+                    netscape.javascript.JSObject eventJS = eventRecordArray.get(2);
                     Event event = new MouseEvent(eventJS);
                     eventLsnr.handleEvent(event);
                     break;
@@ -64,7 +64,7 @@ public class EventQueue {
                 case "touchmove":
                 case "touchend":
                     EventListener<Event> touchLsnr = (EventListener<Event>) func;
-                    Object touchEventJS = eventRecordArray.get(2);
+                    netscape.javascript.JSObject touchEventJS = eventRecordArray.get(2);
                     Event touchEvent = new TouchEvent(touchEventJS);
                     touchLsnr.handleEvent(touchEvent);
                     break;
@@ -75,7 +75,7 @@ public class EventQueue {
     /**
      * Waits for next event.
      */
-    private static native Array getNextEvent();
+    private static native netscape.javascript.JSObject getNextEvent();
 
     /**
      * Sets a timeout.
@@ -108,7 +108,7 @@ public class EventQueue {
      */
     public static void addEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
     {
-        JSObject jsobj = (JSObject) eventTarget;
+        CJObject jsobj = (CJObject) eventTarget;
         addEventListenerImpl(jsobj._jsObj, aName, eventLsnr, useCapture);
     }
 
@@ -117,19 +117,19 @@ public class EventQueue {
      */
     public static void removeEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
     {
-        JSObject jsobj = (JSObject) eventTarget;
+        CJObject jsobj = (CJObject) eventTarget;
         removeEventListenerImpl(jsobj._jsObj, aName, eventLsnr, useCapture);
     }
 
     /**
      * Registers an event handler of a specific event type on the EventTarget
      */
-    private static native void addEventListenerImpl(Object eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
+    private static native void addEventListenerImpl(netscape.javascript.JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
 
     /**
      * Removes an event handler of a specific event type from the EventTarget
      */
-    private static native void removeEventListenerImpl(Object eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
+    private static native void removeEventListenerImpl(netscape.javascript.JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
 
     /*
     // This wrapped promise is used to trigger getNextEvent

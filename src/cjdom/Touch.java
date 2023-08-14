@@ -8,7 +8,7 @@ public class Touch extends Event {
     /**
      * Constructor.
      */
-    public Touch(Object jsObj)
+    public Touch(netscape.javascript.JSObject jsObj)
     {
         super(jsObj);
     }
@@ -16,32 +16,32 @@ public class Touch extends Event {
     /**
      * Touch method: getClientX().
      */
-    public int getClientX()  { return MouseEvent.getClientXImpl(_jsObj); }
+    public int getClientX()  { return getMemberInt("clientX"); }
 
     /**
      * Touch method: getClientY().
      */
-    public int getClientY()  { return MouseEvent.getClientYImpl(_jsObj); }
+    public int getClientY()  { return getMemberInt("clientY"); }
 
     /**
      * Touch method: getPageX().
      */
-    public int getPageX()  { return MouseEvent.getPageXImpl(_jsObj); }
+    public int getPageX()  { return getMemberInt("pageX"); }
 
     /**
      * Touch method: getPageY().
      */
-    public int getPageY()  { return MouseEvent.getPageYImpl(_jsObj); }
+    public int getPageY()  { return getMemberInt("pageY"); }
 
     /**
      * Touch method: getScreenX().
      */
-    public int getScreenX()  { return MouseEvent.getScreenXImpl(_jsObj); }
+    public int getScreenX()  { return getMemberInt("screenX"); }
 
     /**
      * Touch method: getScreenY().
      */
-    public int getScreenY()  { return MouseEvent.getScreenYImpl(_jsObj); }
+    public int getScreenY()  { return getMemberInt("screenY"); }
 
     //int getOffsetX();
 

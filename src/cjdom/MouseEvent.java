@@ -21,7 +21,7 @@ public class MouseEvent extends UIEvent {
     /**
      * Constructor.
      */
-    public MouseEvent(Object eventJS)
+    public MouseEvent(netscape.javascript.JSObject eventJS)
     {
         super(eventJS);
     }
@@ -29,62 +29,32 @@ public class MouseEvent extends UIEvent {
     /**
      * MouseEvent method: getClientX().
      */
-    public int getClientX()  { return getClientXImpl(_jsObj); }
+    public int getClientX()  { return getMemberInt("clientX"); }
 
     /**
      * MouseEvent method: getClientY().
      */
-    public int getClientY()  { return getClientYImpl(_jsObj); }
+    public int getClientY()  { return getMemberInt("clientY"); }
 
     /**
      * MouseEvent method: getPageX().
      */
-    public int getPageX()  { return getPageXImpl(_jsObj); }
+    public int getPageX()  { return getMemberInt("pageX"); }
 
     /**
      * MouseEvent method: getPageY().
      */
-    public int getPageY()  { return getPageYImpl(_jsObj); }
+    public int getPageY()  { return getMemberInt("pageY"); }
 
     /**
      * MouseEvent method: getScreenX().
      */
-    public int getScreenX()  { return getScreenXImpl(_jsObj); }
+    public int getScreenX()  { return getMemberInt("screenX"); }
 
     /**
      * MouseEvent method: getScreenY().
      */
-    public int getScreenY()  { return getScreenYImpl(_jsObj); }
-
-    /**
-     * MouseEvent method: getClientX().
-     */
-    protected static native int getClientXImpl(Object eventJS);
-
-    /**
-     * MouseEvent method: getClientY().
-     */
-    protected static native int getClientYImpl(Object eventJS);
-
-    /**
-     * MouseEvent method: getPageX().
-     */
-    protected static native int getPageXImpl(Object eventJS);
-
-    /**
-     * MouseEvent method: getPageY().
-     */
-    protected static native int getPageYImpl(Object eventJS);
-
-    /**
-     * MouseEvent method: getScreenX().
-     */
-    protected static native int getScreenXImpl(Object eventJS);
-
-    /**
-     * MouseEvent method: getScreenY().
-     */
-    protected static native int getScreenYImpl(Object eventJS);
+    public int getScreenY()  { return getMemberInt("screenY"); }
 
     //int getOffsetX();
 

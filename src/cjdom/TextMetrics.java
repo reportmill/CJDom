@@ -3,12 +3,12 @@ package cjdom;
 /**
  * This class is a wrapper for Web API TextMetrics (https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics).
  */
-public class TextMetrics extends JSObject {
+public class TextMetrics extends CJObject {
 
     /**
      * Constructor.
      */
-    public TextMetrics(Object textMetricsJS)
+    public TextMetrics(netscape.javascript.JSObject textMetricsJS)
     {
         super(textMetricsJS);
     }

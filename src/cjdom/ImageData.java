@@ -3,12 +3,12 @@ package cjdom;
 /**
  * This class is a wrapper for Web API ImageData (https://developer.mozilla.org/en-US/docs/Web/API/ImageData).
  */
-public class ImageData extends JSObject {
+public class ImageData extends CJObject {
 
     /**
      * Constructor.
      */
-    public ImageData(Object imageDataJS)
+    public ImageData(netscape.javascript.JSObject imageDataJS)
     {
         super(imageDataJS);
     }
@@ -36,10 +36,10 @@ public class ImageData extends JSObject {
      */
     public Uint8ClampedArray getData()
     {
-        Object arrayJS = getMember("data");
+        netscape.javascript.JSObject arrayJS = getMember("data");
         return new Uint8ClampedArray(arrayJS);
     }
 
     // script = "return new ImageData(array, width, height);"
-    public static native ImageData newImageDataForArrayAndWidthAndHeight(Object uint8ClampedArrayJS, int aWidth, int aHeight);
+    public static native netscape.javascript.JSObject newImageDataForArrayAndWidthAndHeight(Object uint8ClampedArrayJS, int aWidth, int aHeight);
 }

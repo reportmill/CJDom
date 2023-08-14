@@ -17,7 +17,7 @@ public class KeyboardEvent extends UIEvent {
     /**
      * Constructor.
      */
-    public KeyboardEvent(Object eventJS)
+    public KeyboardEvent(netscape.javascript.JSObject eventJS)
     {
         super(eventJS);
     }

@@ -3,12 +3,12 @@ package cjdom;
 /**
  * This class is a wrapper for Web API CanvasRenderingContext2D (https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D).
  */
-public class CanvasRenderingContext2D extends JSObject {
+public class CanvasRenderingContext2D extends CJObject {
 
     /**
      * Constructor.
      */
-    public CanvasRenderingContext2D(JSObject renderingContextJS)
+    public CanvasRenderingContext2D(netscape.javascript.JSObject renderingContextJS)
     {
         super(renderingContextJS);
     }
@@ -34,7 +34,7 @@ public class CanvasRenderingContext2D extends JSObject {
      */
     public TextMetrics measureText(String aString)
     {
-        Object textMetricsJS = callWithStringImpl(_jsObj, "measureText", aString);
+        netscape.javascript.JSObject textMetricsJS = callWithStringImpl(_jsObj, "measureText", aString);
         return new TextMetrics(textMetricsJS);
     }
 

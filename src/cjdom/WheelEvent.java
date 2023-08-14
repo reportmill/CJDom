@@ -8,7 +8,7 @@ public class WheelEvent extends MouseEvent {
     /**
      * Constructor.
      */
-    public WheelEvent(Object eventJS)
+    public WheelEvent(netscape.javascript.JSObject eventJS)
     {
         super(eventJS);
     }

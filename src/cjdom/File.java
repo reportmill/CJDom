@@ -8,7 +8,7 @@ public class File extends Blob {
     /**
      * Constructor.
      */
-    public File(Object jsObj)
+    public File(netscape.javascript.JSObject jsObj)
     {
         super(jsObj);
     }
@@ -26,5 +26,5 @@ public class File extends Blob {
     /**
      * Creates a File from given bytes in JS.
      */
-    private static native Object createFileForNameAndTypeAndBytes(String aName, String aType, Object int8ArrayJS);
+    private static native netscape.javascript.JSObject createFileForNameAndTypeAndBytes(String aName, String aType, Object int8ArrayJS);
 }

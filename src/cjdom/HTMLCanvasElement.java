@@ -8,7 +8,7 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
     /**
      * Constructor.
      */
-    public HTMLCanvasElement(Object jsObj)
+    public HTMLCanvasElement(netscape.javascript.JSObject jsObj)
     {
         super(jsObj);
     }

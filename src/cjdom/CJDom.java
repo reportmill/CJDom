@@ -11,8 +11,8 @@ public class CJDom {
     public static void log(Object anObj)
     {
         Object obj = anObj;
-        if (anObj instanceof JSObject)
-            obj = ((JSObject) anObj)._jsObj;
+        if (anObj instanceof CJObject)
+            obj = ((CJObject) anObj)._jsObj;
         logImpl(obj);
     }
 

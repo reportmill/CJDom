@@ -3,7 +3,7 @@ package cjdom;
 /**
  * This class is a wrapper for Web API Node (https://developer.mozilla.org/en-US/docs/Web/API/Node).
  */
-public class Node extends JSObject {
+public class Node extends CJObject {
 
     /**
      * Constructor.
@@ -16,7 +16,7 @@ public class Node extends JSObject {
     /**
      * Constructor.
      */
-    public Node(Object jsObj)
+    public Node(netscape.javascript.JSObject jsObj)
     {
         super(jsObj);
     }
@@ -34,7 +34,7 @@ public class Node extends JSObject {
      */
     public Node getParentNode()
     {
-        Object parentNodeJS = getParentNodeImpl(_jsObj);
+        netscape.javascript.JSObject parentNodeJS = getParentNodeImpl(_jsObj);
         if (parentNodeJS == null)
             return null;
         return new HTMLElement(parentNodeJS);
@@ -64,17 +64,17 @@ public class Node extends JSObject {
     /**
      * Node method: Return parentNode.
      */
-    private static native Object getParentNodeImpl(Object nodeJS);
+    private static native netscape.javascript.JSObject getParentNodeImpl(netscape.javascript.JSObject nodeJS);
 
     /**
      * Node method: Add given child node.
      */
-    private static native void appendChildImpl(Object parentJS, Object childJS);
+    private static native void appendChildImpl(netscape.javascript.JSObject parentJS, netscape.javascript.JSObject childJS);
 
     /**
      * Node method: Remove given child node.
      */
-    private static native void removeChildImpl(Object parentJS, Object childJS);
+    private static native void removeChildImpl(netscape.javascript.JSObject parentJS, netscape.javascript.JSObject childJS);
 
     //String getNodeValue();
     //void setNodeValue(String var1);

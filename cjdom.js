@@ -3,53 +3,55 @@
 /**
  * JSObject method: getMemberImpl()
  */
-function Java_cjdom_JSObject_getMemberImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+function Java_cjdom_CJObject_getMemberImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
  * JSObject method: setMemberImpl()
  */
-function Java_cjdom_JSObject_setMemberImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
+function Java_cjdom_CJObject_setMemberImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
  * JSObject method: getMemberStringImpl()
  */
-function Java_cjdom_JSObject_getMemberStringImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+function Java_cjdom_CJObject_getMemberStringImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
  * JSObject method: setMemberStringImpl()
  */
-function Java_cjdom_JSObject_setMemberStringImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
+function Java_cjdom_CJObject_setMemberStringImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
  * JSObject method: getMemberIntImpl()
  */
-function Java_cjdom_JSObject_getMemberIntImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+function Java_cjdom_CJObject_getMemberIntImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
  * JSObject method: getMemberFloatImpl()
  */
-function Java_cjdom_JSObject_getMemberFloatImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+function Java_cjdom_CJObject_getMemberFloatImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
  * JSObject method: getMemberDoubleImpl()
  */
-function Java_cjdom_JSObject_getMemberDoubleImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+function Java_cjdom_CJObject_getMemberDoubleImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+
+/**
+ * JSObject method: callImpl().
+ */
+function Java_cjdom_CJObject_callImpl(lib, jsObj, aName)
+{
+    jsObj[aName].call(jsObj, null);
+}
 
 /**
  * JSObject method: callWithObjectImpl().
  */
-function Java_cjdom_JSObject_callWithObjectImpl(lib, jsObj, aName, theArg)
-{
-    aName.call(jsObj, theArg);
-}
+function Java_cjdom_CJObject_callWithObjectImpl(lib, jsObj, aName, theArg)  { aName.call(jsObj, theArg); }
 
 /**
  * JSObject method: callWithStringImpl().
  */
-function Java_cjdom_JSObject_callWithStringImpl(lib, jsObj, aName, strArg)
-{
-    aName.call(jsObj, strArg);
-}
+function Java_cjdom_CJObject_callWithStringImpl(lib, jsObj, aName, strArg)  { aName.call(jsObj, strArg); }
 
 /**
  * CJDom method: log().
@@ -87,6 +89,11 @@ function Java_cjdom_Array_setImpl(lib, array, index, aValue)
 {
     array[index] = aValue;
 }
+
+/**
+ * Array method: getObjectImpl()
+ */
+function Java_cjdom_Array_getObjectImpl(lib, array, index)  { return array[index]; }
 
 /**
  * Array method: getStringImpl()
@@ -330,41 +337,6 @@ function Java_cjdom_Window_openImpl(lib, winJS, urlStr, targetStr, windowFeature
  */
 function Java_cjdom_Window_clearInterval(lib, anId)  { clearInterval(anId); }
 
-/**
- * Event method: preventDefaultImpl()
- */
-function Java_cjdom_Event_preventDefaultImpl(lib, eventJS)  { eventJS.preventDefault(); }
-
-/**
- * MouseEvent method: getClientX().
- */
-function Java_cjdom_MouseEvent_getClientXImpl(lib, eventJS)  { return eventJS.clientX; }
-
-/**
- * MouseEvent method: getClientY().
- */
-function Java_cjdom_MouseEvent_getClientYImpl(lib, eventJS)  { return eventJS.clientY; }
-
-/**
- * MouseEvent method: getPageX().
- */
-function Java_cjdom_MouseEvent_getPageXImpl(lib, eventJS)  { return eventJS.pageX; }
-
-/**
- * MouseEvent method: getPageY().
- */
-function Java_cjdom_MouseEvent_getPageYImpl(lib, eventJS)  { return eventJS.pageY; }
-
-/**
- * MouseEvent method: getScreenX().
- */
-function Java_cjdom_MouseEvent_getScreenXImpl(lib, eventJS)  { return eventJS.screenX; }
-
-/**
- * MouseEvent method: getScreenY().
- */
-function Java_cjdom_MouseEvent_getScreenYImpl(lib, eventJS)  { return eventJS.screenY; }
-
 // This wrapped promise is used to trigger getNextEvent
 var _eventNotifyMutex = createMutex();
 
@@ -419,7 +391,7 @@ function Java_cjdom_EventQueue_setIntervalImpl(lib, aName, aRun, aDelay)
  */
 function Java_cjdom_EventQueue_addEventListenerImpl(lib, eventTargetJS, name, eventLsnr, useCapture)
 {
-    eventTargetJS.addEventListener(nameJS, e => fireEvent(name, eventLsnr, e), useCapture);
+    eventTargetJS.addEventListener(name, e => fireEvent(name, eventLsnr, e), useCapture);
 }
 
 /**
@@ -436,19 +408,21 @@ function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, 
  */
 let cjdomNativeMethods = {
 
-    Java_cjdom_JSObject_getMemberImpl, Java_cjdom_JSObject_setMemberImpl,
-    Java_cjdom_JSObject_getMemberStringImpl, Java_cjdom_JSObject_setMemberStringImpl,
-    Java_cjdom_JSObject_getMemberIntImpl,
-    Java_cjdom_JSObject_getMemberFloatImpl,
-    Java_cjdom_JSObject_getMemberDoubleImpl,
-    Java_cjdom_JSObject_callWithObjectImpl,
-    Java_cjdom_JSObject_callWithStringImpl,
+    Java_cjdom_CJObject_getMemberImpl, Java_cjdom_CJObject_setMemberImpl,
+    Java_cjdom_CJObject_getMemberStringImpl, Java_cjdom_CJObject_setMemberStringImpl,
+    Java_cjdom_CJObject_getMemberIntImpl,
+    Java_cjdom_CJObject_getMemberFloatImpl,
+    Java_cjdom_CJObject_getMemberDoubleImpl,
+    Java_cjdom_CJObject_callImpl,
+    Java_cjdom_CJObject_callWithObjectImpl,
+    Java_cjdom_CJObject_callWithStringImpl,
 
     Java_cjdom_CJDom_logImpl,
     Java_cjdom_CJDom_getViewportWidth, Java_cjdom_CJDom_getViewportHeight,
     Java_cjdom_CJDom_getDevicePixelRatio,
 
     Java_cjdom_Array_getImpl, Java_cjdom_Array_setImpl,
+    Java_cjdom_Array_getObjectImpl,
     Java_cjdom_Array_getStringImpl,
     Java_cjdom_Array_newArrayForLengthImpl,
 
@@ -491,10 +465,4 @@ let cjdomNativeMethods = {
     Java_cjdom_EventQueue_getNextEvent,
     Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl,
     Java_cjdom_EventQueue_addEventListenerImpl, Java_cjdom_EventQueue_removeEventListenerImpl,
-
-    Java_cjdom_Event_preventDefaultImpl,
-
-    Java_cjdom_MouseEvent_getClientXImpl, Java_cjdom_MouseEvent_getClientYImpl,
-    Java_cjdom_MouseEvent_getPageXImpl, Java_cjdom_MouseEvent_getPageYImpl,
-    Java_cjdom_MouseEvent_getScreenXImpl, Java_cjdom_MouseEvent_getScreenYImpl
 };

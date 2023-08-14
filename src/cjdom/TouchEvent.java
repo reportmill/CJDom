@@ -8,7 +8,7 @@ public class TouchEvent extends UIEvent {
     /**
      * Constructor.
      */
-    public TouchEvent(Object jsObj)
+    public TouchEvent(netscape.javascript.JSObject jsObj)
     {
         super(jsObj);
     }

@@ -8,7 +8,7 @@ public class HTMLElement extends Element implements EventTarget {
     /**
      * Constructor.
      */
-    public HTMLElement(Object jsoObj)
+    public HTMLElement(netscape.javascript.JSObject jsoObj)
     {
         super(jsoObj);
     }
@@ -28,7 +28,7 @@ public class HTMLElement extends Element implements EventTarget {
      */
     public CSSStyleDeclaration getStyle()
     {
-        Object styleJS = getStyleImpl(_jsObj);
+        netscape.javascript.JSObject styleJS = getStyleImpl(_jsObj);
         return new CSSStyleDeclaration(styleJS);
     }
 
@@ -65,7 +65,7 @@ public class HTMLElement extends Element implements EventTarget {
     /**
      * Returns the wrapped HTML element for given tag name.
      */
-    public static HTMLElement getElementForName(String tagName, Object jsObj)
+    public static HTMLElement getElementForName(String tagName, netscape.javascript.JSObject jsObj)
     {
         switch (tagName) {
             case "canvas": return new HTMLCanvasElement(jsObj);
@@ -89,7 +89,7 @@ public class HTMLElement extends Element implements EventTarget {
     /**
      * HTMLElement method: Returns the htmlElement.style.
      */
-    private static native Object getStyleImpl(Object elementJS);
+    private static native netscape.javascript.JSObject getStyleImpl(netscape.javascript.JSObject elementJS);
 
     /**
      * Creates a URL from given blob.

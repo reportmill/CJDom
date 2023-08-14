@@ -3,7 +3,7 @@ package cjdom;
 /**
  * This class is a wrapper for Web API CSSStyleDeclaration (https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration).
  */
-public class CSSStyleDeclaration extends JSObject {
+public class CSSStyleDeclaration extends CJObject {
 
     /**
      * Constructor.
@@ -16,7 +16,7 @@ public class CSSStyleDeclaration extends JSObject {
     /**
      * Constructor.
      */
-    public CSSStyleDeclaration(Object jsObj)
+    public CSSStyleDeclaration(netscape.javascript.JSObject jsObj)
     {
         super(jsObj);
     }
@@ -57,10 +57,10 @@ public class CSSStyleDeclaration extends JSObject {
     /**
      * CSSStyleDeclaration method: Returns the textual representation of the declaration block.
      */
-    private static native String getCssTextImpl(Object cssJS);
+    private static native String getCssTextImpl(netscape.javascript.JSObject cssJS);
 
     /**
      * CSSStyleDeclaration method: Sets the textual representation of the declaration block.
      */
-    private static native void setCssTextImpl(Object cssJS, String aValue);
+    private static native void setCssTextImpl(netscape.javascript.JSObject cssJS, String aValue);
 }

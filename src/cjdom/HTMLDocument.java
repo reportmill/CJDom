@@ -8,7 +8,7 @@ public class HTMLDocument extends Document {
     /**
      * Constructor.
      */
-    public HTMLDocument(Object htmlDocument)
+    public HTMLDocument(netscape.javascript.JSObject htmlDocument)
     {
         super(htmlDocument);
     }
@@ -18,14 +18,14 @@ public class HTMLDocument extends Document {
      */
     public HTMLHtmlElement getDocumentElement()
     {
-        Object htmlElementJS = getMember("documentElement");
+        netscape.javascript.JSObject htmlElementJS = getMember("documentElement");
         return new HTMLHtmlElement(htmlElementJS);
     }
 
     public HTMLElement getElementById(String idStr)
     {
-        Object elementJS = call("getElementById", idStr);
-        String tagName = JSObject.getMemberStringImpl(elementJS, "nodeName");
+        netscape.javascript.JSObject elementJS = callWithString("getElementById", idStr);
+        String tagName = CJObject.getMemberStringImpl(elementJS, "nodeName");
         return HTMLElement.getElementForName(tagName, elementJS);
     }
 

@@ -3,15 +3,15 @@ package cjdom;
 /**
  * Base class for objects that wrap JavaScript objects.
  */
-public class JSObject {
+public class CJObject {
 
     // The JavaScript Blob object
-    protected Object _jsObj;
+    protected netscape.javascript.JSObject _jsObj;
 
     /**
      * Constructor.
      */
-    public JSObject()
+    public CJObject()
     {
         super();
     }
@@ -19,7 +19,7 @@ public class JSObject {
     /**
      * Constructor.
      */
-    public JSObject(Object jsObj)
+    public CJObject(netscape.javascript.JSObject jsObj)
     {
         super();
         _jsObj = jsObj;
@@ -28,7 +28,7 @@ public class JSObject {
     /**
      * Returns a named member of a JavaScript object.
      */
-    public Object getMember(String aName)  { return getMemberImpl(_jsObj, aName); }
+    public netscape.javascript.JSObject getMember(String aName)  { return getMemberImpl(_jsObj, aName); }
 
     /**
      * Sets a named member of a JavaScript object.
@@ -69,7 +69,15 @@ public class JSObject {
     /**
      * Calls a JavaScript method.
      */
-    public Object call(String aName, Object theArg)
+    public void call(String aName)
+    {
+        callImpl(_jsObj, aName);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public Object callWithObject(String aName, Object theArg)
     {
         return callWithObjectImpl(_jsObj, aName, theArg);
     }
@@ -77,7 +85,7 @@ public class JSObject {
     /**
      * Calls a JavaScript method.
      */
-    public Object call(String aName, String theArg)
+    public netscape.javascript.JSObject callWithString(String aName, String theArg)
     {
         return callWithStringImpl(_jsObj, aName, theArg);
     }
@@ -98,45 +106,50 @@ public class JSObject {
     /**
      * JSObject method: getMemberImpl()
      */
-    public static native Object getMemberImpl(Object jsObj, String aName);
+    public static native netscape.javascript.JSObject getMemberImpl(netscape.javascript.JSObject jsObj, String aName);
 
     /**
      * JSObject method: setMemberImpl()
      */
-    public static native void setMemberImpl(Object jsObj, String aName, Object aValue);
+    public static native void setMemberImpl(netscape.javascript.JSObject jsObj, String aName, Object aValue);
 
     /**
      * JSObject method: getMemberImpl()
      */
-    public static native String getMemberStringImpl(Object jsObj, String aName);
+    public static native String getMemberStringImpl(netscape.javascript.JSObject jsObj, String aName);
 
     /**
      * JSObject method: setMemberAsStringImpl()
      */
-    public static native void setMemberStringImpl(Object jsObj, String aName, Object aValue);
+    public static native void setMemberStringImpl(netscape.javascript.JSObject jsObj, String aName, Object aValue);
 
     /**
      * JSObject method: getMemberIntImpl()
      */
-    public static native int getMemberIntImpl(Object jsObj, String aName);
+    public static native int getMemberIntImpl(netscape.javascript.JSObject jsObj, String aName);
 
     /**
      * JSObject method: getMemberFloatImpl()
      */
-    public static native float getMemberFloatImpl(Object jsObj, String aName);
+    public static native float getMemberFloatImpl(netscape.javascript.JSObject jsObj, String aName);
 
     /**
      * JSObject method: getMemberDoubleImpl()
      */
-    public static native double getMemberDoubleImpl(Object jsObj, String aName);
+    public static native double getMemberDoubleImpl(netscape.javascript.JSObject jsObj, String aName);
 
     /**
      * JSObject method: call().
      */
-    public static native Object callWithObjectImpl(Object jsObj, String aName, Object theArg);
+    public static native void callImpl(netscape.javascript.JSObject jsObj, String aName);
 
     /**
      * JSObject method: call().
      */
-    public static native Object callWithStringImpl(Object jsObj, String aName, String theArg);
+    public static native Object callWithObjectImpl(netscape.javascript.JSObject jsObj, String aName, Object theArg);
+
+    /**
+     * JSObject method: call().
+     */
+    public static native netscape.javascript.JSObject callWithStringImpl(netscape.javascript.JSObject jsObj, String aName, String theArg);
 }

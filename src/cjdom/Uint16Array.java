@@ -3,7 +3,7 @@ package cjdom;
 /**
  * Wrapper class for WebAPI Uint16Array.
  */
-public class Uint16Array extends JSObject {
+public class Uint16Array extends CJObject {
 
     /**
      * Constructor.
@@ -42,5 +42,5 @@ public class Uint16Array extends JSObject {
     /**
      * Returns a new Uint16Array (internal).
      */
-    private static native Object newArrayForLengthImpl(int aLen);
+    private static native netscape.javascript.JSObject newArrayForLengthImpl(int aLen);
 }

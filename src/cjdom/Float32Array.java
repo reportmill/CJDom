@@ -3,7 +3,7 @@ package cjdom;
 /**
  * Wrapper class for WebAPI Float32Array.
  */
-public class Float32Array extends JSObject {
+public class Float32Array extends CJObject {
 
     /**
      * Constructor.
@@ -42,5 +42,5 @@ public class Float32Array extends JSObject {
     /**
      * Returns a new Float32Array (internal).
      */
-    private static native Object newArrayForLengthImpl(int aLen);
+    private static native netscape.javascript.JSObject newArrayForLengthImpl(int aLen);
 }

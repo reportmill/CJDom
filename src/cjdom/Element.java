@@ -16,7 +16,7 @@ public class Element extends Node {
     /**
      * Constructor.
      */
-    public Element(Object jsObj)
+    public Element(netscape.javascript.JSObject jsObj)
     {
         super(jsObj);
     }
@@ -50,10 +50,10 @@ public class Element extends Node {
     /**
      * Element method: Returns the InnerHTML string.
      */
-    private static native String getInnerHTMLImpl(Object elementJS);
+    private static native String getInnerHTMLImpl(netscape.javascript.JSObject elementJS);
 
     /**
      * Element method: Sets the InnerHTML string.
      */
-    private static native void setInnerHTMLImpl(Object elementJS, String htmlStr);
+    private static native void setInnerHTMLImpl(netscape.javascript.JSObject elementJS, String htmlStr);
 }

@@ -3,12 +3,12 @@ package cjdom;
 /**
  * This class is a wrapper for Web API Event (https://developer.mozilla.org/en-US/docs/Web/API/Event).
  */
-public class Event extends JSObject {
+public class Event extends CJObject {
 
     /**
      * Constructor.
      */
-    public Event(Object eventJS)
+    public Event(netscape.javascript.JSObject eventJS)
     {
         super(eventJS);
     }
@@ -34,6 +34,16 @@ public class Event extends JSObject {
         return null;
     }
 
+    /**
+     * Event method: stopPropagation().
+     */
+    public void stopPropagation()  { call("stopPropagation"); }
+
+    /**
+     * Event method: preventDefault().
+     */
+    public void preventDefault()  { call("preventDefault"); }
+
     //short getEventPhase();
 
     //boolean isBubbles();
@@ -41,16 +51,4 @@ public class Event extends JSObject {
     //boolean isCancelable();
 
     //JSObject getTimeStamp();
-
-    public void stopPropagation()
-    {
-
-    }
-
-    public void preventDefault()  { preventDefaultImpl(_jsObj); }
-
-    /**
-     * Event method: preventDefaultImpl()
-     */
-    private static native void preventDefaultImpl(Object eventJS);
 }

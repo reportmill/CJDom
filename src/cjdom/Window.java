@@ -3,12 +3,12 @@ package cjdom;
 /**
  * This class is a wrapper for Web API Window (https://developer.mozilla.org/en-US/docs/Web/API/Window).
  */
-public class Window extends JSObject {
+public class Window extends CJObject {
 
     /**
      * Constructor.
      */
-    private Window(Object winJS)
+    private Window(netscape.javascript.JSObject winJS)
     {
         super();
         _jsObj = winJS;
@@ -27,12 +27,12 @@ public class Window extends JSObject {
     /**
      * Window method: Return window InnerWidth.
      */
-    private static native int getInnerWidthImpl(Object winJS);
+    private static native int getInnerWidthImpl(netscape.javascript.JSObject winJS);
 
     /**
      * Window method: Return window InnerHeight.
      */
-    private static native int getInnerHeightImpl(Object winJS);
+    private static native int getInnerHeightImpl(netscape.javascript.JSObject winJS);
 
     /**
      * Wrapper method for Web API method.
@@ -83,26 +83,26 @@ public class Window extends JSObject {
      */
     public static Window current()
     {
-        Object winJS = currentImpl();
+        netscape.javascript.JSObject winJS = currentImpl();
         return new Window(winJS);
     }
 
     /**
      * Returns the current window.
      */
-    public static native Object currentImpl();
+    public static native netscape.javascript.JSObject currentImpl();
 
     /**
      * Returns the current window.
      */
     public static HTMLDocument getDocument()
     {
-        Object htmlDocumentJS = getDocumentImpl();
+        netscape.javascript.JSObject htmlDocumentJS = getDocumentImpl();
         return new HTMLDocument(htmlDocumentJS);
     }
 
     /**
      * Returns JavaScript Window.document.
      */
-    private static native Object getDocumentImpl();
+    private static native netscape.javascript.JSObject getDocumentImpl();
 }

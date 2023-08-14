@@ -3,12 +3,12 @@ package cjdom;
 /**
  * This class is a wrapper for Web API Uint8ClampedArray (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray).
  */
-public class Uint8ClampedArray extends JSObject {
+public class Uint8ClampedArray extends CJObject {
 
     /**
      * Constructor.
      */
-    public Uint8ClampedArray(Object arrayJS)
+    public Uint8ClampedArray(netscape.javascript.JSObject arrayJS)
     {
         super(arrayJS);
     }
@@ -45,5 +45,5 @@ public class Uint8ClampedArray extends JSObject {
     /**
      * Returns a new Uint16Array (internal).
      */
-    private static native Object newArrayForLengthImpl(int aLen);
+    private static native netscape.javascript.JSObject newArrayForLengthImpl(int aLen);
 }

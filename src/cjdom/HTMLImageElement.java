@@ -8,7 +8,7 @@ public class HTMLImageElement extends HTMLElement implements CanvasImageSource {
     /**
      * Constructor.
      */
-    public HTMLImageElement(Object jsObj)
+    public HTMLImageElement(netscape.javascript.JSObject jsObj)
     {
         super(jsObj);
     }
@@ -56,30 +56,30 @@ public class HTMLImageElement extends HTMLElement implements CanvasImageSource {
     /**
      * HTMLImageElement method: Return image source.
      */
-    private static native String getSrcImpl(Object imgJS);
+    private static native String getSrcImpl(netscape.javascript.JSObject imgJS);
 
     /**
      * HTMLImageElement method: Set image source.
      */
-    private static native void setSrcImpl(Object imgJS, String srcStr);
+    private static native void setSrcImpl(netscape.javascript.JSObject imgJS, String srcStr);
 
     /**
      * HTMLImageElement method: Return image width.
      */
-    private static native int getWidthImpl(Object imgJS);
+    private static native int getWidthImpl(netscape.javascript.JSObject imgJS);
 
     /**
      * HTMLImageElement method: Set image height.
      */
-    private static native void setWidthImpl(Object imgJS, int aValue);
+    private static native void setWidthImpl(netscape.javascript.JSObject imgJS, int aValue);
 
     /**
      * HTMLImageElement method: Return image height.
      */
-    private static native int getHeightImpl(Object imgJS);
+    private static native int getHeightImpl(netscape.javascript.JSObject imgJS);
 
     /**
      * HTMLImageElement method: Set image height.
      */
-    private static native void setHeightImpl(Object imgJS, int aValue);
+    private static native void setHeightImpl(netscape.javascript.JSObject imgJS, int aValue);
 }
