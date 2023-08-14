@@ -1,53 +1,56 @@
 package cjdom;
 
 /**
- *
+ * This class is a wrapper for Web API TextMetrics (https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics).
  */
 public class TextMetrics extends JSObject {
 
-    public int getWidth()
+    /**
+     * Constructor.
+     */
+    public TextMetrics(Object textMetricsJS)
     {
-//        return 0;
-        return 0;
+        super(textMetricsJS);
     }
 
+    /**
+     * Returns the width of a segment of inline text in CSS pixels.
+     */
+    public int getWidth()  { return getMemberIntImpl(_jsObj, "width"); }
+
+    /**
+     * Returns the distance from the horizontal line indicated by the CanvasRenderingContext2D.textBaseline attribute
+     * to the top of the highest bounding rectangle of all the fonts used to render the text, in CSS pixels.
+     */
     public double getFontBoundingBoxAscent()
     {
-        return getFontBoundingBoxAscentImpl(_jsObj);
+        return getMemberDoubleImpl(_jsObj, "fontBoundingBoxAscent");
     }
 
+    /**
+     * Returns the distance from the horizontal line indicated by the CanvasRenderingContext2D.textBaseline attribute
+     * to the top of the bounding rectangle used to render the text, in CSS pixels.
+     */
     public double getActualBoundingBoxAscent()
     {
-        return getActualBoundingBoxAscentImpl(_jsObj);
+        return getMemberDoubleImpl(_jsObj, "actualBoundingBoxAscent");
     }
 
+    /**
+     * Returns the distance from the horizontal line indicated by the CanvasRenderingContext2D.textBaseline attribute
+     * to the bottom of the bounding rectangle of all the fonts used to render the text, in CSS pixels.
+     */
     public double getFontBoundingBoxDescent()
     {
-        return getFontBoundingBoxDescentImpl(_jsObj);
+        return getMemberDoubleImpl(_jsObj, "fontBoundingBoxDescent");
     }
 
+    /**
+     * Returns the distance from the horizontal line indicated by the CanvasRenderingContext2D.textBaseline attribute
+     * to the bottom of the bounding rectangle used to render the text, in CSS pixels.
+     */
     public double getActualBoundingBoxDescent()
     {
-        return getActualBoundingBoxDescentImpl(_jsObj);
+        return getMemberDoubleImpl(_jsObj, "actualBoundingBoxDescent");
     }
-
-    public static native double getFontBoundingBoxAscentImpl(Object textMetricsJS);
-    /*
-        return textMetricsJS.fontBoundingBoxAscent || 906;
-     */
-
-    public static native double getActualBoundingBoxAscentImpl(Object textMetricsJS);
-    /*
-        return textMetricsJS.actualBoundingBoxAscent || 906;
-     */
-
-    public static native double getFontBoundingBoxDescentImpl(Object textMetricsJS);
-    /*
-        return textMetricsJS.fontBoundingBoxDescent || 212;
-     */
-
-    public static native double getActualBoundingBoxDescentImpl(Object textMetricsJS);
-    /*
-        return textMetricsJS.actualBoundingBoxDescent || 212;
-     */
 }

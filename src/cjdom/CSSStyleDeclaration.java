@@ -31,11 +31,19 @@ public class CSSStyleDeclaration extends JSObject {
     }
 
     /**
+     * Sets the textual representation of the declaration block.
+     */
+    public void setCssText(String aValue)
+    {
+        setCssTextImpl(_jsObj, aValue);
+    }
+
+    /**
      * Returns a property value for string.
      */
     public String getPropertyValue(String aString)
     {
-        return getMemberAsString(aString);
+        return getMemberString(aString);
     }
 
     /**
@@ -43,15 +51,7 @@ public class CSSStyleDeclaration extends JSObject {
      */
     public void setProperty(String aString, String aValue)
     {
-        setMemberAsString(aString, aValue);
-    }
-
-    /**
-     * Sets the textual representation of the declaration block.
-     */
-    public void setCssText(String aValue)
-    {
-        setCssTextImpl(_jsObj, aValue);
+        setMemberString(aString, aValue);
     }
 
     /**

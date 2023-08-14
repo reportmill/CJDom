@@ -13,19 +13,29 @@ public class CanvasRenderingContext2D extends JSObject {
         super(renderingContextJS);
     }
 
+    /**
+     * Return the current font.
+     */
     public String getFont()
     {
-        return "";
+        return getMemberString("font");
     }
 
-    public void setFont(String var1)
+    /**
+     * Sets the current font.
+     */
+    public void setFont(String fontName)
     {
-
+        setMemberString("font", fontName);
     }
 
-    public TextMetrics measureText(String var1)
+    /**
+     * Return the TextMetrics for given string.
+     */
+    public TextMetrics measureText(String aString)
     {
-        return null;
+        Object textMetricsJS = callWithStringImpl(_jsObj, "measureText", aString);
+        return new TextMetrics(textMetricsJS);
     }
 
     //void beginPath();

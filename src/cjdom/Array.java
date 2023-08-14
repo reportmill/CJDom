@@ -1,7 +1,7 @@
 package cjdom;
 
 /**
- * Wrapper class for WebAPI Array.
+ * This class is a wrapper for Web API Array (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
  */
 public class Array extends JSObject {
 
@@ -35,7 +35,7 @@ public class Array extends JSObject {
     }
 
     /**
-     * Sets the given value at given index.
+     * Returns value at given index.
      */
     public Object get(int index)
     {
@@ -51,7 +51,15 @@ public class Array extends JSObject {
     }
 
     /**
-     * Returns the given value at given index.
+     * Sets the given value at given index.
+     */
+    public String getString(int index)
+    {
+        return getStringImpl(_jsObj, index);
+    }
+
+    /**
+     * Returns value at given index.
      */
     private static native Object getImpl(Object jsObj, int index);
 
@@ -59,6 +67,11 @@ public class Array extends JSObject {
      * Sets the given value at given index.
      */
     private static native void setImpl(Object jsObj, int index, Object aValue);
+
+    /**
+     * Returns value at given index as string.
+     */
+    private static native String getStringImpl(Object jsObj, int index);
 
     /**
      * Returns a new Array (internal).

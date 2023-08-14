@@ -24,12 +24,12 @@ public class Element extends Node {
     /**
      * Returns element attribute for attribute name.
      */
-    public String getAttribute(String aName)  { return getMemberAsString(aName); }
+    public String getAttribute(String aName)  { return getMemberString(aName); }
 
     /**
      * Sets element attribute for attribute name.
      */
-    public void setAttribute(String aName, String aValue)  { setMemberAsString(aName, aValue);}
+    public void setAttribute(String aName, String aValue)  { setMemberString(aName, aValue);}
 
     /**
      * Returns the InnerHTML string.

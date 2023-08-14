@@ -18,15 +18,15 @@ public class HTMLDocument extends Document {
      */
     public HTMLHtmlElement getDocumentElement()
     {
-        Object htmlElement = getMember("documentElement");
-        return new HTMLHtmlElement(htmlElement);
+        Object htmlElementJS = getMember("documentElement");
+        return new HTMLHtmlElement(htmlElementJS);
     }
 
     public HTMLElement getElementById(String idStr)
     {
-        Object elementByIdJS = call("getElementById", idStr);
-        String tagName = JSObject.getMemberAsStringImpl(elementByIdJS, "nodeName");
-        return HTMLElement.getElementForName(tagName, elementByIdJS);
+        Object elementJS = call("getElementById", idStr);
+        String tagName = JSObject.getMemberStringImpl(elementJS, "nodeName");
+        return HTMLElement.getElementForName(tagName, elementJS);
     }
 
     /**

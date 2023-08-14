@@ -1,15 +1,5 @@
 
 
-async function Java_cjdom_CJDom_printString(lib, str)
-{
-    // 'str' is an opaque Java object as used by the CheerpJ VM, convert it a usable object
-    let strWrapper = lib.getObjectWrapper(str);
-
-    // 'toString' is specially handled in wrapper objects to return a JS string
-    console.log(await strWrapper.toString());
-}
-
-
 /**
  * JSObject method: getMemberImpl()
  */
@@ -21,21 +11,44 @@ function Java_cjdom_JSObject_getMemberImpl(lib, jsObj, aName)  { return jsObj[aN
 function Java_cjdom_JSObject_setMemberImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * JSObject method: getMemberImpl()
+ * JSObject method: getMemberStringImpl()
  */
-function Java_cjdom_JSObject_getMemberAsStringImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+function Java_cjdom_JSObject_getMemberStringImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
- * JSObject method: setMemberAsStringImpl()
+ * JSObject method: setMemberStringImpl()
  */
-function Java_cjdom_JSObject_setMemberAsStringImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
+function Java_cjdom_JSObject_setMemberStringImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * JSObject method: call().
+ * JSObject method: getMemberIntImpl()
  */
-function Java_cjdom_JSObject_callImpl(lib, jsObj, aName, theArg)
+function Java_cjdom_JSObject_getMemberIntImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+
+/**
+ * JSObject method: getMemberFloatImpl()
+ */
+function Java_cjdom_JSObject_getMemberFloatImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+
+/**
+ * JSObject method: getMemberDoubleImpl()
+ */
+function Java_cjdom_JSObject_getMemberDoubleImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+
+/**
+ * JSObject method: callWithObjectImpl().
+ */
+function Java_cjdom_JSObject_callWithObjectImpl(lib, jsObj, aName, theArg)
 {
     aName.call(jsObj, theArg);
+}
+
+/**
+ * JSObject method: callWithStringImpl().
+ */
+function Java_cjdom_JSObject_callWithStringImpl(lib, jsObj, aName, strArg)
+{
+    aName.call(jsObj, strArg);
 }
 
 /**
@@ -74,6 +87,11 @@ function Java_cjdom_Array_setImpl(lib, array, index, aValue)
 {
     array[index] = aValue;
 }
+
+/**
+ * Array method: getStringImpl()
+ */
+function Java_cjdom_Array_getStringImpl(lib, array, index)  { return array[index]; }
 
 /**
  * Array method: newArrayForLength()
@@ -134,10 +152,9 @@ function Java_cjdom_Float32Array_newArrayForLengthImpl(lib, length)
 /**
  * Blob method: Creates a Blob from given bytes in JS.
  */
-async function Java_cjdom_Blob_createBlobForBytesAndType(lib, int8ArrayJS, typeJNI)
+function Java_cjdom_Blob_createBlobForBytesAndType(lib, int8ArrayJS, typeStr)
 {
-    let typeJS = await lib.getObjectWrapper(typeJNI).toString();
-    return new Blob([ int8ArrayJS ], typeJS ? { type: typeJS } : null);
+    return new Blob([ int8ArrayJS ], typeStr ? { type: typeStr } : null);
 }
 
 /**
@@ -151,11 +168,9 @@ function Java_cjdom_Blob_createURL(lib, blobJS)
 /**
  * Creates a File from given bytes in JS.
  */
-async function Java_cjdom_File_createFileForNameAndTypeAndBytes(lib, nameJNI, typeJNI, int8ArrayJS)
+function Java_cjdom_File_createFileForNameAndTypeAndBytes(lib, name, type, int8ArrayJS)
 {
-    let nameJS = await lib.getObjectWrapper(nameJNI).toString();
-    let typeJS = await lib.getObjectWrapper(typeJNI).toString();
-    return new File([ int8ArrayJS ], nameJS, typeJS ? { type: typeJS } : null);
+    return new File([ int8ArrayJS ], name, type ? { type: type } : null);
 }
 
 /**
@@ -166,19 +181,12 @@ function Java_cjdom_CSSStyleDeclaration_getCssTextImpl(lib, cssJS)  { return css
 /**
  * CSSStyleDeclaration method: Sets the textual representation of the declaration block.
  */
-async function Java_cjdom_CSSStyleDeclaration_setCssTextImpl(lib, cssJS, cssStrJNI)
-{
-    cssJS.cssText = await lib.getObjectWrapper(cssStrJNI).toString();
-}
+function Java_cjdom_CSSStyleDeclaration_setCssTextImpl(lib, cssJS, cssStr)  { cssJS.cssText = cssStr; }
 
 /**
  * Node method: Return node name.
  */
-async function Java_cjdom_Node_getNodeNameImpl(lib, nodeJS)
-{
-    let nodeNameJS = nodeJS.nodeName;
-    return await lib.getObjectWrapper(nodeNameJS).toString();
-}
+function Java_cjdom_Node_getNodeNameImpl(lib, nodeJS)  { return nodeJS.nodeName; }
 
 /**
  * Node method: Return parentNode.
@@ -203,11 +211,7 @@ function Java_cjdom_Element_getInnerHTMLImpl(lib, elementJS)  { return elementJS
 /**
  * Element method: Sets the InnerHTML string.
  */
-async function Java_cjdom_Element_setInnerHTMLImpl(lib, elementJS, htmlStrJNI)
-{
-    let htmlStrJS = await lib.getObjectWrapper(htmlStrJNI).toString();
-    return elementJS.innerHTML = htmlStrJS;
-}
+function Java_cjdom_Element_setInnerHTMLImpl(lib, elementJS, htmlStr)  { elementJS.innerHTML = htmlStr; }
 
 /**
  * Document method: Return document.body.
@@ -217,11 +221,7 @@ function Java_cjdom_Document_getBodyImpl(lib, docObj)  { return docObj.body; }
 /**
  * Document method: Create and return new element for given tag name.
  */
-async function Java_cjdom_Document_createElementImpl(lib, docJS, tagNameJNI)
-{
-    let tagNameJS = await lib.getObjectWrapper(tagNameJNI).toString();
-    return docJS.createElement(tagNameJS);
-}
+function Java_cjdom_Document_createElementImpl(lib, docJS, tagName)  { return docJS.createElement(tagName); }
 
 /**
  * HTMLElement method: getOffsetTopImpl().
@@ -275,10 +275,7 @@ function Java_cjdom_HTMLImageElement_getSrcImpl(lib, imgJS)  { return imgJS.src;
 /**
  * HTMLImageElement method: Set image source.
  */
-async function Java_cjdom_HTMLImageElement_setSrcImpl(lib, imgJS, srcStrJNI)
-{
-    imgJS.src = await lib.getObjectWrapper(srcStrJNI).toString();
-}
+function Java_cjdom_HTMLImageElement_setSrcImpl(lib, imgJS, srcStr)  { imgJS.src = srcStr; }
 
 /**
  * HTMLImageElement method: Return image width.
@@ -323,12 +320,9 @@ function Java_cjdom_Window_getInnerHeightImpl(lib, winJS)  { return winJS.innerH
 /**
  * Window method.
  */
-async function Java_cjdom_Window_openImpl(lib, winJS, url, target, windowFeatures)
+function Java_cjdom_Window_openImpl(lib, winJS, urlStr, targetStr, windowFeaturesStr)
 {
-    let urlJS = await lib.getObjectWrapper(url).toString();
-    let targetJS = await lib.getObjectWrapper(target).toString();
-    let windowFeaturesJS = null; //await lib.getObjectWrapper(windowFeatures).toString();
-    window.open(urlJS, targetJS, windowFeaturesJS);
+    window.open(urlStr, targetStr, windowFeaturesStr);
 }
 
 /**
@@ -423,11 +417,9 @@ function Java_cjdom_EventQueue_setIntervalImpl(lib, aName, aRun, aDelay)
 /**
  * Registers an event handler of a specific event type on the EventTarget
  */
-async function Java_cjdom_EventQueue_addEventListenerImpl(lib, eventTargetJS, nameJNI, eventLsnr, useCapture)
+function Java_cjdom_EventQueue_addEventListenerImpl(lib, eventTargetJS, name, eventLsnr, useCapture)
 {
-    let nameJava = lib.getObjectWrapper(nameJNI);
-    let nameJS = await nameJava.toString();
-    eventTargetJS.addEventListener(nameJS, e => fireEvent(nameJNI, eventLsnr, e), useCapture);
+    eventTargetJS.addEventListener(nameJS, e => fireEvent(name, eventLsnr, e), useCapture);
 }
 
 /**
@@ -445,14 +437,20 @@ function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, 
 let cjdomNativeMethods = {
 
     Java_cjdom_JSObject_getMemberImpl, Java_cjdom_JSObject_setMemberImpl,
-    Java_cjdom_JSObject_getMemberAsStringImpl, Java_cjdom_JSObject_setMemberAsStringImpl,
-    Java_cjdom_JSObject_callImpl,
+    Java_cjdom_JSObject_getMemberStringImpl, Java_cjdom_JSObject_setMemberStringImpl,
+    Java_cjdom_JSObject_getMemberIntImpl,
+    Java_cjdom_JSObject_getMemberFloatImpl,
+    Java_cjdom_JSObject_getMemberDoubleImpl,
+    Java_cjdom_JSObject_callWithObjectImpl,
+    Java_cjdom_JSObject_callWithStringImpl,
 
     Java_cjdom_CJDom_logImpl,
     Java_cjdom_CJDom_getViewportWidth, Java_cjdom_CJDom_getViewportHeight,
     Java_cjdom_CJDom_getDevicePixelRatio,
 
-    Java_cjdom_Array_newArrayForLengthImpl, Java_cjdom_Array_setImpl, Java_cjdom_Array_getImpl,
+    Java_cjdom_Array_getImpl, Java_cjdom_Array_setImpl,
+    Java_cjdom_Array_getStringImpl,
+    Java_cjdom_Array_newArrayForLengthImpl,
 
     Java_cjdom_Int8Array_newArrayForLengthImpl, Java_cjdom_Int8Array_setImpl,
 
