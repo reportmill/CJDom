@@ -3,7 +3,7 @@ package cjdom;
 /**
  * This class is a wrapper for Web API HTMLImageElement (https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement).
  */
-public class HTMLImageElement extends HTMLElement {
+public class HTMLImageElement extends HTMLElement implements CanvasImageSource {
 
     /**
      * Constructor.
@@ -42,6 +42,16 @@ public class HTMLImageElement extends HTMLElement {
      * Set image height.
      */
     public void setHeight(int aValue)  { setHeightImpl(_jsObj, aValue);}
+
+    /**
+     * Returns the HTMLImageElement crossOrigin property.
+     */
+    public String getCrossOrigin()  { return getMemberString("crossOrigin"); }
+
+    /**
+     * Sets the HTMLImageElement crossOrigin property.
+     */
+    public void setCrossOrigin(String aString)  { setMemberString("crossOrigin", aString); }
 
     /**
      * HTMLImageElement method: Return image source.

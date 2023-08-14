@@ -3,7 +3,7 @@ package cjdom;
 /**
  * This class is a wrapper for Web API HTMLImageElement (https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement).
  */
-public class HTMLCanvasElement extends HTMLElement {
+public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource {
 
     /**
      * Constructor.
@@ -37,6 +37,12 @@ public class HTMLCanvasElement extends HTMLElement {
     {
 //        Object contextJS = getContextImpl(typeName);
 //        return new CanvasRenderingContext2D(contextJS);
+        return null;
+    }
+
+    public String toDataURL(String var1)
+    {
+//        return null;
         return null;
     }
 
