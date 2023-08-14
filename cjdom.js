@@ -36,9 +36,19 @@ function Java_cjdom_CJObject_setMemberIntImpl(lib, jsObj, aName, aValue)  { jsOb
 function Java_cjdom_CJObject_getMemberFloatImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
+ * JSObject method: setMemberFloatImpl()
+ */
+function Java_cjdom_CJObject_setMemberFloatImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
+
+/**
  * JSObject method: getMemberDoubleImpl()
  */
 function Java_cjdom_CJObject_getMemberDoubleImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+
+/**
+ * JSObject method: setMemberDoubleImpl()
+ */
+function Java_cjdom_CJObject_setMemberDoubleImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
  * JSObject method: callImpl().
@@ -366,8 +376,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_getMemberImpl, Java_cjdom_CJObject_setMemberImpl,
     Java_cjdom_CJObject_getMemberStringImpl, Java_cjdom_CJObject_setMemberStringImpl,
     Java_cjdom_CJObject_getMemberIntImpl, Java_cjdom_CJObject_setMemberIntImpl,
-    Java_cjdom_CJObject_getMemberFloatImpl,
-    Java_cjdom_CJObject_getMemberDoubleImpl,
+    Java_cjdom_CJObject_getMemberFloatImpl, Java_cjdom_CJObject_setMemberFloatImpl,
+    Java_cjdom_CJObject_getMemberDoubleImpl, Java_cjdom_CJObject_setMemberDoubleImpl,
     Java_cjdom_CJObject_callImpl,
     Java_cjdom_CJObject_callWithObjectImpl,
     Java_cjdom_CJObject_callWithStringImpl,

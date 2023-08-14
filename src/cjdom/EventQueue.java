@@ -53,10 +53,10 @@ public class EventQueue {
                 case "mousedown":
                 case "mousemove":
                 case "mouseup":
-                    EventListener<Event> eventLsnr = (EventListener<Event>) func;
-                    netscape.javascript.JSObject eventJS = eventRecordArray.get(2);
-                    Event event = new MouseEvent(eventJS);
-                    eventLsnr.handleEvent(event);
+                    EventListener<Event> mouseLsnr = (EventListener<Event>) func;
+                    netscape.javascript.JSObject mouseEventJS = eventRecordArray.get(2);
+                    Event mouseEvent = new MouseEvent(mouseEventJS);
+                    mouseLsnr.handleEvent(mouseEvent);
                     break;
 
                 // Handle TouchEvents
@@ -67,6 +67,14 @@ public class EventQueue {
                     netscape.javascript.JSObject touchEventJS = eventRecordArray.get(2);
                     Event touchEvent = new TouchEvent(touchEventJS);
                     touchLsnr.handleEvent(touchEvent);
+                    break;
+
+                // Handle other events
+                case "load":
+                    EventListener<Event> eventLsnr = (EventListener<Event>) func;
+                    netscape.javascript.JSObject eventJS = eventRecordArray.get(2);
+                    Event event = new Event(eventJS);
+                    eventLsnr.handleEvent(event);
                     break;
             }
         }

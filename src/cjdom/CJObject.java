@@ -62,9 +62,19 @@ public class CJObject {
     public float getMemberFloat(String aName)  { return getMemberFloatImpl(_jsObj, aName); }
 
     /**
+     * Sets a named member of a JavaScript object as float.
+     */
+    public void setMemberFloat(String aName, float aValue)  { setMemberFloatImpl(_jsObj, aName, aValue); }
+
+    /**
      * Returns a named member of a JavaScript object as double.
      */
     public double getMemberDouble(String aName)  { return getMemberDoubleImpl(_jsObj, aName); }
+
+    /**
+     * Sets a named member of a JavaScript object as double.
+     */
+    public void setMemberDouble(String aName, double aValue)  { setMemberDoubleImpl(_jsObj, aName, aValue); }
 
     /**
      * Calls a JavaScript method.
@@ -139,9 +149,19 @@ public class CJObject {
     public static native float getMemberFloatImpl(JSObject jsObj, String aName);
 
     /**
+     * JSObject method: setMemberFloatImpl()
+     */
+    public static native void setMemberFloatImpl(JSObject jsObj, String aName, float aValue);
+
+    /**
      * JSObject method: getMemberDoubleImpl()
      */
     public static native double getMemberDoubleImpl(JSObject jsObj, String aName);
+
+    /**
+     * JSObject method: setMemberDoubleImpl()
+     */
+    public static native void setMemberDoubleImpl(JSObject jsObj, String aName, double aValue);
 
     /**
      * JSObject method: call().
