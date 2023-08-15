@@ -107,6 +107,22 @@ function Java_cjdom_CJObject_callWithDoubleDoubleImpl(lib, jsObj, aName, arg1, a
 }
 
 /**
+ * JSObject method: callWithDouble4Impl().
+ */
+function Java_cjdom_CJObject_callWithDouble4Impl(lib, jsObj, aName, arg1, arg2, arg3, arg4)
+{
+    jsObj[aName].call(jsObj, arg1, arg2, arg3, arg4);
+}
+
+/**
+ * JSObject method: callWithDouble6Impl().
+ */
+function Java_cjdom_CJObject_callWithDouble6Impl(lib, jsObj, aName, arg1, arg2, arg3, arg4, arg5, arg6)
+{
+    jsObj[aName].call(jsObj, arg1, arg2, arg3, arg4, arg5, arg6);
+}
+
+/**
  * CJDom method: log().
  */
 function Java_cjdom_CJDom_logImpl(lib, anObj)
@@ -397,6 +413,44 @@ function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, 
 }
 
 /**
+ * CanvasRenderingContext2D: fillTextImpl().
+ */
+function Java_cjdom_CanvasRenderingContext2D_fillTextImpl(lib, cntxJS, aString, aX, aY)  { cntxJS.fillText(aString, aX, aY); }
+
+/**
+ * CanvasRenderingContext2D: fillTextImpl().
+ */
+function Java_cjdom_CanvasRenderingContext2D_fillTextImpl2(lib, cntxJS, aString, aX, aY, maxWidth)  { cntxJS.fillText(aString, aX, aY, maxWidth); }
+
+/**
+ * CanvasRenderingContext2D: strokeText().
+ */
+function Java_cjdom_CanvasRenderingContext2D_strokeTextImpl(lib, cntxJS, aString, aX, aY)  { cntxJS.strokeText(aString, aX, aY); }
+
+/**
+ * CanvasRenderingContext2D: strokeText().
+ */
+function Java_cjdom_CanvasRenderingContext2D_strokeTextImpl2(lib, cntxJS, aString, aX, aY, maxWidth)  { cntxJS.strokeText(aString, aX, aY, maxWidth); }
+
+/**
+ * CanvasRenderingContext2D: drawImageImpl().
+ */
+function Java_cjdom_CanvasRenderingContext2D_drawImageImpl(lib, cntxJS, imageJS, aX, aY)  { cntxJS.drawImage(imageJS, aX, aY); }
+
+/**
+ * CanvasRenderingContext2D: drawImageImpl().
+ */
+function Java_cjdom_CanvasRenderingContext2D_drawImageImpl2(lib, cntxJS, imageJS, aX, aY, aW, aH)  { cntxJS.drawImage(imageJS, aX, aY, aW, aH); }
+
+/**
+ * CanvasRenderingContext2D: drawImageImpl().
+ */
+function Java_cjdom_CanvasRenderingContext2D_drawImageImpl3(lib, cntxJS, imageJS, srcX, srcY, srcW, srcH, destX, destY, destW, destH)
+{
+    cntxJS.drawImage(imageJS, srcX, srcY, srcW, srcH, destX, destY, destW, destH);
+}
+
+/**
  * CanvasRenderingContext2D_getImageData().
  */
 function Java_cjdom_CanvasRenderingContext2D_getImageDataImpl(lib, canvas, x, y, w, h)
@@ -436,6 +490,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_callWithStringImpl,
     Java_cjdom_CJObject_callForStringWithStringImpl, Java_cjdom_CJObject_callForStringWithStringStringImpl,
     Java_cjdom_CJObject_callWithDoubleImpl, Java_cjdom_CJObject_callWithDoubleDoubleImpl,
+    Java_cjdom_CJObject_callWithDouble4Impl, Java_cjdom_CJObject_callWithDouble6Impl,
 
     Java_cjdom_CJDom_logImpl,
     Java_cjdom_CJDom_getViewportWidth, Java_cjdom_CJDom_getViewportHeight,
@@ -477,6 +532,9 @@ let cjdomNativeMethods = {
     Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl,
     Java_cjdom_EventQueue_addEventListenerImpl, Java_cjdom_EventQueue_removeEventListenerImpl,
 
+    Java_cjdom_CanvasRenderingContext2D_fillTextImpl, Java_cjdom_CanvasRenderingContext2D_fillTextImpl2,
+    Java_cjdom_CanvasRenderingContext2D_strokeTextImpl, Java_cjdom_CanvasRenderingContext2D_strokeTextImpl2,
+    Java_cjdom_CanvasRenderingContext2D_drawImageImpl, Java_cjdom_CanvasRenderingContext2D_drawImageImpl2, Java_cjdom_CanvasRenderingContext2D_drawImageImpl3,
     Java_cjdom_CanvasRenderingContext2D_getImageDataImpl, Java_cjdom_CanvasRenderingContext2D_putImageDataImpl,
 
     Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight,

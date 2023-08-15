@@ -32,6 +32,10 @@ public class BallBounce {
      */
     public BallBounce()
     {
+        // Not using any Swing - maybe this is helpful
+        try { System.setProperty("java.awt.headless", "true"); }
+        catch(Throwable e) { System.err.println("Headless error: " + e); }
+
         // Get document and body
         HTMLDocument doc = HTMLDocument.current();
         HTMLBodyElement body = doc.getBody();

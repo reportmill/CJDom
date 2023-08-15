@@ -71,6 +71,16 @@ public class CanvasRenderingContext2D extends CJObject {
     public void clip()  { call("clip"); }
 
     /**
+     * CanvasRenderingContext2D: fillRect().
+     */
+    public void fillRect(double aX, double aY, double aW, double aH)  { callWithDouble4("fillRect", aX, aY, aW, aH); }
+
+    /**
+     * CanvasRenderingContext2D: strokeRect().
+     */
+    public void strokeRect(double aX, double aY, double aW, double aH)  { callWithDouble4("strokeRect", aX, aY, aW, aH); }
+
+    /**
      * CanvasRenderingContext2D: getFillStyle().
      */
     public Object getFillStyle()  { return null; }
@@ -173,6 +183,48 @@ public class CanvasRenderingContext2D extends CJObject {
     public void setMiterLimit(double var1)  { setMemberDouble("miterLimit", var1); }
 
     /**
+     * CanvasRenderingContext2D: beginPath().
+     */
+    public void beginPath()  { call("beginPath"); }
+
+    /**
+     * CanvasRenderingContext2D: moveTo().
+     */
+    public void moveTo(double var1, double var3)  { callWithDoubleDouble("moveTo", var1, var3); }
+
+    /**
+     * CanvasRenderingContext2D: lineTo().
+     */
+    public void lineTo(double var1, double var3)  { callWithDoubleDouble("lineTo", var1, var3); }
+
+    /**
+     * CanvasRenderingContext2D: bezierCurveTo().
+     */
+    public void bezierCurveTo(double cp1x, double cp1y, double cp2x, double cp2y, double endX, double endY)
+    {
+        callWithDouble6("bezierCurveTo", cp1x, cp1y, cp2x, cp2y, endX, endY);
+    }
+
+    /**
+     * CanvasRenderingContext2D: closePath().
+     */
+    public void closePath()  { call("closePath"); }
+
+    /**
+     * CanvasRenderingContext2D: beginPath().
+     */
+    public void clearRect(double aX, double aY, double aW, double aH)
+    {
+        callWithDouble4("clearRect", aX, aY, aW, aH);
+    }
+
+    //void arc(double var1, double var3, double var5, double var7, double var9, boolean var11);
+    //void arc(double var1, double var3, double var5, double var7, double var9);
+    //void arcTo(double var1, double var3, double var5, double var7, double var9);
+    //void quadraticCurveTo(double var1, double var3, double var5, double var7);
+    //void rect(double var1, double var3, double var5, double var7);
+
+    /**
      * Return the current font.
      */
     public String getFont()  { return getMemberString("font"); }
@@ -192,21 +244,64 @@ public class CanvasRenderingContext2D extends CJObject {
     }
 
     /**
+     * CanvasRenderingContext2D: fillText().
+     */
+    public void fillText(String aString, double aX, double aY)  { fillTextImpl(_jsObj, aString, aX, aY); }
+
+    /**
+     * CanvasRenderingContext2D: fillText().
+     */
+    public void fillText(String aString, double aX, double aY, double maxWidth)  { fillTextImpl2(_jsObj, aString, aX, aY, maxWidth); }
+
+    /**
+     * CanvasRenderingContext2D: strokeText().
+     */
+    public void strokeText(String aString, double aX, double aY)  { strokeTextImpl(_jsObj, aString, aX, aY); }
+
+    /**
+     * CanvasRenderingContext2D: strokeText().
+     */
+    public void strokeText(String aString, double aX, double aY, double maxWidth)  { strokeTextImpl2(_jsObj, aString, aX, aY, maxWidth); }
+
+    /**
+     * CanvasRenderingContext2D: drawImage().
+     */
+    public void drawImage(CanvasImageSource anImage, double aX, double aY)  { drawImageImpl(_jsObj, ((CJObject) anImage)._jsObj, aX, aY); }
+
+    /**
+     * CanvasRenderingContext2D: drawImage().
+     */
+    public void drawImage(CanvasImageSource anImage, double aX, double aY, double aW, double aH)
+    {
+        drawImageImpl2(_jsObj, ((CJObject) anImage)._jsObj, aX, aY, aW, aH);
+    }
+
+    /**
+     * CanvasRenderingContext2D: drawImage().
+     */
+    public void drawImage(CanvasImageSource anImage, double srcX, double srcY, double srcW, double srcH, double destX, double destY, double destW, double destH)
+    {
+        drawImageImpl3(_jsObj, ((CJObject) anImage)._jsObj, srcX, srcY, srcW, srcH, destX, destY, destW, destH);
+    }
+
+    /**
      * getImageData().
      */
-    public ImageData getImageData(int x, int y, int w, int h)
+    public ImageData getImageData(int aX, int aY, int aW, int aH)
     {
-        JSObject imageDataJS = getImageDataImpl(_jsObj, x, y, w, h);
+        JSObject imageDataJS = getImageDataImpl(_jsObj, aX, aY, aW, aH);
         return new ImageData(imageDataJS);
     }
 
     /**
      * Put image data.
      */
-    public void putImageData(ImageData imageData, double var2, double var4, double var6, double var8, double var10, double var12)
+    public void putImageData(ImageData imageData, double aX, double aY, double dirtyX, double dirtyY, double dirtyW, double dirtyH)
     {
-        putImageDataImpl(_jsObj, imageData._jsObj, var2, var4, var6, var8, var10, var12);
+        putImageDataImpl(_jsObj, imageData._jsObj, aX, aY, dirtyX, dirtyY, dirtyW, dirtyH);
     }
+
+    //void putImageData(ImageData var1, double aX, double aY);
 
     /**
      * Returns the amount of blur applied to shadows.
@@ -279,49 +374,61 @@ public class CanvasRenderingContext2D extends CJObject {
     public static native void transformImpl(JSObject contextJS, double var1, double var3, double var5, double var7, double var9, double var11);
 
     /**
+     * CanvasRenderingContext2D: fillTextImpl().
+     */
+    private static native void fillTextImpl(JSObject cntxJS, String aString, double aX, double aY);
+
+    /**
+     * CanvasRenderingContext2D: fillTextImpl().
+     */
+    private static native void fillTextImpl2(JSObject cntxJS, String aString, double aX, double aY, double maxWidth);
+
+    /**
+     * CanvasRenderingContext2D: strokeText().
+     */
+    private static native void strokeTextImpl(JSObject cntxJS, String aString, double aX, double aY);
+
+    /**
+     * CanvasRenderingContext2D: strokeText().
+     */
+    private static native void strokeTextImpl2(JSObject cntxJS, String aString, double aX, double aY, double maxWidth);
+
+    /**
+     * CanvasRenderingContext2D: drawImageImpl().
+     */
+    private static native void drawImageImpl(JSObject cntxJS, JSObject imageJS, double aX, double aY);
+
+    /**
+     * CanvasRenderingContext2D: drawImageImpl().
+     */
+    private static native void drawImageImpl2(JSObject cntxJS, JSObject imageJS, double aX, double aY, double aW, double aH);
+
+    /**
+     * CanvasRenderingContext2D: drawImageImpl().
+     */
+    private static native void drawImageImpl3(JSObject cntxJS, JSObject imageJS, double srcX, double srcY, double srcW, double srcH, double destX, double destY, double destW, double destH);
+
+    /**
      * CanvasRenderingContext2D_getImageDataImpl().
      */
-    private static native JSObject getImageDataImpl(JSObject canvasJS, int x, int y, int w, int h);
+    private static native JSObject getImageDataImpl(JSObject canvasJS, int aX, int aY, int aW, int aH);
 
     /**
      * CanvasRenderingContext2D_putImageDataImpl().
      */
-    private static native void putImageDataImpl(JSObject canvasJS, JSObject imageDataJS, double var2, double var4, double var6, double var8, double var10, double var12);
+    private static native void putImageDataImpl(JSObject canvasJS, JSObject imageDataJS, double aX, double aY, double dirtyX, double dirtyY, double dirtyW, double dirtyH);
 
-    //void beginPath();
-    //void closePath();
-    //void arc(double var1, double var3, double var5, double var7, double var9, boolean var11);
-    //void arc(double var1, double var3, double var5, double var7, double var9);
-    //void arcTo(double var1, double var3, double var5, double var7, double var9);
-    //void bezierCurveTo(double var1, double var3, double var5, double var7, double var9, double var11);
-    //void clearRect(double var1, double var3, double var5, double var7);
-    //void moveTo(double var1, double var3);
-    //void lineTo(double var1, double var3);
     //boolean isPointInPath(double var1, double var3);
     //boolean isPointInStroke(double var1, double var3);
-    //void quadraticCurveTo(double var1, double var3, double var5, double var7);
-    //void rect(double var1, double var3, double var5, double var7);
     //void scrollPathIntoView();
     //ImageData createImageData(double var1, double var3);
     //CanvasGradient createLinearGradient(double var1, double var3, double var5, double var7);
     //CanvasPattern createPattern(CanvasImageSource var1, String var2);
     //CanvasGradient createRadialGradient(double var1, double var3, double var5, double var7, double var9, double var11);
-    //void drawImage(CanvasImageSource var1, double var2, double var4);
-    //void drawImage(CanvasImageSource var1, double var2, double var4, double var6, double var8);
-    //void drawImage(CanvasImageSource var1, double var2, double var4, double var6, double var8, double var10, double var12, double var14, double var16);
     //boolean drawCustomFocusRing(Element var1);
     //void drawSystemFocusRing(Element var1);
     //JSArrayReader<JSObject> getLineDash();
     //void setLineDash(JSArray<JSObject> var1);
-    //void putImageData(ImageData var1, double var2, double var4, double var6, double var8, double var10, double var12);
-    //void putImageData(ImageData var1, double var2, double var4);
-    //ImageData getImageData(double var1, double var3, double var5, double var7);
-    //void fillRect(double var1, double var3, double var5, double var7);
-    //void fillText(String var1, double var2, double var4, double var6);
-    //void fillText(String var1, double var2, double var4);
-    //void strokeRect(double var1, double var3, double var5, double var7);
-    //void strokeText(String var1, double var2, double var4, double var6);
-    //void strokeText(String var1, double var2, double var4);
     //String getTextAlign();
     //void setTextAlign(String var1);
     //String getTextBaseline();
