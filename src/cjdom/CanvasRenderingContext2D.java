@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API CanvasRenderingContext2D (https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D).
@@ -8,7 +9,7 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * Constructor.
      */
-    public CanvasRenderingContext2D(netscape.javascript.JSObject renderingContextJS)
+    public CanvasRenderingContext2D(JSObject renderingContextJS)
     {
         super(renderingContextJS);
     }
@@ -28,19 +29,25 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public TextMetrics measureText(String aString)
     {
-        netscape.javascript.JSObject textMetricsJS = callWithStringImpl(_jsObj, "measureText", aString);
+        JSObject textMetricsJS = callWithStringImpl(_jsObj, "measureText", aString);
         return new TextMetrics(textMetricsJS);
     }
 
+    /**
+     * getImageData().
+     */
     public ImageData getImageData(int x, int y, int w, int h)
     {
-//        return null;
-        return null;
+        JSObject imageDataJS = getImageDataImpl(_jsObj, x, y, w, h);
+        return new ImageData(imageDataJS);
     }
 
-    public void putImageData(ImageData var1, double var2, double var4, double var6, double var8, double var10, double var12)
+    /**
+     * Put image data.
+     */
+    public void putImageData(ImageData imageData, double var2, double var4, double var6, double var8, double var10, double var12)
     {
-//
+        putImageDataImpl(_jsObj, imageData._jsObj, var2, var4, var6, var8, var10, var12);
     }
 
     /**
@@ -82,6 +89,16 @@ public class CanvasRenderingContext2D extends CJObject {
      * Returns the distance that shadows will be offset vertically
      */
     public void setShadowOffsetY(double value)  { setMemberDouble("shadowOffsetY", value); }
+
+    /**
+     * CanvasRenderingContext2D_getImageDataImpl().
+     */
+    private static native JSObject getImageDataImpl(JSObject canvasJS, int x, int y, int w, int h);
+
+    /**
+     * CanvasRenderingContext2D_putImageDataImpl().
+     */
+    private static native void putImageDataImpl(JSObject canvasJS, JSObject imageDataJS, double var2, double var4, double var6, double var8, double var10, double var12);
 
     //void beginPath();
     //void closePath();

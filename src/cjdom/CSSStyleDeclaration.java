@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API CSSStyleDeclaration (https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration).
@@ -16,7 +17,7 @@ public class CSSStyleDeclaration extends CJObject {
     /**
      * Constructor.
      */
-    public CSSStyleDeclaration(netscape.javascript.JSObject jsObj)
+    public CSSStyleDeclaration(JSObject jsObj)
     {
         super(jsObj);
     }
@@ -24,43 +25,23 @@ public class CSSStyleDeclaration extends CJObject {
     /**
      * Returns the textual representation of the declaration block.
      */
-    public String getCssText()
-    {
-        Object cssTextJS = getCssTextImpl(_jsObj);
-        return cssTextJS.toString();
-    }
+    public String getCssText()  { return getMemberString("cssText"); }
 
     /**
      * Sets the textual representation of the declaration block.
      */
-    public void setCssText(String aValue)
-    {
-        setCssTextImpl(_jsObj, aValue);
-    }
+    public void setCssText(String aValue)  { setMemberString("cssText", aValue); }
 
     /**
      * Returns a property value for string.
      */
-    public String getPropertyValue(String aString)
-    {
-        return getMemberString(aString);
-    }
+    public String getPropertyValue(String aString)  { return callForStringWithString("setProperty", aString); }
 
     /**
      * Returns a property value for string.
      */
     public void setProperty(String aString, String aValue)
     {
-        setMemberString(aString, aValue);
+        callForStringWithStringString("setProperty", aString, aValue);
     }
-
-    /**
-     * CSSStyleDeclaration method: Returns the textual representation of the declaration block.
-     */
-    private static native String getCssTextImpl(netscape.javascript.JSObject cssJS);
-
-    /**
-     * CSSStyleDeclaration method: Sets the textual representation of the declaration block.
-     */
-    private static native void setCssTextImpl(netscape.javascript.JSObject cssJS, String aValue);
 }

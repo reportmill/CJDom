@@ -87,9 +87,25 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
-    public Object callWithObject(String aName, Object theArg)
+    public JSObject callWithObject(String aName, Object theArg)
     {
         return callWithObjectImpl(_jsObj, aName, theArg);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public String callForStringWithString(String aName, String theArg)
+    {
+        return callForStringWithStringImpl(_jsObj, aName, theArg);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public String callForStringWithStringString(String aName, String arg1, String arg2)
+    {
+        return callForStringWithStringStringImpl(_jsObj, aName, arg1, arg2);
     }
 
     /**
@@ -171,10 +187,20 @@ public class CJObject {
     /**
      * JSObject method: call().
      */
-    public static native Object callWithObjectImpl(JSObject jsObj, String aName, Object theArg);
+    public static native JSObject callWithObjectImpl(JSObject jsObj, String aName, Object theArg);
 
     /**
      * JSObject method: call().
      */
     public static native JSObject callWithStringImpl(JSObject jsObj, String aName, String theArg);
+
+    /**
+     * JSObject method: call().
+     */
+    public static native String callForStringWithStringImpl(JSObject jsObj, String aName, String theArg);
+
+    /**
+     * JSObject method: call().
+     */
+    public static native String callForStringWithStringStringImpl(JSObject jsObj, String aName, String arg1, String arg2);
 }

@@ -61,12 +61,34 @@ function Java_cjdom_CJObject_callImpl(lib, jsObj, aName)
 /**
  * JSObject method: callWithObjectImpl().
  */
-function Java_cjdom_CJObject_callWithObjectImpl(lib, jsObj, aName, theArg)  { aName.call(jsObj, theArg); }
+function Java_cjdom_CJObject_callWithObjectImpl(lib, jsObj, aName, theArg)
+{
+    return jsObj[aName].call(jsObj, theArg);
+}
 
 /**
  * JSObject method: callWithStringImpl().
  */
-function Java_cjdom_CJObject_callWithStringImpl(lib, jsObj, aName, strArg)  { aName.call(jsObj, strArg); }
+function Java_cjdom_CJObject_callWithStringImpl(lib, jsObj, aName, strArg)
+{
+    return jsObj[aName].call(jsObj, strArg);
+}
+
+/**
+ * JSObject method: call().
+ */
+function Java_cjdom_CJObject_callForStringWithStringImpl(lib, jsObj, aName, theArg)
+{
+    return jsObj[aName].call(jsObj, theArg);
+}
+
+/**
+ * JSObject method: call().
+ */
+function Java_cjdom_CJObject_callForStringWithStringStringImpl(lib, jsObj, Name, arg1, arg2)
+{
+    return jsObj[aName].call(jsObj, arg1, arg2);
+}
 
 /**
  * CJDom method: log().
@@ -194,16 +216,6 @@ function Java_cjdom_File_createFileForNameAndTypeAndBytes(lib, name, type, int8A
 {
     return new File([ int8ArrayJS ], name, type ? { type: type } : null);
 }
-
-/**
- * CSSStyleDeclaration method: Returns the textual representation of the declaration block.
- */
-function Java_cjdom_CSSStyleDeclaration_getCssTextImpl(lib, cssJS)  { return cssJS.cssText; }
-
-/**
- * CSSStyleDeclaration method: Sets the textual representation of the declaration block.
- */
-function Java_cjdom_CSSStyleDeclaration_setCssTextImpl(lib, cssJS, cssStr)  { cssJS.cssText = cssStr; }
 
 /**
  * Node method: Return node name.
@@ -369,6 +381,31 @@ function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, 
 }
 
 /**
+ * CanvasRenderingContext2D_getImageData().
+ */
+function Java_cjdom_CanvasRenderingContext2D_getImageDataImpl(lib, canvas, x, y, w, h)
+{
+    return canvas.getImageData(x, y, w, h);
+}
+
+/**
+ * CanvasRenderingContext2D_putImageDataImpl.
+ */
+function Java_cjdom_CanvasRenderingContext2D_putImageDataImpl(lib, canvas, imageDataJS, var2, var4, var6, var8, var10, var12)
+{
+    canvas.putImageDataImpl(imageDataJS, var2, var4, var6, var8, var10, var12);
+}
+
+/**
+ * ImageData: newImageDataForArrayAndWidthAndHeight()
+ */
+function Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight(lib, uint8ClampedArrayJS, aWidth, aHeight)
+{
+    return new ImageData(uint8ClampedArrayJS, width, height);
+}
+
+
+/**
  * Constant for registering with CJ.
  */
 let cjdomNativeMethods = {
@@ -381,6 +418,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_callImpl,
     Java_cjdom_CJObject_callWithObjectImpl,
     Java_cjdom_CJObject_callWithStringImpl,
+    Java_cjdom_CJObject_callForStringWithStringImpl, Java_cjdom_CJObject_callForStringWithStringStringImpl,
 
     Java_cjdom_CJDom_logImpl,
     Java_cjdom_CJDom_getViewportWidth, Java_cjdom_CJDom_getViewportHeight,
@@ -403,8 +441,6 @@ let cjdomNativeMethods = {
 
     Java_cjdom_File_createFileForNameAndTypeAndBytes,
 
-    Java_cjdom_CSSStyleDeclaration_getCssTextImpl,
-
     Java_cjdom_Node_getNodeNameImpl, Java_cjdom_Node_getParentNodeImpl,
     Java_cjdom_Node_appendChildImpl, Java_cjdom_Node_removeChildImpl,
 
@@ -413,7 +449,7 @@ let cjdomNativeMethods = {
     Java_cjdom_Document_getBodyImpl, Java_cjdom_Document_createElementImpl,
 
     Java_cjdom_HTMLElement_getOffsetTopImpl, Java_cjdom_HTMLElement_getOffsetLeftImpl,
-    Java_cjdom_HTMLElement_getStyleImpl, Java_cjdom_CSSStyleDeclaration_setCssTextImpl,
+    Java_cjdom_HTMLElement_getStyleImpl,
     Java_cjdom_HTMLElement_setContentEditableImpl,
 
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
@@ -423,4 +459,8 @@ let cjdomNativeMethods = {
     Java_cjdom_EventQueue_getNextEvent,
     Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl,
     Java_cjdom_EventQueue_addEventListenerImpl, Java_cjdom_EventQueue_removeEventListenerImpl,
+
+    Java_cjdom_CanvasRenderingContext2D_getImageDataImpl, Java_cjdom_CanvasRenderingContext2D_putImageDataImpl,
+
+    Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight,
 };
