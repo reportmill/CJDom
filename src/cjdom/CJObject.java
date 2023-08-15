@@ -27,6 +27,11 @@ public class CJObject {
     }
 
     /**
+     * Returns the JSObject.
+     */
+    public Object getJS()  { return _jsObj; }
+
+    /**
      * Returns a named member of a JavaScript object.
      */
     public JSObject getMember(String aName)  { return getMemberImpl(_jsObj, aName); }
@@ -87,42 +92,17 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
-    public JSObject callWithObject(String aName, Object theArg)
-    {
-        return callWithObjectImpl(_jsObj, aName, theArg);
-    }
+    public void callWithString(String aName, String theArg)  { callWithStringImpl(_jsObj, aName, theArg); }
 
     /**
      * Calls a JavaScript method.
      */
-    public String callForStringWithString(String aName, String theArg)
-    {
-        return callForStringWithStringImpl(_jsObj, aName, theArg);
-    }
+    public void callWithStringString(String aName, String arg1, String arg2)  { callWithStringStringImpl(_jsObj, aName, arg1, arg2); }
 
     /**
      * Calls a JavaScript method.
      */
-    public String callForStringWithStringString(String aName, String arg1, String arg2)
-    {
-        return callForStringWithStringStringImpl(_jsObj, aName, arg1, arg2);
-    }
-
-    /**
-     * Calls a JavaScript method.
-     */
-    public JSObject callWithString(String aName, String theArg)
-    {
-        return callWithStringImpl(_jsObj, aName, theArg);
-    }
-
-    /**
-     * Calls a JavaScript method.
-     */
-    public void callWithDouble(String aName, double arg1)
-    {
-        callWithDoubleImpl(_jsObj, aName, arg1);
-    }
+    public void callWithDouble(String aName, double arg1)  { callWithDoubleImpl(_jsObj, aName, arg1); }
 
     /**
      * Calls a JavaScript method.
@@ -149,9 +129,30 @@ public class CJObject {
     }
 
     /**
-     * Returns the JSObject.
+     * Calls a JavaScript method.
      */
-    public Object getJS()  { return _jsObj; }
+    public JSObject callForObjectWithObject(String aName, Object theArg)  { return callForObjectWithObjectImpl(_jsObj, aName, theArg); }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public JSObject callForObjectWithString(String aName, String theArg)  { return callForObjectWithStringImpl(_jsObj, aName, theArg); }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public String callForStringWithString(String aName, String theArg)
+    {
+        return callForStringWithStringImpl(_jsObj, aName, theArg);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public String callForStringWithStringString(String aName, String arg1, String arg2)
+    {
+        return callForStringWithStringStringImpl(_jsObj, aName, arg1, arg2);
+    }
 
     /**
      * Standard toString implementation.
@@ -219,22 +220,12 @@ public class CJObject {
     /**
      * JSObject method: call().
      */
-    public static native JSObject callWithObjectImpl(JSObject jsObj, String aName, Object theArg);
+    public static native void callWithStringImpl(JSObject jsObj, String aName, String theArg);
 
     /**
      * JSObject method: call().
      */
-    public static native JSObject callWithStringImpl(JSObject jsObj, String aName, String theArg);
-
-    /**
-     * JSObject method: call().
-     */
-    public static native String callForStringWithStringImpl(JSObject jsObj, String aName, String theArg);
-
-    /**
-     * JSObject method: call().
-     */
-    public static native String callForStringWithStringStringImpl(JSObject jsObj, String aName, String arg1, String arg2);
+    public static native void callWithStringStringImpl(JSObject jsObj, String aName, String arg1, String arg2);
 
     /**
      * JSObject method: callWithDoubleImpl().
@@ -255,4 +246,24 @@ public class CJObject {
      * JSObject method: callWithDouble6Impl().
      */
     public static native JSObject callWithDouble6Impl(JSObject jsObj, String aName, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6);
+
+    /**
+     * JSObject method: call().
+     */
+    public static native JSObject callForObjectWithObjectImpl(JSObject jsObj, String aName, Object theArg);
+
+    /**
+     * JSObject method: callForObjectWithStringImpl().
+     */
+    public static native JSObject callForObjectWithStringImpl(JSObject jsObj, String aName, String theArg);
+
+    /**
+     * JSObject method: call().
+     */
+    public static native String callForStringWithStringImpl(JSObject jsObj, String aName, String theArg);
+
+    /**
+     * JSObject method: call().
+     */
+    public static native String callForStringWithStringStringImpl(JSObject jsObj, String aName, String arg1, String arg2);
 }

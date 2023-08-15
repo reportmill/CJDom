@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API HTMLDocument (https://developer.mozilla.org/en-US/docs/Web/API/HTMLDocument).
@@ -8,7 +9,7 @@ public class HTMLDocument extends Document {
     /**
      * Constructor.
      */
-    public HTMLDocument(netscape.javascript.JSObject htmlDocument)
+    public HTMLDocument(JSObject htmlDocument)
     {
         super(htmlDocument);
     }
@@ -18,13 +19,13 @@ public class HTMLDocument extends Document {
      */
     public HTMLHtmlElement getDocumentElement()
     {
-        netscape.javascript.JSObject htmlElementJS = getMember("documentElement");
+        JSObject htmlElementJS = getMember("documentElement");
         return new HTMLHtmlElement(htmlElementJS);
     }
 
     public HTMLElement getElementById(String idStr)
     {
-        netscape.javascript.JSObject elementJS = callWithString("getElementById", idStr);
+        JSObject elementJS = callForObjectWithString("getElementById", idStr);
         String tagName = CJObject.getMemberStringImpl(elementJS, "nodeName");
         return HTMLElement.getElementForName(tagName, elementJS);
     }
@@ -32,8 +33,5 @@ public class HTMLDocument extends Document {
     /**
      * Returns Window.current().getDocument().
      */
-    public static HTMLDocument current()
-    {
-        return Window.current().getDocument();
-    }
+    public static HTMLDocument current()  { return Window.getDocument(); }
 }

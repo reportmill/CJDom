@@ -35,13 +35,13 @@ public class CSSStyleDeclaration extends CJObject {
     /**
      * Returns a property value for string.
      */
-    public String getPropertyValue(String aString)  { return callForStringWithString("setProperty", aString); }
+    public String getPropertyValue(String aString)  { return callForStringWithString("getPropertyValue", aString); }
 
     /**
      * Returns a property value for string.
      */
     public void setProperty(String aString, String aValue)
     {
-        callForStringWithStringString("setProperty", aString, aValue);
+        callWithStringString("setProperty", aString, aValue);
     }
 }

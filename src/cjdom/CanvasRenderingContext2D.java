@@ -17,17 +17,17 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: setTransform().
      */
-    public void setTransform(double var1, double var3, double var5, double var7, double var9, double var11)
+    public void setTransform(double arg1, double arg2, double arg3, double arg4, double arg5, double arg6)
     {
-        setTransformImpl(_jsObj, var1, var3, var5, var7, var9, var11);
+        callWithDouble6("setTransform", arg1, arg2, arg3, arg4, arg5, arg6);
     }
 
     /**
      * CanvasRenderingContext2D: transform().
      */
-    public void transform(double var1, double var3, double var5, double var7, double var9, double var11)
+    public void transform(double arg1, double arg2, double arg3, double arg4, double arg5, double arg6)
     {
-        transformImpl(_jsObj, var1, var3, var5, var7, var9, var11);
+        callWithDouble6("transform", arg1, arg2, arg3, arg4, arg5, arg6);
     }
 
     /**
@@ -239,7 +239,7 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public TextMetrics measureText(String aString)
     {
-        JSObject textMetricsJS = callWithStringImpl(_jsObj, "measureText", aString);
+        JSObject textMetricsJS = callForObjectWithStringImpl(_jsObj, "measureText", aString);
         return new TextMetrics(textMetricsJS);
     }
 
@@ -362,16 +362,6 @@ public class CanvasRenderingContext2D extends CJObject {
      * CanvasRenderingContext2D: setImageSmoothingEnabled().
      */
     public void setImageSmoothingEnabled(boolean var1)  { } //setMemberBoolean("imageSmoothingEnabled", var1);
-
-    /**
-     * CanvasRenderingContext2D: setTransform().
-     */
-    public static native void setTransformImpl(JSObject contextJS, double var1, double var3, double var5, double var7, double var9, double var11);
-
-    /**
-     * CanvasRenderingContext2D: transform().
-     */
-    public static native void transformImpl(JSObject contextJS, double var1, double var3, double var5, double var7, double var9, double var11);
 
     /**
      * CanvasRenderingContext2D: fillTextImpl().

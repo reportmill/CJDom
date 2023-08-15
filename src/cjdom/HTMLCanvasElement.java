@@ -39,7 +39,7 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
      */
     public Object getContext(String contextType)
     {
-        JSObject contextJS = callWithString("getContext", contextType);
+        JSObject contextJS = callForObjectWithString("getContext", contextType);
         return new CanvasRenderingContext2D(contextJS);
     }
 
