@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Blob (https://developer.mozilla.org/en-US/docs/Web/API/Blob).
@@ -34,10 +35,10 @@ public class Blob extends CJObject {
     /**
      * Blob method: Creates a Blob from given bytes in JS.
      */
-    private static native netscape.javascript.JSObject createBlobForBytesAndType(Object int8ArrayJS, String aType);
+    private static native JSObject createBlobForBytesAndType(JSObject int8ArrayJS, String aType);
 
     /**
      * Creates a URL from given blob.
      */
-    public static native String createURL(Object blobJS);
+    private static native String createURL(JSObject blobJS);
 }

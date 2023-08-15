@@ -45,5 +45,5 @@ public class ImageData extends CJObject {
     /**
      * ImageData: newImageDataForArrayAndWidthAndHeight()
      */
-    private static native JSObject newImageDataForArrayAndWidthAndHeight(Object uint8ClampedArrayJS, int aWidth, int aHeight);
+    private static native JSObject newImageDataForArrayAndWidthAndHeight(JSObject uint8ClampedArrayJS, int aWidth, int aHeight);
 }

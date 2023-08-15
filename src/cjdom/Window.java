@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Window (https://developer.mozilla.org/en-US/docs/Web/API/Window).
@@ -8,7 +9,7 @@ public class Window extends CJObject {
     /**
      * Constructor.
      */
-    private Window(netscape.javascript.JSObject winJS)
+    private Window(JSObject winJS)
     {
         super();
         _jsObj = winJS;
@@ -27,12 +28,12 @@ public class Window extends CJObject {
     /**
      * Window method: Return window InnerWidth.
      */
-    private static native int getInnerWidthImpl(netscape.javascript.JSObject winJS);
+    private static native int getInnerWidthImpl(JSObject winJS);
 
     /**
      * Window method: Return window InnerHeight.
      */
-    private static native int getInnerHeightImpl(netscape.javascript.JSObject winJS);
+    private static native int getInnerHeightImpl(JSObject winJS);
 
     /**
      * Wrapper method for Web API method.
@@ -53,7 +54,7 @@ public class Window extends CJObject {
     /**
      * Wrapper method for Web API method.
      */
-    protected static native void openImpl(Object winJS, String url, String target, String windowFeatures);
+    private static native void openImpl(JSObject winJS, String url, String target, String windowFeatures);
 
     /**
      * Schedules a runnable to execute after a delay of given milliseconds.
@@ -83,26 +84,26 @@ public class Window extends CJObject {
      */
     public static Window current()
     {
-        netscape.javascript.JSObject winJS = currentImpl();
+        JSObject winJS = currentImpl();
         return new Window(winJS);
     }
 
     /**
      * Returns the current window.
      */
-    public static native netscape.javascript.JSObject currentImpl();
+    public static native JSObject currentImpl();
 
     /**
      * Returns the current window.
      */
     public static HTMLDocument getDocument()
     {
-        netscape.javascript.JSObject htmlDocumentJS = getDocumentImpl();
+        JSObject htmlDocumentJS = getDocumentImpl();
         return new HTMLDocument(htmlDocumentJS);
     }
 
     /**
      * Returns JavaScript Window.document.
      */
-    private static native netscape.javascript.JSObject getDocumentImpl();
+    private static native JSObject getDocumentImpl();
 }

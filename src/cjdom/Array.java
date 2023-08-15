@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Array (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
@@ -8,7 +9,7 @@ public class Array extends CJObject {
     /**
      * Constructor.
      */
-    public Array(netscape.javascript.JSObject arrayJS)
+    public Array(JSObject arrayJS)
     {
         super();
         _jsObj = arrayJS;
@@ -37,7 +38,7 @@ public class Array extends CJObject {
     /**
      * Returns value at given index.
      */
-    public netscape.javascript.JSObject get(int index)
+    public JSObject get(int index)
     {
         return getImpl(_jsObj, index);
     }
@@ -66,25 +67,25 @@ public class Array extends CJObject {
     /**
      * Returns value at given index.
      */
-    private static native netscape.javascript.JSObject getImpl(netscape.javascript.JSObject jsObj, int index);
+    private static native JSObject getImpl(JSObject jsObj, int index);
 
     /**
      * Sets the given value at given index.
      */
-    private static native void setImpl(netscape.javascript.JSObject jsObj, int index, Object aValue);
+    private static native void setImpl(JSObject jsObj, int index, Object aValue);
 
     /**
      * Returns value at given index as string.
      */
-    private static native Object getObjectImpl(netscape.javascript.JSObject jsObj, int index);
+    private static native Object getObjectImpl(JSObject jsObj, int index);
 
     /**
      * Returns value at given index as string.
      */
-    private static native String getStringImpl(netscape.javascript.JSObject jsObj, int index);
+    private static native String getStringImpl(JSObject jsObj, int index);
 
     /**
      * Returns a new Array (internal).
      */
-    protected static native netscape.javascript.JSObject newArrayForLengthImpl(int aLen);
+    protected static native JSObject newArrayForLengthImpl(int aLen);
 }

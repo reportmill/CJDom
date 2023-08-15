@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Element (https://developer.mozilla.org/en-US/docs/Web/API/Element).
@@ -16,7 +17,7 @@ public class Element extends Node {
     /**
      * Constructor.
      */
-    public Element(netscape.javascript.JSObject jsObj)
+    public Element(JSObject jsObj)
     {
         super(jsObj);
     }
@@ -50,10 +51,10 @@ public class Element extends Node {
     /**
      * Element method: Returns the InnerHTML string.
      */
-    private static native String getInnerHTMLImpl(netscape.javascript.JSObject elementJS);
+    private static native String getInnerHTMLImpl(JSObject elementJS);
 
     /**
      * Element method: Sets the InnerHTML string.
      */
-    private static native void setInnerHTMLImpl(netscape.javascript.JSObject elementJS, String htmlStr);
+    private static native void setInnerHTMLImpl(JSObject elementJS, String htmlStr);
 }

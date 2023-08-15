@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is meant to handle JavaScript callbacks like setTimeout(), setInterval(), addEventListener(), etc.
@@ -34,7 +35,7 @@ public class EventQueue {
         while(true) {
 
             // Wait for next event
-            netscape.javascript.JSObject eventRecordArrayJS = getNextEvent();
+            JSObject eventRecordArrayJS = getNextEvent();
             Array eventRecordArray = new Array(eventRecordArrayJS);
 
             // Get event type and function
@@ -54,7 +55,7 @@ public class EventQueue {
                 case "mousemove":
                 case "mouseup":
                     EventListener<Event> mouseLsnr = (EventListener<Event>) func;
-                    netscape.javascript.JSObject mouseEventJS = eventRecordArray.get(2);
+                    JSObject mouseEventJS = eventRecordArray.get(2);
                     Event mouseEvent = new MouseEvent(mouseEventJS);
                     mouseLsnr.handleEvent(mouseEvent);
                     break;
@@ -64,7 +65,7 @@ public class EventQueue {
                 case "touchmove":
                 case "touchend":
                     EventListener<Event> touchLsnr = (EventListener<Event>) func;
-                    netscape.javascript.JSObject touchEventJS = eventRecordArray.get(2);
+                    JSObject touchEventJS = eventRecordArray.get(2);
                     Event touchEvent = new TouchEvent(touchEventJS);
                     touchLsnr.handleEvent(touchEvent);
                     break;
@@ -72,7 +73,7 @@ public class EventQueue {
                 // Handle other events
                 case "load":
                     EventListener<Event> eventLsnr = (EventListener<Event>) func;
-                    netscape.javascript.JSObject eventJS = eventRecordArray.get(2);
+                    JSObject eventJS = eventRecordArray.get(2);
                     Event event = new Event(eventJS);
                     eventLsnr.handleEvent(event);
                     break;
@@ -83,7 +84,7 @@ public class EventQueue {
     /**
      * Waits for next event.
      */
-    private static native netscape.javascript.JSObject getNextEvent();
+    private static native JSObject getNextEvent();
 
     /**
      * Sets a timeout.
@@ -132,12 +133,12 @@ public class EventQueue {
     /**
      * Registers an event handler of a specific event type on the EventTarget
      */
-    private static native void addEventListenerImpl(netscape.javascript.JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
+    private static native void addEventListenerImpl(JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
 
     /**
      * Removes an event handler of a specific event type from the EventTarget
      */
-    private static native void removeEventListenerImpl(netscape.javascript.JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
+    private static native void removeEventListenerImpl(JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
 
     /*
     // This wrapped promise is used to trigger getNextEvent

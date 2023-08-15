@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API HTMLElement (https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement).
@@ -8,7 +9,7 @@ public class HTMLElement extends Element implements EventTarget {
     /**
      * Constructor.
      */
-    public HTMLElement(netscape.javascript.JSObject jsoObj)
+    public HTMLElement(JSObject jsoObj)
     {
         super(jsoObj);
     }
@@ -28,7 +29,7 @@ public class HTMLElement extends Element implements EventTarget {
      */
     public CSSStyleDeclaration getStyle()
     {
-        netscape.javascript.JSObject styleJS = getStyleImpl(_jsObj);
+        JSObject styleJS = getStyleImpl(_jsObj);
         return new CSSStyleDeclaration(styleJS);
     }
 
@@ -65,7 +66,7 @@ public class HTMLElement extends Element implements EventTarget {
     /**
      * Returns the wrapped HTML element for given tag name.
      */
-    public static HTMLElement getElementForName(String tagName, netscape.javascript.JSObject jsObj)
+    public static HTMLElement getElementForName(String tagName, JSObject jsObj)
     {
         switch (tagName) {
             case "canvas": return new HTMLCanvasElement(jsObj);
@@ -79,20 +80,20 @@ public class HTMLElement extends Element implements EventTarget {
     /**
      * HTMLElement method: getOffsetTopImpl().
      */
-    private static native int getOffsetTopImpl(Object elementJS);
+    private static native int getOffsetTopImpl(JSObject elementJS);
 
     /**
      * HTMLElement method: getOffsetLeftImpl().
      */
-    private static native int getOffsetLeftImpl(Object elementJS);
+    private static native int getOffsetLeftImpl(JSObject elementJS);
 
     /**
      * HTMLElement method: Returns the htmlElement.style.
      */
-    private static native netscape.javascript.JSObject getStyleImpl(netscape.javascript.JSObject elementJS);
+    private static native JSObject getStyleImpl(JSObject elementJS);
 
     /**
      * Creates a URL from given blob.
      */
-    private static native void setContentEditableImpl(Object htmlElementJS, boolean aValue);
+    private static native void setContentEditableImpl(JSObject htmlElementJS, boolean aValue);
 }

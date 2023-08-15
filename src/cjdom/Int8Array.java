@@ -1,7 +1,8 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
- * Wrapper class for WebAPI Int8Array.
+ * This class is a wrapper for Web API Int8Array (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array).
  */
 public class Int8Array extends CJObject {
 
@@ -36,10 +37,10 @@ public class Int8Array extends CJObject {
     /**
      * Sets the given value at given index.
      */
-    private static native void setImpl(Object jsObj, int index, byte aValue);
+    private static native void setImpl(JSObject jsObj, int index, byte aValue);
 
     /**
      * Returns a new Uint16Array (internal).
      */
-    protected static native netscape.javascript.JSObject newArrayForLengthImpl(int aLen);
+    protected static native JSObject newArrayForLengthImpl(int aLen);
 }

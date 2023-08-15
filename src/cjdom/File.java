@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API File (https://developer.mozilla.org/en-US/docs/Web/API/File).
@@ -26,5 +27,5 @@ public class File extends Blob {
     /**
      * Creates a File from given bytes in JS.
      */
-    private static native netscape.javascript.JSObject createFileForNameAndTypeAndBytes(String aName, String aType, Object int8ArrayJS);
+    private static native JSObject createFileForNameAndTypeAndBytes(String aName, String aType, JSObject int8ArrayJS);
 }

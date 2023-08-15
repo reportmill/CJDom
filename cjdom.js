@@ -85,7 +85,7 @@ function Java_cjdom_CJObject_callForStringWithStringImpl(lib, jsObj, aName, theA
 /**
  * JSObject method: call().
  */
-function Java_cjdom_CJObject_callForStringWithStringStringImpl(lib, jsObj, Name, arg1, arg2)
+function Java_cjdom_CJObject_callForStringWithStringStringImpl(lib, jsObj, aName, arg1, arg2)
 {
     return jsObj[aName].call(jsObj, arg1, arg2);
 }

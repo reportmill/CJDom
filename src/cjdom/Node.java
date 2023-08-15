@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Node (https://developer.mozilla.org/en-US/docs/Web/API/Node).
@@ -16,7 +17,7 @@ public class Node extends CJObject {
     /**
      * Constructor.
      */
-    public Node(netscape.javascript.JSObject jsObj)
+    public Node(JSObject jsObj)
     {
         super(jsObj);
     }
@@ -34,7 +35,7 @@ public class Node extends CJObject {
      */
     public Node getParentNode()
     {
-        netscape.javascript.JSObject parentNodeJS = getParentNodeImpl(_jsObj);
+        JSObject parentNodeJS = getParentNodeImpl(_jsObj);
         if (parentNodeJS == null)
             return null;
         return new HTMLElement(parentNodeJS);
@@ -59,22 +60,22 @@ public class Node extends CJObject {
     /**
      * Node method: Return node name.
      */
-    private static native String getNodeNameImpl(Object nodeJS);
+    private static native String getNodeNameImpl(JSObject nodeJS);
 
     /**
      * Node method: Return parentNode.
      */
-    private static native netscape.javascript.JSObject getParentNodeImpl(netscape.javascript.JSObject nodeJS);
+    private static native JSObject getParentNodeImpl(JSObject nodeJS);
 
     /**
      * Node method: Add given child node.
      */
-    private static native void appendChildImpl(netscape.javascript.JSObject parentJS, netscape.javascript.JSObject childJS);
+    private static native void appendChildImpl(JSObject parentJS, JSObject childJS);
 
     /**
      * Node method: Remove given child node.
      */
-    private static native void removeChildImpl(netscape.javascript.JSObject parentJS, netscape.javascript.JSObject childJS);
+    private static native void removeChildImpl(JSObject parentJS, JSObject childJS);
 
     //String getNodeValue();
     //void setNodeValue(String var1);

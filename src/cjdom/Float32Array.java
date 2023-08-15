@@ -1,7 +1,8 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
- * Wrapper class for WebAPI Float32Array.
+ * This class is a wrapper for Web API Float32Array (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array).
  */
 public class Float32Array extends CJObject {
 
@@ -37,10 +38,10 @@ public class Float32Array extends CJObject {
     /**
      * Sets the given value at given index.
      */
-    private static native void setImpl(Object jsObj, int index, double aValue);
+    private static native void setImpl(JSObject jsObj, int index, double aValue);
 
     /**
      * Returns a new Float32Array (internal).
      */
-    private static native netscape.javascript.JSObject newArrayForLengthImpl(int aLen);
+    private static native JSObject newArrayForLengthImpl(int aLen);
 }
