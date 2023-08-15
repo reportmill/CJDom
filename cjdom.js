@@ -305,21 +305,6 @@ function Java_cjdom_Document_getBodyImpl(lib, docObj)  { return docObj.body; }
 function Java_cjdom_Document_createElementImpl(lib, docJS, tagName)  { return docJS.createElement(tagName); }
 
 /**
- * HTMLElement method: getOffsetTopImpl().
- */
-function Java_cjdom_HTMLElement_getOffsetTopImpl(lib, elementJS)  { return elementJS.offsetTop; }
-
-/**
- * HTMLElement method: getOffsetLeftImpl().
- */
-function Java_cjdom_HTMLElement_getOffsetLeftImpl(lib, elementJS)  { return elementJS.offsetLeft; }
-
-/**
- * HTMLElement method: Returns the htmlElement.style.
- */
-function Java_cjdom_HTMLElement_getStyleImpl(lib, elementJS)  { return elementJS.style; }
-
-/**
  * Window method.
  */
 function Java_cjdom_Window_currentImpl(lib)  { return window; }
@@ -526,9 +511,6 @@ let cjdomNativeMethods = {
     Java_cjdom_Element_getInnerHTMLImpl, Java_cjdom_Element_setInnerHTMLImpl,
 
     Java_cjdom_Document_getBodyImpl, Java_cjdom_Document_createElementImpl,
-
-    Java_cjdom_HTMLElement_getOffsetTopImpl, Java_cjdom_HTMLElement_getOffsetLeftImpl,
-    Java_cjdom_HTMLElement_getStyleImpl,
 
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
     Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,

@@ -17,19 +17,19 @@ public class HTMLElement extends Element implements EventTarget {
     /**
      * Returns the offset top.
      */
-    public int getOffsetTop()  { return getOffsetTopImpl(_jsObj); }
+    public int getOffsetTop()  { return getMemberInt("offsetTop"); }
 
     /**
      * Returns the offset left.
      */
-    public int getOffsetLeft()  { return getOffsetLeftImpl(_jsObj); }
+    public int getOffsetLeft()  { return getMemberInt("offsetLeft"); }
 
     /**
      * Returns the inline style of an element.
      */
     public CSSStyleDeclaration getStyle()
     {
-        JSObject styleJS = getStyleImpl(_jsObj);
+        JSObject styleJS = getMember("style");
         return new CSSStyleDeclaration(styleJS);
     }
 
@@ -63,19 +63,4 @@ public class HTMLElement extends Element implements EventTarget {
             default: return new HTMLElement(jsObj);
         }
     }
-
-    /**
-     * HTMLElement method: getOffsetTopImpl().
-     */
-    private static native int getOffsetTopImpl(JSObject elementJS);
-
-    /**
-     * HTMLElement method: getOffsetLeftImpl().
-     */
-    private static native int getOffsetLeftImpl(JSObject elementJS);
-
-    /**
-     * HTMLElement method: Returns the htmlElement.style.
-     */
-    private static native JSObject getStyleImpl(JSObject elementJS);
 }
