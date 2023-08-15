@@ -34,16 +34,20 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
      */
     public void setHeight(int aValue)  { setMemberInt("height", aValue);}
 
-    public Object getContext(String var1)
+    /**
+     * HTMLCanvasElement: getContext().
+     */
+    public Object getContext(String contextType)
     {
-//        Object contextJS = getContextImpl(typeName);
-//        return new CanvasRenderingContext2D(contextJS);
-        return null;
+        JSObject contextJS = callWithString("getContext", contextType);
+        return new CanvasRenderingContext2D(contextJS);
     }
 
-    public String toDataURL(String var1)
+    /**
+     * HTMLCanvasElement: toDataURL()
+     */
+    public String toDataURL(String mimeType)
     {
-//        return null;
-        return null;
+        return callForStringWithString("toDataURL", mimeType);
     }
 }

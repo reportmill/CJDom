@@ -117,6 +117,22 @@ public class CJObject {
     }
 
     /**
+     * Calls a JavaScript method.
+     */
+    public void callWithDouble(String aName, double arg1)
+    {
+        callWithDoubleImpl(_jsObj, aName, arg1);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public void callWithDoubleDouble(String aName, double arg1, double arg2)
+    {
+        callWithDoubleDoubleImpl(_jsObj, aName, arg1, arg2);
+    }
+
+    /**
      * Returns the JSObject.
      */
     public Object getJS()  { return _jsObj; }
@@ -203,4 +219,14 @@ public class CJObject {
      * JSObject method: call().
      */
     public static native String callForStringWithStringStringImpl(JSObject jsObj, String aName, String arg1, String arg2);
+
+    /**
+     * JSObject method: callWithDoubleImpl().
+     */
+    public static native JSObject callWithDoubleImpl(JSObject jsObj, String aName, double arg1);
+
+    /**
+     * JSObject method: callWithDoubleDoubleImpl().
+     */
+    public static native JSObject callWithDoubleDoubleImpl(JSObject jsObj, String aName, double arg1, double arg2);
 }

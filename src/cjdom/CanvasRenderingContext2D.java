@@ -15,6 +15,164 @@ public class CanvasRenderingContext2D extends CJObject {
     }
 
     /**
+     * CanvasRenderingContext2D: setTransform().
+     */
+    public void setTransform(double var1, double var3, double var5, double var7, double var9, double var11)
+    {
+        setTransformImpl(_jsObj, var1, var3, var5, var7, var9, var11);
+    }
+
+    /**
+     * CanvasRenderingContext2D: transform().
+     */
+    public void transform(double var1, double var3, double var5, double var7, double var9, double var11)
+    {
+        transformImpl(_jsObj, var1, var3, var5, var7, var9, var11);
+    }
+
+    /**
+     * CanvasRenderingContext2D: translate().
+     */
+    public void translate(double var1, double var3)  { callWithDoubleDouble("translate", var1, var3); }
+
+    /**
+     * CanvasRenderingContext2D: rotate().
+     */
+    public void rotate(double var1)  { callWithDouble("rotate", var1); }
+
+    /**
+     * CanvasRenderingContext2D: rotate().
+     */
+    public void scale(double var1, double var3)  { callWithDoubleDouble("scale", var1, var3); }
+
+    /**
+     * CanvasRenderingContext2D: save().
+     */
+    public void save()  { call("save"); }
+
+    /**
+     * CanvasRenderingContext2D: restore().
+     */
+    public void restore()  { call("restore"); }
+
+    /**
+     * CanvasRenderingContext2D: restore().
+     */
+    public void fill()  { call("fill"); }
+
+    /**
+     * CanvasRenderingContext2D: restore().
+     */
+    public void stroke()  { call("stroke"); }
+
+    /**
+     * CanvasRenderingContext2D: restore().
+     */
+    public void clip()  { call("clip"); }
+
+    /**
+     * CanvasRenderingContext2D: getFillStyle().
+     */
+    public Object getFillStyle()  { return null; }
+
+    /**
+     * CanvasRenderingContext2D: setFillStyle().
+     */
+    public void setFillStyle(String var1)  { callWithString("setFillStyle", var1); }
+
+    /**
+     * CanvasRenderingContext2D: setFillStyle().
+     */
+    //public void setFillStyle(CanvasGradient var1);
+    //public void setFillStyle(CanvasPattern var1);
+
+    /**
+     * CanvasRenderingContext2D: getStrokeStyle().
+     */
+    public Object getStrokeStyle()  { return null; }
+
+    /**
+     * CanvasRenderingContext2D: setStrokeStyle().
+     */
+    public void setStrokeStyle(String var1)  { callWithString("setStrokeStyle", var1); }
+
+    /**
+     * CanvasRenderingContext2D: setStrokeStyle().
+     */
+    //public void setStrokeStyle(CanvasGradient var1);
+    //public void setStrokeStyle(CanvasPattern var1);
+
+    /**
+     * CanvasRenderingContext2D: getGlobalAlpha().
+     */
+    public double getGlobalAlpha()  { return getMemberDouble("globalAlpha"); }
+
+    /**
+     * CanvasRenderingContext2D: setGlobalAlpha().
+     */
+    public void setGlobalAlpha(double var1)  { setMemberDouble("globalAlpha", var1); }
+
+    /**
+     * CanvasRenderingContext2D: getGlobalCompositeOperation().
+     */
+    public String getGlobalCompositeOperation()  { return getMemberString("globalCompositeOperation"); }
+
+    /**
+     * CanvasRenderingContext2D: getGlobalCompositeOperation().
+     */
+    public void setGlobalCompositeOperation(String var1)  { setMemberString("globalCompositeOperation", var1); }
+
+    /**
+     * CanvasRenderingContext2D: getLineCap().
+     */
+    public String getLineCap()  { return getMemberString("lineCap"); }
+
+    /**
+     * CanvasRenderingContext2D: getLineCap().
+     */
+    public void setLineCap(String var1)  { setMemberString("lineCap", var1); }
+
+    /**
+     * CanvasRenderingContext2D: getLineDashOffset().
+     */
+    public double getLineDashOffset()  { return getMemberDouble("lineDashOffset"); }
+
+    /**
+     * CanvasRenderingContext2D: setLineDashOffset().
+     */
+    public void setLineDashOffset(double var1)  { setMemberDouble("lineDashOffset", var1); }
+
+    /**
+     * CanvasRenderingContext2D: getLineJoin().
+     */
+    public String getLineJoin()  { return getMemberString("lineJoin"); }
+
+    /**
+     * CanvasRenderingContext2D: setLineJoin().
+     */
+    public void setLineJoin(String var1)  { setMemberString("lineJoin", var1); }
+
+    /**
+     * CanvasRenderingContext2D: getLineJoin().
+     */
+    public double getLineWidth()  { return getMemberDouble("lineWidth"); }
+
+    /**
+     * CanvasRenderingContext2D: getLineJoin().
+     */
+    public void setLineWidth(double var1)  { setMemberDouble("lineWidth", var1); }
+
+    /**
+     * CanvasRenderingContext2D: getLineJoin().
+     */
+    public double getMiterLimit()  { return getMemberDouble("miterLimit"); }
+
+    /**
+     * CanvasRenderingContext2D: getLineJoin().
+     */
+    public void setMiterLimit(double var1)  { setMemberDouble("miterLimit", var1); }
+
+    /**
      * Return the current font.
      */
     public String getFont()  { return getMemberString("font"); }
@@ -91,6 +249,36 @@ public class CanvasRenderingContext2D extends CJObject {
     public void setShadowOffsetY(double value)  { setMemberDouble("shadowOffsetY", value); }
 
     /**
+     * CanvasRenderingContext2D: getImageSmoothingQuality().
+     */
+    public String getImageSmoothingQuality()  { return getMemberString("imageSmoothingQuality"); }
+
+    /**
+     * CanvasRenderingContext2D: setImageSmoothingQuality().
+     */
+    public void setImageSmoothingQuality(String var1)  { setMemberString("imageSmoothingQuality", var1); }
+
+    /**
+     * CanvasRenderingContext2D: isImageSmoothingEnabled().
+     */
+    public boolean isImageSmoothingEnabled(String var1)  { return true; } // getMemberBoolean("imageSmoothingEnabled");
+
+    /**
+     * CanvasRenderingContext2D: setImageSmoothingEnabled().
+     */
+    public void setImageSmoothingEnabled(boolean var1)  { } //setMemberBoolean("imageSmoothingEnabled", var1);
+
+    /**
+     * CanvasRenderingContext2D: setTransform().
+     */
+    public static native void setTransformImpl(JSObject contextJS, double var1, double var3, double var5, double var7, double var9, double var11);
+
+    /**
+     * CanvasRenderingContext2D: transform().
+     */
+    public static native void transformImpl(JSObject contextJS, double var1, double var3, double var5, double var7, double var9, double var11);
+
+    /**
      * CanvasRenderingContext2D_getImageDataImpl().
      */
     private static native JSObject getImageDataImpl(JSObject canvasJS, int x, int y, int w, int h);
@@ -114,7 +302,6 @@ public class CanvasRenderingContext2D extends CJObject {
     //void quadraticCurveTo(double var1, double var3, double var5, double var7);
     //void rect(double var1, double var3, double var5, double var7);
     //void scrollPathIntoView();
-    //void clip();
     //ImageData createImageData(double var1, double var3);
     //CanvasGradient createLinearGradient(double var1, double var3, double var5, double var7);
     //CanvasPattern createPattern(CanvasImageSource var1, String var2);
@@ -129,43 +316,12 @@ public class CanvasRenderingContext2D extends CJObject {
     //void putImageData(ImageData var1, double var2, double var4, double var6, double var8, double var10, double var12);
     //void putImageData(ImageData var1, double var2, double var4);
     //ImageData getImageData(double var1, double var3, double var5, double var7);
-    //void fill();
     //void fillRect(double var1, double var3, double var5, double var7);
     //void fillText(String var1, double var2, double var4, double var6);
     //void fillText(String var1, double var2, double var4);
-    //void stroke();
     //void strokeRect(double var1, double var3, double var5, double var7);
     //void strokeText(String var1, double var2, double var4, double var6);
     //void strokeText(String var1, double var2, double var4);
-    //void setTransform(double var1, double var3, double var5, double var7, double var9, double var11);
-    //void transform(double var1, double var3, double var5, double var7, double var9, double var11);
-    //void translate(double var1, double var3);
-    //void rotate(double var1);
-    //void scale(double var1, double var3);
-    //void save();
-    //void restore();
-    ///JSObject getFillStyle();
-    //void setFillStyle(String var1);
-    //void setFillStyle(CanvasGradient var1);
-    //void setFillStyle(CanvasPattern var1);
-    //String getLineCap();
-    //void setLineCap(String var1);
-    //double getLineDashOffset();
-    //void setLineDashOffset(double var1);
-   //String getLineJoin();
-    //void setLineJoin(String var1);
-    //double getLineWidth();
-    //void setLineWidth(double var1);
-    //double getMiterLimit();
-    //void setMiterLimit(double var1);
-    //JSObject getStrokeStyle();
-    //void setStrokeStyle(String var1);
-    //void setStrokeStyle(CanvasGradient var1);
-    //void setStrokeStyle(CanvasPattern var1);
-    //double getGlobalAlpha();
-    //void setGlobalAlpha(double var1);
-    //String getGlobalCompositeOperation();
-    //void setGlobalCompositeOperation(String var1);
     //String getTextAlign();
     //void setTextAlign(String var1);
     //String getTextBaseline();

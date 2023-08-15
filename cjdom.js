@@ -91,6 +91,22 @@ function Java_cjdom_CJObject_callForStringWithStringStringImpl(lib, jsObj, Name,
 }
 
 /**
+ * JSObject method: callWithDoubleImpl().
+ */
+function Java_cjdom_CJObject_callWithDoubleImpl(lib, jsObj, aName, arg1)
+{
+    jsObj[aName].call(jsObj, arg1);
+}
+
+/**
+ * JSObject method: callWithDoubleDoubleImpl().
+ */
+function Java_cjdom_CJObject_callWithDoubleDoubleImpl(lib, jsObj, aName, arg1, arg2)
+{
+    jsObj[aName].call(jsObj, arg1, arg2);
+}
+
+/**
  * CJDom method: log().
  */
 function Java_cjdom_CJDom_logImpl(lib, anObj)
@@ -419,6 +435,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_callWithObjectImpl,
     Java_cjdom_CJObject_callWithStringImpl,
     Java_cjdom_CJObject_callForStringWithStringImpl, Java_cjdom_CJObject_callForStringWithStringStringImpl,
+    Java_cjdom_CJObject_callWithDoubleImpl, Java_cjdom_CJObject_callWithDoubleDoubleImpl,
 
     Java_cjdom_CJDom_logImpl,
     Java_cjdom_CJDom_getViewportWidth, Java_cjdom_CJDom_getViewportHeight,
