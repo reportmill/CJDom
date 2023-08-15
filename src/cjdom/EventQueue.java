@@ -98,6 +98,14 @@ public class EventQueue {
                     wheelLsnr.handleEvent(wheelEvent);
                     break;
 
+                // Handle resize events
+                case "resize":
+                    EventListener<Event> resizeLsnr = (EventListener<Event>) func;
+                    JSObject resizeJS = eventRecordArray.get(2);
+                    Event resizeEvent = new Event(resizeJS);
+                    resizeLsnr.handleEvent(resizeEvent);
+                    break;
+
                 // Handle unknown
                 default: System.out.println("EventQueue.eventLoop: Unknown event type: " + type);
             }

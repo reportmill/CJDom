@@ -4,7 +4,7 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API Window (https://developer.mozilla.org/en-US/docs/Web/API/Window).
  */
-public class Window extends CJObject {
+public class Window extends CJObject implements EventTarget {
 
     /**
      * Constructor.
