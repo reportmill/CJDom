@@ -13,13 +13,7 @@ public class WheelEvent extends MouseEvent {
         super(eventJS);
     }
 
-    public int getDeltaX()
-    {
-        return 0;
-    }
+    public int getDeltaX()  { return getMemberInt("deltaX"); }
 
-    public int getDeltaY()
-    {
-        return 0;
-    }
+    public int getDeltaY()  { return getMemberInt("deltaY"); }
 }

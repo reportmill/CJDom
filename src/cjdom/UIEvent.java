@@ -32,14 +32,4 @@ public class UIEvent extends Event {
     {
         return false;
     }
-
-    public short getButton()
-    {
-        return 0;
-    }
-
-    public short getButtons()
-    {
-        return 0;
-    }
 }

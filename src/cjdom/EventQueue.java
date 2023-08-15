@@ -50,10 +50,22 @@ public class EventQueue {
                     run.run();
                     break;
 
+                // Handle KeyboardEvents
+                case "keydown":
+                case "keyup":
+                    EventListener<Event> keyLsnr = (EventListener<Event>) func;
+                    JSObject keyEventJS = eventRecordArray.get(2);
+                    Event keyEvent = new KeyboardEvent(keyEventJS);
+                    keyLsnr.handleEvent(keyEvent);
+                    break;
+
                 // Handle MouseEvents
                 case "mousedown":
                 case "mousemove":
                 case "mouseup":
+                case "pointerdown":
+                case "click":
+                case "contextmenu":
                     EventListener<Event> mouseLsnr = (EventListener<Event>) func;
                     JSObject mouseEventJS = eventRecordArray.get(2);
                     Event mouseEvent = new MouseEvent(mouseEventJS);
@@ -70,13 +82,24 @@ public class EventQueue {
                     touchLsnr.handleEvent(touchEvent);
                     break;
 
-                // Handle other events
+                // Handle load events
                 case "load":
                     EventListener<Event> eventLsnr = (EventListener<Event>) func;
                     JSObject eventJS = eventRecordArray.get(2);
                     Event event = new Event(eventJS);
                     eventLsnr.handleEvent(event);
                     break;
+
+                // Handle wheel events
+                case "wheel":
+                    EventListener<Event> wheelLsnr = (EventListener<Event>) func;
+                    JSObject wheelJS = eventRecordArray.get(2);
+                    Event wheelEvent = new WheelEvent(wheelJS);
+                    wheelLsnr.handleEvent(wheelEvent);
+                    break;
+
+                // Handle unknown
+                default: System.out.println("EventQueue.eventLoop: Unknown event type: " + type);
             }
         }
     }

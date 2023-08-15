@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Event (https://developer.mozilla.org/en-US/docs/Web/API/Event).
@@ -8,7 +9,7 @@ public class Event extends CJObject {
     /**
      * Constructor.
      */
-    public Event(netscape.javascript.JSObject eventJS)
+    public Event(JSObject eventJS)
     {
         super(eventJS);
     }
@@ -16,23 +17,17 @@ public class Event extends CJObject {
     /**
      * Returns the type.
      */
-    public String getType()  { return "mouse"; }
+    public String getType()  { return getMemberString("type"); }
 
     /**
      * Returns the target.
      */
-    public EventTarget getTarget()
-    {
-        return null;
-    }
+    public EventTarget getTarget()  { return null; }
 
     /**
      * Returns the target.
      */
-    public EventTarget getCurrentTarget()
-    {
-        return null;
-    }
+    public EventTarget getCurrentTarget()  { return null; }
 
     /**
      * Event method: stopPropagation().

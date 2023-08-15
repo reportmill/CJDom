@@ -56,6 +56,10 @@ public class MouseEvent extends UIEvent {
      */
     public int getScreenY()  { return getMemberInt("screenY"); }
 
+    public int getButton()  { return getMemberInt("button"); }
+
+    public int getButtons()  { return getMemberInt("buttons"); }
+
     //int getOffsetX();
 
     //int getOffsetY();

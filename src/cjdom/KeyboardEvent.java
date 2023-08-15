@@ -22,29 +22,10 @@ public class KeyboardEvent extends UIEvent {
         super(eventJS);
     }
 
-    public int getKeyCode()
-    {
-        return 0;
-    }
+    public int getKeyCode()  { return getMemberInt("keyCode"); }
 
     public String getKey()
     {
-        return "";
+        return getMemberString("key");
     }
-
-    public short getButton()
-    {
-        return 0;
-    }
-
-    public short getButtons()
-    {
-        return 0;
-    }
-
-    //EventTarget getRelatedTarget();
-
-    //double getMovementX();
-
-    //double getMovementY();
 }
