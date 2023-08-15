@@ -38,30 +38,17 @@ public class HTMLElement extends Element implements EventTarget {
      */
     public void setContentEditable(boolean aValue)
     {
-        setContentEditableImpl(_jsObj, aValue);
+        setMemberString("contentEditable", aValue ? "true" : "false");
+        setMemberInt("tabIndex", 0);
     }
 
-    public int getClientWidth()
-    {
-//        return getClientWidthImpl();
-        return 0;
-    }
+    public int getClientWidth()  { return getMemberInt("clientWidth"); }
 
-    public int getClientHeight()
-    {
-//        return getClientHeightImpl();
-        return 0;
-    }
+    public int getClientHeight()  { return getMemberInt("clientHeight"); }
 
-    public void focus()
-    {
-//        focusImpl();
-    }
+    public void focus()  { call("focus"); }
 
-    public void blur()
-    {
-//        blurImpl();
-    }
+    public void blur()  { call("blur"); }
 
     /**
      * Returns the wrapped HTML element for given tag name.
@@ -91,9 +78,4 @@ public class HTMLElement extends Element implements EventTarget {
      * HTMLElement method: Returns the htmlElement.style.
      */
     private static native JSObject getStyleImpl(JSObject elementJS);
-
-    /**
-     * Creates a URL from given blob.
-     */
-    private static native void setContentEditableImpl(JSObject htmlElementJS, boolean aValue);
 }

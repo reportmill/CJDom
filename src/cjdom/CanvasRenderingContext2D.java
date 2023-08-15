@@ -88,7 +88,7 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: setFillStyle().
      */
-    public void setFillStyle(String var1)  { callWithString("setFillStyle", var1); }
+    public void setFillStyle(String fillStyleStr)  { setMemberString("fillStyle", fillStyleStr); }
 
     /**
      * CanvasRenderingContext2D: setFillStyle().
@@ -104,7 +104,7 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: setStrokeStyle().
      */
-    public void setStrokeStyle(String var1)  { callWithString("setStrokeStyle", var1); }
+    public void setStrokeStyle(String strokeStyleStr)  { setMemberString("strokeStyle", strokeStyleStr); }
 
     /**
      * CanvasRenderingContext2D: setStrokeStyle().

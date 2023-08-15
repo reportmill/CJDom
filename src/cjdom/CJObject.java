@@ -92,17 +92,26 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
-    public void callWithString(String aName, String theArg)  { callWithStringImpl(_jsObj, aName, theArg); }
+    public void callWithString(String aName, String theArg)
+    {
+        callWithStringImpl(_jsObj, aName, theArg);
+    }
 
     /**
      * Calls a JavaScript method.
      */
-    public void callWithStringString(String aName, String arg1, String arg2)  { callWithStringStringImpl(_jsObj, aName, arg1, arg2); }
+    public void callWithStringString(String aName, String arg1, String arg2)
+    {
+        callWithStringStringImpl(_jsObj, aName, arg1, arg2);
+    }
 
     /**
      * Calls a JavaScript method.
      */
-    public void callWithDouble(String aName, double arg1)  { callWithDoubleImpl(_jsObj, aName, arg1); }
+    public void callWithDouble(String aName, double arg1)
+    {
+        callWithDoubleImpl(_jsObj, aName, arg1);
+    }
 
     /**
      * Calls a JavaScript method.
@@ -136,7 +145,10 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
-    public JSObject callForObjectWithString(String aName, String theArg)  { return callForObjectWithStringImpl(_jsObj, aName, theArg); }
+    public JSObject callForObjectWithString(String aName, String theArg)
+    {
+        return callForObjectWithStringImpl(_jsObj, aName, theArg);
+    }
 
     /**
      * Calls a JavaScript method.

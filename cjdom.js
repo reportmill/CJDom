@@ -320,15 +320,6 @@ function Java_cjdom_HTMLElement_getOffsetLeftImpl(lib, elementJS)  { return elem
 function Java_cjdom_HTMLElement_getStyleImpl(lib, elementJS)  { return elementJS.style; }
 
 /**
- * Creates a URL from given blob.
- */
-function Java_cjdom_HTMLElement_setContentEditableImpl(lib, htmlElementJS, aValue)
-{
-    htmlElementJS.contentEditable = aValue;
-    htmlElementJS.tabIndex = 0;
-}
-
-/**
  * Window method.
  */
 function Java_cjdom_Window_currentImpl(lib)  { return window; }
@@ -538,7 +529,6 @@ let cjdomNativeMethods = {
 
     Java_cjdom_HTMLElement_getOffsetTopImpl, Java_cjdom_HTMLElement_getOffsetLeftImpl,
     Java_cjdom_HTMLElement_getStyleImpl,
-    Java_cjdom_HTMLElement_setContentEditableImpl,
 
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
     Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,

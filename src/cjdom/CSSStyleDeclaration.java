@@ -42,6 +42,16 @@ public class CSSStyleDeclaration extends CJObject {
      */
     public void setProperty(String aString, String aValue)
     {
-        callWithStringString("setProperty", aString, aValue);
+        if (aValue == null)
+            removeProperty(aString);
+        else callWithStringString("setProperty", aString, aValue);
+    }
+
+    /**
+     * Removes a property value for string.
+     */
+    public void removeProperty(String aString)
+    {
+        callWithString("removeProperty", aString);
     }
 }
