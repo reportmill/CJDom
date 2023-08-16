@@ -162,83 +162,74 @@ function Java_cjdom_CJDom_getViewportHeight(lib)  { return document.documentElem
 function Java_cjdom_CJDom_getDevicePixelRatio(lib)  { return window.devicePixelRatio; }
 
 /**
- * Array method: getImpl()
+ * Array: getImpl()
  */
 function Java_cjdom_Array_getImpl(lib, array, index)  { return array[index]; }
 
 /**
- * Array method: setImpl()
+ * Array: setImpl()
  */
-function Java_cjdom_Array_setImpl(lib, array, index, aValue)
-{
-    array[index] = aValue;
-}
+function Java_cjdom_Array_setImpl(lib, array, index, aValue)  { array[index] = aValue; }
 
 /**
- * Array method: getObjectImpl()
+ * Array: getObjectImpl()
  */
 function Java_cjdom_Array_getObjectImpl(lib, array, index)  { return array[index]; }
 
 /**
- * Array method: getStringImpl()
+ * Array: getStringImpl()
  */
 function Java_cjdom_Array_getStringImpl(lib, array, index)  { return array[index]; }
 
 /**
- * Array method: newArrayForLength()
+ * Array: newArrayForLength()
  */
-function Java_cjdom_Array_newArrayForLengthImpl(lib, length)
-{
-    return new Array(length);
-}
+function Java_cjdom_Array_newArrayForLengthImpl(lib, length)  { return new Array(length); }
 
 /**
- * Int8Array method.
+ * Int8Array: setImpl().
  */
-function Java_cjdom_Int8Array_setImpl(lib, int8Array, index, aValue)
-{
-    int8Array[index] = aValue;
-}
+function Java_cjdom_Int8Array_setImpl(lib, int8Array, index, aValue)  { int8Array[index] = aValue; }
 
 /**
- * Int8Array method.
+ * Int8Array: newArrayForLengthImpl().
  */
-function Java_cjdom_Int8Array_newArrayForLengthImpl(lib, length)
-{
-    return new Int8Array(length);
-}
+function Java_cjdom_Int8Array_newArrayForLengthImpl(lib, length)  { return new Int8Array(length); }
 
 /**
- * Uint16Array method.
+ * Uint8ClampedArray: getImpl().
  */
-function Java_cjdom_Uint16Array_setImpl(lib, array, index, aValue)
-{
-    array[index] = aValue;
-}
+function Java_cjdom_Uint8ClampedArray_getImpl(lib, jsObj, index)  { return jsObj[index]; }
 
 /**
- * Uint16Array method.
+ * Uint8ClampedArray: setImpl().
  */
-function Java_cjdom_Uint16Array_newArrayForLengthImpl(lib, length)
-{
-    return new Uint16Array(length);
-}
+function Java_cjdom_Uint8ClampedArray_setImpl(lib, jsObj, index, aValue)  { jsObj[index] = aValue; }
 
 /**
- * Float32Array method.
+ * Uint8ClampedArray: newArrayForLengthImpl().
  */
-function Java_cjdom_Float32Array_setImpl(lib, array, index, dummy, aValue)
-{
-    array[index] = aValue;
-}
+function Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl(lib, aLen)  { return new Uint8ClampedArray(aLen); }
 
 /**
- * Float32Array method.
+ * Uint16Array: setImpl().
  */
-function Java_cjdom_Float32Array_newArrayForLengthImpl(lib, length)
-{
-    return new Float32Array(length);
-}
+function Java_cjdom_Uint16Array_setImpl(lib, array, index, aValue)  { array[index] = aValue; }
+
+/**
+ * Uint16Array: newArrayForLengthImpl().
+ */
+function Java_cjdom_Uint16Array_newArrayForLengthImpl(lib, length)  { return new Uint16Array(length); }
+
+/**
+ * Float32Array: setImpl().
+ */
+function Java_cjdom_Float32Array_setImpl(lib, array, index, aValue)  { array[index] = aValue; }
+
+/**
+ * Float32Array: newArrayForLengthImpl().
+ */
+function Java_cjdom_Float32Array_newArrayForLengthImpl(lib, length)  { return new Float32Array(length); }
 
 /**
  * Blob method: Creates a Blob from given bytes in JS.
@@ -251,10 +242,7 @@ function Java_cjdom_Blob_createBlobForBytesAndType(lib, int8ArrayJS, typeStr)
 /**
  * Creates a URL from given blob.
  */
-function Java_cjdom_Blob_createURL(lib, blobJS)
-{
-    return URL.createObjectURL(blobJS);
-}
+function Java_cjdom_Blob_createURL(lib, blobJS)  { return URL.createObjectURL(blobJS); }
 
 /**
  * Creates a File from given bytes in JS.
@@ -452,9 +440,9 @@ function Java_cjdom_CanvasRenderingContext2D_getImageDataImpl(lib, canvas, x, y,
 /**
  * CanvasRenderingContext2D_putImageDataImpl.
  */
-function Java_cjdom_CanvasRenderingContext2D_putImageDataImpl(lib, canvas, imageDataJS, var2, var4, var6, var8, var10, var12)
+function Java_cjdom_CanvasRenderingContext2D_putImageDataImpl(lib, canvas, imageDataJS, aX, aY, dirtyX, dirtyY, dirtyW, dirtyH)
 {
-    canvas.putImageDataImpl(imageDataJS, var2, var4, var6, var8, var10, var12);
+    canvas.putImageData(imageDataJS, aX, aY, dirtyX, dirtyY, dirtyW, dirtyH);
 }
 
 /**
@@ -462,7 +450,7 @@ function Java_cjdom_CanvasRenderingContext2D_putImageDataImpl(lib, canvas, image
  */
 function Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight(lib, uint8ClampedArrayJS, aWidth, aHeight)
 {
-    return new ImageData(uint8ClampedArrayJS, width, height);
+    return new ImageData(uint8ClampedArrayJS, aWidth, aHeight);
 }
 
 
@@ -498,6 +486,9 @@ let cjdomNativeMethods = {
     Java_cjdom_Uint16Array_newArrayForLengthImpl, Java_cjdom_Uint16Array_setImpl,
 
     Java_cjdom_Float32Array_newArrayForLengthImpl, Java_cjdom_Float32Array_setImpl,
+
+    Java_cjdom_Uint8ClampedArray_getImpl, Java_cjdom_Uint8ClampedArray_setImpl,
+    Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl,
 
     Java_cjdom_Blob_createBlobForBytesAndType,
 

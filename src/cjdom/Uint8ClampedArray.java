@@ -9,7 +9,7 @@ public class Uint8ClampedArray extends CJObject {
     /**
      * Constructor.
      */
-    public Uint8ClampedArray(netscape.javascript.JSObject arrayJS)
+    public Uint8ClampedArray(JSObject arrayJS)
     {
         super(arrayJS);
     }
@@ -23,28 +23,33 @@ public class Uint8ClampedArray extends CJObject {
         _jsObj = newArrayForLengthImpl(length);
     }
 
-    public int getLength()
-    {
-        return 0;
-    }
-
-    public short get(int anIndex)
-    {
-        return 0;
-    }
-
-    public void set(int anIndex, short aValue)
-    {
-        setImpl(_jsObj, anIndex, aValue);
-    }
-
     /**
-     * Sets the given value at given index.
+     * Returns array length.
      */
-    private static native void setImpl(JSObject jsObj, int index, int aValue);
+    public int getLength()  { return getMemberInt("length"); }
 
     /**
-     * Returns a new Uint16Array (internal).
+     * Returns short value at given index.
+     */
+    public short get(int anIndex)  { return (short) getImpl(_jsObj, anIndex); }
+
+    /**
+     * Sets short value at given index.
+     */
+    public void set(int anIndex, short aValue)  { setImpl(_jsObj, anIndex, aValue); }
+
+    /**
+     * Uint8ClampedArray: getImpl().
+     */
+    private static native int getImpl(JSObject jsObj, int index);
+
+    /**
+     * Uint8ClampedArray: setImpl().
+     */
+    private static native void setImpl(JSObject jsObj, int index, short aValue);
+
+    /**
+     * Uint8ClampedArray: newArrayForLengthImpl().
      */
     private static native JSObject newArrayForLengthImpl(int aLen);
 }
