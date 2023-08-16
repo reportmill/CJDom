@@ -374,21 +374,29 @@ function Java_cjdom_EventQueue_setIntervalImpl(lib, aName, aRun, aDelay)
     return setInterval(() => fireEvent(aName, aRun), aDelay);
 }
 
+// This dictionary holds all addEventListener() listeners with the JS mapped version so removeEventListener() can work
+let _listenerDict = { };
+
 /**
  * Registers an event handler of a specific event type on the EventTarget
  */
-function Java_cjdom_EventQueue_addEventListenerImpl(lib, eventTargetJS, name, eventLsnr, useCapture)
+function Java_cjdom_EventQueue_addEventListenerImpl(lib, eventTargetJS, name, eventLsnr, lsnrId, useCapture)
 {
-    eventTargetJS.addEventListener(name, e => fireEvent(name, eventLsnr, e), useCapture);
+    let lsnrJS = e => fireEvent(name, eventLsnr, e);
+    _listenerDict[lsnrId] = lsnrJS;
+    eventTargetJS.addEventListener(name, lsnrJS, useCapture);
 }
 
 /**
  * Removes an event handler of a specific event type from the EventTarget
  */
-function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, eventLsnr, useCapture)
+function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, eventLsnr, lsnrId, useCapture)
 {
-    //eventTarget.removeEventListener(e => fireEvent(aName, eventLsnr, e), useCapture);
-    console.log("EventQueue.removeEventListener: Not implemented yet");
+    let lsnrJS = _listenerDict[lsnrId];
+    if (lsnrJS != null) {
+        eventTarget.removeEventListener(aName, lsnrJS, useCapture);
+        _listenerDict[lsnrId] = null;
+    }
 }
 
 /**

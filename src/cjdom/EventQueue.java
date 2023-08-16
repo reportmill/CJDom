@@ -149,7 +149,8 @@ public class EventQueue {
     public static void addEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
     {
         CJObject jsobj = (CJObject) eventTarget;
-        addEventListenerImpl(jsobj._jsObj, aName, eventLsnr, useCapture);
+        int lsnrId = System.identityHashCode(eventLsnr);
+        addEventListenerImpl(jsobj._jsObj, aName, eventLsnr, lsnrId, useCapture);
     }
 
     /**
@@ -158,18 +159,19 @@ public class EventQueue {
     public static void removeEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
     {
         CJObject jsobj = (CJObject) eventTarget;
-        removeEventListenerImpl(jsobj._jsObj, aName, eventLsnr, useCapture);
+        int lsnrId = System.identityHashCode(eventLsnr);
+        removeEventListenerImpl(jsobj._jsObj, aName, eventLsnr, lsnrId, useCapture);
     }
 
     /**
      * Registers an event handler of a specific event type on the EventTarget
      */
-    private static native void addEventListenerImpl(JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
+    private static native void addEventListenerImpl(JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, int lsnrId, boolean useCapture);
 
     /**
      * Removes an event handler of a specific event type from the EventTarget
      */
-    private static native void removeEventListenerImpl(JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, boolean useCapture);
+    private static native void removeEventListenerImpl(JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, int lsnrId, boolean useCapture);
 
     /*
     // This wrapped promise is used to trigger getNextEvent
