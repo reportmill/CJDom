@@ -81,36 +81,44 @@ public class CanvasRenderingContext2D extends CJObject {
     public void strokeRect(double aX, double aY, double aW, double aH)  { callWithDouble4("strokeRect", aX, aY, aW, aH); }
 
     /**
-     * CanvasRenderingContext2D: getFillStyle().
+     * Returns the color, gradient or pattern used inside shapes.
      */
     public Object getFillStyle()  { return null; }
 
     /**
-     * CanvasRenderingContext2D: setFillStyle().
+     * Sets the color to use inside shapes.
      */
     public void setFillStyle(String fillStyleStr)  { setMemberString("fillStyle", fillStyleStr); }
 
     /**
-     * CanvasRenderingContext2D: setFillStyle().
+     * Sets the gradient to use inside shapes.
      */
-    //public void setFillStyle(CanvasGradient var1);
-    //public void setFillStyle(CanvasPattern var1);
+    public void setFillStyle(CanvasGradient gradient)  { setMember("fillStyle", gradient._jsObj); }
 
     /**
-     * CanvasRenderingContext2D: getStrokeStyle().
+     * Sets the pattern to use inside shapes.
+     */
+    public void setFillStyle(CanvasPattern pattern)  { setMember("fillStyle", pattern._jsObj); }
+
+    /**
+     * Returns the color, gradient or pattern used for the strokes (outlines) around shapes.
      */
     public Object getStrokeStyle()  { return null; }
 
     /**
-     * CanvasRenderingContext2D: setStrokeStyle().
+     * Sets the color to use for the strokes (outlines) around shapes.
      */
     public void setStrokeStyle(String strokeStyleStr)  { setMemberString("strokeStyle", strokeStyleStr); }
 
     /**
-     * CanvasRenderingContext2D: setStrokeStyle().
+     * Sets the gradient to use for the strokes (outlines) around shapes.
      */
-    //public void setStrokeStyle(CanvasGradient var1);
-    //public void setStrokeStyle(CanvasPattern var1);
+    public void setStrokeStyle(CanvasGradient gradient)  { setMember("strokeStyle", gradient._jsObj); }
+
+    /**
+     * Sets the pattern to use for the strokes (outlines) around shapes.
+     */
+    public void setStrokeStyle(CanvasPattern pattern)  { setMember("strokeStyle", pattern._jsObj); }
 
     /**
      * CanvasRenderingContext2D: getGlobalAlpha().
@@ -304,6 +312,33 @@ public class CanvasRenderingContext2D extends CJObject {
     //void putImageData(ImageData var1, double aX, double aY);
 
     /**
+     * Creates a linear gradient along the line connecting two given coordinates.
+     */
+    public CanvasGradient createLinearGradient(double x0, double y0, double x1, double y1)
+    {
+        JSObject gradientJS = createLinearGradientImpl(_jsObj, x0, y0, x1, y1);
+        return new CanvasGradient(gradientJS);
+    }
+
+    /**
+     * Creates a radial gradient using the size and coordinates of two circles.
+     */
+    public CanvasGradient createRadialGradient(double x0, double y0, double r0, double x1, double y1, double r1)
+    {
+        JSObject gradientJS = createRadialGradientImpl(_jsObj, x0, y0, r0, x1, y1, r1);
+        return new CanvasGradient(gradientJS);
+    }
+
+    /**
+     * Creates a pattern using the specified image and repetition.
+     */
+    public CanvasPattern createPattern(CanvasImageSource image, String repetition)
+    {
+        JSObject patternJS = createPatternImpl(_jsObj, ((CJObject) image)._jsObj, repetition);
+        return new CanvasPattern(patternJS);
+    }
+
+    /**
      * Returns the amount of blur applied to shadows.
      */
     public double getShadowBlur()  { return getMemberDouble("shadowBlur"); }
@@ -408,13 +443,25 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     private static native void putImageDataImpl(JSObject canvasJS, JSObject imageDataJS, double aX, double aY, double dirtyX, double dirtyY, double dirtyW, double dirtyH);
 
+    /**
+     * CanvasRenderingContext2D: createLinearGradientImpl().
+     */
+    private static native JSObject createLinearGradientImpl(JSObject contextJS, double x0, double y0, double x1, double y1);
+
+    /**
+     * CanvasRenderingContext2D: createRadialGradientImpl().
+     */
+    private static native JSObject createRadialGradientImpl(JSObject contextJS, double x0, double y0, double r0, double x1, double y1, double r1);
+
+    /**
+     * CanvasRenderingContext2D: createPatternImpl().
+     */
+    private static native JSObject createPatternImpl(JSObject contextJS, JSObject imageJS, String repetition);
+
     //boolean isPointInPath(double var1, double var3);
     //boolean isPointInStroke(double var1, double var3);
     //void scrollPathIntoView();
     //ImageData createImageData(double var1, double var3);
-    //CanvasGradient createLinearGradient(double var1, double var3, double var5, double var7);
-    //CanvasPattern createPattern(CanvasImageSource var1, String var2);
-    //CanvasGradient createRadialGradient(double var1, double var3, double var5, double var7, double var9, double var11);
     //boolean drawCustomFocusRing(Element var1);
     //void drawSystemFocusRing(Element var1);
     //JSArrayReader<JSObject> getLineDash();

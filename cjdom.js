@@ -430,7 +430,7 @@ function Java_cjdom_CanvasRenderingContext2D_drawImageImpl3(lib, cntxJS, imageJS
 }
 
 /**
- * CanvasRenderingContext2D_getImageData().
+ * CanvasRenderingContext2D: getImageData().
  */
 function Java_cjdom_CanvasRenderingContext2D_getImageDataImpl(lib, canvas, x, y, w, h)
 {
@@ -438,11 +438,35 @@ function Java_cjdom_CanvasRenderingContext2D_getImageDataImpl(lib, canvas, x, y,
 }
 
 /**
- * CanvasRenderingContext2D_putImageDataImpl.
+ * CanvasRenderingContext2D: putImageDataImpl().
  */
 function Java_cjdom_CanvasRenderingContext2D_putImageDataImpl(lib, canvas, imageDataJS, aX, aY, dirtyX, dirtyY, dirtyW, dirtyH)
 {
     canvas.putImageData(imageDataJS, aX, aY, dirtyX, dirtyY, dirtyW, dirtyH);
+}
+
+/**
+ * CanvasRenderingContext2D: createLinearGradientImpl().
+ */
+function Java_cjdom_CanvasRenderingContext2D_createLinearGradientImpl(lib, contextJS, x0, y0, x1, y1)
+{
+    return contextJS.createLinearGradient(x0, y0, x1, y1);
+}
+
+/**
+ * CanvasRenderingContext2D: createRadialGradientImpl().
+ */
+function Java_cjdom_CanvasRenderingContext2D_createRadialGradientImpl(lib, contextJS, x0, y0, r0, x1, y1, r1)
+{
+    return contextJS.createRadialGradient(x0, y0, r0, x1, y1, r1);
+}
+
+/**
+ * CanvasRenderingContext2D: createPatternImpl().
+ */
+function Java_cjdom_CanvasRenderingContext2D_createPatternImpl(lib, contextJS, imageJS, repetition)
+{
+    return contextJS.createPattern(imageJS, repetition);
 }
 
 /**
@@ -453,6 +477,10 @@ function Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight(lib, uint8Cl
     return new ImageData(uint8ClampedArrayJS, aWidth, aHeight);
 }
 
+/**
+ * CanvasGradient: addColorStopImpl().
+ */
+function Java_cjdom_CanvasGradient_addColorStopImpl(lib, gradientJS, offset, color)  { gradientJS.addColorStop(offset, color); }
 
 /**
  * Constant for registering with CJ.
@@ -515,6 +543,10 @@ let cjdomNativeMethods = {
     Java_cjdom_CanvasRenderingContext2D_strokeTextImpl, Java_cjdom_CanvasRenderingContext2D_strokeTextImpl2,
     Java_cjdom_CanvasRenderingContext2D_drawImageImpl, Java_cjdom_CanvasRenderingContext2D_drawImageImpl2, Java_cjdom_CanvasRenderingContext2D_drawImageImpl3,
     Java_cjdom_CanvasRenderingContext2D_getImageDataImpl, Java_cjdom_CanvasRenderingContext2D_putImageDataImpl,
+    Java_cjdom_CanvasRenderingContext2D_createLinearGradientImpl, Java_cjdom_CanvasRenderingContext2D_createRadialGradientImpl,
+    Java_cjdom_CanvasRenderingContext2D_createPatternImpl,
 
     Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight,
+
+    Java_cjdom_CanvasGradient_addColorStopImpl
 };
