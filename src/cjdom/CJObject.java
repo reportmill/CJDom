@@ -92,6 +92,14 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
+    public void callWithObject(String aName, JSObject arg1)
+    {
+        callWithObjectImpl(_jsObj, aName, arg1);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
     public void callWithString(String aName, String theArg)
     {
         callWithStringImpl(_jsObj, aName, theArg);
@@ -136,6 +144,11 @@ public class CJObject {
     {
         callWithDouble6Impl(_jsObj, aName, arg1, arg2, arg3, arg4, arg5, arg6);
     }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public JSObject callForObject(String aName)  { return callForObjectImpl(_jsObj, aName); }
 
     /**
      * Calls a JavaScript method.
@@ -225,17 +238,22 @@ public class CJObject {
     public static native void setMemberDoubleImpl(JSObject jsObj, String aName, double aValue);
 
     /**
-     * JSObject method: call().
+     * JSObject method: callImpl().
      */
     public static native void callImpl(JSObject jsObj, String aName);
 
     /**
-     * JSObject method: call().
+     * JSObject method: callWithObjectImpl().
+     */
+    public static native void callWithObjectImpl(JSObject jsObj, String aName, JSObject arg1);
+
+    /**
+     * JSObject method: callWithStringImpl().
      */
     public static native void callWithStringImpl(JSObject jsObj, String aName, String theArg);
 
     /**
-     * JSObject method: call().
+     * JSObject method: callWithStringStringImpl().
      */
     public static native void callWithStringStringImpl(JSObject jsObj, String aName, String arg1, String arg2);
 
@@ -260,7 +278,12 @@ public class CJObject {
     public static native JSObject callWithDouble6Impl(JSObject jsObj, String aName, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6);
 
     /**
-     * JSObject method: call().
+     * JSObject method: callForObjectImpl().
+     */
+    public static native JSObject callForObjectImpl(JSObject jsObj, String aName);
+
+    /**
+     * JSObject method: callForObjectWithObjectImpl().
      */
     public static native JSObject callForObjectWithObjectImpl(JSObject jsObj, String aName, Object theArg);
 

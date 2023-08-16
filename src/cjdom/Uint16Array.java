@@ -4,14 +4,14 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API Uint16Array (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array).
  */
-public class Uint16Array extends CJObject {
+public class Uint16Array extends TypedArray {
 
     /**
      * Constructor.
      */
     public Uint16Array(int length)
     {
-        super();
+        super(null);
         _jsObj = newArrayForLengthImpl(length);
     }
 
