@@ -1,12 +1,10 @@
 package cjdom;
-
 import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API WebGLRenderingContext (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext).
  */
 public class WebGLRenderingContext extends CJObjectX implements GL2 {
-
 
     /**
      * Constructor.
@@ -272,7 +270,7 @@ public class WebGLRenderingContext extends CJObjectX implements GL2 {
 
     public void uniform1i(WebGLUniformLocation var1, int var2)
     {
-        callWithObjectInt(var1._jsObj, var2);
+        callWithObjectInt("uniform1i", var1._jsObj, var2);
     }
 
     //void uniform1iv(WebGLUniformLocation var1, Int32Array var2);
@@ -290,7 +288,7 @@ public class WebGLRenderingContext extends CJObjectX implements GL2 {
 
     public void uniform3fv(WebGLUniformLocation var1, Float32Array var2)
     {
-        callWithObject2(var1._jsObj, var2._jsObj);
+        callWithObject2("uniform3fv", var1._jsObj, var2._jsObj);
     }
 
     public void uniform3fv(WebGLUniformLocation var1, float[] var2)

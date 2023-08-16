@@ -40,6 +40,8 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
     public Object getContext(String contextType)
     {
         JSObject contextJS = callForObjectWithString("getContext", contextType);
+        if (contextType.equals("webgl"))
+            return new WebGLRenderingContext(contextJS);
         return new CanvasRenderingContext2D(contextJS);
     }
 

@@ -61,6 +61,11 @@ function Java_cjdom_CJObject_callImpl(lib, jsObj, aName)  { jsObj[aName].call(js
 function Java_cjdom_CJObject_callWithObjectImpl(lib, jsObj, aName, theArg)  { jsObj[aName].call(jsObj, theArg); }
 
 /**
+ * JSObject method: callWithObject2Impl().
+ */
+function Java_cjdom_CJObject_callWithObject2Impl(lib, jsObj, aName, arg1, arg2)  { jsObj[aName].call(jsObj, arg1, arg2); }
+
+/**
  * JSObject method: callWithStringImpl().
  */
 function Java_cjdom_CJObject_callWithStringImpl(lib, jsObj, aName, strArg)  { jsObj[aName].call(jsObj, strArg); }
@@ -122,6 +127,14 @@ function Java_cjdom_CJObject_callForObjectWithObjectImpl(lib, jsObj, aName, arg1
  * JSObject method: callForObjectWithStringImpl().
  */
 function Java_cjdom_CJObject_callForObjectWithStringImpl(lib, jsObj, aName, arg1)
+{
+    return jsObj[aName].call(jsObj, arg1);
+}
+
+/**
+ * JSObject method: callForObjectWithIntImpl().
+ */
+function Java_cjdom_CJObject_callForObjectWithIntImpl(lib, jsObj, aName, arg1)
 {
     return jsObj[aName].call(jsObj, arg1);
 }
@@ -506,12 +519,13 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_getMemberFloatImpl, Java_cjdom_CJObject_setMemberFloatImpl,
     Java_cjdom_CJObject_getMemberDoubleImpl, Java_cjdom_CJObject_setMemberDoubleImpl,
     Java_cjdom_CJObject_callImpl,
-    Java_cjdom_CJObject_callWithObjectImpl,
+    Java_cjdom_CJObject_callWithObjectImpl, Java_cjdom_CJObject_callWithObject2Impl,
     Java_cjdom_CJObject_callWithStringImpl, Java_cjdom_CJObject_callWithStringStringImpl,
     Java_cjdom_CJObject_callWithDoubleImpl, Java_cjdom_CJObject_callWithDoubleDoubleImpl,
     Java_cjdom_CJObject_callWithDouble4Impl, Java_cjdom_CJObject_callWithDouble6Impl,
     Java_cjdom_CJObject_callForObjectImpl, Java_cjdom_CJObject_callForObjectWithObjectImpl,
     Java_cjdom_CJObject_callForObjectWithStringImpl,
+    Java_cjdom_CJObject_callForObjectWithIntImpl,
     Java_cjdom_CJObject_callForStringWithStringImpl, Java_cjdom_CJObject_callForStringWithStringStringImpl,
 
     Java_cjdom_CJDom_logImpl,

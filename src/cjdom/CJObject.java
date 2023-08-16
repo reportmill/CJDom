@@ -100,6 +100,14 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
+    public void callWithObject2(String aName, JSObject arg1, JSObject arg2)
+    {
+        callWithObject2Impl(_jsObj, aName, arg1, arg2);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
     public void callWithString(String aName, String theArg)
     {
         callWithStringImpl(_jsObj, aName, theArg);
@@ -162,6 +170,11 @@ public class CJObject {
     {
         return callForObjectWithStringImpl(_jsObj, aName, theArg);
     }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public JSObject callForObjectWithInt(String aName, int arg1)  { return callForObjectWithIntImpl(_jsObj, aName, arg1); }
 
     /**
      * Calls a JavaScript method.
@@ -248,6 +261,11 @@ public class CJObject {
     public static native void callWithObjectImpl(JSObject jsObj, String aName, JSObject arg1);
 
     /**
+     * JSObject method: callWithObject2Impl().
+     */
+    public static native void callWithObject2Impl(JSObject jsObj, String aName, JSObject arg1, JSObject arg2);
+
+    /**
      * JSObject method: callWithStringImpl().
      */
     public static native void callWithStringImpl(JSObject jsObj, String aName, String theArg);
@@ -291,6 +309,11 @@ public class CJObject {
      * JSObject method: callForObjectWithStringImpl().
      */
     public static native JSObject callForObjectWithStringImpl(JSObject jsObj, String aName, String theArg);
+
+    /**
+     * JSObject method: callForObjectWithIntImpl().
+     */
+    public static native JSObject callForObjectWithIntImpl(JSObject jsObj, String aName, int arg1);
 
     /**
      * JSObject method: call().
