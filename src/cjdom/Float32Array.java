@@ -20,9 +20,11 @@ public class Float32Array extends TypedArray {
      */
     public Float32Array(float[] theValues)
     {
-        this(theValues.length);
-        for (int i = 0; i < theValues.length; i++)
-            setImpl(_jsObj, i, theValues[i]);
+        //this(theValues.length);
+        super(null);
+        _jsObj = newArrayForJavaArray(theValues, theValues.length);
+        //for (int i = 0; i < theValues.length; i++)
+        //    setImpl(_jsObj, i, theValues[i]);
     }
 
     /**
@@ -44,4 +46,9 @@ public class Float32Array extends TypedArray {
      * Returns a new Float32Array (internal).
      */
     private static native JSObject newArrayForLengthImpl(int aLen);
+
+    /**
+     * Returns a new Float32Array (internal).
+     */
+    private static native JSObject newArrayForJavaArray(float[] javaArray, int length);
 }

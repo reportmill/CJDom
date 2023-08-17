@@ -20,9 +20,8 @@ public class Uint16Array extends TypedArray {
      */
     public Uint16Array(short[] theValues)
     {
-        this(theValues.length);
-        for (int i = 0; i < theValues.length; i++)
-            setImpl(_jsObj, i, theValues[i]);
+        super(null);
+        _jsObj = newArrayForJavaArray(theValues, theValues.length);
     }
 
     /**
@@ -44,4 +43,9 @@ public class Uint16Array extends TypedArray {
      * Returns a new Uint16Array (internal).
      */
     private static native JSObject newArrayForLengthImpl(int aLen);
+
+    /**
+     * Returns a new Uint16Array (internal).
+     */
+    private static native JSObject newArrayForJavaArray(short[] javaArray, int length);
 }
