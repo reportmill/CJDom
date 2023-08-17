@@ -29,9 +29,11 @@ public class Uint16Array extends TypedArray {
      */
     public Uint16Array(int[] theValues)
     {
-        this(theValues.length);
-        for (int i = 0; i < theValues.length; i++)
-            setImpl(_jsObj, i, theValues[i]);
+        super(null);
+        int length = theValues.length;
+        short[] shortsArray = new short[length];
+        for (int i = 0; i < length; i++) shortsArray[i] = (short) theValues[i];
+        _jsObj = newArrayForJavaArray(shortsArray, length);
     }
 
     /**
