@@ -32,7 +32,7 @@ public class Array extends CJObject {
         super();
         _jsObj = newArrayForLengthImpl(theObjects.length);
         for (int i = 0; i < theObjects.length; i++)
-            setImpl(_jsObj, i, theObjects[i]);
+            set(i, theObjects[i]);
     }
 
     /**
@@ -46,9 +46,18 @@ public class Array extends CJObject {
     /**
      * Sets the given value at given index.
      */
-    public void set(int index, byte aValue)
+    public void set(int index, Object aValue)
     {
-        setImpl(_jsObj, index, aValue);
+        if (aValue instanceof CJObject)
+            setImpl(_jsObj, index, ((CJObject) aValue)._jsObj);
+        else if (aValue instanceof String)
+            setStringImpl(_jsObj, index, (String) aValue);
+        else if (aValue instanceof Integer)
+            setIntImpl(_jsObj, index, (Integer) aValue);
+        else if (aValue instanceof Float)
+            setFloatImpl(_jsObj, index, (Float) aValue);
+        else if (aValue instanceof Double)
+            setDoubleImpl(_jsObj, index, (Double) aValue);
     }
 
     /**
@@ -72,7 +81,27 @@ public class Array extends CJObject {
     /**
      * Sets the given value at given index.
      */
-    private static native void setImpl(JSObject jsObj, int index, Object aValue);
+    private static native void setImpl(JSObject jsObj, int index, JSObject aValue);
+
+    /**
+     * Sets the given string value at given index.
+     */
+    private static native void setStringImpl(JSObject jsObj, int index, String aValue);
+
+    /**
+     * Sets the given int value at given index.
+     */
+    private static native void setIntImpl(JSObject jsObj, int index, int aValue);
+
+    /**
+     * Sets the given float value at given index.
+     */
+    private static native void setFloatImpl(JSObject jsObj, int index, float aValue);
+
+    /**
+     * Sets the given double value at given index.
+     */
+    private static native void setDoubleImpl(JSObject jsObj, int index, double aValue);
 
     /**
      * Returns value at given index as string.

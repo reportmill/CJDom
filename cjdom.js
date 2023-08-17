@@ -111,6 +111,54 @@ function Java_cjdom_CJObject_callWithDouble6Impl(lib, jsObj, aName, arg1, arg2, 
 }
 
 /**
+ * JSObject method: callWithArgsImpl().
+ */
+function Java_cjdom_CJObject_callWithArgsImpl(lib, jsObj, aName, arrayJS)
+{
+    switch (arrayJS.length) {
+        case 1: jsObj[aName].call(jsObj, arrayJS[0]); break;
+        case 2: jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1]); break;
+        case 3: jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2]); break;
+        case 4: jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3]); break;
+        case 5: jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4]); break;
+        case 6: jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4], arrayJS[5]); break;
+        default: console.log("callWithArgs: Too many args: " + arrayJS.length);
+    }
+}
+
+/**
+ * JSObject method: callForObjectWithArgsImpl().
+ */
+function Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJS)
+{
+    switch (arrayJS.length) {
+        case 1: return jsObj[aName].call(jsObj, arrayJS[0]);
+        case 2: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1]);
+        case 3: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2]);
+        case 4: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3]);
+        case 5: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4]);
+        case 6: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4], arrayJS[5]);
+        default: console.log("callWithArgs: Too many args: " + arrayJS.length); return null;
+    }
+}
+
+/**
+ * JSObject method: callForIntWithArgsImpl().
+ */
+function Java_cjdom_CJObject_callForIntWithArgsImpl(lib, jsObj, aName, arrayJS)
+{
+    switch (arrayJS.length) {
+        case 1: return jsObj[aName].call(jsObj, arrayJS[0]);
+        case 2: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1]);
+        case 3: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2]);
+        case 4: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3]);
+        case 5: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4]);
+        case 6: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4], arrayJS[5]);
+        default: console.log("callWithArgs: Too many args: " + arrayJS.length); return null;
+    }
+}
+
+/**
  * JSObject method: callForObjectImpl().
  */
 function Java_cjdom_CJObject_callForObjectImpl(lib, jsObj, aName)  { return jsObj[aName].call(jsObj); }
@@ -188,6 +236,26 @@ function Java_cjdom_Array_getImpl(lib, array, index)  { return array[index]; }
  * Array: setImpl()
  */
 function Java_cjdom_Array_setImpl(lib, array, index, aValue)  { array[index] = aValue; }
+
+/**
+ * Array: setStringImpl()
+ */
+function Java_cjdom_Array_setStringImpl(lib, array, index, aValue)  { array[index] = aValue; }
+
+/**
+ * Array: setIntImpl()
+ */
+function Java_cjdom_Array_setIntImpl(lib, array, index, aValue)  { array[index] = aValue; }
+
+/**
+ * Array: setFloatImpl()
+ */
+function Java_cjdom_Array_setFloatImpl(lib, array, index, aValue)  { array[index] = aValue; }
+
+/**
+ * Array: setDoubleImpl()
+ */
+function Java_cjdom_Array_setDoubleImpl(lib, array, index, aValue)  { array[index] = aValue; }
 
 /**
  * Array: getObjectImpl()
@@ -523,6 +591,9 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_callWithStringImpl, Java_cjdom_CJObject_callWithStringStringImpl,
     Java_cjdom_CJObject_callWithDoubleImpl, Java_cjdom_CJObject_callWithDoubleDoubleImpl,
     Java_cjdom_CJObject_callWithDouble4Impl, Java_cjdom_CJObject_callWithDouble6Impl,
+    Java_cjdom_CJObject_callWithArgsImpl,
+    Java_cjdom_CJObject_callForObjectWithArgsImpl,
+    Java_cjdom_CJObject_callForIntWithArgsImpl,
     Java_cjdom_CJObject_callForObjectImpl, Java_cjdom_CJObject_callForObjectWithObjectImpl,
     Java_cjdom_CJObject_callForObjectWithStringImpl,
     Java_cjdom_CJObject_callForObjectWithIntImpl,
@@ -533,6 +604,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJDom_getDevicePixelRatio,
 
     Java_cjdom_Array_getImpl, Java_cjdom_Array_setImpl,
+    Java_cjdom_Array_setStringImpl, Java_cjdom_Array_setIntImpl,
+    Java_cjdom_Array_setFloatImpl, Java_cjdom_Array_setDoubleImpl,
     Java_cjdom_Array_getObjectImpl,
     Java_cjdom_Array_getStringImpl,
     Java_cjdom_Array_newArrayForLengthImpl,
