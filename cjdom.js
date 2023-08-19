@@ -479,10 +479,16 @@ function createMutex()
 
 function fireEvent(name, callback, arg)
 {
+    if (arg != null)
+        console.log("Event type: " + arg.type);
+
     // Assume we want to steal all events, since preventDefault won't work with async event delivery)
     if (arg instanceof Event) {
-        //arg.preventDefault();
-        //arg.stopPropagation();
+        var type = arg.type;
+        if (type != "click" && type != "pointerdown") {
+            arg.preventDefault();
+            arg.stopPropagation();
+        }
     }
 
     _eventQueue.push([ name, callback, arg ]);

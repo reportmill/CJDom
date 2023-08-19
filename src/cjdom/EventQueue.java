@@ -82,14 +82,6 @@ public class EventQueue {
                     touchLsnr.handleEvent(touchEvent);
                     break;
 
-                // Handle load events
-                case "load":
-                    EventListener<Event> eventLsnr = (EventListener<Event>) func;
-                    JSObject eventJS = eventRecordArray.get(2);
-                    Event event = new Event(eventJS);
-                    eventLsnr.handleEvent(event);
-                    break;
-
                 // Handle wheel events
                 case "wheel":
                     EventListener<Event> wheelLsnr = (EventListener<Event>) func;
@@ -99,11 +91,15 @@ public class EventQueue {
                     break;
 
                 // Handle resize events
+                case "load":
                 case "resize":
-                    EventListener<Event> resizeLsnr = (EventListener<Event>) func;
-                    JSObject resizeJS = eventRecordArray.get(2);
-                    Event resizeEvent = new Event(resizeJS);
-                    resizeLsnr.handleEvent(resizeEvent);
+                case "select":
+                case "selectstart":
+                case "selectend":
+                    EventListener<Event> eventLsnr = (EventListener<Event>) func;
+                    JSObject eventJS = eventRecordArray.get(2);
+                    Event event = new Event(eventJS);
+                    eventLsnr.handleEvent(event);
                     break;
 
                 // Handle unknown
