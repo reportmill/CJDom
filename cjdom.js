@@ -491,6 +491,13 @@ function fireEvent(name, callback, arg)
 {
     // Assume we want to steal all events, since preventDefault won't work with async event delivery)
     if (arg instanceof Event) {
+        if (arg instanceof KeyboardEvent) {
+            if (arg.metaKey) {
+                var key = arg.key;
+                if (key == "l" || arg.altKey)
+                    return;
+            }
+        }
         var type = arg.type;
         if (type != "click" && type != "pointerdown") { // && type != "wheel") {
             arg.preventDefault();
