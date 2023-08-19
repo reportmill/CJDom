@@ -6,6 +6,9 @@ import netscape.javascript.JSObject;
  */
 public class HTMLDocument extends Document {
 
+    // The document HTML element
+    private HTMLHtmlElement _html;
+
     /**
      * Constructor.
      */
@@ -19,8 +22,14 @@ public class HTMLDocument extends Document {
      */
     public HTMLHtmlElement getDocumentElement()
     {
+        if (_html != null) return _html;
+
+        // Get
         JSObject htmlElementJS = getMember("documentElement");
-        return new HTMLHtmlElement(htmlElementJS);
+        HTMLHtmlElement html = new HTMLHtmlElement(htmlElementJS);
+
+        // Set and return
+        return _html = html;
     }
 
     public HTMLElement getElementById(String idStr)
@@ -33,5 +42,5 @@ public class HTMLDocument extends Document {
     /**
      * Returns Window.current().getDocument().
      */
-    public static HTMLDocument current()  { return Window.getDocument(); }
+    public static HTMLDocument getDocument()  { return Window.getDocument(); }
 }

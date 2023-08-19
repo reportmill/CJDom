@@ -62,7 +62,7 @@ public class DomTests {
     private static void testDocument()
     {
         System.out.println("Get Document");
-        HTMLDocument document = HTMLDocument.current();
+        HTMLDocument document = HTMLDocument.getDocument();
 
         System.out.println("Create image element");
         HTMLImageElement imageElement = (HTMLImageElement) document.createElement("img");

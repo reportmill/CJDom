@@ -37,7 +37,7 @@ public class BallBounce {
         catch(Throwable e) { System.err.println("Headless error: " + e); }
 
         // Get document and body
-        HTMLDocument doc = HTMLDocument.current();
+        HTMLDocument doc = HTMLDocument.getDocument();
         HTMLBodyElement body = doc.getBody();
 
         // Get main element and register mouse listeners
@@ -281,7 +281,7 @@ public class BallBounce {
         {
             x = aX;
             y = aY;
-            img = (HTMLImageElement) HTMLDocument.current().createElement("img");
+            img = (HTMLImageElement) HTMLDocument.getDocument().createElement("img");
 
             img.setSrc("http://reportmill.com/cj/PlayBall/Ball.png");
             //Blob blob = new Blob(getClass().getResourceAsStream("Ball.png"), "image/png");

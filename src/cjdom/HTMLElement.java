@@ -6,6 +6,9 @@ import netscape.javascript.JSObject;
  */
 public class HTMLElement extends Element implements EventTarget {
 
+    // The style element
+    private CSSStyleDeclaration _style;
+
     /**
      * Constructor.
      */
@@ -29,8 +32,13 @@ public class HTMLElement extends Element implements EventTarget {
      */
     public CSSStyleDeclaration getStyle()
     {
+        if (_style != null) return _style;
+
         JSObject styleJS = getMember("style");
-        return new CSSStyleDeclaration(styleJS);
+        CSSStyleDeclaration style = new CSSStyleDeclaration(styleJS);
+
+        // Set and return
+        return _style = style;
     }
 
     /**

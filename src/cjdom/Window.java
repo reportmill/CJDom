@@ -6,6 +6,12 @@ import netscape.javascript.JSObject;
  */
 public class Window extends CJObject implements EventTarget {
 
+    // The current Window
+    private static Window _window;
+
+    // The current document
+    private static HTMLDocument _document;
+
     /**
      * Constructor.
      */
@@ -84,8 +90,13 @@ public class Window extends CJObject implements EventTarget {
      */
     public static Window current()
     {
+        if (_window != null) return _window;
+
         JSObject winJS = currentImpl();
-        return new Window(winJS);
+        Window window = new Window(winJS);
+
+        // Set and return
+        return _window = window;
     }
 
     /**
@@ -98,8 +109,13 @@ public class Window extends CJObject implements EventTarget {
      */
     public static HTMLDocument getDocument()
     {
+        if (_document != null) return _document;
+
         JSObject htmlDocumentJS = getDocumentImpl();
-        return new HTMLDocument(htmlDocumentJS);
+        HTMLDocument doc = new HTMLDocument(htmlDocumentJS);
+
+        // Set and return
+        return _document = doc;
     }
 
     /**

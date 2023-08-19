@@ -12,4 +12,9 @@ public class HTMLBodyElement extends HTMLElement {
     {
         super(jsObj);
     }
+
+    /**
+     * Returns the body element.
+     */
+    public static HTMLBodyElement getBody()  { return HTMLDocument.getDocument().getBody(); }
 }

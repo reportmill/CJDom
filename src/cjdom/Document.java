@@ -6,6 +6,9 @@ import netscape.javascript.JSObject;
  */
 public class Document extends Node {
 
+    // The Body element
+    private HTMLBodyElement _body;
+
     /**
      * Constructor.
      */
@@ -33,8 +36,14 @@ public class Document extends Node {
      */
     public HTMLBodyElement getBody()
     {
+        if (_body != null) return _body;
+
+        // Get body
         JSObject bodyJS = getBodyImpl(_jsObj);
-        return new HTMLBodyElement(bodyJS);
+        HTMLBodyElement body = new HTMLBodyElement(bodyJS);
+
+        // Set and return
+        return _body = body;
     }
 
     /**
