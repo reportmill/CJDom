@@ -21,6 +21,16 @@ function Java_cjdom_CJObject_getMemberStringImpl(lib, jsObj, aName)  { return js
 function Java_cjdom_CJObject_setMemberStringImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
+ * JSObject method: getMemberBooleanImpl()
+ */
+function Java_cjdom_CJObject_getMemberBooleanImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+
+/**
+ * JSObject method: setMemberBooleanImpl()
+ */
+function Java_cjdom_CJObject_setMemberBooleanImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
+
+/**
  * JSObject method: getMemberIntImpl()
  */
 function Java_cjdom_CJObject_getMemberIntImpl(lib, jsObj, aName)  { return jsObj[aName]; }
@@ -479,13 +489,10 @@ function createMutex()
 
 function fireEvent(name, callback, arg)
 {
-    if (arg != null)
-        console.log("Event type: " + arg.type);
-
     // Assume we want to steal all events, since preventDefault won't work with async event delivery)
     if (arg instanceof Event) {
         var type = arg.type;
-        if (type != "click" && type != "pointerdown") {
+        if (type != "click" && type != "pointerdown") { // && type != "wheel") {
             arg.preventDefault();
             arg.stopPropagation();
         }
@@ -641,6 +648,7 @@ let cjdomNativeMethods = {
 
     Java_cjdom_CJObject_getMemberImpl, Java_cjdom_CJObject_setMemberImpl,
     Java_cjdom_CJObject_getMemberStringImpl, Java_cjdom_CJObject_setMemberStringImpl,
+    Java_cjdom_CJObject_getMemberBooleanImpl, Java_cjdom_CJObject_setMemberBooleanImpl,
     Java_cjdom_CJObject_getMemberIntImpl, Java_cjdom_CJObject_setMemberIntImpl,
     Java_cjdom_CJObject_getMemberFloatImpl, Java_cjdom_CJObject_setMemberFloatImpl,
     Java_cjdom_CJObject_getMemberDoubleImpl, Java_cjdom_CJObject_setMemberDoubleImpl,

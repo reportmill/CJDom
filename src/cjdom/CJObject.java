@@ -52,6 +52,16 @@ public class CJObject {
     public void setMemberString(String aName, String aValue)  { setMemberStringImpl(_jsObj, aName, aValue); }
 
     /**
+     * Returns a named member of a JavaScript object.
+     */
+    public boolean getMemberBoolean(String aName)  { return getMemberBooleanImpl(_jsObj, aName); }
+
+    /**
+     * Sets a named member of a JavaScript object.
+     */
+    public void setMemberBoolean(String aName, boolean aValue)  { setMemberBooleanImpl(_jsObj, aName, aValue); }
+
+    /**
      * Returns a named member of a JavaScript object as int.
      */
     public int getMemberInt(String aName)  { return getMemberIntImpl(_jsObj, aName); }
@@ -249,6 +259,16 @@ public class CJObject {
      * JSObject method: setMemberStringImpl()
      */
     public static native void setMemberStringImpl(JSObject jsObj, String aName, String aValue);
+
+    /**
+     * JSObject method: getMemberBooleanImpl()
+     */
+    public static native boolean getMemberBooleanImpl(JSObject jsObj, String aName);
+
+    /**
+     * JSObject method: setMemberBooleanImpl()
+     */
+    public static native void setMemberBooleanImpl(JSObject jsObj, String aName, boolean aValue);
 
     /**
      * JSObject method: getMemberIntImpl()
