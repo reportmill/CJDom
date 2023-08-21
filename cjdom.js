@@ -285,6 +285,11 @@ function Java_cjdom_Array_setImpl(lib, array, index, aValue)  { array[index] = a
 function Java_cjdom_Array_setStringImpl(lib, array, index, aValue)  { array[index] = aValue; }
 
 /**
+ * Array: setBooleanImpl()
+ */
+function Java_cjdom_Array_setBooleanImpl(lib, array, index, aValue)  { array[index] = aValue; }
+
+/**
  * Array: setIntImpl()
  */
 function Java_cjdom_Array_setIntImpl(lib, array, index, aValue)  { array[index] = aValue; }
@@ -711,7 +716,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJDom_getDevicePixelRatio,
 
     Java_cjdom_Array_getImpl, Java_cjdom_Array_setImpl,
-    Java_cjdom_Array_setStringImpl, Java_cjdom_Array_setIntImpl,
+    Java_cjdom_Array_setStringImpl, Java_cjdom_Array_setBooleanImpl,
+    Java_cjdom_Array_setIntImpl,
     Java_cjdom_Array_setFloatImpl, Java_cjdom_Array_setDoubleImpl,
     Java_cjdom_Array_getObjectImpl,
     Java_cjdom_Array_getStringImpl,

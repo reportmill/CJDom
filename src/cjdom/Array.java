@@ -52,12 +52,19 @@ public class Array extends CJObject {
             setImpl(_jsObj, index, ((CJObject) aValue)._jsObj);
         else if (aValue instanceof String)
             setStringImpl(_jsObj, index, (String) aValue);
+        else if (aValue instanceof Boolean)
+            setBooleanImpl(_jsObj, index, (Boolean) aValue);
         else if (aValue instanceof Integer)
             setIntImpl(_jsObj, index, (Integer) aValue);
         else if (aValue instanceof Float)
             setFloatImpl(_jsObj, index, (Float) aValue);
         else if (aValue instanceof Double)
             setDoubleImpl(_jsObj, index, (Double) aValue);
+        else if (aValue == null)
+            setImpl(_jsObj, index, null);
+        else {
+            System.out.println("Array.set: Unknown class: " + (aValue != null ? aValue.getClass().getName() : null));
+        }
     }
 
     /**
@@ -87,6 +94,11 @@ public class Array extends CJObject {
      * Sets the given string value at given index.
      */
     private static native void setStringImpl(JSObject jsObj, int index, String aValue);
+
+    /**
+     * Sets the given int value at given index.
+     */
+    private static native void setBooleanImpl(JSObject jsObj, int index, boolean aValue);
 
     /**
      * Sets the given int value at given index.
