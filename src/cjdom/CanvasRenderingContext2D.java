@@ -33,7 +33,7 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: translate().
      */
-    public void translate(double var1, double var3)  { callWithDoubleDouble("translate", var1, var3); }
+    public void translate(double var1, double var3)  { callWithDouble2("translate", var1, var3); }
 
     /**
      * CanvasRenderingContext2D: rotate().
@@ -43,7 +43,7 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: rotate().
      */
-    public void scale(double var1, double var3)  { callWithDoubleDouble("scale", var1, var3); }
+    public void scale(double var1, double var3)  { callWithDouble2("scale", var1, var3); }
 
     /**
      * CanvasRenderingContext2D: save().
@@ -198,12 +198,12 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: moveTo().
      */
-    public void moveTo(double var1, double var3)  { callWithDoubleDouble("moveTo", var1, var3); }
+    public void moveTo(double var1, double var3)  { callWithDouble2("moveTo", var1, var3); }
 
     /**
      * CanvasRenderingContext2D: lineTo().
      */
-    public void lineTo(double var1, double var3)  { callWithDoubleDouble("lineTo", var1, var3); }
+    public void lineTo(double var1, double var3)  { callWithDouble2("lineTo", var1, var3); }
 
     /**
      * CanvasRenderingContext2D: bezierCurveTo().

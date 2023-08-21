@@ -126,9 +126,41 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
-    public void callWithStringString(String aName, String arg1, String arg2)
+    public void callWithString2(String aName, String arg1, String arg2)
     {
-        callWithStringStringImpl(_jsObj, aName, arg1, arg2);
+        callWithString2Impl(_jsObj, aName, arg1, arg2);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public void callWithInt(String aName, int arg1)
+    {
+        callWithIntImpl(_jsObj, aName, arg1);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public void callWithInt2(String aName, int arg1, int arg2)
+    {
+        callWithInt2Impl(_jsObj, aName, arg1, arg2);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public void callWithInt3(String aName, int arg1, int arg2, int arg3)
+    {
+        callWithInt3Impl(_jsObj, aName, arg1, arg2, arg3);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
+    public void callWithInt4(String aName, int arg1, int arg2, int arg3, int arg4)
+    {
+        callWithInt4Impl(_jsObj, aName, arg1, arg2, arg3, arg4);
     }
 
     /**
@@ -142,9 +174,9 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
-    public void callWithDoubleDouble(String aName, double arg1, double arg2)
+    public void callWithDouble2(String aName, double arg1, double arg2)
     {
-        callWithDoubleDoubleImpl(_jsObj, aName, arg1, arg2);
+        callWithDouble2Impl(_jsObj, aName, arg1, arg2);
     }
 
     /**
@@ -227,9 +259,9 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
-    public String callForStringWithStringString(String aName, String arg1, String arg2)
+    public String callForStringWithString2(String aName, String arg1, String arg2)
     {
-        return callForStringWithStringStringImpl(_jsObj, aName, arg1, arg2);
+        return callForStringWithString2Impl(_jsObj, aName, arg1, arg2);
     }
 
     /**
@@ -321,9 +353,29 @@ public class CJObject {
     public static native void callWithStringImpl(JSObject jsObj, String aName, String theArg);
 
     /**
-     * JSObject method: callWithStringStringImpl().
+     * JSObject method: callWithString2Impl().
      */
-    public static native void callWithStringStringImpl(JSObject jsObj, String aName, String arg1, String arg2);
+    public static native void callWithString2Impl(JSObject jsObj, String aName, String arg1, String arg2);
+
+    /**
+     * JSObject method: callWithIntImpl().
+     */
+    public static native void callWithIntImpl(JSObject jsObj, String aName, int arg1);
+
+    /**
+     * JSObject method: callWithInt2Impl().
+     */
+    public static native void callWithInt2Impl(JSObject jsObj, String aName, int arg1, int arg2);
+
+    /**
+     * JSObject method: callWithInt3Impl().
+     */
+    public static native void callWithInt3Impl(JSObject jsObj, String aName, int arg1, int arg2, int arg3);
+
+    /**
+     * JSObject method: callWithInt4Impl().
+     */
+    public static native void callWithInt4Impl(JSObject jsObj, String aName, int arg1, int arg2, int arg3, int arg4);
 
     /**
      * JSObject method: callWithDoubleImpl().
@@ -331,9 +383,9 @@ public class CJObject {
     public static native void callWithDoubleImpl(JSObject jsObj, String aName, double arg1);
 
     /**
-     * JSObject method: callWithDoubleDoubleImpl().
+     * JSObject method: callWithDouble2Impl().
      */
-    public static native void callWithDoubleDoubleImpl(JSObject jsObj, String aName, double arg1, double arg2);
+    public static native void callWithDouble2Impl(JSObject jsObj, String aName, double arg1, double arg2);
 
     /**
      * JSObject method: callWithDouble4Impl().
@@ -388,5 +440,5 @@ public class CJObject {
     /**
      * JSObject method: call().
      */
-    public static native String callForStringWithStringStringImpl(JSObject jsObj, String aName, String arg1, String arg2);
+    public static native String callForStringWithString2Impl(JSObject jsObj, String aName, String arg1, String arg2);
 }

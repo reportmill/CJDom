@@ -81,11 +81,43 @@ function Java_cjdom_CJObject_callWithObject2Impl(lib, jsObj, aName, arg1, arg2) 
 function Java_cjdom_CJObject_callWithStringImpl(lib, jsObj, aName, strArg)  { jsObj[aName].call(jsObj, strArg); }
 
 /**
- * JSObject method: callWithStringImpl().
+ * JSObject method: callWithString2Impl().
  */
-function Java_cjdom_CJObject_callWithStringStringImpl(lib, jsObj, aName, arg1, arg2)
+function Java_cjdom_CJObject_callWithString2Impl(lib, jsObj, aName, arg1, arg2)
 {
     jsObj[aName].call(jsObj, arg1, arg2);
+}
+
+/**
+ * JSObject method: callWithIntImpl().
+ */
+function Java_cjdom_CJObject_callWithIntImpl(lib, jsObj, aName, arg1)
+{
+    jsObj[aName].call(jsObj, arg1);
+}
+
+/**
+ * JSObject method: callWithInt2Impl().
+ */
+function Java_cjdom_CJObject_callWithInt2Impl(lib, jsObj, aName, arg1, arg2)
+{
+    jsObj[aName].call(jsObj, arg1, arg2);
+}
+
+/**
+ * JSObject method: callWithInt3Impl().
+ */
+function Java_cjdom_CJObject_callWithInt3Impl(lib, jsObj, aName, arg1, arg2, arg3, arg4)
+{
+    jsObj[aName].call(jsObj, arg1, arg2, arg3, arg4);
+}
+
+/**
+ * JSObject method: callWithInt4Impl().
+ */
+function Java_cjdom_CJObject_callWithInt4Impl(lib, jsObj, aName, arg1, arg2, arg3, arg4)
+{
+    jsObj[aName].call(jsObj, arg1, arg2, arg3, arg4);
 }
 
 /**
@@ -97,9 +129,9 @@ function Java_cjdom_CJObject_callWithDoubleImpl(lib, jsObj, aName, arg1)
 }
 
 /**
- * JSObject method: callWithDoubleDoubleImpl().
+ * JSObject method: callWithDouble2Impl().
  */
-function Java_cjdom_CJObject_callWithDoubleDoubleImpl(lib, jsObj, aName, arg1, arg2)
+function Java_cjdom_CJObject_callWithDouble2Impl(lib, jsObj, aName, arg1, arg2)
 {
     jsObj[aName].call(jsObj, arg1, arg2);
 }
@@ -198,7 +230,7 @@ function Java_cjdom_CJObject_callForObjectWithIntImpl(lib, jsObj, aName, arg1)
 }
 
 /**
- * JSObject method: call().
+ * JSObject method: callForStringWithStringImpl().
  */
 function Java_cjdom_CJObject_callForStringWithStringImpl(lib, jsObj, aName, arg1)
 {
@@ -206,9 +238,9 @@ function Java_cjdom_CJObject_callForStringWithStringImpl(lib, jsObj, aName, arg1
 }
 
 /**
- * JSObject method: call().
+ * JSObject method: callForStringWithString2Impl().
  */
-function Java_cjdom_CJObject_callForStringWithStringStringImpl(lib, jsObj, aName, arg1, arg2)
+function Java_cjdom_CJObject_callForStringWithString2Impl(lib, jsObj, aName, arg1, arg2)
 {
     return jsObj[aName].call(jsObj, arg1, arg2);
 }
@@ -661,8 +693,10 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_getMemberDoubleImpl, Java_cjdom_CJObject_setMemberDoubleImpl,
     Java_cjdom_CJObject_callImpl,
     Java_cjdom_CJObject_callWithObjectImpl, Java_cjdom_CJObject_callWithObject2Impl,
-    Java_cjdom_CJObject_callWithStringImpl, Java_cjdom_CJObject_callWithStringStringImpl,
-    Java_cjdom_CJObject_callWithDoubleImpl, Java_cjdom_CJObject_callWithDoubleDoubleImpl,
+    Java_cjdom_CJObject_callWithStringImpl, Java_cjdom_CJObject_callWithString2Impl,
+    Java_cjdom_CJObject_callWithIntImpl, Java_cjdom_CJObject_callWithInt2Impl,
+    Java_cjdom_CJObject_callWithInt3Impl, Java_cjdom_CJObject_callWithInt4Impl,
+    Java_cjdom_CJObject_callWithDoubleImpl, Java_cjdom_CJObject_callWithDouble2Impl,
     Java_cjdom_CJObject_callWithDouble4Impl, Java_cjdom_CJObject_callWithDouble6Impl,
     Java_cjdom_CJObject_callWithArgsImpl,
     Java_cjdom_CJObject_callForObjectWithArgsImpl,
@@ -670,7 +704,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_callForObjectImpl, Java_cjdom_CJObject_callForObjectWithObjectImpl,
     Java_cjdom_CJObject_callForObjectWithStringImpl,
     Java_cjdom_CJObject_callForObjectWithIntImpl,
-    Java_cjdom_CJObject_callForStringWithStringImpl, Java_cjdom_CJObject_callForStringWithStringStringImpl,
+    Java_cjdom_CJObject_callForStringWithStringImpl, Java_cjdom_CJObject_callForStringWithString2Impl,
 
     Java_cjdom_CJDom_logImpl,
     Java_cjdom_CJDom_getViewportWidth, Java_cjdom_CJDom_getViewportHeight,

@@ -44,7 +44,7 @@ public class CSSStyleDeclaration extends CJObject {
     {
         if (aValue == null)
             removeProperty(aString);
-        else callWithStringString("setProperty", aString, aValue);
+        else callWithString2("setProperty", aString, aValue);
     }
 
     /**

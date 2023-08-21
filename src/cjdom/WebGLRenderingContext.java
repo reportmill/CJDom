@@ -4,7 +4,7 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API WebGLRenderingContext (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext).
  */
-public class WebGLRenderingContext extends CJObjectX implements GL2 {
+public class WebGLRenderingContext extends CJObject implements GL2 {
 
     /**
      * Constructor.
@@ -26,7 +26,7 @@ public class WebGLRenderingContext extends CJObjectX implements GL2 {
 
     public void bindBuffer(int var1, WebGLBuffer var2)
     {
-        callWithIntObject("bindBuffer", var1, var2);
+        callWithArgs("bindBuffer", var1, var2);
     }
 
     //void bindAttribLocation(WebGLProgram var1, int var2, String var3);
@@ -34,12 +34,12 @@ public class WebGLRenderingContext extends CJObjectX implements GL2 {
     //void bindRenderbuffer(int var1, WebGLRenderbuffer var2);
     public void bindTexture(int var1, WebGLTexture var2)
     {
-        callWithIntObject("bindTexture", var1, var2);
+        callWithArgs("bindTexture", var1, var2);
     }
 
     public void bufferData(int var1, TypedArray var2, int var3)
     {
-        callWithIntObjectInt("bufferData", var1, var2, var3);
+        callWithArgs("bufferData", var1, var2, var3);
     }
 
     //void bufferData(int var1, int var2, int var3);
@@ -223,7 +223,7 @@ public class WebGLRenderingContext extends CJObjectX implements GL2 {
 
     public void pixelStorei(int var1, int var2)
     {
-        callWithInt2("pixelStorei", var1, var2);
+        callWithArgs("pixelStorei", var1, var2);
     }
 
     //void polygonOffset(float var1, float var2);
@@ -234,7 +234,7 @@ public class WebGLRenderingContext extends CJObjectX implements GL2 {
 
     public void shaderSource(WebGLShader var1, String var2)
     {
-        callWithObjectString("shaderSource", var1, var2);
+        callWithArgs("shaderSource", var1, var2);
     }
 
     //void stencilFunc(int var1, int var2, int var3);
