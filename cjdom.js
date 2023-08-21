@@ -320,6 +320,11 @@ function Java_cjdom_Array_getStringImpl(lib, array, index)  { return array[index
 function Java_cjdom_Array_newArrayForLengthImpl(lib, length)  { return new Array(length); }
 
 /**
+ * Int8Array: getImpl().
+ */
+function Java_cjdom_Int8Array_getImpl(lib, int8Array, index)  { return int8Array[index]; }
+
+/**
  * Int8Array: setImpl().
  */
 function Java_cjdom_Int8Array_setImpl(lib, int8Array, index, aValue)  { int8Array[index] = aValue; }
@@ -328,6 +333,11 @@ function Java_cjdom_Int8Array_setImpl(lib, int8Array, index, aValue)  { int8Arra
  * Int8Array: newArrayForLengthImpl().
  */
 function Java_cjdom_Int8Array_newArrayForLengthImpl(lib, length)  { return new Int8Array(length); }
+
+/**
+ * Int8Array: newArrayForArrayBuffer().
+ */
+function Java_cjdom_Int8Array_newArrayForArrayBuffer(lib, arrayBufferJS)  { return new Int8Array(arrayBufferJS); }
 
 /**
  * Int32Array: setImpl().
@@ -509,6 +519,40 @@ function Java_cjdom_Window_openImpl(lib, winJS, urlStr, targetStr, windowFeature
  * Stops intervals for given id.
  */
 function Java_cjdom_Window_clearInterval(lib, anId)  { clearInterval(anId); }
+
+/**
+ * Clipboard: getReadPermissionsPromiseImpl()
+ */
+function Java_cjdom_Clipboard_getReadPermissionsPromiseImpl(lib)
+{
+    return navigator.permissions ? navigator.permissions.query({name: 'clipboard-read'}) : null;
+}
+
+/**
+ * Clipboard: getClipboardReadTextPromiseImpl()
+ */
+function Java_cjdom_Clipboard_getClipboardReadTextPromiseImpl(lib)
+{
+    return navigator.clipboard.readText();
+}
+
+/**
+ * Clipboard: getClipboardWriteItemsPromiseImpl().
+ */
+function Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl(lib, theItems)
+{
+    return navigator.clipboard.write(theItems);
+}
+
+/**
+ * DataTransfer: newDataTransfer().
+ */
+function Java_cjdom_DataTransfer_newDataTransfer(lib)  { return new DataTransfer(); }
+
+/**
+ * FileReader: newFileReader().
+ */
+function Java_cjdom_FileReader_newFileReader(lib)  { return new FileReader(); }
 
 // This wrapped promise is used to trigger getNextEvent
 var _eventNotifyMutex = createMutex();
@@ -723,8 +767,9 @@ let cjdomNativeMethods = {
     Java_cjdom_Array_getStringImpl,
     Java_cjdom_Array_newArrayForLengthImpl,
 
-    Java_cjdom_Int8Array_setImpl,
+    Java_cjdom_Int8Array_getImpl, Java_cjdom_Int8Array_setImpl,
     Java_cjdom_Int8Array_newArrayForLengthImpl,
+    Java_cjdom_Int8Array_newArrayForArrayBuffer,
 
     Java_cjdom_Int32Array_setImpl,
     Java_cjdom_Int32Array_newArrayForLengthImpl,
@@ -761,6 +806,14 @@ let cjdomNativeMethods = {
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
     Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,
     Java_cjdom_Window_openImpl, Java_cjdom_Window_clearInterval,
+
+    Java_cjdom_Clipboard_getReadPermissionsPromiseImpl,
+    Java_cjdom_Clipboard_getClipboardReadTextPromiseImpl,
+    Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl,
+
+    Java_cjdom_DataTransfer_newDataTransfer,
+
+    Java_cjdom_FileReader_newFileReader,
 
     Java_cjdom_EventQueue_getNextEvent,
     Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl,

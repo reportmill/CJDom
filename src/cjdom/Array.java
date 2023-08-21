@@ -4,7 +4,7 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API Array (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
  */
-public class Array extends CJObject {
+public class Array<E> extends CJObject {
 
     /**
      * Constructor.
@@ -34,6 +34,11 @@ public class Array extends CJObject {
         for (int i = 0; i < theObjects.length; i++)
             set(i, theObjects[i]);
     }
+
+    /**
+     * The length of the array.
+     */
+    public int getLength()  { return getMemberInt("length"); }
 
     /**
      * Returns value at given index.

@@ -25,6 +25,16 @@ public class File extends Blob {
     }
 
     /**
+     * Returns the file name.
+     */
+    public String getName()  { return getMemberString("name"); }
+
+    /**
+     * Returns the file type.
+     */
+    public String getType()  { return getMemberString("type"); }
+
+    /**
      * Creates a File from given bytes in JS.
      */
     private static native JSObject createFileForNameAndTypeAndBytes(String aName, String aType, JSObject int8ArrayJS);

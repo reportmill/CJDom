@@ -92,6 +92,7 @@ public class EventQueue {
 
                 // Handle resize events
                 case "load":
+                case "loadend":
                 case "resize":
                 case "select":
                 case "selectstart":
