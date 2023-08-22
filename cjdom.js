@@ -545,6 +545,16 @@ function Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl(lib, theItems)
 }
 
 /**
+ * ClipboardItem: newClipboardItemForBlob()
+ */
+function Java_cjdom_ClipboardItem_newClipboardItemForBlob(lib, blob)
+{
+    var param = { };
+    param[blob.type] = blob;
+    return new ClipboardItem(param);
+}
+
+/**
  * DataTransfer: newDataTransfer().
  */
 function Java_cjdom_DataTransfer_newDataTransfer(lib)  { return new DataTransfer(); }
@@ -810,6 +820,8 @@ let cjdomNativeMethods = {
     Java_cjdom_Clipboard_getReadPermissionsPromiseImpl,
     Java_cjdom_Clipboard_getClipboardReadTextPromiseImpl,
     Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl,
+
+    Java_cjdom_ClipboardItem_newClipboardItemForBlob,
 
     Java_cjdom_DataTransfer_newDataTransfer,
 

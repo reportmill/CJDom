@@ -29,7 +29,7 @@ public class DataTransfer extends CJObject {
     public String[] getTypes()
     {
         JSObject typesJS = getMember("types");
-        Array typesArray = new Array(typesJS);
+        Array<String> typesArray = new Array<>(typesJS);
         int length = typesArray.getLength();
         String[] types = new String[length];
         for (int i = 0; i < length; i++)
@@ -50,7 +50,7 @@ public class DataTransfer extends CJObject {
      */
     public void setData(String aType, String theData)
     {
-        callWithString("setData", theData);
+        callWithString2("setData", aType, theData);
     }
 
     /**
@@ -99,7 +99,7 @@ public class DataTransfer extends CJObject {
     public static DataTransfer getDataTrasferForString(String aStr)
     {
         //return new DataTransferString(aStr);
-        DataTransfer dataTransfer = new DataTransfer(null);
+        DataTransfer dataTransfer = new DataTransfer();
         dataTransfer.setData("text/plain", aStr);
         return dataTransfer;
     }

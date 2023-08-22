@@ -20,6 +20,11 @@ public class ClipboardItem extends CJObject {
     public ClipboardItem(Blob aBlob)
     {
         super(null);
-        _jsObj = null; // var param = {}; param[blob.type] = blob; return new ClipboardItem(param);
+        _jsObj = newClipboardItemForBlob(aBlob._jsObj);
     }
+
+    /**
+     * ClipboardItem: newClipboardItemForBlob()
+     */
+    private static native JSObject newClipboardItemForBlob(JSObject blobJS);
 }

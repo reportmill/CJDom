@@ -47,7 +47,7 @@ public class Clipboard extends CJObject {
      */
     public static Promise<String> getClipboardWriteItemsPromise(Array<ClipboardItem> theItems)
     {
-        JSObject promiseJS = getClipboardWriteItemsPromiseImpl(theItems);
+        JSObject promiseJS = getClipboardWriteItemsPromiseImpl(theItems._jsObj);
         return new Promise<>(promiseJS);
     }
 
@@ -64,19 +64,16 @@ public class Clipboard extends CJObject {
      * Clipboard: getReadPermissionsPromiseImpl()
      */
     private static native JSObject getReadPermissionsPromiseImpl();
-    // return navigator.permissions ? navigator.permissions.query({name: 'clipboard-read'}) : null;
 
     /**
      * Clipboard: getClipboardReadTextPromiseImpl()
      */
     public static native JSObject getClipboardReadTextPromiseImpl();
-    // "return navigator.clipboard.readText();
 
     /**
-     * Returns clipboard.write(items) promise.
+     * Clipboard: getClipboardWriteItemsPromiseImpl()
      */
-    public static native JSObject getClipboardWriteItemsPromiseImpl(Array<ClipboardItem> theItems);
-    // return navigator.clipboard.write(theItems);
+    public static native JSObject getClipboardWriteItemsPromiseImpl(JSObject theItems);
 
     /**
      * Returns navigator.clipboard.read() promise.
