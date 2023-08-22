@@ -15,15 +15,6 @@ public class Clipboard extends CJObject {
     }
 
     /**
-     * Constructor.
-     */
-    public Clipboard(Blob aBlob)
-    {
-        super(null);
-        _jsObj = null; // var param = {}; param[blob.type] = blob; return new ClipboardItem(param);
-    }
-
-    /**
      * Returns a Promise for read permissions.
      * Chrome supports. Safari just returns null.
      */

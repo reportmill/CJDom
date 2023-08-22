@@ -246,12 +246,14 @@ function Java_cjdom_CJObject_callForStringWithString2Impl(lib, jsObj, aName, arg
 }
 
 /**
- * CJDom method: log().
+ * CJDom: logJS().
  */
-function Java_cjdom_CJDom_logImpl(lib, anObj)
-{
-    console.log(anObj);
-}
+function Java_cjdom_CJDom_logJS(lib, anObj)  { console.log(anObj); }
+
+/**
+ * CJDom: logImpl().
+ */
+function Java_cjdom_CJDom_logImpl(lib, anObj)  { console.log(anObj); }
 
 /**
  * CJDom method: Returns Viewport width.
@@ -578,25 +580,25 @@ function createMutex()
     return { fulfill, reject, promise };
 }
 
-function fireEvent(name, callback, arg)
+function fireEvent(name, callback, arg1, arg2)
 {
     // Assume we want to steal all events, since preventDefault won't work with async event delivery)
-    if (arg instanceof Event) {
-        if (arg instanceof KeyboardEvent) {
-            if (arg.metaKey) {
-                var key = arg.key;
-                if (key == "l" || arg.altKey)
+    if (arg1 instanceof Event) {
+        if (arg1 instanceof KeyboardEvent) {
+            if (arg1.metaKey) {
+                var key = arg1.key;
+                if (key == "l" || arg1.altKey)
                     return;
             }
         }
-        var type = arg.type;
+        var type = arg1.type;
         if (type != "click" && type != "pointerdown") { // && type != "wheel") {
-            arg.preventDefault();
-            arg.stopPropagation();
+            arg1.preventDefault();
+            arg1.stopPropagation();
         }
     }
 
-    _eventQueue.push([ name, callback, arg ]);
+    _eventQueue.push([ name, callback, arg1, arg2 ]);
     _eventNotifyMutex.fulfill();
     _eventNotifyMutex = createMutex();
 }
@@ -621,7 +623,7 @@ async function Java_cjdom_EventQueue_getNextEvent(lib)
  */
 function Java_cjdom_EventQueue_setTimeoutImpl(lib, aName, aRun, aDelay)
 {
-    setTimeout(() => fireEvent(aName, aRun), aDelay);
+    setTimeout(() => fireEvent(aName, aRun, null), aDelay);
 }
 
 /**
@@ -629,15 +631,7 @@ function Java_cjdom_EventQueue_setTimeoutImpl(lib, aName, aRun, aDelay)
  */
 function Java_cjdom_EventQueue_setIntervalImpl(lib, aName, aRun, aDelay)
 {
-    return setInterval(() => fireEvent(aName, aRun), aDelay);
-}
-
-/**
- * EventQueue: setTimeoutImpl().
- */
-function Java_cjdom_EventQueue_setPromiseThen(lib, promise, aFunc)
-{
-    return promise.then(value => fireEvent("promise", aFunc, value));
+    return setInterval(() => fireEvent(aName, aRun, null), aDelay);
 }
 
 // This dictionary holds all addEventListener() listeners with the JS mapped version so removeEventListener() can work
@@ -648,7 +642,7 @@ let _listenerDict = { };
  */
 function Java_cjdom_EventQueue_addEventListenerImpl(lib, eventTargetJS, name, eventLsnr, lsnrId, useCapture)
 {
-    let lsnrJS = e => fireEvent(name, eventLsnr, e);
+    let lsnrJS = e => fireEvent(name, eventLsnr, e, null);
     _listenerDict[lsnrId] = lsnrJS;
     eventTargetJS.addEventListener(name, lsnrJS, useCapture);
 }
@@ -663,6 +657,22 @@ function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, 
         eventTarget.removeEventListener(aName, lsnrJS, useCapture);
         _listenerDict[lsnrId] = null;
     }
+}
+
+/**
+ * EventQueue: setPromiseThenImpl().
+ */
+function Java_cjdom_EventQueue_setPromiseThenImpl(lib, promiseJS, aFunc)
+{
+    return promiseJS.then(value => fireEvent("promise", aFunc, promiseJS, value));
+}
+
+/**
+ * EventQueue: setPromiseResolveImpl().
+ */
+function Java_cjdom_EventQueue_setPromiseResolveImpl(lib, promise, aValue)
+{
+    promise.resolve(aValue);
 }
 
 /**
@@ -782,6 +792,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_callForObjectWithIntImpl,
     Java_cjdom_CJObject_callForStringWithStringImpl, Java_cjdom_CJObject_callForStringWithString2Impl,
 
+    Java_cjdom_CJDom_logJS,
     Java_cjdom_CJDom_logImpl,
     Java_cjdom_CJDom_getViewportWidth, Java_cjdom_CJDom_getViewportHeight,
     Java_cjdom_CJDom_getDevicePixelRatio,
@@ -847,6 +858,9 @@ let cjdomNativeMethods = {
     Java_cjdom_EventQueue_getNextEvent,
     Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl,
     Java_cjdom_EventQueue_addEventListenerImpl, Java_cjdom_EventQueue_removeEventListenerImpl,
+
+    Java_cjdom_EventQueue_setPromiseThenImpl,
+    Java_cjdom_EventQueue_setPromiseResolveImpl,
 
     Java_cjdom_CanvasRenderingContext2D_fillTextImpl, Java_cjdom_CanvasRenderingContext2D_fillTextImpl2,
     Java_cjdom_CanvasRenderingContext2D_strokeTextImpl, Java_cjdom_CanvasRenderingContext2D_strokeTextImpl2,

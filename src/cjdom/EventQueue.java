@@ -1,6 +1,5 @@
 package cjdom;
 import netscape.javascript.JSObject;
-
 import java.util.function.Function;
 
 /**
@@ -108,8 +107,10 @@ public class EventQueue {
                 // Handle promise
                 case "promise":
                     Function<JSObject,Object> promiseThenFunc = (Function<JSObject,Object>) func;
-                    JSObject value = eventRecordArray.get(2);
+                    JSObject promiseJS = eventRecordArray.get(2);
+                    JSObject value = eventRecordArray.get(3);
                     Object result = promiseThenFunc.apply(value);
+                    setPromiseResolveImpl(promiseJS, result);
                     break;
 
                 // Handle unknown
@@ -162,10 +163,11 @@ public class EventQueue {
     /**
      * Sets a promise.then() function.
      */
-    public static Promise setPromiseThen(Promise aPromise, Function<?,?> aFunc)
+    public static <T,V> Promise<V> setPromiseThen(Promise<T> aPromise, Function<? super T, ? extends V> aFunc)
     {
-        JSObject thenPromiseJS = setPromiseThenImpl(aPromise._jsObj, aFunc);
-        return new Promise(thenPromiseJS);
+        JSObject promiseJS = aPromise._jsObj;
+        JSObject thenPromiseJS = setPromiseThenImpl(promiseJS, aFunc);
+        return new Promise<>(thenPromiseJS);
     }
 
     /**
@@ -191,5 +193,10 @@ public class EventQueue {
     /**
      * EventQueue: setPromiseThenImpl().
      */
-    public static native JSObject setPromiseThenImpl(JSObject promiseJS, Function<?,?> aFunc);
+    private static native JSObject setPromiseThenImpl(JSObject promiseJS, Function<?,?> aFunc);
+
+    /**
+     * EventQueue: setPromiseResolveImpl().
+     */
+    private static native void setPromiseResolveImpl(JSObject promiseJS, Object aValue);
 }

@@ -10,9 +10,9 @@ public class Promise<T> extends CJObject {
     /**
      * Constructor.
      */
-    public Promise(JSObject eventJS)
+    public Promise(JSObject promiseJS)
     {
-        super(eventJS);
+        super(promiseJS);
     }
 
     public <V> Promise<V> then(Function<? super T, ? extends V> onFulfilled)

@@ -1,4 +1,5 @@
 package cjdom;
+import netscape.javascript.JSObject;
 
 /**
  * This class has utility methods for CJDom.
@@ -11,10 +12,18 @@ public class CJDom {
     public static void log(Object anObj)
     {
         Object obj = anObj;
-        if (anObj instanceof CJObject)
-            obj = ((CJObject) anObj)._jsObj;
-        logImpl(obj);
+        if (anObj instanceof CJObject) {
+            JSObject jsObj = ((CJObject) anObj)._jsObj;
+            logJS(jsObj);
+        }
+
+        else logImpl(obj);
     }
+
+    /**
+     * Log given object.
+     */
+    public static native void logJS(JSObject anObj);
 
     /**
      * Log given object.
