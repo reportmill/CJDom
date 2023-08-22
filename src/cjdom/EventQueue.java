@@ -1,6 +1,8 @@
 package cjdom;
 import netscape.javascript.JSObject;
 
+import java.util.function.Function;
+
 /**
  * This class is meant to handle JavaScript callbacks like setTimeout(), setInterval(), addEventListener(), etc.
  *
@@ -103,6 +105,13 @@ public class EventQueue {
                     eventLsnr.handleEvent(event);
                     break;
 
+                // Handle promise
+                case "promise":
+                    Function<JSObject,Object> promiseThenFunc = (Function<JSObject,Object>) func;
+                    JSObject value = eventRecordArray.get(2);
+                    Object result = promiseThenFunc.apply(value);
+                    break;
+
                 // Handle unknown
                 default: System.out.println("EventQueue.eventLoop: Unknown event type: " + type);
             }
@@ -123,22 +132,12 @@ public class EventQueue {
     }
 
     /**
-     * Sets a timeout.
-     */
-    private static native void setTimeoutImpl(String aName, Runnable aRun, double ms);
-
-    /**
      * Sets an interval.
      */
     public static int setInterval(Runnable aRun, int aDelay)
     {
         return setIntervalImpl(INVOCATION_EVENT, aRun, aDelay);
     }
-
-    /**
-     * Sets a interval.
-     */
-    private static native int setIntervalImpl(String aName, Runnable aRun, double aDelay);
 
     /**
      * Registers an event handler of a specific event type on the EventTarget
@@ -161,52 +160,36 @@ public class EventQueue {
     }
 
     /**
-     * Registers an event handler of a specific event type on the EventTarget
+     * Sets a promise.then() function.
+     */
+    public static Promise setPromiseThen(Promise aPromise, Function<?,?> aFunc)
+    {
+        JSObject thenPromiseJS = setPromiseThenImpl(aPromise._jsObj, aFunc);
+        return new Promise(thenPromiseJS);
+    }
+
+    /**
+     * EventQueue: setTimeoutImpl().
+     */
+    private static native void setTimeoutImpl(String aName, Runnable aRun, double ms);
+
+    /**
+     * EventQueue: setIntervalImpl().
+     */
+    private static native int setIntervalImpl(String aName, Runnable aRun, double aDelay);
+
+    /**
+     * EventQueue: addEventListenerImpl().
      */
     private static native void addEventListenerImpl(JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, int lsnrId, boolean useCapture);
 
     /**
-     * Removes an event handler of a specific event type from the EventTarget
+     * EventQueue: removeEventListenerImpl().
      */
     private static native void removeEventListenerImpl(JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, int lsnrId, boolean useCapture);
 
-    /*
-    // This wrapped promise is used to trigger getNextEvent
-    var _eventNotifyMutex = createMutex();
-
-    // This array is used to return event name, lambda function and optional arg
-    var _eventPropsArray;
-
-    function createMutex()
-    {
-        let fulfill = null;
-        let reject = null;
-        let promise = new Promise((f, r) => { fulfill = f; reject = r; });
-        return { fulfill, reject, promise };
-    }
-
-    function fireEvent(name, callback, arg)
-    {
-        _eventPropsArray = [ name, callback, arg ];
-        _eventNotifyMutex.fulfill();
-        _eventNotifyMutex = createMutex();
-    }
-
-    async function Java_cjdom_EventQueue_getNextEvent(lib)
-    {
-        var mutexPromise = _eventNotifyMutex.promise.then(() => null);
-        await mutexPromise;
-        return _eventPropsArray;
-    }
-
-    function Java_cjdom_EventQueue_setTimeoutImpl(lib, aRun, aDelay)
-    {
-        setTimeout(() => fireEvent("invocation", aRun), aDelay);
-    }
-
-    function Java_cjdom_EventQueue_setIntervalImpl(lib, aName, aRun, aDelay)
-    {
-        return setInterval(() => fireEvent(aName, aRun), aDelay);
-    }
+    /**
+     * EventQueue: setPromiseThenImpl().
      */
+    public static native JSObject setPromiseThenImpl(JSObject promiseJS, Function<?,?> aFunc);
 }

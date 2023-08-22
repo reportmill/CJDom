@@ -601,6 +601,9 @@ function fireEvent(name, callback, arg)
     _eventNotifyMutex = createMutex();
 }
 
+/**
+ * EventQueue: getNextEvent().
+ */
 async function Java_cjdom_EventQueue_getNextEvent(lib)
 {
     // If event already in queue, just return
@@ -613,14 +616,28 @@ async function Java_cjdom_EventQueue_getNextEvent(lib)
     return _eventQueue.shift();
 }
 
+/**
+ * EventQueue: setTimeoutImpl().
+ */
 function Java_cjdom_EventQueue_setTimeoutImpl(lib, aName, aRun, aDelay)
 {
     setTimeout(() => fireEvent(aName, aRun), aDelay);
 }
 
+/**
+ * EventQueue: setIntervalImpl().
+ */
 function Java_cjdom_EventQueue_setIntervalImpl(lib, aName, aRun, aDelay)
 {
     return setInterval(() => fireEvent(aName, aRun), aDelay);
+}
+
+/**
+ * EventQueue: setTimeoutImpl().
+ */
+function Java_cjdom_EventQueue_setPromiseThen(lib, promise, aFunc)
+{
+    return promise.then(value => fireEvent("promise", aFunc, value));
 }
 
 // This dictionary holds all addEventListener() listeners with the JS mapped version so removeEventListener() can work

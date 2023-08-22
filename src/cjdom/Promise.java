@@ -17,7 +17,7 @@ public class Promise<T> extends CJObject {
 
     public <V> Promise<V> then(Function<? super T, ? extends V> onFulfilled)
     {
-        return null;
+        return EventQueue.setPromiseThen(this, onFulfilled);
     }
 
     public void catch_(Function<?,?> onRejected)
