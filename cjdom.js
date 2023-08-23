@@ -567,7 +567,7 @@ function Java_cjdom_DataTransfer_newDataTransfer(lib)  { return new DataTransfer
 function Java_cjdom_FileReader_newFileReader(lib)  { return new FileReader(); }
 
 // This wrapped promise is used to trigger getNextEvent
-var _eventNotifyMutex = createMutex();
+var _eventNotifyMutex = null;
 
 // This array holds event records (which are also arrays of name, lambda func and optional arg)
 let _eventQueue = [ ];
@@ -598,9 +598,12 @@ function fireEvent(name, callback, arg1, arg2)
         }
     }
 
+    // Add event to queue
     _eventQueue.push([ name, callback, arg1, arg2 ]);
-    _eventNotifyMutex.fulfill();
-    _eventNotifyMutex = createMutex();
+
+    // If mutex set, trigger it
+    if (_eventNotifyMutex != null)
+        _eventNotifyMutex.fulfill();
 }
 
 /**
@@ -608,13 +611,17 @@ function fireEvent(name, callback, arg1, arg2)
  */
 async function Java_cjdom_EventQueue_getNextEvent(lib)
 {
-    // If event already in queue, just return
+    // If event already in queue, just return it
     if (_eventQueue.length > 0)
         return _eventQueue.shift();
 
-    // Otherwise wait for next event
+    // Otherwise create mutex and wait for next event
+    _eventNotifyMutex = createMutex();
     var mutexPromise = _eventNotifyMutex.promise.then(() => null);
     await mutexPromise;
+
+    // Clear mutex and return event
+    _eventNotifyMutex = null;
     return _eventQueue.shift();
 }
 

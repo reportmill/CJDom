@@ -24,6 +24,8 @@ public class EventQueue {
      */
     public EventQueue()
     {
+        _shared = this;
+
         // Start waiting for events
         new Thread(() -> eventLoop()).start();
     }
@@ -120,7 +122,19 @@ public class EventQueue {
                 // Handle unknown
                 default: System.out.println("EventQueue.eventLoop: Unknown event type: " + type);
             }
+
+            // If no longer main event thread, just return
+            if (this != _shared)
+                return;
         }
+    }
+
+    /**
+     * Starts a new event thread.
+     */
+    public static void startNewEventThread()
+    {
+        new EventQueue();
     }
 
     /**
