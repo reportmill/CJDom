@@ -15,42 +15,33 @@ public class Clipboard extends CJObject {
     }
 
     /**
-     * Returns a Promise for read permissions.
+     * Returns PermissionStatus for read permissions.
      * Chrome supports. Safari just returns null.
      */
-    public static Promise<Object> getReadPermissionsPromise()
+    public static PermissionStatus getReadPermissionsPromise()
     {
-        JSObject promiseJS = getReadPermissionsPromiseImpl();
-        return new Promise<>(promiseJS);
+        // https://developer.mozilla.org/en-US/docs/Web/API/PermissionStatus
+        JSObject permissionStatusJS = getReadPermissionsPromiseImpl();
+        return new PermissionStatus(permissionStatusJS);
+        //return new Promise<>(getReadPermissionsPromiseImpl());
     }
 
     /**
      * Returns clipboard.readText() promise.
      */
-    public static Promise<String> getClipboardReadTextPromise()
+    public static String getClipboardReadTextPromise()
     {
-        JSObject promiseJS = getClipboardReadTextPromiseImpl();
-        return new Promise<>(promiseJS);
+        return getClipboardReadTextPromiseImpl();
+        //return new Promise<>(getClipboardReadTextPromiseImpl());
     }
 
     /**
      * Returns clipboard.write(items) promise.
      */
-    public static Promise<String> getClipboardWriteItemsPromise(Array<ClipboardItem> theItems)
+    public static void getClipboardWriteItemsPromise(Array<ClipboardItem> theItems)
     {
-        JSObject promiseJS = getClipboardWriteItemsPromiseImpl(theItems._jsObj);
-        System.out.println("Got promiseJS: " + (promiseJS != null));
-        CJDom.logJS(promiseJS);
-        return new Promise<>(promiseJS);
-    }
-
-    /**
-     * Returns navigator.permissions.state for given permissions.
-     */
-    public static String getPermissionStatusState(Object aPermResult)
-    {
-        CJObject cjObject = aPermResult instanceof CJObject ? (CJObject) aPermResult : new CJObject((JSObject) aPermResult);
-        return cjObject.getMemberString("state");
+        getClipboardWriteItemsPromiseImpl(theItems._jsObj);
+        //return new Promise<>(getClipboardWriteItemsPromiseImpl(theItems._jsObj));
     }
 
     /**
@@ -61,12 +52,12 @@ public class Clipboard extends CJObject {
     /**
      * Clipboard: getClipboardReadTextPromiseImpl()
      */
-    public static native JSObject getClipboardReadTextPromiseImpl();
+    public static native String getClipboardReadTextPromiseImpl();
 
     /**
      * Clipboard: getClipboardWriteItemsPromiseImpl()
      */
-    public static native JSObject getClipboardWriteItemsPromiseImpl(JSObject theItems);
+    public static native void getClipboardWriteItemsPromiseImpl(JSObject theItems);
 
     /**
      * Returns navigator.clipboard.read() promise.

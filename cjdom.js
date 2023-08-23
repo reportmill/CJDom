@@ -527,7 +527,7 @@ function Java_cjdom_Window_clearInterval(lib, anId)  { clearInterval(anId); }
  */
 function Java_cjdom_Clipboard_getReadPermissionsPromiseImpl(lib)
 {
-    return [ navigator.permissions ? navigator.permissions.query({name: 'clipboard-read'}) : null ];
+    return navigator.permissions ? navigator.permissions.query({name: 'clipboard-read'}) : null;
 }
 
 /**
@@ -535,7 +535,7 @@ function Java_cjdom_Clipboard_getReadPermissionsPromiseImpl(lib)
  */
 function Java_cjdom_Clipboard_getClipboardReadTextPromiseImpl(lib)
 {
-    return [ navigator.clipboard.readText() ];
+    return navigator.clipboard.readText();
 }
 
 /**
@@ -543,7 +543,7 @@ function Java_cjdom_Clipboard_getClipboardReadTextPromiseImpl(lib)
  */
 function Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl(lib, theItems)
 {
-    return [ navigator.clipboard.write(theItems) ];
+    return navigator.clipboard.write(theItems);
 }
 
 /**
