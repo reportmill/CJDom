@@ -527,7 +527,7 @@ function Java_cjdom_Window_clearInterval(lib, anId)  { clearInterval(anId); }
  */
 function Java_cjdom_Clipboard_getReadPermissionsPromiseImpl(lib)
 {
-    return navigator.permissions ? navigator.permissions.query({name: 'clipboard-read'}) : null;
+    return [ navigator.permissions ? navigator.permissions.query({name: 'clipboard-read'}) : null ];
 }
 
 /**
@@ -535,7 +535,7 @@ function Java_cjdom_Clipboard_getReadPermissionsPromiseImpl(lib)
  */
 function Java_cjdom_Clipboard_getClipboardReadTextPromiseImpl(lib)
 {
-    return navigator.clipboard.readText();
+    return [ navigator.clipboard.readText() ];
 }
 
 /**
@@ -543,7 +543,7 @@ function Java_cjdom_Clipboard_getClipboardReadTextPromiseImpl(lib)
  */
 function Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl(lib, theItems)
 {
-    return navigator.clipboard.write(theItems);
+    return [ navigator.clipboard.write(theItems) ];
 }
 
 /**
@@ -662,17 +662,10 @@ function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, 
 /**
  * EventQueue: setPromiseThenImpl().
  */
-function Java_cjdom_EventQueue_setPromiseThenImpl(lib, promiseJS, aFunc)
+function Java_cjdom_EventQueue_setPromiseThenImpl(lib, promiseWrapper, aFunc)
 {
-    return promiseJS.then(value => fireEvent("promise", aFunc, promiseJS, value));
-}
-
-/**
- * EventQueue: setPromiseResolveImpl().
- */
-function Java_cjdom_EventQueue_setPromiseResolveImpl(lib, promise, aValue)
-{
-    promise.resolve(aValue);
+    let promise = promiseWrapper[0]; // Could pass a mutex in to supported chained promises with a fireEventAndWait() method
+    return [ promise.then(value => fireEvent("promise", aFunc, value, null)) ];
 }
 
 /**
@@ -860,7 +853,6 @@ let cjdomNativeMethods = {
     Java_cjdom_EventQueue_addEventListenerImpl, Java_cjdom_EventQueue_removeEventListenerImpl,
 
     Java_cjdom_EventQueue_setPromiseThenImpl,
-    Java_cjdom_EventQueue_setPromiseResolveImpl,
 
     Java_cjdom_CanvasRenderingContext2D_fillTextImpl, Java_cjdom_CanvasRenderingContext2D_fillTextImpl2,
     Java_cjdom_CanvasRenderingContext2D_strokeTextImpl, Java_cjdom_CanvasRenderingContext2D_strokeTextImpl2,

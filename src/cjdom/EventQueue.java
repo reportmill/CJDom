@@ -37,7 +37,7 @@ public class EventQueue {
 
             // Wait for next event
             JSObject eventRecordArrayJS = getNextEvent();
-            Array eventRecordArray = new Array(eventRecordArrayJS);
+            Array<?> eventRecordArray = new Array<>(eventRecordArrayJS);
 
             // Get event type and function
             String type = eventRecordArray.getString(0);
@@ -107,10 +107,8 @@ public class EventQueue {
                 // Handle promise
                 case "promise":
                     Function<JSObject,Object> promiseThenFunc = (Function<JSObject,Object>) func;
-                    JSObject promiseJS = eventRecordArray.get(2);
-                    JSObject value = eventRecordArray.get(3);
-                    Object result = promiseThenFunc.apply(value);
-                    setPromiseResolveImpl(promiseJS, result);
+                    JSObject value = eventRecordArray.get(2);
+                    promiseThenFunc.apply(value);
                     break;
 
                 // Handle unknown
@@ -194,9 +192,4 @@ public class EventQueue {
      * EventQueue: setPromiseThenImpl().
      */
     private static native JSObject setPromiseThenImpl(JSObject promiseJS, Function<?,?> aFunc);
-
-    /**
-     * EventQueue: setPromiseResolveImpl().
-     */
-    private static native void setPromiseResolveImpl(JSObject promiseJS, Object aValue);
 }

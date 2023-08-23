@@ -39,6 +39,8 @@ public class Clipboard extends CJObject {
     public static Promise<String> getClipboardWriteItemsPromise(Array<ClipboardItem> theItems)
     {
         JSObject promiseJS = getClipboardWriteItemsPromiseImpl(theItems._jsObj);
+        System.out.println("Got promiseJS: " + (promiseJS != null));
+        CJDom.logJS(promiseJS);
         return new Promise<>(promiseJS);
     }
 
