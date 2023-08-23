@@ -23,7 +23,7 @@ function Java_cjdom_CJObject_setMemberStringImpl(lib, jsObj, aName, aValue)  { j
 /**
  * JSObject method: getMemberBooleanImpl()
  */
-function Java_cjdom_CJObject_getMemberBooleanImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+function Java_cjdom_CJObject_getMemberBooleanImpl(lib, jsObj, aName)  { return jsObj[aName] ? 1 : 0; }
 
 /**
  * JSObject method: setMemberBooleanImpl()

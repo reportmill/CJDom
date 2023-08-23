@@ -54,7 +54,7 @@ public class CJObject {
     /**
      * Returns a named member of a JavaScript object.
      */
-    public boolean getMemberBoolean(String aName)  { return getMemberBooleanImpl(_jsObj, aName); }
+    public boolean getMemberBoolean(String aName)  { return getMemberBooleanImpl(_jsObj, aName) > 0; }
 
     /**
      * Sets a named member of a JavaScript object.
@@ -293,9 +293,9 @@ public class CJObject {
     public static native void setMemberStringImpl(JSObject jsObj, String aName, String aValue);
 
     /**
-     * JSObject method: getMemberBooleanImpl()
+     * JSObject method: getMemberBooleanImpl(). Sometimes problem returning boolean?
      */
-    public static native boolean getMemberBooleanImpl(JSObject jsObj, String aName);
+    public static native int getMemberBooleanImpl(JSObject jsObj, String aName);
 
     /**
      * JSObject method: setMemberBooleanImpl()

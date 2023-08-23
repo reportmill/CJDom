@@ -13,11 +13,11 @@ public class UIEvent extends Event {
         super(eventJS);
     }
 
-    public boolean isShiftKey()  { return getMemberInt("shiftKey") > 0; }
+    public boolean isShiftKey()  { return getMemberBoolean("shiftKey"); }
 
-    public boolean isAltKey()  { return getMemberInt("altKey") > 0; }
+    public boolean isAltKey()  { return getMemberBoolean("altKey"); }
 
-    public boolean isCtrlKey()  { return getMemberInt("ctrlKey") > 0; }
+    public boolean isCtrlKey()  { return getMemberBoolean("ctrlKey"); }
 
-    public boolean isMetaKey()  { return getMemberInt("metaKey") > 0; }
+    public boolean isMetaKey()  { return getMemberBoolean("metaKey"); }
 }
