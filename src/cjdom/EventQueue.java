@@ -67,6 +67,12 @@ public class EventQueue {
                 case "pointerdown":
                 case "click":
                 case "contextmenu":
+                case "dragenter":
+                case "dragover":
+                case "dragexit":
+                case "drop":
+                case "dragstart":
+                case "dragend":
                     EventListener<Event> mouseLsnr = (EventListener<Event>) func;
                     JSObject mouseEventJS = eventRecordArray.get(2);
                     Event mouseEvent = new MouseEvent(mouseEventJS);
