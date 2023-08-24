@@ -64,6 +64,7 @@ public class HTMLElement extends Element implements EventTarget {
     public static HTMLElement getElementForName(String tagName, JSObject jsObj)
     {
         switch (tagName) {
+            case "audio": return new HTMLAudioElement(jsObj);
             case "canvas": return new HTMLCanvasElement(jsObj);
             case "img": return new HTMLImageElement(jsObj);
             case "body": return new HTMLBodyElement(jsObj);

@@ -77,6 +77,13 @@ public class Node extends CJObject {
      */
     private static native void removeChildImpl(JSObject parentJS, JSObject childJS);
 
+    public Node cloneNode(boolean deep)
+    {
+        JSObject jsObj = callForObjectWithArgs("cloneNode", deep);
+        String name = getNodeName();
+        return HTMLElement.getElementForName(name, jsObj);
+    }
+
     //String getNodeValue();
     //void setNodeValue(String var1);
     //short getNodeType();
@@ -90,7 +97,6 @@ public class Node extends CJObject {
     //Node replaceChild(Node var1, Node var2);
     //boolean hasChildNodes();
     //boolean hasChildNodesJS();
-    //Node cloneNode(boolean var1);
     //void normalize();
     //boolean isSupported(String var1, String var2);
     //String getNamespaceURI();
