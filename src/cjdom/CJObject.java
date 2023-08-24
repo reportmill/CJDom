@@ -216,6 +216,15 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
+    public String callForStringWithArgs(String aName, Object ... theArgs)
+    {
+        Array array = new Array(theArgs);
+        return callForStringWithArgsImpl(_jsObj, aName, array._jsObj);
+    }
+
+    /**
+     * Calls a JavaScript method.
+     */
     public int callForIntWithArgs(String aName, Object ... theArgs)
     {
         Array array = new Array(theArgs);
@@ -406,6 +415,11 @@ public class CJObject {
      * JSObject method: callForObjectWithArgsImpl().
      */
     public static native JSObject callForObjectWithArgsImpl(JSObject jsObj, String aName, JSObject arrayJS);
+
+    /**
+     * JSObject method: callForStringWithArgsImpl().
+     */
+    public static native String callForStringWithArgsImpl(JSObject jsObj, String aName, JSObject arrayJS);
 
     /**
      * JSObject method: callForIntWithArgsImpl().

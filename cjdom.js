@@ -185,6 +185,14 @@ function Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJ
 }
 
 /**
+ * JSObject method: callForStringWithArgsImpl().
+ */
+function Java_cjdom_CJObject_callForStringWithArgsImpl(lib, jsObj, aName, arrayJS)
+{
+    return Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJS);
+}
+
+/**
  * JSObject method: callForIntWithArgsImpl().
  */
 function Java_cjdom_CJObject_callForIntWithArgsImpl(lib, jsObj, aName, arrayJS)
@@ -786,6 +794,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_callWithDouble4Impl, Java_cjdom_CJObject_callWithDouble6Impl,
     Java_cjdom_CJObject_callWithArgsImpl,
     Java_cjdom_CJObject_callForObjectWithArgsImpl,
+    Java_cjdom_CJObject_callForStringWithArgsImpl,
     Java_cjdom_CJObject_callForIntWithArgsImpl,
     Java_cjdom_CJObject_callForObjectImpl, Java_cjdom_CJObject_callForObjectWithObjectImpl,
     Java_cjdom_CJObject_callForObjectWithStringImpl,
