@@ -17,7 +17,7 @@ public class Storage extends CJObject {
         super(programJS);
     }
 
-    public String getItem(String aKey)  { return callForStringWithString("getItem", aKey); }
+    public String getItem(String aKey)  { return callForStringWithArgs("getItem", aKey); }
 
     public void setItem(String aKey, String aValue)  { callWithString2("setItem", aKey, aValue); }
 

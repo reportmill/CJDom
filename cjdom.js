@@ -189,7 +189,8 @@ function Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJ
  */
 function Java_cjdom_CJObject_callForStringWithArgsImpl(lib, jsObj, aName, arrayJS)
 {
-    return Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJS);
+    var string = Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJS);
+    return string != null ? string : "SNAP_NULL";
 }
 
 /**
