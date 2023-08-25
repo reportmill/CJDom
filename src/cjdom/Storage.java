@@ -19,7 +19,14 @@ public class Storage extends CJObject {
 
     public String getItem(String aKey)  { return callForStringWithArgs("getItem", aKey); }
 
-    public void setItem(String aKey, String aValue)  { callWithString2("setItem", aKey, aValue); }
+    public void setItem(String aKey, String aValue)
+    {
+        if (aValue == null)
+            removeItem(aKey);
+        else callWithString2("setItem", aKey, aValue);
+    }
+
+    public void removeItem(String aKey)  { callWithString("removeItem", aKey); }
 
     public String getKey(int anIndex)  { return callForStringWithArgs("key", anIndex); }
 
