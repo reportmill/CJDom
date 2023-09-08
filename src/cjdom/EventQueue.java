@@ -191,12 +191,12 @@ public class EventQueue {
     /**
      * EventQueue: setTimeoutImpl().
      */
-    private static native void setTimeoutImpl(String aName, Runnable aRun, double ms);
+    private static native void setTimeoutImpl(String aName, Runnable aRun, int ms);
 
     /**
      * EventQueue: setIntervalImpl().
      */
-    private static native int setIntervalImpl(String aName, Runnable aRun, double aDelay);
+    private static native int setIntervalImpl(String aName, Runnable aRun, int aDelay);
 
     /**
      * EventQueue: addEventListenerImpl().
