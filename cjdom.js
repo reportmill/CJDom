@@ -584,9 +584,8 @@ let _eventQueue = [ ];
 function createMutex()
 {
     let fulfill = null;
-    let reject = null;
-    let promise = new Promise((f, r) => { fulfill = f; reject = r; });
-    return { fulfill, reject, promise };
+    let promise = new Promise(f => { fulfill = f; });
+    return { fulfill, promise };
 }
 
 function fireEvent(name, callback, arg1, arg2)
@@ -611,8 +610,10 @@ function fireEvent(name, callback, arg1, arg2)
     _eventQueue.push([ name, callback, arg1, arg2 ]);
 
     // If mutex set, trigger it
-    if (_eventNotifyMutex != null)
+    if (_eventNotifyMutex != null) {
         _eventNotifyMutex.fulfill();
+        _eventNotifyMutex = null;
+    }
 }
 
 /**
@@ -626,8 +627,7 @@ async function Java_cjdom_EventQueue_getNextEvent(lib)
 
     // Otherwise create mutex and wait for next event
     _eventNotifyMutex = createMutex();
-    var mutexPromise = _eventNotifyMutex.promise.then(() => null);
-    await mutexPromise;
+    await _eventNotifyMutex.promise;
 
     // Clear mutex and return event
     _eventNotifyMutex = null;
