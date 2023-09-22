@@ -81,6 +81,16 @@ public class Window extends CJObject implements EventTarget {
     }
 
     /**
+     * Override to set URL hash.
+     */
+    public void setWindowLocationHash(String aString)
+    {
+        JSObject locationJS = getMember("location");
+        String str = aString != null ? aString : "";
+        setMemberStringImpl(locationJS, "hash", str);
+    }
+
+    /**
      * Stops intervals for given id.
      */
     public static native void clearInterval(int anId);

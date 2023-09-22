@@ -106,6 +106,8 @@ public class EventQueue {
                 case "select":
                 case "selectstart":
                 case "selectend":
+                case "focus":
+                case "blur":
                     EventListener<Event> eventLsnr = (EventListener<Event>) func;
                     JSObject eventJS = eventRecordArray.get(2);
                     Event event = new Event(eventJS);
