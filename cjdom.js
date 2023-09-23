@@ -550,9 +550,19 @@ function Java_cjdom_Clipboard_getClipboardReadTextPromiseImpl(lib)
 /**
  * Clipboard: getClipboardWriteItemsPromiseImpl().
  */
-function Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl(lib, theItems)
+async function Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl(lib, theItems)
 {
-    return navigator.clipboard.write(theItems);
+    navigator.clipboard.write(theItems);
+}
+
+/**
+ * ClipboardItem: newClipboardItemForTypeAndString()
+ */
+function Java_cjdom_ClipboardItem_newClipboardItemForTypeAndString(lib, type, string)
+{
+    var blob = new Blob([ string ], { type });
+    var entry = { [blob.type]: blob };
+    return new ClipboardItem(entry);
 }
 
 /**
@@ -560,9 +570,8 @@ function Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl(lib, theItems)
  */
 function Java_cjdom_ClipboardItem_newClipboardItemForBlob(lib, blob)
 {
-    var param = { };
-    param[blob.type] = blob;
-    return new ClipboardItem(param);
+    var entry = { [blob.type]: blob };
+    return new ClipboardItem(entry);
 }
 
 /**
@@ -859,6 +868,7 @@ let cjdomNativeMethods = {
     Java_cjdom_Clipboard_getClipboardReadTextPromiseImpl,
     Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl,
 
+    Java_cjdom_ClipboardItem_newClipboardItemForTypeAndString,
     Java_cjdom_ClipboardItem_newClipboardItemForBlob,
 
     Java_cjdom_DataTransfer_newDataTransfer,

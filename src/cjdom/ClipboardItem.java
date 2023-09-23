@@ -17,11 +17,25 @@ public class ClipboardItem extends CJObject {
     /**
      * Constructor.
      */
+    public ClipboardItem(String aType, String aValue)
+    {
+        super(null);
+        _jsObj = newClipboardItemForTypeAndString(aType, aValue);
+    }
+
+    /**
+     * Constructor.
+     */
     public ClipboardItem(Blob aBlob)
     {
         super(null);
         _jsObj = newClipboardItemForBlob(aBlob._jsObj);
     }
+
+    /**
+     * ClipboardItem: newClipboardItemForTypeAndString()
+     */
+    private static native JSObject newClipboardItemForTypeAndString(String aType, String aString);
 
     /**
      * ClipboardItem: newClipboardItemForBlob()
