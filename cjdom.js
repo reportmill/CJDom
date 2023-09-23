@@ -174,6 +174,7 @@ function Java_cjdom_CJObject_callWithArgsImpl(lib, jsObj, aName, arrayJS)
 function Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJS)
 {
     switch (arrayJS.length) {
+        case 0: return jsObj[aName].call(jsObj);
         case 1: return jsObj[aName].call(jsObj, arrayJS[0]);
         case 2: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1]);
         case 3: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2]);
@@ -532,19 +533,18 @@ function Java_cjdom_Window_openImpl(lib, winJS, urlStr, targetStr, windowFeature
 function Java_cjdom_Window_clearInterval(lib, anId)  { clearInterval(anId); }
 
 /**
- * Clipboard: getReadPermissionsPromiseImpl()
+ * Clipboard: clipboardReadImpl()
  */
-function Java_cjdom_Clipboard_getReadPermissionsPromiseImpl(lib)
+async function Java_cjdom_Clipboard_clipboardReadImpl(lib)
 {
-    return navigator.permissions ? navigator.permissions.query({name: 'clipboard-read'}) : null;
-}
+    // Get read permissions
+    if (navigator.permissions) {
+        var permStatus = await navigator.permissions.query({name: 'clipboard-read'});
+        console.log("Clipboard.clipboardRead: permissions = " + permStatus.state);
+    }
 
-/**
- * Clipboard: getClipboardReadTextPromiseImpl()
- */
-function Java_cjdom_Clipboard_getClipboardReadTextPromiseImpl(lib)
-{
-    return navigator.clipboard.readText();
+    // Read and return clipboard items
+    return navigator.clipboard.read();
 }
 
 /**
@@ -864,8 +864,7 @@ let cjdomNativeMethods = {
     Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,
     Java_cjdom_Window_openImpl, Java_cjdom_Window_clearInterval,
 
-    Java_cjdom_Clipboard_getReadPermissionsPromiseImpl,
-    Java_cjdom_Clipboard_getClipboardReadTextPromiseImpl,
+    Java_cjdom_Clipboard_clipboardReadImpl,
     Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl,
 
     Java_cjdom_ClipboardItem_newClipboardItemForTypeAndString,

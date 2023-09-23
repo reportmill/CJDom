@@ -33,6 +33,34 @@ public class ClipboardItem extends CJObject {
     }
 
     /**
+     * Returns the types.
+     */
+    public String[] getTypes()
+    {
+        // Get array of types
+        JSObject arrayJS = getMember("types");
+        Array<String> array = new Array<>(arrayJS);
+        int length = array.getLength();
+
+        // Convert to array of String
+        String[] types = new String[length];
+        for (int i = 0; i < length; i++)
+            types[i] = array.getString(i);
+
+        // Return
+        return types;
+    }
+
+    /**
+     * Returns a type.
+     */
+    public Blob getType(String aType)
+    {
+        JSObject blobJS = callForObjectWithString("getType", aType);
+        return new Blob(blobJS);
+    }
+
+    /**
      * ClipboardItem: newClipboardItemForTypeAndString()
      */
     private static native JSObject newClipboardItemForTypeAndString(String aType, String aString);

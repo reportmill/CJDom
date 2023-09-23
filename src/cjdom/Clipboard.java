@@ -15,24 +15,24 @@ public class Clipboard extends CJObject {
     }
 
     /**
-     * Returns PermissionStatus for read permissions.
-     * Chrome supports. Safari just returns null.
+     * Reads clipboard and returns an array of ClipboardItem.
      */
-    public static PermissionStatus getReadPermissionsPromise()
+    public static ClipboardItem[] clipboardRead()
     {
-        // https://developer.mozilla.org/en-US/docs/Web/API/PermissionStatus
-        JSObject permissionStatusJS = getReadPermissionsPromiseImpl();
-        return new PermissionStatus(permissionStatusJS);
-        //return new Promise<>(getReadPermissionsPromiseImpl());
-    }
+        // Get array of clipboard items (JS)
+        JSObject arrayJS = clipboardReadImpl();
+        Array<ClipboardItem> array = new Array<>(arrayJS);
 
-    /**
-     * Returns clipboard.readText() promise.
-     */
-    public static String getClipboardReadTextPromise()
-    {
-        return getClipboardReadTextPromiseImpl();
-        //return new Promise<>(getClipboardReadTextPromiseImpl());
+        // Convert Array<clipboardItemJS> to ClipboardItems[]
+        int length = array.getLength();
+        ClipboardItem[] clipboardItems = new ClipboardItem[length];
+        for (int i = 0; i < length; i++) {
+            JSObject clipboardItemJS = array.get(i);
+            clipboardItems[i] = new ClipboardItem(clipboardItemJS);
+        }
+
+        // Return
+        return clipboardItems;
     }
 
     /**
@@ -41,27 +41,15 @@ public class Clipboard extends CJObject {
     public static void getClipboardWriteItemsPromise(Array<ClipboardItem> theItems)
     {
         getClipboardWriteItemsPromiseImpl(theItems._jsObj);
-        //return new Promise<>(getClipboardWriteItemsPromiseImpl(theItems._jsObj));
     }
 
     /**
-     * Clipboard: getReadPermissionsPromiseImpl()
+     * Clipboard: clipboardReadImpl()
      */
-    private static native JSObject getReadPermissionsPromiseImpl();
-
-    /**
-     * Clipboard: getClipboardReadTextPromiseImpl()
-     */
-    public static native String getClipboardReadTextPromiseImpl();
+    private static native JSObject clipboardReadImpl();
 
     /**
      * Clipboard: getClipboardWriteItemsPromiseImpl()
      */
     public static native void getClipboardWriteItemsPromiseImpl(JSObject theItems);
-
-    /**
-     * Returns navigator.clipboard.read() promise.
-     */
-    //public static native JSPromise<JSArray<JSDataTransferItem>> getClipboardReadPromise();
-    // return navigator.clipboard.read();
 }

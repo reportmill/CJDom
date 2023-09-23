@@ -25,6 +25,15 @@ public class Blob extends CJObject {
     }
 
     /**
+     * Returns the blob text.
+     */
+    public String getText()
+    {
+        String str = callForStringWithArgs("text");
+        return str;
+    }
+
+    /**
      * Returns a URL for this blob.
      */
     public String createURL()
