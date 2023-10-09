@@ -153,6 +153,20 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: getLineDashOffset().
      */
+    public Array<Number> getLineDash()
+    {
+        JSObject arrayJS = getMember("getLineDash");
+        return new Array<>(arrayJS);
+    }
+
+    /**
+     * CanvasRenderingContext2D: setLineDashOffset().
+     */
+    public void setLineDash(Array<Number> dashArray)  { callWithArgs("setLineDash", dashArray); }
+
+    /**
+     * CanvasRenderingContext2D: getLineDashOffset().
+     */
     public double getLineDashOffset()  { return getMemberDouble("lineDashOffset"); }
 
     /**
@@ -171,12 +185,12 @@ public class CanvasRenderingContext2D extends CJObject {
     public void setLineJoin(String var1)  { setMemberString("lineJoin", var1); }
 
     /**
-     * CanvasRenderingContext2D: getLineJoin().
+     * CanvasRenderingContext2D: getLineWidth().
      */
     public double getLineWidth()  { return getMemberDouble("lineWidth"); }
 
     /**
-     * CanvasRenderingContext2D: getLineJoin().
+     * CanvasRenderingContext2D: setLineWidth().
      */
     public void setLineWidth(double var1)  { setMemberDouble("lineWidth", var1); }
 
@@ -464,8 +478,6 @@ public class CanvasRenderingContext2D extends CJObject {
     //ImageData createImageData(double var1, double var3);
     //boolean drawCustomFocusRing(Element var1);
     //void drawSystemFocusRing(Element var1);
-    //JSArrayReader<JSObject> getLineDash();
-    //void setLineDash(JSArray<JSObject> var1);
     //String getTextAlign();
     //void setTextAlign(String var1);
     //String getTextBaseline();
