@@ -40,7 +40,7 @@ public class Clipboard extends CJObject {
      */
     public static void getClipboardWriteItemsPromise(Array<ClipboardItem> theItems)
     {
-        getClipboardWriteItemsPromiseImpl(theItems._jsObj);
+        clipboardWriteImpl(theItems._jsObj);
     }
 
     /**
@@ -49,7 +49,7 @@ public class Clipboard extends CJObject {
     private static native JSObject clipboardReadImpl();
 
     /**
-     * Clipboard: getClipboardWriteItemsPromiseImpl()
+     * Clipboard: clipboardWriteImpl()
      */
-    public static native void getClipboardWriteItemsPromiseImpl(JSObject theItems);
+    public static native void clipboardWriteImpl(JSObject theItems);
 }

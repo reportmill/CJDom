@@ -532,27 +532,67 @@ function Java_cjdom_Window_openImpl(lib, winJS, urlStr, targetStr, windowFeature
  */
 function Java_cjdom_Window_clearInterval(lib, anId)  { clearInterval(anId); }
 
+// Clipboard.read() ClipboardItems - read upon meta+v key press, write() upon meta-c
+var clipboardReadItems;
+var clipboardWriteItems;
+
 /**
  * Clipboard: clipboardReadImpl()
  */
 async function Java_cjdom_Clipboard_clipboardReadImpl(lib)
 {
-    // Get read permissions
-    if (navigator.permissions) {
-        var permStatus = await navigator.permissions.query({name: 'clipboard-read'});
-        console.log("Clipboard.clipboardRead: permissions = " + permStatus.state);
+    // If clipboardReadItems set, clear and return
+    if (clipboardReadItems != null) {
+        var temp = clipboardReadItems;
+        clipboardReadItems = null;
+        return temp;
     }
 
-    // Read and return clipboard items
-    return navigator.clipboard.read();
+    // Try to read items
+    var clipboardReadPromise = navigator.clipboard.read()
+        .catch((e) => { console.log("Ignoring error: " + e); return new Array(); });
+    return await clipboardReadPromise;
 }
 
 /**
- * Clipboard: getClipboardWriteItemsPromiseImpl().
+ * Clipboard: clipboardWriteImpl().
  */
-async function Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl(lib, theItems)
+async function Java_cjdom_Clipboard_clipboardWriteImpl(lib, theItems)
 {
-    navigator.clipboard.write(theItems);
+    // Will fail on Safari because this is not directly triggered from user event
+    try {
+        navigator.clipboard.write(theItems).catch((e) => clipboardWriteItems = theItems);
+        clipboardReadItems = theItems;
+    }
+
+    // Can happen on Safari iOS with localhost
+    catch (e) { console.log("Clipboard.getClipboardWriteItems:" + e); }
+}
+
+/**
+ * delayedClipboardWrite(): Called a moment after meta+C to try to write lingering clipboard items.
+ */
+function delayedClipboardWrite()
+{
+    if (clipboardWriteItems != null) {
+        try { navigator.clipboard.write(clipboardWriteItems); }
+        catch (e) { console.log("delayedClipboardWrite:" + e); }
+        clipboardReadItems = clipboardWriteItems;
+        clipboardWriteItems = null;
+    }
+}
+
+/**
+ * eagerClipboardRead(): Called on meta+V (paste) to try to read items.
+ */
+async function eagerClipboardRead()
+{
+    try {
+        clipboardReadItems = await navigator.clipboard.read().catch((e) => console.log("Ignoring: " + e));
+    }
+
+    // Can happen on Safari iOS with localhost
+    catch (e) { console.log("eagerClipboardRead:" + e); }
 }
 
 /**
@@ -597,17 +637,29 @@ function createMutex()
     return { fulfill, promise };
 }
 
-function fireEvent(name, callback, arg1, arg2)
+async function fireEvent(name, callback, arg1, arg2)
 {
     // Assume we want to steal all events, since preventDefault won't work with async event delivery)
     if (arg1 instanceof Event) {
         if (arg1 instanceof KeyboardEvent) {
             if (arg1.metaKey) {
                 var key = arg1.key;
+
+                // Ignore meta+l (select address bar) and meta+alt+i (show dev tools)
                 if (key == "l" || arg1.altKey)
                     return;
+
+                // If meta+C (copy) or meta+X (cut), write clipboardWriteItems
+                if (key == 'c' || key =='x')
+                    setTimeout(delayedClipboardWrite, 100);
+
+                // If meta+V (paste), read and set clipboardReadItems
+                else if (key == 'v')
+                    eagerClipboardRead();
             }
         }
+
+        // Stop default/propagation for most events
         var type = arg1.type;
         if (type != "click" && type != "pointerdown") { // && type != "wheel") {
             arg1.preventDefault();
@@ -865,7 +917,7 @@ let cjdomNativeMethods = {
     Java_cjdom_Window_openImpl, Java_cjdom_Window_clearInterval,
 
     Java_cjdom_Clipboard_clipboardReadImpl,
-    Java_cjdom_Clipboard_getClipboardWriteItemsPromiseImpl,
+    Java_cjdom_Clipboard_clipboardWriteImpl,
 
     Java_cjdom_ClipboardItem_newClipboardItemForTypeAndString,
     Java_cjdom_ClipboardItem_newClipboardItemForBlob,
