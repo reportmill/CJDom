@@ -23,6 +23,16 @@ public class Element extends Node {
     }
 
     /**
+     * Returns the id.
+     */
+    public String getId()  { return getMemberString("id"); }
+
+    /**
+     * Sets the id.
+     */
+    public void setId(String idStr)  { setMemberString("id", idStr); }
+
+    /**
      * Returns element attribute for attribute name.
      */
     public String getAttribute(String aName)  { return getMemberString(aName); }
@@ -46,6 +56,14 @@ public class Element extends Node {
     public void setInnerHTML(String htmlStr)
     {
         setInnerHTMLImpl(_jsObj, htmlStr);
+    }
+
+    /**
+     * Set pointer capture.
+     */
+    public void setPointerCapture(int anId)
+    {
+        callWithInt("setPointerCapture", anId);
     }
 
     /**
