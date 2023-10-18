@@ -641,6 +641,8 @@ async function fireEvent(name, callback, arg1, arg2)
 {
     // Assume we want to steal all events, since preventDefault won't work with async event delivery)
     if (arg1 instanceof Event) {
+
+        // If KeyboardEvent, suppress some browser keys and do some copy/paste
         if (arg1 instanceof KeyboardEvent) {
             if (arg1.metaKey) {
                 var key = arg1.key;
@@ -657,6 +659,12 @@ async function fireEvent(name, callback, arg1, arg2)
                 else if (key == 'v')
                     eagerClipboardRead();
             }
+        }
+
+        // If MouseEvent, do some copy/paste
+        if (arg1 instanceof MouseEvent) {
+            if (arg1.type == "mouseup")
+                setTimeout(delayedClipboardWrite, 100);
         }
 
         // Stop default/propagation for most events
