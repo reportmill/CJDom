@@ -55,8 +55,8 @@ public class Uint8ClampedArray extends TypedArray {
         // Convert image bytes array to shorts array
         int length = getLength();
         short[] shortsArray = new short[length];
-        for (int i = 0; i < length; i++)
-            shortsArray[i] = get(i);
+        copyToJavaArray(_jsObj, shortsArray, length);
+        //for (int i = 0; i < length; i++) shortsArray[i] = get(i);
 
         // Return
         return shortsArray;
@@ -70,8 +70,8 @@ public class Uint8ClampedArray extends TypedArray {
         int length = getLength();
         int length2 = length / channelCount;
         short[] shortsArray = new short[length2];
-        for (int i = 0, j = channelIndex; i < length2; i++, j += channelCount)
-            shortsArray[i] = get(j);
+        copyToJavaArrayForChannelIndexAndCount(_jsObj, shortsArray, length2, channelIndex, channelCount);
+        //for (int i = 0, j = channelIndex; i < length2; i++, j += channelCount) shortsArray[i] = get(j);
 
         // Return
         return shortsArray;
@@ -96,4 +96,14 @@ public class Uint8ClampedArray extends TypedArray {
      * Uint8ClampedArray: newArrayForJavaArray()
      */
     private static native JSObject newArrayForJavaArray(short[] javaArray, int length);
+
+    /**
+     * Uint8ClampedArray: copyToJavaArray()
+     */
+    private static native void copyToJavaArray(JSObject jsArray, short[] javaArray, int length);
+
+    /**
+     * Uint8ClampedArray: copyToJavaArrayForChannelIndexAndCount()
+     */
+    private static native void copyToJavaArrayForChannelIndexAndCount(JSObject jsArray, short[] javaArray, int length, int channelIndex, int channelCount);
 }

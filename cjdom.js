@@ -389,13 +389,34 @@ function Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl(lib, aLen)  { return
  */
 function Java_cjdom_Uint8ClampedArray_newArrayForJavaArray(lib, javaArray, length)
 {
-    console.log(javaArray);
     var uint16_Array = javaArray.this.a1.subarray(1, length + 1);
     var uint8_Array = new Uint8ClampedArray(length);
     for (let i = 0; i < length; i++)
         uint8_Array[i] = uint16_Array[i];
     return uint8_Array;
 }
+
+/**
+ * Uint8ClampedArray: copyToJavaArray().
+ */
+function Java_cjdom_Uint8ClampedArray_copyToJavaArray(lib, uint8_Array, javaArray, length)
+{
+    var uint16_Array = javaArray.this.a1; //.subarray(1, length + 1);
+    for (let i = 0; i < length; i++)
+        uint16_Array[i + 1] = uint8_Array[i];
+}
+
+
+/**
+ * Uint8ClampedArray: copyToJavaArrayForChannelIndexAndCount().
+ */
+function Java_cjdom_Uint8ClampedArray_copyToJavaArrayForChannelIndexAndCount(lib, uint8_Array, javaArray, length, channelIndex, channelCount)
+{
+    var uint16_Array = javaArray.this.a1; //.subarray(1, length + 1);
+    for (let i = 0, j = channelIndex; i < length; i++, j = j + channelCount)
+        uint16_Array[i + 1] = uint8_Array[j];
+}
+
 /**
  * Uint16Array: setImpl().
  */
@@ -919,6 +940,8 @@ let cjdomNativeMethods = {
     Java_cjdom_Uint8ClampedArray_getImpl, Java_cjdom_Uint8ClampedArray_setImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForJavaArray,
+    Java_cjdom_Uint8ClampedArray_copyToJavaArray,
+    Java_cjdom_Uint8ClampedArray_copyToJavaArrayForChannelIndexAndCount,
 
     Java_cjdom_Blob_createBlobForBytesAndType,
 
