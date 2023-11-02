@@ -385,6 +385,18 @@ function Java_cjdom_Uint8ClampedArray_setImpl(lib, jsObj, index, aValue)  { jsOb
 function Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl(lib, aLen)  { return new Uint8ClampedArray(aLen); }
 
 /**
+ * Uint8ClampedArray: newArrayForJavaArray().
+ */
+function Java_cjdom_Uint8ClampedArray_newArrayForJavaArray(lib, javaArray, length)
+{
+    console.log(javaArray);
+    var uint16_Array = javaArray.this.a1.subarray(1, length + 1);
+    var uint8_Array = new Uint8ClampedArray(length);
+    for (let i = 0; i < length; i++)
+        uint8_Array[i] = uint16_Array[i];
+    return uint8_Array;
+}
+/**
  * Uint16Array: setImpl().
  */
 function Java_cjdom_Uint16Array_setImpl(lib, array, index, aValue)  { array[index] = aValue; }
@@ -906,6 +918,7 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Uint8ClampedArray_getImpl, Java_cjdom_Uint8ClampedArray_setImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl,
+    Java_cjdom_Uint8ClampedArray_newArrayForJavaArray,
 
     Java_cjdom_Blob_createBlobForBytesAndType,
 

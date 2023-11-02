@@ -4,7 +4,7 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API Uint8ClampedArray (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray).
  */
-public class Uint8ClampedArray extends CJObject {
+public class Uint8ClampedArray extends TypedArray {
 
     /**
      * Constructor.
@@ -19,8 +19,17 @@ public class Uint8ClampedArray extends CJObject {
      */
     public Uint8ClampedArray(int length)
     {
-        super();
+        super(null);
         _jsObj = newArrayForLengthImpl(length);
+    }
+
+    /**
+     * Constructor.
+     */
+    public Uint8ClampedArray(short[] theValues)
+    {
+        super(null);
+        _jsObj = newArrayForJavaArray(theValues, theValues.length);
     }
 
     /**
@@ -39,6 +48,36 @@ public class Uint8ClampedArray extends CJObject {
     public void set(int anIndex, short aValue)  { setImpl(_jsObj, anIndex, aValue); }
 
     /**
+     * Returns an array of shorts for this array.
+     */
+    public short[] getShortsArray()
+    {
+        // Convert image bytes array to shorts array
+        int length = getLength();
+        short[] shortsArray = new short[length];
+        for (int i = 0; i < length; i++)
+            shortsArray[i] = get(i);
+
+        // Return
+        return shortsArray;
+    }
+
+    /**
+     * Returns an array of shorts for this array.
+     */
+    public short[] getShortsArrayForChannelIndexAndCount(int channelIndex, int channelCount)
+    {
+        int length = getLength();
+        int length2 = length / channelCount;
+        short[] shortsArray = new short[length2];
+        for (int i = 0, j = channelIndex; i < length2; i++, j += channelCount)
+            shortsArray[i] = get(j);
+
+        // Return
+        return shortsArray;
+    }
+
+    /**
      * Uint8ClampedArray: getImpl().
      */
     private static native int getImpl(JSObject jsObj, int index);
@@ -52,4 +91,9 @@ public class Uint8ClampedArray extends CJObject {
      * Uint8ClampedArray: newArrayForLengthImpl().
      */
     private static native JSObject newArrayForLengthImpl(int aLen);
+
+    /**
+     * Uint8ClampedArray: newArrayForJavaArray()
+     */
+    private static native JSObject newArrayForJavaArray(short[] javaArray, int length);
 }
