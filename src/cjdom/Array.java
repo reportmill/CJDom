@@ -82,7 +82,7 @@ public class Array<E> extends CJObject {
      */
     public String getString(int index)
     {
-        return getStringImpl(_jsObj, index);
+        return (String) getObject(index);
     }
 
     /**
@@ -124,11 +124,6 @@ public class Array<E> extends CJObject {
      * Returns value at given index as string.
      */
     private static native Object getObjectImpl(JSObject jsObj, int index);
-
-    /**
-     * Returns value at given index as string.
-     */
-    private static native String getStringImpl(JSObject jsObj, int index);
 
     /**
      * Returns a new Array (internal).

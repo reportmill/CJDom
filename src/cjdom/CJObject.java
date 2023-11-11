@@ -219,8 +219,7 @@ public class CJObject {
     public String callForStringWithArgs(String aName, Object ... theArgs)
     {
         Array array = new Array(theArgs);
-        String string = callForStringWithArgsImpl(_jsObj, aName, array._jsObj);
-        return string != null && !string.equals("SNAP_NULL") ? string : null;
+        return callForStringWithArgsImpl(_jsObj, aName, array._jsObj);
     }
 
     /**

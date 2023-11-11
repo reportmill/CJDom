@@ -190,8 +190,7 @@ function Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJ
  */
 function Java_cjdom_CJObject_callForStringWithArgsImpl(lib, jsObj, aName, arrayJS)
 {
-    var string = Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJS);
-    return string != null ? string : "SNAP_NULL";
+    return Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJS);
 }
 
 /**
@@ -320,11 +319,6 @@ function Java_cjdom_Array_setDoubleImpl(lib, array, index, aValue)  { array[inde
  * Array: getObjectImpl()
  */
 function Java_cjdom_Array_getObjectImpl(lib, array, index)  { return array[index]; }
-
-/**
- * Array: getStringImpl()
- */
-function Java_cjdom_Array_getStringImpl(lib, array, index)  { return array[index]; }
 
 /**
  * Array: newArrayForLength()
@@ -914,7 +908,6 @@ let cjdomNativeMethods = {
     Java_cjdom_Array_setIntImpl,
     Java_cjdom_Array_setFloatImpl, Java_cjdom_Array_setDoubleImpl,
     Java_cjdom_Array_getObjectImpl,
-    Java_cjdom_Array_getStringImpl,
     Java_cjdom_Array_newArrayForLengthImpl,
 
     Java_cjdom_Int8Array_getImpl, Java_cjdom_Int8Array_setImpl,
