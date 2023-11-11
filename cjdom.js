@@ -158,12 +158,13 @@ function Java_cjdom_CJObject_callWithDouble6Impl(lib, jsObj, aName, arg1, arg2, 
 function Java_cjdom_CJObject_callWithArgsImpl(lib, jsObj, aName, arrayJS)
 {
     switch (arrayJS.length) {
-        case 1: jsObj[aName].call(jsObj, arrayJS[0]); break;
-        case 2: jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1]); break;
-        case 3: jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2]); break;
-        case 4: jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3]); break;
-        case 5: jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4]); break;
-        case 6: jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4], arrayJS[5]); break;
+        case 0: return jsObj[aName].call(jsObj);
+        case 1: return jsObj[aName].call(jsObj, arrayJS[0]);
+        case 2: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1]);
+        case 3: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2]);
+        case 4: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3]);
+        case 5: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4]);
+        case 6: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4], arrayJS[5]);
         default: console.log("callWithArgs: Too many args: " + arrayJS.length);
     }
 }
@@ -173,24 +174,7 @@ function Java_cjdom_CJObject_callWithArgsImpl(lib, jsObj, aName, arrayJS)
  */
 function Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJS)
 {
-    switch (arrayJS.length) {
-        case 0: return jsObj[aName].call(jsObj);
-        case 1: return jsObj[aName].call(jsObj, arrayJS[0]);
-        case 2: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1]);
-        case 3: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2]);
-        case 4: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3]);
-        case 5: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4]);
-        case 6: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4], arrayJS[5]);
-        default: console.log("callWithArgs: Too many args: " + arrayJS.length); return null;
-    }
-}
-
-/**
- * JSObject method: callForStringWithArgsImpl().
- */
-function Java_cjdom_CJObject_callForStringWithArgsImpl(lib, jsObj, aName, arrayJS)
-{
-    return Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJS);
+    return Java_cjdom_CJObject_callWithArgsImpl(lib, jsObj, aName, arrayJS);
 }
 
 /**
@@ -198,29 +182,13 @@ function Java_cjdom_CJObject_callForStringWithArgsImpl(lib, jsObj, aName, arrayJ
  */
 function Java_cjdom_CJObject_callForIntWithArgsImpl(lib, jsObj, aName, arrayJS)
 {
-    switch (arrayJS.length) {
-        case 1: return jsObj[aName].call(jsObj, arrayJS[0]);
-        case 2: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1]);
-        case 3: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2]);
-        case 4: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3]);
-        case 5: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4]);
-        case 6: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4], arrayJS[5]);
-        default: console.log("callWithArgs: Too many args: " + arrayJS.length); return null;
-    }
+    return Java_cjdom_CJObject_callWithArgsImpl(lib, jsObj, aName, arrayJS);
 }
 
 /**
  * JSObject method: callForObjectImpl().
  */
 function Java_cjdom_CJObject_callForObjectImpl(lib, jsObj, aName)  { return jsObj[aName].call(jsObj); }
-
-/**
- * JSObject method: callForObjectWithObjectImpl().
- */
-function Java_cjdom_CJObject_callForObjectWithObjectImpl(lib, jsObj, aName, arg1)
-{
-    return jsObj[aName].call(jsObj, arg1);
-}
 
 /**
  * JSObject method: callForObjectWithStringImpl().
@@ -244,14 +212,6 @@ function Java_cjdom_CJObject_callForObjectWithIntImpl(lib, jsObj, aName, arg1)
 function Java_cjdom_CJObject_callForStringWithStringImpl(lib, jsObj, aName, arg1)
 {
     return jsObj[aName].call(jsObj, arg1);
-}
-
-/**
- * JSObject method: callForStringWithString2Impl().
- */
-function Java_cjdom_CJObject_callForStringWithString2Impl(lib, jsObj, aName, arg1, arg2)
-{
-    return jsObj[aName].call(jsObj, arg1, arg2);
 }
 
 /**
@@ -891,12 +851,11 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_callWithDouble4Impl, Java_cjdom_CJObject_callWithDouble6Impl,
     Java_cjdom_CJObject_callWithArgsImpl,
     Java_cjdom_CJObject_callForObjectWithArgsImpl,
-    Java_cjdom_CJObject_callForStringWithArgsImpl,
     Java_cjdom_CJObject_callForIntWithArgsImpl,
-    Java_cjdom_CJObject_callForObjectImpl, Java_cjdom_CJObject_callForObjectWithObjectImpl,
+    Java_cjdom_CJObject_callForObjectImpl,
     Java_cjdom_CJObject_callForObjectWithStringImpl,
     Java_cjdom_CJObject_callForObjectWithIntImpl,
-    Java_cjdom_CJObject_callForStringWithStringImpl, Java_cjdom_CJObject_callForStringWithString2Impl,
+    Java_cjdom_CJObject_callForStringWithStringImpl,
 
     Java_cjdom_CJDom_logJS,
     Java_cjdom_CJDom_logImpl,

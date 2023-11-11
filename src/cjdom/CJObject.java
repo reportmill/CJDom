@@ -219,7 +219,7 @@ public class CJObject {
     public String callForStringWithArgs(String aName, Object ... theArgs)
     {
         Array array = new Array(theArgs);
-        return callForStringWithArgsImpl(_jsObj, aName, array._jsObj);
+        return (String) callWithArgsImpl(_jsObj, aName, array._jsObj);
     }
 
     /**
@@ -242,11 +242,6 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
-    public JSObject callForObjectWithObject(String aName, Object theArg)  { return callForObjectWithObjectImpl(_jsObj, aName, theArg); }
-
-    /**
-     * Calls a JavaScript method.
-     */
     public JSObject callForObjectWithString(String aName, String theArg)
     {
         return callForObjectWithStringImpl(_jsObj, aName, theArg);
@@ -263,14 +258,6 @@ public class CJObject {
     public String callForStringWithString(String aName, String theArg)
     {
         return callForStringWithStringImpl(_jsObj, aName, theArg);
-    }
-
-    /**
-     * Calls a JavaScript method.
-     */
-    public String callForStringWithString2(String aName, String arg1, String arg2)
-    {
-        return callForStringWithString2Impl(_jsObj, aName, arg1, arg2);
     }
 
     /**
@@ -409,17 +396,12 @@ public class CJObject {
     /**
      * JSObject method: callWithArgsImpl().
      */
-    public static native void callWithArgsImpl(JSObject jsObj, String aName, JSObject arrayJS);
+    public static native Object callWithArgsImpl(JSObject jsObj, String aName, JSObject arrayJS);
 
     /**
      * JSObject method: callForObjectWithArgsImpl().
      */
     public static native JSObject callForObjectWithArgsImpl(JSObject jsObj, String aName, JSObject arrayJS);
-
-    /**
-     * JSObject method: callForStringWithArgsImpl().
-     */
-    public static native String callForStringWithArgsImpl(JSObject jsObj, String aName, JSObject arrayJS);
 
     /**
      * JSObject method: callForIntWithArgsImpl().
@@ -430,11 +412,6 @@ public class CJObject {
      * JSObject method: callForObjectImpl().
      */
     public static native JSObject callForObjectImpl(JSObject jsObj, String aName);
-
-    /**
-     * JSObject method: callForObjectWithObjectImpl().
-     */
-    public static native JSObject callForObjectWithObjectImpl(JSObject jsObj, String aName, Object theArg);
 
     /**
      * JSObject method: callForObjectWithStringImpl().
@@ -450,9 +427,4 @@ public class CJObject {
      * JSObject method: call().
      */
     public static native String callForStringWithStringImpl(JSObject jsObj, String aName, String theArg);
-
-    /**
-     * JSObject method: call().
-     */
-    public static native String callForStringWithString2Impl(JSObject jsObj, String aName, String arg1, String arg2);
 }
