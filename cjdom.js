@@ -1,62 +1,62 @@
 
 
 /**
- * JSObject method: getMemberImpl()
+ * CJObject method: getMemberImpl()
  */
 function Java_cjdom_CJObject_getMemberImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
- * JSObject method: setMemberImpl()
+ * CJObject method: setMemberImpl()
  */
 function Java_cjdom_CJObject_setMemberImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * JSObject method: getMemberStringImpl()
+ * CJObject method: getMemberStringImpl()
  */
 function Java_cjdom_CJObject_getMemberStringImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
- * JSObject method: setMemberStringImpl()
+ * CJObject method: setMemberStringImpl()
  */
 function Java_cjdom_CJObject_setMemberStringImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * JSObject method: getMemberBooleanImpl()
+ * CJObject method: getMemberBooleanImpl()
  */
 function Java_cjdom_CJObject_getMemberBooleanImpl(lib, jsObj, aName)  { return jsObj[aName] ? 1 : 0; }
 
 /**
- * JSObject method: setMemberBooleanImpl()
+ * CJObject method: setMemberBooleanImpl()
  */
 function Java_cjdom_CJObject_setMemberBooleanImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * JSObject method: getMemberIntImpl()
+ * CJObject method: getMemberIntImpl()
  */
 function Java_cjdom_CJObject_getMemberIntImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
- * JSObject method: setMemberIntImpl()
+ * CJObject method: setMemberIntImpl()
  */
 function Java_cjdom_CJObject_setMemberIntImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * JSObject method: getMemberFloatImpl()
+ * CJObject method: getMemberFloatImpl()
  */
 function Java_cjdom_CJObject_getMemberFloatImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
- * JSObject method: setMemberFloatImpl()
+ * CJObject method: setMemberFloatImpl()
  */
 function Java_cjdom_CJObject_setMemberFloatImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * JSObject method: getMemberDoubleImpl()
+ * CJObject method: getMemberDoubleImpl()
  */
 function Java_cjdom_CJObject_getMemberDoubleImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
- * JSObject method: setMemberDoubleImpl()
+ * CJObject method: setMemberDoubleImpl()
  */
 function Java_cjdom_CJObject_setMemberDoubleImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
@@ -371,9 +371,9 @@ var clipboardReadItems;
 var clipboardWriteItems;
 
 /**
- * Clipboard: clipboardReadImpl()
+ * Clipboard: readClipboardItemsImpl()
  */
-async function Java_cjdom_Clipboard_clipboardReadImpl(lib)
+async function Java_cjdom_Clipboard_readClipboardItemsImpl(lib)
 {
     // If clipboardReadItems set, clear and return
     if (clipboardReadItems != null) {
@@ -384,23 +384,23 @@ async function Java_cjdom_Clipboard_clipboardReadImpl(lib)
 
     // Try to read items
     var clipboardReadPromise = navigator.clipboard.read()
-        .catch((e) => { console.log("Ignoring error: " + e); return new Array(); });
+        .catch((e) => { console.log("Clipboard.readClipboardItemsImpl: Ignoring error: " + e); return new Array(); });
     return await clipboardReadPromise;
 }
 
 /**
- * Clipboard: clipboardWriteImpl().
+ * Clipboard: writeClipboardItemsImpl().
  */
-async function Java_cjdom_Clipboard_clipboardWriteImpl(lib, theItems)
+async function Java_cjdom_Clipboard_writeClipboardItemsImpl(lib, clipboardItems)
 {
     // Will fail on Safari because this is not directly triggered from user event
     try {
-        navigator.clipboard.write(theItems).catch((e) => clipboardWriteItems = theItems);
-        clipboardReadItems = theItems;
+        navigator.clipboard.write(clipboardItems).catch((e) => clipboardWriteItems = clipboardItems);
+        clipboardReadItems = clipboardItems;
     }
 
     // Can happen on Safari iOS with localhost
-    catch (e) { console.log("Clipboard.getClipboardWriteItems:" + e); }
+    catch (e) { console.log("Clipboard.writeClipboardItemsImpl:" + e); }
 }
 
 /**
@@ -746,8 +746,8 @@ let cjdomNativeMethods = {
     Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,
     Java_cjdom_Window_openImpl, Java_cjdom_Window_clearInterval,
 
-    Java_cjdom_Clipboard_clipboardReadImpl,
-    Java_cjdom_Clipboard_clipboardWriteImpl,
+    Java_cjdom_Clipboard_readClipboardItemsImpl,
+    Java_cjdom_Clipboard_writeClipboardItemsImpl,
 
     Java_cjdom_ClipboardItem_newClipboardItemForTypeAndString,
     Java_cjdom_ClipboardItem_newClipboardItemForBlob,

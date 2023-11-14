@@ -18,27 +18,28 @@ public class Clipboard extends CJObject {
     /**
      * Reads clipboard and returns an array of ClipboardItem.
      */
-    public static ClipboardItem[] clipboardRead()
+    public static ClipboardItem[] readClipboardItems()
     {
-        Object[] clipboardItemsJS = clipboardReadImpl();
+        Object[] clipboardItemsJS = readClipboardItemsImpl();
         return Stream.of(clipboardItemsJS).map(item -> new ClipboardItem((JSObject) item)).toArray(size -> new ClipboardItem[size]);
     }
 
     /**
-     * Returns clipboard.write(items) promise.
+     * Writes array of ClipboardItem to clipboard.
      */
-    public static void getClipboardWriteItemsPromise(Array<ClipboardItem> theItems)
+    public static void writeClipboardItems(ClipboardItem[] clipboardItems)
     {
-        clipboardWriteImpl(theItems._jsObj);
+        Array<ClipboardItem> clipboardItemsArray = new Array<>(clipboardItems);
+        writeClipboardItemsImpl(clipboardItemsArray._jsObj);
     }
 
     /**
-     * Clipboard: clipboardReadImpl()
+     * Clipboard: readClipboardItemsImpl()
      */
-    private static native Object[] clipboardReadImpl();
+    private static native Object[] readClipboardItemsImpl();
 
     /**
-     * Clipboard: clipboardWriteImpl()
+     * Clipboard: writeClipboardItemsImpl()
      */
-    public static native void clipboardWriteImpl(JSObject theItems);
+    public static native void writeClipboardItemsImpl(JSObject clipboardItemsJS);
 }

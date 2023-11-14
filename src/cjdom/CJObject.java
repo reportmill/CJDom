@@ -100,67 +100,67 @@ public class CJObject {
     }
 
     /**
-     * JSObject method: getMemberImpl()
+     * CJObject method: getMemberImpl()
      */
     public static native JSObject getMemberImpl(JSObject jsObj, String aName);
 
     /**
-     * JSObject method: setMemberImpl()
+     * CJObject method: setMemberImpl()
      */
     public static native void setMemberImpl(JSObject jsObj, String aName, JSObject aValue);
 
     /**
-     * JSObject method: getMemberImpl()
+     * CJObject method: getMemberImpl()
      */
     public static native String getMemberStringImpl(JSObject jsObj, String aName);
 
     /**
-     * JSObject method: setMemberStringImpl()
+     * CJObject method: setMemberStringImpl()
      */
     public static native void setMemberStringImpl(JSObject jsObj, String aName, String aValue);
 
     /**
-     * JSObject method: getMemberBooleanImpl(). Sometimes problem returning boolean?
+     * CJObject method: getMemberBooleanImpl(). Sometimes problem returning boolean?
      */
     public static native int getMemberBooleanImpl(JSObject jsObj, String aName);
 
     /**
-     * JSObject method: setMemberBooleanImpl()
+     * CJObject method: setMemberBooleanImpl()
      */
     public static native void setMemberBooleanImpl(JSObject jsObj, String aName, boolean aValue);
 
     /**
-     * JSObject method: getMemberIntImpl()
+     * CJObject method: getMemberIntImpl()
      */
     public static native int getMemberIntImpl(JSObject jsObj, String aName);
 
     /**
-     * JSObject method: setMemberIntImpl()
+     * CJObject method: setMemberIntImpl()
      */
     public static native void setMemberIntImpl(JSObject jsObj, String aName, int aValue);
 
     /**
-     * JSObject method: getMemberFloatImpl()
+     * CJObject method: getMemberFloatImpl()
      */
     public static native float getMemberFloatImpl(JSObject jsObj, String aName);
 
     /**
-     * JSObject method: setMemberFloatImpl()
+     * CJObject method: setMemberFloatImpl()
      */
     public static native void setMemberFloatImpl(JSObject jsObj, String aName, float aValue);
 
     /**
-     * JSObject method: getMemberDoubleImpl()
+     * CJObject method: getMemberDoubleImpl()
      */
     public static native double getMemberDoubleImpl(JSObject jsObj, String aName);
 
     /**
-     * JSObject method: setMemberDoubleImpl()
+     * CJObject method: setMemberDoubleImpl()
      */
     public static native void setMemberDoubleImpl(JSObject jsObj, String aName, double aValue);
 
     /**
-     * Awaits for given promise.
+     * CJObject method: awaitForPromise().
      */
     public static native Object awaitForPromise(JSObject aPromise);
 }
