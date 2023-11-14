@@ -104,7 +104,7 @@ public class TouchEvent extends UIEvent {
         // Convert to Touches array
         Touch[] touches = new Touch[length];
         for (int i = 0; i < length; i++) {
-            JSObject touchJS = callForObjectWithIntImpl(touchList, "item", i);
+            JSObject touchJS = (JSObject) touchList.call("item", i);
             touches[i] = new Touch(touchJS);
         }
 

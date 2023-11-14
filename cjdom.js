@@ -61,56 +61,6 @@ function Java_cjdom_CJObject_getMemberDoubleImpl(lib, jsObj, aName)  { return js
 function Java_cjdom_CJObject_setMemberDoubleImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * JSObject method: callImpl().
- */
-function Java_cjdom_CJObject_callImpl(lib, jsObj, aName)  { jsObj[aName].call(jsObj); }
-
-/**
- * JSObject method: callWithStringImpl().
- */
-function Java_cjdom_CJObject_callWithStringImpl(lib, jsObj, aName, strArg)  { jsObj[aName].call(jsObj, strArg); }
-
-/**
- * JSObject method: callWithString2Impl().
- */
-function Java_cjdom_CJObject_callWithString2Impl(lib, jsObj, aName, arg1, arg2)
-{
-    jsObj[aName].call(jsObj, arg1, arg2);
-}
-
-/**
- * JSObject method: callWithIntImpl().
- */
-function Java_cjdom_CJObject_callWithIntImpl(lib, jsObj, aName, arg1)
-{
-    jsObj[aName].call(jsObj, arg1);
-}
-
-/**
- * JSObject method: callForObjectWithStringImpl().
- */
-function Java_cjdom_CJObject_callForObjectWithStringImpl(lib, jsObj, aName, arg1)
-{
-    return jsObj[aName].call(jsObj, arg1);
-}
-
-/**
- * JSObject method: callForObjectWithIntImpl().
- */
-function Java_cjdom_CJObject_callForObjectWithIntImpl(lib, jsObj, aName, arg1)
-{
-    return jsObj[aName].call(jsObj, arg1);
-}
-
-/**
- * JSObject method: callForStringWithStringImpl().
- */
-function Java_cjdom_CJObject_callForStringWithStringImpl(lib, jsObj, aName, arg1)
-{
-    return jsObj[aName].call(jsObj, arg1);
-}
-
-/**
  * CJDom: logJS().
  */
 function Java_cjdom_CJDom_logJS(lib, anObj)  { console.log(anObj); }
@@ -731,12 +681,6 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_getMemberIntImpl, Java_cjdom_CJObject_setMemberIntImpl,
     Java_cjdom_CJObject_getMemberFloatImpl, Java_cjdom_CJObject_setMemberFloatImpl,
     Java_cjdom_CJObject_getMemberDoubleImpl, Java_cjdom_CJObject_setMemberDoubleImpl,
-    Java_cjdom_CJObject_callImpl,
-    Java_cjdom_CJObject_callWithStringImpl, Java_cjdom_CJObject_callWithString2Impl,
-    Java_cjdom_CJObject_callWithIntImpl,
-    Java_cjdom_CJObject_callForObjectWithStringImpl,
-    Java_cjdom_CJObject_callForObjectWithIntImpl,
-    Java_cjdom_CJObject_callForStringWithStringImpl,
 
     Java_cjdom_CJDom_logJS,
     Java_cjdom_CJDom_logImpl,

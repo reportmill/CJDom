@@ -13,11 +13,11 @@ public class HTMLMediaElement extends HTMLElement {
         super(jsObj);
     }
 
-    public void play()  { call("play");}
+    public void play()  { _jsObj.call("play");}
 
-    public void pause()  { call("pause"); }
+    public void pause()  { _jsObj.call("pause"); }
 
-    public void load()  { call("load"); }
+    public void load()  { _jsObj.call("load"); }
 
     public boolean isEnded()  { return getMemberBoolean("ended"); }
 }

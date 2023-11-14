@@ -22,7 +22,7 @@ public class FileReader extends CJObject implements EventTarget {
      */
     public void readAsArrayBuffer(Blob aBlob)
     {
-        callWithArgs("readAsArrayBuffer", aBlob);
+        _jsObj.call("readAsArrayBuffer", aBlob._jsObj);
     }
 
     /**

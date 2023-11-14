@@ -42,7 +42,7 @@ public class DataTransfer extends CJObject {
      */
     public String getData(String aType)
     {
-        return callForStringWithString("getData", aType);
+        return (String) _jsObj.call("getData", aType);
     }
 
     /**
@@ -50,7 +50,7 @@ public class DataTransfer extends CJObject {
      */
     public void setData(String aType, String theData)
     {
-        callWithString2("setData", aType, theData);
+        _jsObj.call("setData", aType, theData);
     }
 
     /**
@@ -67,7 +67,7 @@ public class DataTransfer extends CJObject {
         int length = getMemberIntImpl(fileListJS, "length");
         File[] files = new File[length];
         for (int i = 0; i < length; i++) {
-            JSObject fileJS = callForObjectWithIntImpl(fileListJS, "item", i);
+            JSObject fileJS = (JSObject) fileListJS.call("item", i);
             files[i] = new File(fileJS);
         }
         return files;
@@ -78,7 +78,7 @@ public class DataTransfer extends CJObject {
      */
     public void setDragImage(HTMLElement aImg, double xOffset, double yOffset)
     {
-        callWithArgs("setDragImage", aImg, xOffset, yOffset);
+        _jsObj.call("setDragImage", aImg, xOffset, yOffset);
     }
 
     /**

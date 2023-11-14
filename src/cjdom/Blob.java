@@ -29,7 +29,7 @@ public class Blob extends CJObject {
      */
     public String getText()
     {
-        String str = callForStringWithArgs("text");
+        String str = (String) _jsObj.call("text");
         return str;
     }
 

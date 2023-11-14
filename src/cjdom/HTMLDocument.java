@@ -34,7 +34,7 @@ public class HTMLDocument extends Document {
 
     public HTMLElement getElementById(String idStr)
     {
-        JSObject elementJS = callForObjectWithString("getElementById", idStr);
+        JSObject elementJS = (JSObject) _jsObj.call("getElementById", idStr);
         String tagName = CJObject.getMemberStringImpl(elementJS, "nodeName");
         return HTMLElement.getElementForName(tagName, elementJS);
     }

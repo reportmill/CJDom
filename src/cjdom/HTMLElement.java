@@ -54,9 +54,9 @@ public class HTMLElement extends Element implements EventTarget {
 
     public int getClientHeight()  { return getMemberInt("clientHeight"); }
 
-    public void focus()  { call("focus"); }
+    public void focus()  { _jsObj.call("focus"); }
 
-    public void blur()  { call("blur"); }
+    public void blur()  { _jsObj.call("blur"); }
 
     /**
      * Returns the wrapped HTML element for given tag name.

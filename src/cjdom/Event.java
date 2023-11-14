@@ -32,12 +32,12 @@ public class Event extends CJObject {
     /**
      * Event method: stopPropagation().
      */
-    public void stopPropagation()  { call("stopPropagation"); }
+    public void stopPropagation()  { _jsObj.call("stopPropagation"); }
 
     /**
      * Event method: preventDefault().
      */
-    public void preventDefault()  { call("preventDefault"); }
+    public void preventDefault()  { _jsObj.call("preventDefault"); }
 
     //short getEventPhase();
 

@@ -63,7 +63,7 @@ public class Element extends Node {
      */
     public void setPointerCapture(int anId)
     {
-        callWithInt("setPointerCapture", anId);
+        _jsObj.call("setPointerCapture", anId);
     }
 
     /**
