@@ -92,37 +92,40 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     public void drawArrays(int var1, int var2, int var3)
     {
-        callWithInt3("drawArrays", var1, var2, var3);
+        _jsObj.call("drawArrays", var1, var2, var3);
     }
 
     public void drawElements(int var1, int var2, int var3, int var4)
     {
-        callWithInt4("drawElements", var1, var2, var3, var4);
+        _jsObj.call("drawElements", var1, var2, var3, var4);
     }
 
-    public void enable(int var1)  { callWithInt("enable", var1); }
+    public void enable(int var1)
+    {
+        _jsObj.call("enable", var1);
+    }
 
     public void enableVertexAttribArray(int var1)
     {
-        callWithInt("enableVertexAttribArray", var1);
+        _jsObj.call("enableVertexAttribArray", var1);
     }
 
     public int getAttribLocation(WebGLProgram var1, String var2)
     {
-        return callForIntWithArgs("getAttribLocation", var1, var2);
+        return (int) _jsObj.call("getAttribLocation", var1._jsObj, var2);
     }
 
     //JSObject getUniform(WebGLProgram var1, WebGLUniformLocation var2);
 
     public WebGLUniformLocation getUniformLocation(WebGLProgram program, String name)
     {
-        JSObject uniformLocationJS = callForObjectWithArgs("getUniformLocation", program, name);
+        JSObject uniformLocationJS = (JSObject) _jsObj.call("getUniformLocation", program._jsObj, name);
         return new WebGLUniformLocation(uniformLocationJS);
     }
 
     public void uniformMatrix4fv(WebGLUniformLocation uniformLocation, boolean var2, Float32Array floatArray)
     {
-        callWithArgs("uniformMatrix4fv", uniformLocation, var2, floatArray);
+        _jsObj.call("uniformMatrix4fv", uniformLocation._jsObj, var2, floatArray._jsObj);
     }
 
     //void uniformMatrix2fv(WebGLUniformLocation var1, boolean var2, Float32Array var3);
@@ -134,14 +137,20 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     //void uniformMatrix4fv(WebGLUniformLocation var1, boolean var2, JSArrayReader<JSNumber> var3);
     //void uniformMatrix4fv(WebGLUniformLocation var1, boolean var2, @JSByRef float[] var3);
 
-    public void useProgram(WebGLProgram var1)  { callWithObject("useProgram", var1._jsObj); }
+    public void useProgram(WebGLProgram var1)
+    {
+        _jsObj.call("useProgram", var1._jsObj);
+    }
 
     public void vertexAttribPointer(int var1, int var2, int var3, boolean var4, int var5, int var6)
     {
-        callWithArgs("vertexAttribPointer", var1, var2, var3, var4, var5, var6);
+        _jsObj.call("vertexAttribPointer", var1, var2, var3, var4, var5, var6);
     }
 
-    public void viewport(int aX, int aY, int aW, int aH)  { callWithInt4("viewport", aX, aY, aW, aH); }
+    public void viewport(int aX, int aY, int aW, int aH)
+    {
+        _jsObj.call("viewport", aX, aY, aW, aH);
+    }
 
     //HTMLCanvasElement getCanvas();
 
@@ -256,7 +265,7 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     public void texParameteri(int var1, int var2, int var3)
     {
-        callWithInt3("texParameteri", var1, var2, var3);
+        _jsObj.call("texParameteri", var1, var2, var3);
     }
 
     //void texSubImage2D(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, ArrayBufferView var9);

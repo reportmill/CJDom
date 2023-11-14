@@ -142,46 +142,6 @@ public class CJObject {
     /**
      * Calls a JavaScript method.
      */
-    public void callWithInt2(String aName, int arg1, int arg2)
-    {
-        callWithInt2Impl(_jsObj, aName, arg1, arg2);
-    }
-
-    /**
-     * Calls a JavaScript method.
-     */
-    public void callWithInt3(String aName, int arg1, int arg2, int arg3)
-    {
-        callWithInt3Impl(_jsObj, aName, arg1, arg2, arg3);
-    }
-
-    /**
-     * Calls a JavaScript method.
-     */
-    public void callWithInt4(String aName, int arg1, int arg2, int arg3, int arg4)
-    {
-        callWithInt4Impl(_jsObj, aName, arg1, arg2, arg3, arg4);
-    }
-
-    /**
-     * Calls a JavaScript method.
-     */
-    public void callWithDouble(String aName, double arg1)
-    {
-        callWithDoubleImpl(_jsObj, aName, arg1);
-    }
-
-    /**
-     * Calls a JavaScript method.
-     */
-    public void callWithDouble2(String aName, double arg1, double arg2)
-    {
-        callWithDouble2Impl(_jsObj, aName, arg1, arg2);
-    }
-
-    /**
-     * Calls a JavaScript method.
-     */
     public void callWithDouble4(String aName, double arg1, double arg2, double arg3, double arg4)
     {
         callWithDouble4Impl(_jsObj, aName, arg1, arg2, arg3, arg4);
@@ -200,8 +160,8 @@ public class CJObject {
      */
     public void callWithArgs(String aName, Object ... theArgs)
     {
-        Array array = new Array(theArgs);
-        callWithArgsImpl(_jsObj, aName, array._jsObj);
+        processArgs(theArgs);
+        _jsObj.call(aName, theArgs);
     }
 
     /**
@@ -209,8 +169,8 @@ public class CJObject {
      */
     public JSObject callForObjectWithArgs(String aName, Object ... theArgs)
     {
-        Array array = new Array(theArgs);
-        return callForObjectWithArgsImpl(_jsObj, aName, array._jsObj);
+        processArgs(theArgs);
+        return (JSObject) _jsObj.call(aName, theArgs);
     }
 
     /**
@@ -218,17 +178,15 @@ public class CJObject {
      */
     public String callForStringWithArgs(String aName, Object ... theArgs)
     {
-        Array array = new Array(theArgs);
-        return (String) callWithArgsImpl(_jsObj, aName, array._jsObj);
+        processArgs(theArgs);
+        return (String) _jsObj.call(aName, theArgs);
     }
 
-    /**
-     * Calls a JavaScript method.
-     */
-    public int callForIntWithArgs(String aName, Object ... theArgs)
+    private static void processArgs(Object[] theArgs)
     {
-        Array array = new Array(theArgs);
-        return callForIntWithArgsImpl(_jsObj, aName, array._jsObj);
+        for (int i = 0; i < theArgs.length; i++)
+            if (theArgs[i] instanceof CJObject)
+                theArgs[i] = ((CJObject) theArgs[i])._jsObj;
     }
 
     /**
@@ -359,31 +317,6 @@ public class CJObject {
     public static native void callWithIntImpl(JSObject jsObj, String aName, int arg1);
 
     /**
-     * JSObject method: callWithInt2Impl().
-     */
-    public static native void callWithInt2Impl(JSObject jsObj, String aName, int arg1, int arg2);
-
-    /**
-     * JSObject method: callWithInt3Impl().
-     */
-    public static native void callWithInt3Impl(JSObject jsObj, String aName, int arg1, int arg2, int arg3);
-
-    /**
-     * JSObject method: callWithInt4Impl().
-     */
-    public static native void callWithInt4Impl(JSObject jsObj, String aName, int arg1, int arg2, int arg3, int arg4);
-
-    /**
-     * JSObject method: callWithDoubleImpl().
-     */
-    public static native void callWithDoubleImpl(JSObject jsObj, String aName, double arg1);
-
-    /**
-     * JSObject method: callWithDouble2Impl().
-     */
-    public static native void callWithDouble2Impl(JSObject jsObj, String aName, double arg1, double arg2);
-
-    /**
      * JSObject method: callWithDouble4Impl().
      */
     public static native void callWithDouble4Impl(JSObject jsObj, String aName, double arg1, double arg2, double arg3, double arg4);
@@ -392,21 +325,6 @@ public class CJObject {
      * JSObject method: callWithDouble6Impl().
      */
     public static native void callWithDouble6Impl(JSObject jsObj, String aName, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6);
-
-    /**
-     * JSObject method: callWithArgsImpl().
-     */
-    public static native Object callWithArgsImpl(JSObject jsObj, String aName, JSObject arrayJS);
-
-    /**
-     * JSObject method: callForObjectWithArgsImpl().
-     */
-    public static native JSObject callForObjectWithArgsImpl(JSObject jsObj, String aName, JSObject arrayJS);
-
-    /**
-     * JSObject method: callForIntWithArgsImpl().
-     */
-    public static native int callForIntWithArgsImpl(JSObject jsObj, String aName, JSObject arrayJS);
 
     /**
      * JSObject method: callForObjectImpl().

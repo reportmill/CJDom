@@ -33,17 +33,17 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: translate().
      */
-    public void translate(double var1, double var3)  { callWithDouble2("translate", var1, var3); }
+    public void translate(double var1, double var2)  { _jsObj.call("translate", var1, var2); }
 
     /**
      * CanvasRenderingContext2D: rotate().
      */
-    public void rotate(double var1)  { callWithDouble("rotate", var1); }
+    public void rotate(double var1)  { _jsObj.call("rotate", var1); }
 
     /**
      * CanvasRenderingContext2D: rotate().
      */
-    public void scale(double var1, double var3)  { callWithDouble2("scale", var1, var3); }
+    public void scale(double var1, double var3)  { _jsObj.call("scale", var1, var3); }
 
     /**
      * CanvasRenderingContext2D: save().
@@ -212,32 +212,32 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: moveTo().
      */
-    public void moveTo(double var1, double var3)  { callWithDouble2("moveTo", var1, var3); }
+    public void moveTo(double var1, double var3)  { _jsObj.call("moveTo", var1, var3); }
 
     /**
      * CanvasRenderingContext2D: lineTo().
      */
-    public void lineTo(double var1, double var3)  { callWithDouble2("lineTo", var1, var3); }
+    public void lineTo(double var1, double var3)  { _jsObj.call("lineTo", var1, var3); }
 
     /**
      * CanvasRenderingContext2D: bezierCurveTo().
      */
     public void bezierCurveTo(double cp1x, double cp1y, double cp2x, double cp2y, double endX, double endY)
     {
-        callWithDouble6("bezierCurveTo", cp1x, cp1y, cp2x, cp2y, endX, endY);
+        _jsObj.call("bezierCurveTo", cp1x, cp1y, cp2x, cp2y, endX, endY);
     }
 
     /**
      * CanvasRenderingContext2D: closePath().
      */
-    public void closePath()  { call("closePath"); }
+    public void closePath()  { _jsObj.call("closePath"); }
 
     /**
      * CanvasRenderingContext2D: beginPath().
      */
     public void clearRect(double aX, double aY, double aW, double aH)
     {
-        callWithDouble4("clearRect", aX, aY, aW, aH);
+        _jsObj.call("clearRect", aX, aY, aW, aH);
     }
 
     //void arc(double var1, double var3, double var5, double var7, double var9, boolean var11);

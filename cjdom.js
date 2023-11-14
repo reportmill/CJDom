@@ -97,46 +97,6 @@ function Java_cjdom_CJObject_callWithIntImpl(lib, jsObj, aName, arg1)
 }
 
 /**
- * JSObject method: callWithInt2Impl().
- */
-function Java_cjdom_CJObject_callWithInt2Impl(lib, jsObj, aName, arg1, arg2)
-{
-    jsObj[aName].call(jsObj, arg1, arg2);
-}
-
-/**
- * JSObject method: callWithInt3Impl().
- */
-function Java_cjdom_CJObject_callWithInt3Impl(lib, jsObj, aName, arg1, arg2, arg3, arg4)
-{
-    jsObj[aName].call(jsObj, arg1, arg2, arg3, arg4);
-}
-
-/**
- * JSObject method: callWithInt4Impl().
- */
-function Java_cjdom_CJObject_callWithInt4Impl(lib, jsObj, aName, arg1, arg2, arg3, arg4)
-{
-    jsObj[aName].call(jsObj, arg1, arg2, arg3, arg4);
-}
-
-/**
- * JSObject method: callWithDoubleImpl().
- */
-function Java_cjdom_CJObject_callWithDoubleImpl(lib, jsObj, aName, arg1)
-{
-    jsObj[aName].call(jsObj, arg1);
-}
-
-/**
- * JSObject method: callWithDouble2Impl().
- */
-function Java_cjdom_CJObject_callWithDouble2Impl(lib, jsObj, aName, arg1, arg2)
-{
-    jsObj[aName].call(jsObj, arg1, arg2);
-}
-
-/**
  * JSObject method: callWithDouble4Impl().
  */
 function Java_cjdom_CJObject_callWithDouble4Impl(lib, jsObj, aName, arg1, arg2, arg3, arg4)
@@ -150,39 +110,6 @@ function Java_cjdom_CJObject_callWithDouble4Impl(lib, jsObj, aName, arg1, arg2, 
 function Java_cjdom_CJObject_callWithDouble6Impl(lib, jsObj, aName, arg1, arg2, arg3, arg4, arg5, arg6)
 {
     jsObj[aName].call(jsObj, arg1, arg2, arg3, arg4, arg5, arg6);
-}
-
-/**
- * JSObject method: callWithArgsImpl().
- */
-function Java_cjdom_CJObject_callWithArgsImpl(lib, jsObj, aName, arrayJS)
-{
-    switch (arrayJS.length) {
-        case 0: return jsObj[aName].call(jsObj);
-        case 1: return jsObj[aName].call(jsObj, arrayJS[0]);
-        case 2: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1]);
-        case 3: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2]);
-        case 4: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3]);
-        case 5: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4]);
-        case 6: return jsObj[aName].call(jsObj, arrayJS[0], arrayJS[1], arrayJS[2], arrayJS[3], arrayJS[4], arrayJS[5]);
-        default: console.log("callWithArgs: Too many args: " + arrayJS.length);
-    }
-}
-
-/**
- * JSObject method: callForObjectWithArgsImpl().
- */
-function Java_cjdom_CJObject_callForObjectWithArgsImpl(lib, jsObj, aName, arrayJS)
-{
-    return Java_cjdom_CJObject_callWithArgsImpl(lib, jsObj, aName, arrayJS);
-}
-
-/**
- * JSObject method: callForIntWithArgsImpl().
- */
-function Java_cjdom_CJObject_callForIntWithArgsImpl(lib, jsObj, aName, arrayJS)
-{
-    return Java_cjdom_CJObject_callWithArgsImpl(lib, jsObj, aName, arrayJS);
 }
 
 /**
@@ -838,13 +765,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_callImpl,
     Java_cjdom_CJObject_callWithObjectImpl, Java_cjdom_CJObject_callWithObject2Impl,
     Java_cjdom_CJObject_callWithStringImpl, Java_cjdom_CJObject_callWithString2Impl,
-    Java_cjdom_CJObject_callWithIntImpl, Java_cjdom_CJObject_callWithInt2Impl,
-    Java_cjdom_CJObject_callWithInt3Impl, Java_cjdom_CJObject_callWithInt4Impl,
-    Java_cjdom_CJObject_callWithDoubleImpl, Java_cjdom_CJObject_callWithDouble2Impl,
+    Java_cjdom_CJObject_callWithIntImpl,
     Java_cjdom_CJObject_callWithDouble4Impl, Java_cjdom_CJObject_callWithDouble6Impl,
-    Java_cjdom_CJObject_callWithArgsImpl,
-    Java_cjdom_CJObject_callForObjectWithArgsImpl,
-    Java_cjdom_CJObject_callForIntWithArgsImpl,
     Java_cjdom_CJObject_callForObjectImpl,
     Java_cjdom_CJObject_callForObjectWithStringImpl,
     Java_cjdom_CJObject_callForObjectWithIntImpl,
