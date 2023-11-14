@@ -176,7 +176,7 @@ public class CanvasRenderingContext2D extends CJObject {
         }
 
         // Call setLineDash
-        _jsObj.call("setLineDash", dashArrayJS);
+        _jsObj.call("setLineDash", dashArrayJS._jsObj);
     }
 
     /**
