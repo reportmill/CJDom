@@ -52,14 +52,7 @@ public class Uint8ClampedArray extends TypedArray {
      */
     public short[] getShortsArray()
     {
-        // Convert image bytes array to shorts array
-        int length = getLength();
-        short[] shortsArray = new short[length];
-        copyToJavaArray(_jsObj, shortsArray, length);
-        //for (int i = 0; i < length; i++) shortsArray[i] = get(i);
-
-        // Return
-        return shortsArray;
+        return getShortsArrayImpl(_jsObj);
     }
 
     /**
@@ -67,14 +60,7 @@ public class Uint8ClampedArray extends TypedArray {
      */
     public short[] getShortsArrayForChannelIndexAndCount(int channelIndex, int channelCount)
     {
-        int length = getLength();
-        int length2 = length / channelCount;
-        short[] shortsArray = new short[length2];
-        copyToJavaArrayForChannelIndexAndCount(_jsObj, shortsArray, length2, channelIndex, channelCount);
-        //for (int i = 0, j = channelIndex; i < length2; i++, j += channelCount) shortsArray[i] = get(j);
-
-        // Return
-        return shortsArray;
+        return getShortsArrayForChannelIndexAndCountImpl(_jsObj, channelIndex, channelCount);
     }
 
     /**
@@ -98,12 +84,12 @@ public class Uint8ClampedArray extends TypedArray {
     private static native JSObject newArrayForJavaArray(short[] javaArray, int length);
 
     /**
-     * Uint8ClampedArray: copyToJavaArray()
+     * Uint8ClampedArray: getShortsArray()
      */
-    private static native void copyToJavaArray(JSObject jsArray, short[] javaArray, int length);
+    private static native short[] getShortsArrayImpl(JSObject jsArray);
 
     /**
-     * Uint8ClampedArray: copyToJavaArrayForChannelIndexAndCount()
+     * Uint8ClampedArray: getShortsArrayForChannelIndexAndCountImpl()
      */
-    private static native void copyToJavaArrayForChannelIndexAndCount(JSObject jsArray, short[] javaArray, int length, int channelIndex, int channelCount);
+    private static native short[] getShortsArrayForChannelIndexAndCountImpl(JSObject jsArray, int channelIndex, int channelCount);
 }

@@ -318,10 +318,7 @@ function Java_cjdom_Int32Array_newArrayForLengthImpl(lib, length)  { return new 
 /**
  * Int32Array: newArrayForJavaArray().
  */
-function Java_cjdom_Int32Array_newArrayForJavaArray(lib, javaArray, length)
-{
-    return javaArray.this.a1.subarray(1, length + 1);
-}
+function Java_cjdom_Int32Array_newArrayForJavaArray(lib, javaArray, length)  { return javaArray; }
 
 /**
  * Uint8ClampedArray: getImpl().
@@ -343,7 +340,7 @@ function Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl(lib, aLen)  { return
  */
 function Java_cjdom_Uint8ClampedArray_newArrayForJavaArray(lib, javaArray, length)
 {
-    var uint16_Array = javaArray.this.a1.subarray(1, length + 1);
+    var uint16_Array = javaArray;
     var uint8_Array = new Uint8ClampedArray(length);
     for (let i = 0; i < length; i++)
         uint8_Array[i] = uint16_Array[i];
@@ -351,24 +348,20 @@ function Java_cjdom_Uint8ClampedArray_newArrayForJavaArray(lib, javaArray, lengt
 }
 
 /**
- * Uint8ClampedArray: copyToJavaArray().
+ * Uint8ClampedArray: getShortsArrayImpl().
  */
-function Java_cjdom_Uint8ClampedArray_copyToJavaArray(lib, uint8_Array, javaArray, length)
-{
-    var uint16_Array = javaArray.this.a1; //.subarray(1, length + 1);
-    for (let i = 0; i < length; i++)
-        uint16_Array[i + 1] = uint8_Array[i];
-}
-
+function Java_cjdom_Uint8ClampedArray_getShortsArrayImpl(lib, uint8_Array)  { return uint8_Array; }
 
 /**
- * Uint8ClampedArray: copyToJavaArrayForChannelIndexAndCount().
+ * Uint8ClampedArray: getShortsArrayForChannelIndexAndCountImpl().
  */
-function Java_cjdom_Uint8ClampedArray_copyToJavaArrayForChannelIndexAndCount(lib, uint8_Array, javaArray, length, channelIndex, channelCount)
+function Java_cjdom_Uint8ClampedArray_getShortsArrayForChannelIndexAndCountImpl(lib, uint8_Array, channelIndex, channelCount)
 {
-    var uint16_Array = javaArray.this.a1; //.subarray(1, length + 1);
+    var length = uint8_Array.length;
+    var int16_Array = new Int16Array(length)
     for (let i = 0, j = channelIndex; i < length; i++, j = j + channelCount)
-        uint16_Array[i + 1] = uint8_Array[j];
+        int16_Array[i + 1] = uint8_Array[j];
+    return int16_Array;
 }
 
 /**
@@ -386,7 +379,7 @@ function Java_cjdom_Uint16Array_newArrayForLengthImpl(lib, length)  { return new
  */
 function Java_cjdom_Uint16Array_newArrayForJavaArray(lib, javaArray, length)
 {
-    return javaArray.this.a1.subarray(1, length + 1);
+    return javaArray; //javaArray.this.a1.subarray(1, length + 1);
 }
 
 /**
@@ -404,7 +397,7 @@ function Java_cjdom_Uint32Array_newArrayForLengthImpl(lib, length)  { return new
  */
 function Java_cjdom_Uint32Array_newArrayForJavaArray(lib, javaArray, length)
 {
-    return javaArray.this.a1.subarray(1, length + 1);
+    return javaArray; //javaArray.this.a1.subarray(1, length + 1);
 }
 
 /**
@@ -422,7 +415,7 @@ function Java_cjdom_Float32Array_newArrayForLengthImpl(lib, length)  { return ne
  */
 function Java_cjdom_Float32Array_newArrayForJavaArray(lib, javaArray, length)
 {
-    return javaArray.this.a1.subarray(1, length + 1);
+    return javaArray; //javaArray.this.a1.subarray(1, length + 1);
 }
 
 /**
@@ -892,8 +885,8 @@ let cjdomNativeMethods = {
     Java_cjdom_Uint8ClampedArray_getImpl, Java_cjdom_Uint8ClampedArray_setImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForJavaArray,
-    Java_cjdom_Uint8ClampedArray_copyToJavaArray,
-    Java_cjdom_Uint8ClampedArray_copyToJavaArrayForChannelIndexAndCount,
+    Java_cjdom_Uint8ClampedArray_getShortsArrayImpl,
+    Java_cjdom_Uint8ClampedArray_getShortsArrayForChannelIndexAndCountImpl,
 
     Java_cjdom_Blob_createBlobForBytesAndType,
 
