@@ -6,6 +6,9 @@ import netscape.javascript.JSObject;
  */
 public class CanvasRenderingContext2D extends CJObject {
 
+    // Constants
+    private static Array<Number> EMPTY_DASH_ARRAY = new Array<>(0);
+
     /**
      * Constructor.
      */
@@ -151,7 +154,7 @@ public class CanvasRenderingContext2D extends CJObject {
     public void setLineCap(String var1)  { setMemberString("lineCap", var1); }
 
     /**
-     * CanvasRenderingContext2D: getLineDashOffset().
+     * CanvasRenderingContext2D: getLineDash().
      */
     public Array<Number> getLineDash()
     {
@@ -160,9 +163,21 @@ public class CanvasRenderingContext2D extends CJObject {
     }
 
     /**
-     * CanvasRenderingContext2D: setLineDashOffset().
+     * CanvasRenderingContext2D: setLineDash().
      */
-    public void setLineDash(Array<Number> dashArray)  { _jsObj.call("setLineDash", dashArray._jsObj); }
+    public void setLineDash(double[] dashArray)
+    {
+        // Get DashArray as Array<Number>
+        Array<Number> dashArrayJS = EMPTY_DASH_ARRAY;
+        if (dashArray != null && dashArray.length > 0) {
+            dashArrayJS = new Array<>(0);
+            for (int i = 0; i < dashArray.length; i++)
+                dashArrayJS.set(i, dashArray[i]);
+        }
+
+        // Call setLineDash
+        _jsObj.call("setLineDash", dashArrayJS);
+    }
 
     /**
      * CanvasRenderingContext2D: getLineDashOffset().
