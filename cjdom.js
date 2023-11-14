@@ -66,16 +66,6 @@ function Java_cjdom_CJObject_setMemberDoubleImpl(lib, jsObj, aName, aValue)  { j
 function Java_cjdom_CJObject_callImpl(lib, jsObj, aName)  { jsObj[aName].call(jsObj); }
 
 /**
- * JSObject method: callWithObjectImpl().
- */
-function Java_cjdom_CJObject_callWithObjectImpl(lib, jsObj, aName, theArg)  { jsObj[aName].call(jsObj, theArg); }
-
-/**
- * JSObject method: callWithObject2Impl().
- */
-function Java_cjdom_CJObject_callWithObject2Impl(lib, jsObj, aName, arg1, arg2)  { jsObj[aName].call(jsObj, arg1, arg2); }
-
-/**
  * JSObject method: callWithStringImpl().
  */
 function Java_cjdom_CJObject_callWithStringImpl(lib, jsObj, aName, strArg)  { jsObj[aName].call(jsObj, strArg); }
@@ -95,27 +85,6 @@ function Java_cjdom_CJObject_callWithIntImpl(lib, jsObj, aName, arg1)
 {
     jsObj[aName].call(jsObj, arg1);
 }
-
-/**
- * JSObject method: callWithDouble4Impl().
- */
-function Java_cjdom_CJObject_callWithDouble4Impl(lib, jsObj, aName, arg1, arg2, arg3, arg4)
-{
-    jsObj[aName].call(jsObj, arg1, arg2, arg3, arg4);
-}
-
-/**
- * JSObject method: callWithDouble6Impl().
- */
-function Java_cjdom_CJObject_callWithDouble6Impl(lib, jsObj, aName, arg1, arg2, arg3, arg4, arg5, arg6)
-{
-    jsObj[aName].call(jsObj, arg1, arg2, arg3, arg4, arg5, arg6);
-}
-
-/**
- * JSObject method: callForObjectImpl().
- */
-function Java_cjdom_CJObject_callForObjectImpl(lib, jsObj, aName)  { return jsObj[aName].call(jsObj); }
 
 /**
  * JSObject method: callForObjectWithStringImpl().
@@ -763,11 +732,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_getMemberFloatImpl, Java_cjdom_CJObject_setMemberFloatImpl,
     Java_cjdom_CJObject_getMemberDoubleImpl, Java_cjdom_CJObject_setMemberDoubleImpl,
     Java_cjdom_CJObject_callImpl,
-    Java_cjdom_CJObject_callWithObjectImpl, Java_cjdom_CJObject_callWithObject2Impl,
     Java_cjdom_CJObject_callWithStringImpl, Java_cjdom_CJObject_callWithString2Impl,
     Java_cjdom_CJObject_callWithIntImpl,
-    Java_cjdom_CJObject_callWithDouble4Impl, Java_cjdom_CJObject_callWithDouble6Impl,
-    Java_cjdom_CJObject_callForObjectImpl,
     Java_cjdom_CJObject_callForObjectWithStringImpl,
     Java_cjdom_CJObject_callForObjectWithIntImpl,
     Java_cjdom_CJObject_callForStringWithStringImpl,

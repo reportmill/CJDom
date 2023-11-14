@@ -19,7 +19,7 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public void setTransform(double arg1, double arg2, double arg3, double arg4, double arg5, double arg6)
     {
-        callWithDouble6("setTransform", arg1, arg2, arg3, arg4, arg5, arg6);
+        _jsObj.call("setTransform", arg1, arg2, arg3, arg4, arg5, arg6);
     }
 
     /**
@@ -27,7 +27,7 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public void transform(double arg1, double arg2, double arg3, double arg4, double arg5, double arg6)
     {
-        callWithDouble6("transform", arg1, arg2, arg3, arg4, arg5, arg6);
+        _jsObj.call("transform", arg1, arg2, arg3, arg4, arg5, arg6);
     }
 
     /**
@@ -48,37 +48,37 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: save().
      */
-    public void save()  { call("save"); }
+    public void save()  { _jsObj.call("save"); }
 
     /**
      * CanvasRenderingContext2D: restore().
      */
-    public void restore()  { call("restore"); }
+    public void restore()  { _jsObj.call("restore"); }
 
     /**
      * CanvasRenderingContext2D: restore().
      */
-    public void fill()  { call("fill"); }
+    public void fill()  { _jsObj.call("fill"); }
 
     /**
      * CanvasRenderingContext2D: restore().
      */
-    public void stroke()  { call("stroke"); }
+    public void stroke()  { _jsObj.call("stroke"); }
 
     /**
      * CanvasRenderingContext2D: restore().
      */
-    public void clip()  { call("clip"); }
+    public void clip()  { _jsObj.call("clip"); }
 
     /**
      * CanvasRenderingContext2D: fillRect().
      */
-    public void fillRect(double aX, double aY, double aW, double aH)  { callWithDouble4("fillRect", aX, aY, aW, aH); }
+    public void fillRect(double aX, double aY, double aW, double aH)  { _jsObj.call("fillRect", aX, aY, aW, aH); }
 
     /**
      * CanvasRenderingContext2D: strokeRect().
      */
-    public void strokeRect(double aX, double aY, double aW, double aH)  { callWithDouble4("strokeRect", aX, aY, aW, aH); }
+    public void strokeRect(double aX, double aY, double aW, double aH)  { _jsObj.call("strokeRect", aX, aY, aW, aH); }
 
     /**
      * Returns the color, gradient or pattern used inside shapes.
@@ -162,7 +162,7 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: setLineDashOffset().
      */
-    public void setLineDash(Array<Number> dashArray)  { callWithArgs("setLineDash", dashArray); }
+    public void setLineDash(Array<Number> dashArray)  { _jsObj.call("setLineDash", dashArray._jsObj); }
 
     /**
      * CanvasRenderingContext2D: getLineDashOffset().
@@ -207,17 +207,17 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: beginPath().
      */
-    public void beginPath()  { call("beginPath"); }
+    public void beginPath()  { _jsObj.call("beginPath"); }
 
     /**
      * CanvasRenderingContext2D: moveTo().
      */
-    public void moveTo(double var1, double var3)  { _jsObj.call("moveTo", var1, var3); }
+    public void moveTo(double aX, double aY)  { _jsObj.call("moveTo", aX, aY); }
 
     /**
      * CanvasRenderingContext2D: lineTo().
      */
-    public void lineTo(double var1, double var3)  { _jsObj.call("lineTo", var1, var3); }
+    public void lineTo(double aX, double aY)  { _jsObj.call("lineTo", aX, aY); }
 
     /**
      * CanvasRenderingContext2D: bezierCurveTo().
@@ -261,7 +261,7 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public TextMetrics measureText(String aString)
     {
-        JSObject textMetricsJS = callForObjectWithStringImpl(_jsObj, "measureText", aString);
+        JSObject textMetricsJS = (JSObject) _jsObj.call("measureText", aString);
         return new TextMetrics(textMetricsJS);
     }
 
