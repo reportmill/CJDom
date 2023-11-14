@@ -9,7 +9,7 @@ import java.util.function.Function;
  *    - EventQueue.eventLoop() calls getNextEvent() to get next event as array [ name, lambda func, [ arg ] ]
  *    - JS callback functions register with callback to fireEvent(name, func, arg)
  *    - fireEvent() triggers the promise
- *    - getNextEventImpl() returns the event arg array after resolved mutext promise
+ *    - getNextEventImpl() returns the event arg array after resolved mutex promise
  */
 public class EventQueue {
 
@@ -38,12 +38,11 @@ public class EventQueue {
         while(true) {
 
             // Wait for next event
-            JSObject eventRecordArrayJS = getNextEvent();
-            Array<?> eventRecordArray = new Array<>(eventRecordArrayJS);
+            Object[] eventRecordArray = getNextEvent();
 
             // Get event type and function
-            String type = eventRecordArray.getString(0);
-            Object func = eventRecordArray.getObject(1);
+            String type = (String) eventRecordArray[0];
+            Object func = eventRecordArray[1];
 
             switch (type) {
 
@@ -57,7 +56,7 @@ public class EventQueue {
                 case "keydown":
                 case "keyup":
                     EventListener<Event> keyLsnr = (EventListener<Event>) func;
-                    JSObject keyEventJS = eventRecordArray.get(2);
+                    JSObject keyEventJS = (JSObject) eventRecordArray[2];
                     Event keyEvent = new KeyboardEvent(keyEventJS);
                     keyLsnr.handleEvent(keyEvent);
                     break;
@@ -76,7 +75,7 @@ public class EventQueue {
                 case "dragstart":
                 case "dragend":
                     EventListener<Event> mouseLsnr = (EventListener<Event>) func;
-                    JSObject mouseEventJS = eventRecordArray.get(2);
+                    JSObject mouseEventJS = (JSObject) eventRecordArray[2];
                     Event mouseEvent = new MouseEvent(mouseEventJS);
                     mouseLsnr.handleEvent(mouseEvent);
                     break;
@@ -86,7 +85,7 @@ public class EventQueue {
                 case "touchmove":
                 case "touchend":
                     EventListener<Event> touchLsnr = (EventListener<Event>) func;
-                    JSObject touchEventJS = eventRecordArray.get(2);
+                    JSObject touchEventJS = (JSObject) eventRecordArray[2];
                     Event touchEvent = new TouchEvent(touchEventJS);
                     touchLsnr.handleEvent(touchEvent);
                     break;
@@ -94,7 +93,7 @@ public class EventQueue {
                 // Handle wheel events
                 case "wheel":
                     EventListener<Event> wheelLsnr = (EventListener<Event>) func;
-                    JSObject wheelJS = eventRecordArray.get(2);
+                    JSObject wheelJS = (JSObject) eventRecordArray[2];
                     Event wheelEvent = new WheelEvent(wheelJS);
                     wheelLsnr.handleEvent(wheelEvent);
                     break;
@@ -109,7 +108,7 @@ public class EventQueue {
                 case "focus":
                 case "blur":
                     EventListener<Event> eventLsnr = (EventListener<Event>) func;
-                    JSObject eventJS = eventRecordArray.get(2);
+                    JSObject eventJS = (JSObject) eventRecordArray[2];
                     Event event = new Event(eventJS);
                     eventLsnr.handleEvent(event);
                     break;
@@ -117,7 +116,7 @@ public class EventQueue {
                 // Handle promise
                 case "promise":
                     Function<JSObject,Object> promiseThenFunc = (Function<JSObject,Object>) func;
-                    JSObject value = eventRecordArray.get(2);
+                    JSObject value = (JSObject) eventRecordArray[2];
                     promiseThenFunc.apply(value);
                     break;
 
@@ -142,7 +141,7 @@ public class EventQueue {
     /**
      * Waits for next event.
      */
-    private static native JSObject getNextEvent();
+    private static native Object[] getNextEvent();
 
     /**
      * Sets a timeout.
