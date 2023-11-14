@@ -158,4 +158,9 @@ public class CJObject {
      * JSObject method: setMemberDoubleImpl()
      */
     public static native void setMemberDoubleImpl(JSObject jsObj, String aName, double aValue);
+
+    /**
+     * Awaits for given promise.
+     */
+    public static native Object awaitForPromise(JSObject aPromise);
 }

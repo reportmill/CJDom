@@ -1,5 +1,6 @@
 package cjdom;
 import netscape.javascript.JSObject;
+import java.util.stream.Stream;
 
 /**
  * This class is a wrapper for Web API Clipboard (https://developer.mozilla.org/en-US/docs/Web/API/Clipboard).
@@ -19,20 +20,8 @@ public class Clipboard extends CJObject {
      */
     public static ClipboardItem[] clipboardRead()
     {
-        // Get array of clipboard items (JS)
-        JSObject arrayJS = clipboardReadImpl();
-        Array<ClipboardItem> array = new Array<>(arrayJS);
-
-        // Convert Array<clipboardItemJS> to ClipboardItems[]
-        int length = array.getLength();
-        ClipboardItem[] clipboardItems = new ClipboardItem[length];
-        for (int i = 0; i < length; i++) {
-            JSObject clipboardItemJS = array.get(i);
-            clipboardItems[i] = new ClipboardItem(clipboardItemJS);
-        }
-
-        // Return
-        return clipboardItems;
+        Object[] clipboardItemsJS = clipboardReadImpl();
+        return Stream.of(clipboardItemsJS).map(item -> new ClipboardItem((JSObject) item)).toArray(size -> new ClipboardItem[size]);
     }
 
     /**
@@ -46,7 +35,7 @@ public class Clipboard extends CJObject {
     /**
      * Clipboard: clipboardReadImpl()
      */
-    private static native JSObject clipboardReadImpl();
+    private static native Object[] clipboardReadImpl();
 
     /**
      * Clipboard: clipboardWriteImpl()

@@ -61,6 +61,14 @@ function Java_cjdom_CJObject_getMemberDoubleImpl(lib, jsObj, aName)  { return js
 function Java_cjdom_CJObject_setMemberDoubleImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
+ * CJObject method: awaitForPromise()
+ */
+async function Java_cjdom_CJObject_awaitForPromise(lib, promiseJS)
+{
+    return await promiseJS;
+}
+
+/**
  * CJDom: logJS().
  */
 function Java_cjdom_CJDom_logJS(lib, anObj)  { console.log(anObj); }
@@ -681,6 +689,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_getMemberIntImpl, Java_cjdom_CJObject_setMemberIntImpl,
     Java_cjdom_CJObject_getMemberFloatImpl, Java_cjdom_CJObject_setMemberFloatImpl,
     Java_cjdom_CJObject_getMemberDoubleImpl, Java_cjdom_CJObject_setMemberDoubleImpl,
+    Java_cjdom_CJObject_awaitForPromise,
 
     Java_cjdom_CJDom_logJS,
     Java_cjdom_CJDom_logImpl,

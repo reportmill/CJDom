@@ -29,7 +29,8 @@ public class Blob extends CJObject {
      */
     public String getText()
     {
-        String str = (String) _jsObj.call("text");
+        JSObject promiseJS = (JSObject) _jsObj.call("text");
+        String str = (String) awaitForPromise(promiseJS);
         return str;
     }
 

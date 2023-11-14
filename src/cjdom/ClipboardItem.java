@@ -56,7 +56,8 @@ public class ClipboardItem extends CJObject {
      */
     public Blob getType(String aType)
     {
-        JSObject blobJS = (JSObject) _jsObj.call("getType", aType);
+        JSObject promiseJS = (JSObject) _jsObj.call("getType", aType);
+        JSObject blobJS = (JSObject) awaitForPromise(promiseJS);
         return new Blob(blobJS);
     }
 
