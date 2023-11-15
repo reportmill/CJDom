@@ -305,15 +305,20 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     //void uniform2iv(WebGLUniformLocation var1, @JSByRef int[] var2);
     //void uniform3f(WebGLUniformLocation var1, float var2, float var3, float var4);
 
-    public void uniform3fv(WebGLUniformLocation uniformLocation, Float32Array float32Array)
+    public void uniform3f(WebGLUniformLocation uniformLocation, float v0, float v1, float v2)
     {
-        _jsObj.call("uniform3fv", uniformLocation._jsObj, float32Array._jsObj);
+        _jsObj.call("uniform3f", uniformLocation._jsObj, v0, v1, v2);
     }
 
     public void uniform3fv(WebGLUniformLocation uniformLocation, float[] floatArray)
     {
         //_jsObj.call("uniform3fv", uniformLocation._jsObj, floatArray); - this isn't working, acts like it gets zeros
         _jsObj.call("uniform3f", uniformLocation._jsObj, floatArray[0], floatArray[1], floatArray[2]);
+    }
+
+    public void uniform3fv(WebGLUniformLocation uniformLocation, Float32Array float32Array)
+    {
+        _jsObj.call("uniform3fv", uniformLocation._jsObj, float32Array._jsObj);
     }
 
     //void uniform3fv(WebGLUniformLocation var1, JSArrayReader<JSNumber> var2);

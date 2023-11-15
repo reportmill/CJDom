@@ -18,37 +18,38 @@ public class Float32Array extends TypedArray {
     /**
      * Constructor.
      */
-    public Float32Array(float[] theValues)
+    public Float32Array(float[] floatArray)
     {
-        //this(theValues.length);
         super(null);
-        _jsObj = newArrayForJavaArray(theValues, theValues.length);
-        //for (int i = 0; i < theValues.length; i++)
-        //    setImpl(_jsObj, i, theValues[i]);
+        _jsObj = newArrayForFloatArray(floatArray);
     }
 
     /**
      * Constructor.
      */
-    public Float32Array(double[] theValues)
+    public Float32Array(double[] doubleArray)
     {
-        this(theValues.length);
-        for (int i = 0; i < theValues.length; i++)
-            setImpl(_jsObj, i, theValues[i]);
+        super(null);
+        _jsObj = fromImpl(doubleArray);
     }
 
     /**
-     * Sets the given value at given index.
+     * Float32Array method: setImpl().
      */
     private static native void setImpl(JSObject jsObj, int index, double aValue);
 
     /**
-     * Returns a new Float32Array (internal).
+     * Float32Array method: newArrayForLengthImpl().
      */
     private static native JSObject newArrayForLengthImpl(int aLen);
 
     /**
-     * Returns a new Float32Array (internal).
+     * Float32Array method: newArrayForFloatArray().
      */
-    private static native JSObject newArrayForJavaArray(float[] javaArray, int length);
+    private static native JSObject newArrayForFloatArray(float[] javaArray);
+
+    /**
+     * Float32Array method: fromImpl().
+     */
+    private static native JSObject fromImpl(Object arrayLike);
 }

@@ -192,9 +192,8 @@ function Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl(lib, aLen)  { return
 /**
  * Uint8ClampedArray: newArrayForJavaArray().
  */
-function Java_cjdom_Uint8ClampedArray_newArrayForJavaArray(lib, javaArray, length)
+function Java_cjdom_Uint8ClampedArray_newArrayForJavaArray(lib, uint16_Array, length)
 {
-    var uint16_Array = javaArray;
     var uint8_Array = new Uint8ClampedArray(length);
     for (let i = 0; i < length; i++)
         uint8_Array[i] = uint16_Array[i];
@@ -231,10 +230,7 @@ function Java_cjdom_Uint16Array_newArrayForLengthImpl(lib, length)  { return new
 /**
  * Uint16Array: newArrayForJavaArray().
  */
-function Java_cjdom_Uint16Array_newArrayForJavaArray(lib, javaArray, length)
-{
-    return javaArray; //javaArray.this.a1.subarray(1, length + 1);
-}
+function Java_cjdom_Uint16Array_newArrayForJavaArray(lib, javaArray, length)  { return javaArray; }
 
 /**
  * Uint32Array: setImpl().
@@ -249,10 +245,7 @@ function Java_cjdom_Uint32Array_newArrayForLengthImpl(lib, length)  { return new
 /**
  * Uint32Array: newArrayForJavaArray().
  */
-function Java_cjdom_Uint32Array_newArrayForJavaArray(lib, javaArray, length)
-{
-    return javaArray; //javaArray.this.a1.subarray(1, length + 1);
-}
+function Java_cjdom_Uint32Array_newArrayForJavaArray(lib, javaArray, length)  { return javaArray; }
 
 /**
  * Float32Array: setImpl().
@@ -265,12 +258,14 @@ function Java_cjdom_Float32Array_setImpl(lib, array, index, aValue)  { array[ind
 function Java_cjdom_Float32Array_newArrayForLengthImpl(lib, length)  { return new Float32Array(length); }
 
 /**
- * Float32Array: newArrayForLengthImpl().
+ * Float32Array: newArrayForFloatArray().
  */
-function Java_cjdom_Float32Array_newArrayForJavaArray(lib, javaArray, length)
-{
-    return javaArray; //javaArray.this.a1.subarray(1, length + 1);
-}
+function Java_cjdom_Float32Array_newArrayForFloatArray(lib, floatArray)  { return floatArray; }
+
+/**
+ * Float32Array: fromImpl().
+ */
+function Java_cjdom_Float32Array_fromImpl(lib, arrayLike)  { return Float32Array.from(arrayLike); }
 
 /**
  * Blob method: Creates a Blob from given bytes in JS.
@@ -719,9 +714,10 @@ let cjdomNativeMethods = {
     Java_cjdom_Uint32Array_newArrayForLengthImpl,
     Java_cjdom_Uint32Array_newArrayForJavaArray,
 
-    Java_cjdom_Float32Array_newArrayForLengthImpl,
-    Java_cjdom_Float32Array_newArrayForJavaArray,
     Java_cjdom_Float32Array_setImpl,
+    Java_cjdom_Float32Array_newArrayForLengthImpl,
+    Java_cjdom_Float32Array_newArrayForFloatArray,
+    Java_cjdom_Float32Array_fromImpl,
 
     Java_cjdom_Uint8ClampedArray_getImpl, Java_cjdom_Uint8ClampedArray_setImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl,
