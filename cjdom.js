@@ -190,14 +190,11 @@ function Java_cjdom_Uint8ClampedArray_setImpl(lib, jsObj, index, aValue)  { jsOb
 function Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl(lib, aLen)  { return new Uint8ClampedArray(aLen); }
 
 /**
- * Uint8ClampedArray: newArrayForJavaArray().
+ * Uint8ClampedArray: newArrayForShortsArray().
  */
-function Java_cjdom_Uint8ClampedArray_newArrayForJavaArray(lib, uint16_Array, length)
+function Java_cjdom_Uint8ClampedArray_newArrayForShortsArray(lib, uint16_Array)
 {
-    var uint8_Array = new Uint8ClampedArray(length);
-    for (let i = 0; i < length; i++)
-        uint8_Array[i] = uint16_Array[i];
-    return uint8_Array;
+    return Uint8ClampedArray.from(uint16_Array);
 }
 
 /**
@@ -210,8 +207,8 @@ function Java_cjdom_Uint8ClampedArray_getShortsArrayImpl(lib, uint8_Array)  { re
  */
 function Java_cjdom_Uint8ClampedArray_getShortsArrayForChannelIndexAndCountImpl(lib, uint8_Array, channelIndex, channelCount)
 {
-    var length = uint8_Array.length;
-    var int16_Array = new Int16Array(length)
+    var length = uint8_Array.length / channelCount;
+    var int16_Array = new Int16Array(length);
     for (let i = 0, j = channelIndex; i < length; i++, j = j + channelCount)
         int16_Array[i + 1] = uint8_Array[j];
     return int16_Array;
@@ -721,7 +718,7 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Uint8ClampedArray_getImpl, Java_cjdom_Uint8ClampedArray_setImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl,
-    Java_cjdom_Uint8ClampedArray_newArrayForJavaArray,
+    Java_cjdom_Uint8ClampedArray_newArrayForShortsArray,
     Java_cjdom_Uint8ClampedArray_getShortsArrayImpl,
     Java_cjdom_Uint8ClampedArray_getShortsArrayForChannelIndexAndCountImpl,
 

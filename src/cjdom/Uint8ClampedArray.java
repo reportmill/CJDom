@@ -26,10 +26,10 @@ public class Uint8ClampedArray extends TypedArray {
     /**
      * Constructor.
      */
-    public Uint8ClampedArray(short[] theValues)
+    public Uint8ClampedArray(short[] shortsArray)
     {
         super(null);
-        _jsObj = newArrayForJavaArray(theValues, theValues.length);
+        _jsObj = newArrayForShortsArray(shortsArray);
     }
 
     /**
@@ -79,9 +79,9 @@ public class Uint8ClampedArray extends TypedArray {
     private static native JSObject newArrayForLengthImpl(int aLen);
 
     /**
-     * Uint8ClampedArray: newArrayForJavaArray()
+     * Uint8ClampedArray: newArrayForShortsArray()
      */
-    private static native JSObject newArrayForJavaArray(short[] javaArray, int length);
+    private static native JSObject newArrayForShortsArray(short[] shortsArray);
 
     /**
      * Uint8ClampedArray: getShortsArray()
