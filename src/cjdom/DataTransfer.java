@@ -28,13 +28,9 @@ public class DataTransfer extends CJObject {
      */
     public String[] getTypes()
     {
-        JSObject typesJS = getMember("types");
-        Array<String> typesArray = new Array<>(typesJS);
-        int length = typesArray.getLength();
-        String[] types = new String[length];
-        for (int i = 0; i < length; i++)
-            types[i] = typesArray.getString(i);
-        return types;
+        JSObject typesArrayJS = getMember("types");
+        Array<String> typesArray = new Array<>(typesArrayJS);
+        return typesArray.toArray(String.class);
     }
 
     /**
@@ -96,7 +92,7 @@ public class DataTransfer extends CJObject {
     /**
      * Returns a DataTransfer for String.
      */
-    public static DataTransfer getDataTrasferForString(String aStr)
+    public static DataTransfer getDataTransferForString(String aStr)
     {
         //return new DataTransferString(aStr);
         DataTransfer dataTransfer = new DataTransfer();

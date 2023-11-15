@@ -37,18 +37,9 @@ public class ClipboardItem extends CJObject {
      */
     public String[] getTypes()
     {
-        // Get array of types
-        JSObject arrayJS = getMember("types");
-        Array<String> array = new Array<>(arrayJS);
-        int length = array.getLength();
-
-        // Convert to array of String
-        String[] types = new String[length];
-        for (int i = 0; i < length; i++)
-            types[i] = array.getString(i);
-
-        // Return
-        return types;
+        JSObject typesArrayJS = getMember("types");
+        Array<String> typesArray = new Array<>(typesArrayJS);
+        return typesArray.toArray(String.class);
     }
 
     /**
