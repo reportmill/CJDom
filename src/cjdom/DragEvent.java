@@ -19,6 +19,12 @@ public class DragEvent extends MouseEvent {
      */
     public DataTransfer getDataTransfer()
     {
+        // Try getting drop data transfer - CJDom has cached version since it gets reset after any delay for security
+        DataTransfer dataTransfer = DataTransfer.getDropDataTransfer();
+        if (dataTransfer != null)
+            return dataTransfer;
+
+        // Do version that would be used if drop data transfer didn't have to be cached
         JSObject dataTransferJS = getMember("dataTransfer");
         return new DataTransfer(dataTransferJS);
     }

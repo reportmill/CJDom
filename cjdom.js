@@ -415,6 +415,48 @@ function Java_cjdom_ClipboardItem_newClipboardItemForBlob(lib, blob)
  */
 function Java_cjdom_DataTransfer_newDataTransfer(lib)  { return new DataTransfer(); }
 
+// Cached drag drop data
+var _dragDataTransferTypes;
+var _dropDataTransfer;
+var _dropDataTransferFiles
+
+/**
+ * DataTransfer: getDropDataTransferImpl().
+ */
+function Java_cjdom_DataTransfer_getDropDataTransferImpl(lib)  { return _dropDataTransfer; }
+
+/**
+ * DataTransfer: getDropDataTransferTypesImpl().
+ */
+function Java_cjdom_DataTransfer_getDropDataTransferTypesImpl(lib)  { return _dragDataTransferTypes; }
+
+/**
+ * DataTransfer: getDropDataTransferFilesImpl().
+ */
+function Java_cjdom_DataTransfer_getDropDataTransferFilesImpl(lib)  { return _dropDataTransferFiles; }
+
+/**
+ * Called on 'drop' event to cache data transfer, since it gets reset before CJ can use it.
+ */
+function handleDrop(dropEvent)
+{
+    // Create new DataTransfer to persist after drop DataTransfer is reset
+    var dropDataTransfer = dropEvent.dataTransfer;
+    var dropTypes = dropDataTransfer.types;
+    _dropDataTransfer = new DataTransfer();
+
+    // Copy data types to cached DataTransfer
+    for (var type of dropTypes) {
+        var dataStr = dropDataTransfer.getData(type);
+        _dropDataTransfer.setData(type, dataStr);
+    }
+
+    // Copy files to cached DataTransfer
+    _dropDataTransferFiles = [ ];
+    for (var dropFile of dropDataTransfer.files)
+        _dropDataTransferFiles.push(dropFile);
+}
+
 /**
  * FileReader: newFileReader().
  */
@@ -468,6 +510,13 @@ async function fireEvent(name, callback, arg1, arg2)
         if (type != "click" && type != "pointerdown") { // && type != "wheel") {
             arg1.preventDefault();
             arg1.stopPropagation();
+        }
+
+        // Special support for drag/drop
+        if (arg1 instanceof DragEvent) {
+            _dragDataTransferTypes = arg1.dataTransfer.types;
+            if (arg1.type == "drop")
+                handleDrop(arg1);
         }
     }
 
@@ -707,6 +756,10 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Clipboard_readClipboardItemsImpl,
     Java_cjdom_Clipboard_writeClipboardItemsImpl,
+
+    Java_cjdom_DataTransfer_getDropDataTransferImpl,
+    Java_cjdom_DataTransfer_getDropDataTransferTypesImpl,
+    Java_cjdom_DataTransfer_getDropDataTransferFilesImpl,
 
     Java_cjdom_ClipboardItem_newClipboardItemForTypeAndString,
     Java_cjdom_ClipboardItem_newClipboardItemForBlob,

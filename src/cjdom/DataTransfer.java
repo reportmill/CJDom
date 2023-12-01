@@ -1,10 +1,20 @@
 package cjdom;
 import netscape.javascript.JSObject;
+import java.util.stream.Stream;
 
 /**
  * This class is a wrapper for Web API DataTransfer (https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer).
  */
 public class DataTransfer extends CJObject {
+
+    // The types
+    private String[] _types;
+
+    // The files
+    private File[] _files;
+
+    // Whether this DataTransfer was cached
+    private boolean _cached;
 
     /**
      * Constructor.
@@ -28,6 +38,22 @@ public class DataTransfer extends CJObject {
      */
     public String[] getTypes()
     {
+        if (_types != null) return _types;
+        return _types = getTypesImpl();
+    }
+
+    /**
+     * Returns the types.
+     */
+    private String[] getTypesImpl()
+    {
+        // If cached drag/drop data transfer, get cached types
+        if (_cached) {
+            String[] types = getDropDataTransferTypesImpl();
+            return types;
+        }
+
+        // Get DataTransfer.types
         JSObject typesArrayJS = getMember("types");
         Array<String> typesArray = new Array<>(typesArrayJS);
         return typesArray.toArray(String.class);
@@ -59,13 +85,35 @@ public class DataTransfer extends CJObject {
      */
     public File[] getFiles()
     {
+        if (_files != null) return _files;
+        return _files = getFilesImpl();
+    }
+
+    /**
+     * Returns the files.
+     */
+    private File[] getFilesImpl()
+    {
+        // If cached drag/drop data transfer, get cached files
+        if (_cached) {
+            JSObject dropFilesArrayJS = getDropDataTransferFilesImpl();
+            Array<JSObject> dropFilesArray = new Array<>(dropFilesArrayJS);
+            JSObject[] dropFilesJS = dropFilesArray.toArray(JSObject.class);
+            return Stream.of(dropFilesJS).map(dropFileJS -> new File(dropFileJS)).toArray(size -> new File[size]);
+        }
+
+        // Get DataTransfer.files
         JSObject fileListJS = getMember("files");
         int length = getMemberIntImpl(fileListJS, "length");
         File[] files = new File[length];
+
+        // Iterate over file list and get files
         for (int i = 0; i < length; i++) {
             JSObject fileJS = (JSObject) fileListJS.call("item", i);
             files[i] = new File(fileJS);
         }
+
+        // Return
         return files;
     }
 
@@ -90,13 +138,18 @@ public class DataTransfer extends CJObject {
     }
 
     /**
-     * Returns a DataTransfer for String.
+     * Returns the DataTransfer from last drop.
      */
-    public static DataTransfer getDataTransferForString(String aStr)
+    public static DataTransfer getDropDataTransfer()
     {
-        //return new DataTransferString(aStr);
-        DataTransfer dataTransfer = new DataTransfer();
-        dataTransfer.setData("text/plain", aStr);
+        // Get cached data transfer
+        JSObject dropDataTransferJS = getDropDataTransferImpl();
+        if (dropDataTransferJS == null)
+            return null;
+
+        // Wrap in DataTransfer, set cached and return
+        DataTransfer dataTransfer = new DataTransfer(dropDataTransferJS);
+        dataTransfer._cached = true;
         return dataTransfer;
     }
 
@@ -104,4 +157,19 @@ public class DataTransfer extends CJObject {
      * DataTransfer: newDataTransfer().
      */
     private static native JSObject newDataTransfer();
+
+    /**
+     * DataTransfer: getDropDataTransfer().
+     */
+    public static native JSObject getDropDataTransferImpl();
+
+    /**
+     * DataTransfer: getDropDataTransferTypesImpl().
+     */
+    public static native String[] getDropDataTransferTypesImpl();
+
+    /**
+     * DataTransfer: getDropDataTransferFilesImpl().
+     */
+    public static native JSObject getDropDataTransferFilesImpl();
 }
