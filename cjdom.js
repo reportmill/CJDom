@@ -345,9 +345,14 @@ async function Java_cjdom_Clipboard_readClipboardItemsImpl(lib)
     }
 
     // Try to read items
-    var clipboardReadPromise = navigator.clipboard.read()
-        .catch((e) => { console.log("Clipboard.readClipboardItemsImpl: Ignoring error: " + e); return new Array(); });
-    return await clipboardReadPromise;
+    try {
+        var clipboardReadPromise = navigator.clipboard.read()
+            .catch((e) => { console.log("Clipboard.readClipboardItemsImpl: Ignoring error: " + e); return [ ]; });
+        return await clipboardReadPromise;
+    }
+
+    // Can happen on Safari iOS with localhost
+    catch (e) { console.log("Clipboard.readClipboardItemsImpl:" + e); return [ ]; }
 }
 
 /**
