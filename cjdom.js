@@ -599,6 +599,15 @@ function Java_cjdom_EventQueue_setPromiseThenImpl(lib, promiseWrapper, aFunc)
 }
 
 /**
+ * CanvasRenderingContext2D: setLineDashImpl().
+ */
+function Java_cjdom_CanvasRenderingContext2D_setLineDashImpl(lib, cntxJS, doubleArray)
+{
+    var dashArray = Array.from(doubleArray);
+    cntxJS.setLineDash(dashArray);
+}
+
+/**
  * CanvasRenderingContext2D: fillTextImpl().
  */
 function Java_cjdom_CanvasRenderingContext2D_fillTextImpl(lib, cntxJS, aString, aX, aY)  { cntxJS.fillText(aString, aX, aY); }
@@ -774,6 +783,7 @@ let cjdomNativeMethods = {
 
     Java_cjdom_EventQueue_setPromiseThenImpl,
 
+    Java_cjdom_CanvasRenderingContext2D_setLineDashImpl,
     Java_cjdom_CanvasRenderingContext2D_fillTextImpl, Java_cjdom_CanvasRenderingContext2D_fillTextImpl2,
     Java_cjdom_CanvasRenderingContext2D_strokeTextImpl, Java_cjdom_CanvasRenderingContext2D_strokeTextImpl2,
     Java_cjdom_CanvasRenderingContext2D_drawImageImpl, Java_cjdom_CanvasRenderingContext2D_drawImageImpl2, Java_cjdom_CanvasRenderingContext2D_drawImageImpl3,

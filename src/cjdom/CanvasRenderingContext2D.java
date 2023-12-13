@@ -6,9 +6,6 @@ import netscape.javascript.JSObject;
  */
 public class CanvasRenderingContext2D extends CJObject {
 
-    // Constants
-    private static Array<Number> EMPTY_DASH_ARRAY = new Array<>(0);
-
     /**
      * Constructor.
      */
@@ -167,16 +164,7 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public void setLineDash(double[] dashArray)
     {
-        // Get DashArray as Array<Number>
-        Array<Number> dashArrayJS = EMPTY_DASH_ARRAY;
-        if (dashArray != null && dashArray.length > 0) {
-            dashArrayJS = new Array<>(0);
-            for (int i = 0; i < dashArray.length; i++)
-                dashArrayJS.set(i, dashArray[i]);
-        }
-
-        // Call setLineDash
-        _jsObj.call("setLineDash", dashArrayJS._jsObj);
+        setLineDashImpl(_jsObj, dashArray != null ? dashArray : new double[0]);
     }
 
     /**
@@ -426,6 +414,11 @@ public class CanvasRenderingContext2D extends CJObject {
      * CanvasRenderingContext2D: setImageSmoothingEnabled().
      */
     public void setImageSmoothingEnabled(boolean var1)  { } //setMemberBoolean("imageSmoothingEnabled", var1);
+
+    /**
+     * CanvasRenderingContext2D: setLineDashImpl().
+     */
+    private static native void setLineDashImpl(JSObject cntxJS, double[] dashArray);
 
     /**
      * CanvasRenderingContext2D: fillTextImpl().

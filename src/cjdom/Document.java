@@ -4,7 +4,7 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API Document (https://developer.mozilla.org/en-US/docs/Web/API/Document).
  */
-public class Document extends Node {
+public class Document extends Node implements EventTarget {
 
     // The Body element
     private HTMLBodyElement _body;
