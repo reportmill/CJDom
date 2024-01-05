@@ -170,7 +170,7 @@ function Java_cjdom_Uint8ClampedArray_newArrayForShortsArray(lib, uint16_Array)
 /**
  * Uint8ClampedArray: getShortsArrayImpl().
  */
-function Java_cjdom_Uint8ClampedArray_getShortsArrayImpl(lib, uint8_Array)  { return uint8_Array; }
+function Java_cjdom_Uint8ClampedArray_getShortsArrayImpl(lib, uint8_Array)  { return Int16Array.from(uint8_Array); }
 
 /**
  * Uint8ClampedArray: getShortsArrayForChannelIndexAndCountImpl().
