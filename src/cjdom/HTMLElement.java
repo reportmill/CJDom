@@ -69,6 +69,8 @@ public class HTMLElement extends Element implements EventTarget {
             case "img": return new HTMLImageElement(jsObj);
             case "body": return new HTMLBodyElement(jsObj);
             case "html": return new HTMLHtmlElement(jsObj);
+            case "iframe": return new HTMLIFrameElement(jsObj);
+            case "script": return new HTMLScriptElement(jsObj);
             default: return new HTMLElement(jsObj);
         }
     }

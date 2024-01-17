@@ -46,6 +46,13 @@ public class Document extends Node implements EventTarget {
         return _body = body;
     }
 
+    public HTMLHeadElement getHead()
+    {
+        JSObject headJS = getMember("head");
+        return new HTMLHeadElement(headJS);
+    }
+
+
     /**
      * Document method: Return document.body.
      */
