@@ -84,6 +84,26 @@ public class Node extends CJObject {
         return HTMLElement.getElementForName(name, jsObj);
     }
 
+    /**
+     * Returns a new node for given JS node.
+     */
+    public static Node getNodeForNode(JSObject jsObj)
+    {
+        String nodeName = getNodeNameImpl(jsObj);
+        return getNodeForNodeAndName(jsObj, nodeName);
+    }
+
+    /**
+     * Returns a new node for given JS node and node name.
+     */
+    public static Node getNodeForNodeAndName(JSObject jsObj, String nodeName)
+    {
+        if (nodeName.equals("#text"))
+            return new Text(jsObj);
+
+        return HTMLElement.getElementForName(nodeName, jsObj);
+    }
+
     //String getNodeValue();
     //void setNodeValue(String var1);
     //short getNodeType();

@@ -77,11 +77,6 @@ public class CJObject {
     public float getMemberFloat(String aName)  { return getMemberFloatImpl(_jsObj, aName); }
 
     /**
-     * Sets a named member of a JavaScript object as float.
-     */
-    public void setMemberFloat(String aName, float aValue)  { setMemberFloatImpl(_jsObj, aName, aValue); }
-
-    /**
      * Returns a named member of a JavaScript object as double.
      */
     public double getMemberDouble(String aName)  { return getMemberDoubleImpl(_jsObj, aName); }
@@ -158,6 +153,11 @@ public class CJObject {
      * CJObject method: setMemberDoubleImpl()
      */
     public static native void setMemberDoubleImpl(JSObject jsObj, String aName, double aValue);
+
+    /**
+     * CJObject: newObjectImpl()
+     */
+    protected static native JSObject newObjectImpl();
 
     /**
      * CJObject method: awaitForPromise().

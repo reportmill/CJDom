@@ -42,6 +42,14 @@ public class HTMLElement extends Element implements EventTarget {
     }
 
     /**
+     * Returns a string representing the rendered text content of an element.
+     */
+    public String getInnerText()
+    {
+        return getMemberString("innerText");
+    }
+
+    /**
      * Sets whether html element has content editable.
      */
     public void setContentEditable(boolean aValue)
@@ -66,6 +74,7 @@ public class HTMLElement extends Element implements EventTarget {
         switch (tagName.toLowerCase()) {
             case "audio": return new HTMLAudioElement(jsObj);
             case "canvas": return new HTMLCanvasElement(jsObj);
+            case "div": return new HTMLDivElement(jsObj);
             case "img": return new HTMLImageElement(jsObj);
             case "body": return new HTMLBodyElement(jsObj);
             case "html": return new HTMLHtmlElement(jsObj);

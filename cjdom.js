@@ -61,6 +61,11 @@ function Java_cjdom_CJObject_getMemberDoubleImpl(lib, jsObj, aName)  { return js
 function Java_cjdom_CJObject_setMemberDoubleImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
+ * CJObject: newObjectImpl()
+ */
+function Java_cjdom_CJObject_newObjectImpl(lib)  { return { }; }
+
+/**
  * CJObject method: awaitForPromise()
  */
 async function Java_cjdom_CJObject_awaitForPromise(lib, promiseJS)
@@ -595,12 +600,37 @@ function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, 
 }
 
 /**
+ * EventQueue: addMutationObserverImpl().
+ */
+function Java_cjdom_EventQueue_addMutationObserverImpl(lib, mutationObserverJS, nodeJS, callback, optionsObj)
+{
+    mutationObserverJS.observe(nodeJS, optionsObj);
+}
+
+/**
+ * Called when mutation observed. Have to wrap mutation records, since event array is returned as Object[] and JNI doesn't know
+ * whether to convert the array to JSObject or Object[].
+ */
+function mutationObserved(callback, mutationRecords)
+{
+    fireEvent("mutation", callback, { value : mutationRecords }, null);
+}
+
+/**
  * EventQueue: setPromiseThenImpl().
  */
 function Java_cjdom_EventQueue_setPromiseThenImpl(lib, promiseWrapper, aFunc)
 {
     let promise = promiseWrapper[0]; // Could pass a mutex in to supported chained promises with a fireEventAndWait() method
     return [ promise.then(value => fireEvent("promise", aFunc, value, null)) ];
+}
+
+/**
+ * MutationObserver: newMutationObserverImpl().
+ */
+function Java_cjdom_MutationObserver_newMutationObserverImpl(lib, aCallback)
+{
+    return new MutationObserver((mutationRecords, observer) => mutationObserved(aCallback, mutationRecords));
 }
 
 /**
@@ -714,6 +744,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_getMemberIntImpl, Java_cjdom_CJObject_setMemberIntImpl,
     Java_cjdom_CJObject_getMemberFloatImpl, Java_cjdom_CJObject_setMemberFloatImpl,
     Java_cjdom_CJObject_getMemberDoubleImpl, Java_cjdom_CJObject_setMemberDoubleImpl,
+    Java_cjdom_CJObject_newObjectImpl,
     Java_cjdom_CJObject_awaitForPromise,
 
     Java_cjdom_CJDom_logJS,
@@ -786,7 +817,11 @@ let cjdomNativeMethods = {
     Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl,
     Java_cjdom_EventQueue_addEventListenerImpl, Java_cjdom_EventQueue_removeEventListenerImpl,
 
+    Java_cjdom_EventQueue_addMutationObserverImpl,
+
     Java_cjdom_EventQueue_setPromiseThenImpl,
+
+    Java_cjdom_MutationObserver_newMutationObserverImpl,
 
     Java_cjdom_CanvasRenderingContext2D_setLineDashImpl,
     Java_cjdom_CanvasRenderingContext2D_fillTextImpl, Java_cjdom_CanvasRenderingContext2D_fillTextImpl2,

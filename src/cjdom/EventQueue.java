@@ -127,6 +127,15 @@ public class EventQueue {
                     promiseThenFunc.apply(value);
                     break;
 
+                // Handle Mutation
+                case "mutation":
+                    MutationObserver.Callback callback = (MutationObserver.Callback) func;
+                    JSObject mutationRecordsArrayHolder = (JSObject) eventRecordArray[2];
+                    JSObject mutationRecordsArrayJS = CJObject.getMemberImpl(mutationRecordsArrayHolder, "value");
+                    MutationRecord[] mutationRecords = MutationRecord.getMutationRecordArrayForArrayJS(mutationRecordsArrayJS);
+                    callback.handleMutations(mutationRecords);
+                    break;
+
                 // Handle unknown
                 default: System.out.println("EventQueue.eventLoop: Unknown event type: " + type);
             }
@@ -187,6 +196,23 @@ public class EventQueue {
     }
 
     /**
+     * Registers a mutation observer to observe given node for given mutations types object.
+     */
+    public static void addMutationObserver(MutationObserver mutationObserver, Node aNode, JSObject optionsObj)
+    {
+        MutationObserver.Callback callback = mutationObserver.getCallback();
+        addMutationObserverImpl(mutationObserver._jsObj, aNode._jsObj, callback, optionsObj);
+    }
+
+    /**
+     * Removes a mutation observer to observe given node for given mutations types object.
+     */
+    public static void removeMutationObserver(MutationObserver mutationObserver, Node aNode)
+    {
+        System.out.println("EventQueue.removeMutationObserver: Not implemented");
+    }
+
+    /**
      * Sets a promise.then() function.
      */
     public static <T,V> Promise<V> setPromiseThen(Promise<T> aPromise, Function<? super T, ? extends V> aFunc)
@@ -215,6 +241,11 @@ public class EventQueue {
      * EventQueue: removeEventListenerImpl().
      */
     private static native void removeEventListenerImpl(JSObject eventTargetJS, String aName, EventListener<?> eventLsnr, int lsnrId, boolean useCapture);
+
+    /**
+     * EventQueue: addMutationObserverImpl().
+     */
+    private static native void addMutationObserverImpl(JSObject mutationObserverJS, JSObject nodeJS, MutationObserver.Callback callback, JSObject optionsObj);
 
     /**
      * EventQueue: setPromiseThenImpl().
