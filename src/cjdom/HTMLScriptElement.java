@@ -43,6 +43,11 @@ public class HTMLScriptElement extends HTMLElement {
         setMemberString("src", srcString);
     }
 
+    public void setAsync(boolean aValue)
+    {
+        setMemberBoolean("async", aValue);
+    }
+
 //
 //    String getType();
 //
