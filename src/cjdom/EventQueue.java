@@ -13,6 +13,9 @@ import java.util.function.Function;
  */
 public class EventQueue {
 
+    // The current event thread
+    private Thread _eventThread;
+
     // Shared event queue
     private static EventQueue _shared = new EventQueue();
 
@@ -26,8 +29,17 @@ public class EventQueue {
     {
         _shared = this;
 
-        // Start waiting for events
-        new Thread(() -> eventLoop()).start();
+        // Start new event thread
+        startNewEventThread();
+    }
+
+    /**
+     * Starts a new event thread.
+     */
+    public void startNewEventThread()
+    {
+        _eventThread = new Thread(() -> eventLoop());
+        _eventThread.start();
     }
 
     /**
@@ -141,18 +153,20 @@ public class EventQueue {
             }
 
             // If no longer main event thread, just return
-            if (this != _shared)
+            if (Thread.currentThread() != _eventThread)
                 return;
         }
     }
 
     /**
-     * Starts a new event thread.
+     * Returns whether current thread is event thread.
      */
-    public static void startNewEventThread()
-    {
-        new EventQueue();
-    }
+    public static boolean isEventThread()  { return Thread.currentThread() == _shared._eventThread; }
+
+    /**
+     * Returns the shared event queue.
+     */
+    public static EventQueue getShared()  { return _shared; }
 
     /**
      * Waits for next event.
