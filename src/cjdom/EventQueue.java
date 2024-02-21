@@ -1,5 +1,7 @@
 package cjdom;
 import netscape.javascript.JSObject;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.function.Function;
 
 /**
@@ -14,7 +16,10 @@ import java.util.function.Function;
 public class EventQueue {
 
     // The current event thread
-    private Thread _eventThread;
+    private EventQueueThread _eventThread;
+
+    // A stack of event threads
+    private Deque<EventQueueThread> _eventThreadStack = new ArrayDeque<>();
 
     // Shared event queue
     private static EventQueue _shared = new EventQueue();
@@ -38,8 +43,45 @@ public class EventQueue {
      */
     public void startNewEventThread()
     {
-        _eventThread = new Thread(() -> eventLoop());
+        // If another thread is running, add to stack
+        if (_eventThread != null) {
+            if (!isEventThread())
+                throw new RuntimeException("EventQueue.startNewEventThreadAndWait: Attempt to start new event thread from unknown thread");
+            _eventThreadStack.push(_eventThread);
+        }
+
+        // Create and start new event thread
+        _eventThread = new EventQueueThread();
         _eventThread.start();
+    }
+
+    /**
+     * Starts a new event thread.
+     */
+    public void startNewEventThreadAndWait()
+    {
+        EventQueueThread eventThread = _eventThread;
+        startNewEventThread();
+
+        // Wait last thread while new one is running
+        eventThread.startWaiting();
+    }
+
+    /**
+     * Stops a new event thread (after delay so this thread can finish).
+     */
+    public void stopEventThreadAndNotify()
+    {
+        setTimeout(this::stopEventThreadAndNotifyImpl, 0);
+    }
+
+    /**
+     * Stops a new event thread.
+     */
+    private void stopEventThreadAndNotifyImpl()
+    {
+        _eventThread = _eventThreadStack.pop();
+        _eventThread.stopWaiting();
     }
 
     /**
@@ -265,4 +307,26 @@ public class EventQueue {
      * EventQueue: setPromiseThenImpl().
      */
     private static native JSObject setPromiseThenImpl(JSObject promiseJS, Function<?,?> aFunc);
+
+    /**
+     *
+     */
+    private class EventQueueThread extends Thread {
+
+        public EventQueueThread()
+        {
+            super(EventQueue.this::eventLoop);
+        }
+
+        public synchronized void startWaiting()
+        {
+            try { wait(); }
+            catch (Exception e) { throw new RuntimeException(e); }
+        }
+
+        public synchronized void stopWaiting()
+        {
+            notify();
+        }
+    }
 }
