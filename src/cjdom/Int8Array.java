@@ -21,9 +21,7 @@ public class Int8Array extends TypedArray {
     public Int8Array(byte[] theBytes)
     {
         super(null);
-        _jsObj = newArrayForLengthImpl(theBytes.length);
-        for (int i = 0; i < theBytes.length; i++)
-            setImpl(_jsObj, i, theBytes[i]);
+        _jsObj = newArrayForByteArray(theBytes);
     }
 
     /**
@@ -71,12 +69,17 @@ public class Int8Array extends TypedArray {
     private static native void setImpl(JSObject jsObj, int index, byte aValue);
 
     /**
-     * Returns a new Uint8Array (internal).
+     * Int8Array method: newArrayForLengthImpl().
      */
     protected static native JSObject newArrayForLengthImpl(int aLen);
 
     /**
-     * Returns a new Uint8Array (internal).
+     * Int8Array method: newArrayForByteArray().
+     */
+    private static native JSObject newArrayForByteArray(byte[] javaArray);
+
+    /**
+     * Int8Array method: newArrayForArrayBuffer().
      */
     protected static native JSObject newArrayForArrayBuffer(JSObject arrayBufferJS);
 }

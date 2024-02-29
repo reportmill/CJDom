@@ -130,6 +130,11 @@ function Java_cjdom_Int8Array_setImpl(lib, int8Array, index, aValue)  { int8Arra
 function Java_cjdom_Int8Array_newArrayForLengthImpl(lib, length)  { return new Int8Array(length); }
 
 /**
+ * Int8Array method: newArrayForByteArray().
+ */
+function Java_cjdom_Int8Array_newArrayForByteArray(lib, byteArray)  { return byteArray; }
+
+/**
  * Int8Array: newArrayForArrayBuffer().
  */
 function Java_cjdom_Int8Array_newArrayForArrayBuffer(lib, arrayBufferJS)  { return new Int8Array(arrayBufferJS); }
@@ -757,6 +762,7 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Int8Array_getImpl, Java_cjdom_Int8Array_setImpl,
     Java_cjdom_Int8Array_newArrayForLengthImpl,
+    Java_cjdom_Int8Array_newArrayForByteArray,
     Java_cjdom_Int8Array_newArrayForArrayBuffer,
 
     Java_cjdom_Int32Array_setImpl,
