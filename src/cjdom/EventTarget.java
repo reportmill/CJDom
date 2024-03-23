@@ -22,6 +22,14 @@ public interface EventTarget {
     }
 
     /**
+     * Registers an event handler of a specific event type on the EventTarget.
+     */
+    default void addLoadEventListener(EventListener<?> eventLsnr)
+    {
+        LoadEventQueue.addLoadEventListener(this, eventLsnr);
+    }
+
+    /**
      * Removes an event handler of a specific event type from the EventTarget.
      */
     default void removeEventListener(String aName, EventListener<?> eventLsnr)

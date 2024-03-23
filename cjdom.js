@@ -588,7 +588,8 @@ let _listenerDict = { };
 function Java_cjdom_EventQueue_addEventListenerImpl(lib, eventTargetJS, name, eventLsnr, lsnrId, useCapture)
 {
     let lsnrJS = e => fireEvent(name, eventLsnr, e, null);
-    _listenerDict[lsnrId] = lsnrJS;
+    if (name !== 'load')
+        _listenerDict[lsnrId] = lsnrJS;
     eventTargetJS.addEventListener(name, lsnrJS, useCapture);
 }
 
@@ -636,6 +637,58 @@ function Java_cjdom_EventQueue_setPromiseThenImpl(lib, promiseWrapper, aFunc)
 function Java_cjdom_MutationObserver_newMutationObserverImpl(lib, aCallback)
 {
     return new MutationObserver((mutationRecords, observer) => mutationObserved(aCallback, mutationRecords));
+}
+
+// This wrapped promise is used to trigger getNextEvent
+var _loadEventNotifyMutex = null;
+
+// This array holds event records (which are also arrays of name, lambda func and optional arg)
+let _loadEventQueue = [ ];
+
+function createLoadMutex()
+{
+    let fulfill = null;
+    let promise = new Promise(f => { fulfill = f; });
+    return { fulfill, promise };
+}
+
+async function fireLoadEvent(name, callback, arg1, arg2)
+{
+    // Add event to queue
+    _loadEventQueue.push([ name, callback, arg1, arg2 ]);
+
+    // If mutex set, trigger it
+    if (_loadEventNotifyMutex != null) {
+        _loadEventNotifyMutex.fulfill();
+        _loadEventNotifyMutex = null;
+    }
+}
+
+/**
+ * LoadEventQueue: getNextEvent().
+ */
+async function Java_cjdom_LoadEventQueue_getNextEvent(lib)
+{
+    // If event already in queue, just return it
+    if (_loadEventQueue.length > 0)
+        return _loadEventQueue.shift();
+
+    // Otherwise create mutex and wait for next event
+    _loadEventNotifyMutex = createLoadMutex();
+    await _loadEventNotifyMutex.promise;
+
+    // Clear mutex and return event
+    _loadEventNotifyMutex = null;
+    return _loadEventQueue.shift();
+}
+
+/**
+ * Registers a load event handler on the EventTarget
+ */
+function Java_cjdom_LoadEventQueue_addLoadEventListenerImpl(lib, eventTargetJS, eventLsnr)
+{
+    let lsnrJS = e => fireLoadEvent('load', eventLsnr, e, null);
+    eventTargetJS.addEventListener('load', lsnrJS);
 }
 
 /**
@@ -828,6 +881,9 @@ let cjdomNativeMethods = {
     Java_cjdom_EventQueue_setPromiseThenImpl,
 
     Java_cjdom_MutationObserver_newMutationObserverImpl,
+
+    Java_cjdom_LoadEventQueue_getNextEvent,
+    Java_cjdom_LoadEventQueue_addLoadEventListenerImpl,
 
     Java_cjdom_CanvasRenderingContext2D_setLineDashImpl,
     Java_cjdom_CanvasRenderingContext2D_fillTextImpl, Java_cjdom_CanvasRenderingContext2D_fillTextImpl2,
