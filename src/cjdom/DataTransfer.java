@@ -118,14 +118,6 @@ public class DataTransfer extends CJObject {
     }
 
     /**
-     * Sets the image element to use for the drag feedback image.
-     */
-    public void setDragImage(HTMLElement aImg, double xOffset, double yOffset)
-    {
-        _jsObj.call("setDragImage", aImg._jsObj, xOffset, yOffset);
-    }
-
-    /**
      * Starts a drag for this data transfer and given element.
      */
     public void startDrag(HTMLElement image, double dx, double dy)

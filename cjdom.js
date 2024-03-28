@@ -468,6 +468,32 @@ function Java_cjdom_DataTransfer_startDragImpl(lib, dataTransfer, dragImage, dx,
 }
 
 /**
+ * Called when 'dragstart' called to configure dragGestureEvent.dataTransfer if values set in mousedown.
+ */
+function handleDragstart(dragEvent)
+{
+    // If dragGestureDataTransfer not set, just suppress and return
+    if (_dragGestureDataTransfer === null) {
+        dragEvent.preventDefault();
+        dragEvent.stopPropagation();
+        return;
+    }
+
+    // Copy _dragGestureDataTransfer to dragEvent.dataTransfer and image and return
+    for (var type of _dragGestureDataTransfer.types) {
+        var dataStr = _dragGestureDataTransfer.getData(type);
+        dragEvent.dataTransfer.setData(type, dataStr);
+    }
+
+    // Set DragImage, add to body (and register to remove later), and clear dataTransfer / dragImage
+    var dragImage = _dragGestureDragImage;
+    dragEvent.dataTransfer.setDragImage(dragImage, _dragGestureDragImageX, _dragGestureDragImageY);
+    document.body.appendChild(dragImage);
+    setTimeout(() => dragImage.parentNode.removeChild(dragImage), 1000);
+    _dragGestureDataTransfer = null; _dragGestureDragImage = null;
+}
+
+/**
  * Called on 'drop' event to cache data transfer, since it gets reset before CJ can use it.
  */
 function handleDrop(dropEvent)
@@ -539,33 +565,15 @@ async function fireEvent(name, callback, arg1, arg2)
             }
         }
 
-        // Handle DragStart
+        // Handle DragStart: Forward to handleDragstart() and return (_dragGestureDataTransfer needs to be set in mousedown)
         var type = arg1.type;
         if (type === 'dragstart') {
-
-            // If dragGestureDataTransfer not set, just suppress
-            if (_dragGestureDataTransfer === null) {
-                arg1.preventDefault();
-                arg1.stopPropagation();
-            }
-
-            // Otherwise, copy over dataTransfer and image and return
-            else {
-                var dataTransfer = arg1.dataTransfer;
-                var dragTypes = _dragGestureDataTransfer.types;
-                for (var type of dragTypes) {
-                    var dataStr = _dragGestureDataTransfer.getData(type);
-                    dataTransfer.setData(type, dataStr);
-                }
-                dataTransfer.setDragImage(_dragGestureDragImage, _dragGestureDragImageX, _dragGestureDragImageY);
-                //_dragGestureDragImage.parentNode.removeChild(_dragGestureDragImage);
-                _dragGestureDataTransfer = null; _dragGestureDragImage = null;
-                return;
-            }
+            handleDragstart(arg1);
+            return;
         }
 
         // Handle DragEnd
-        else if (type === 'dragend') {
+        if (type === 'dragend') {
             if (_dragGestureDataTransfer === null) {
                 arg1.preventDefault();
                 arg1.stopPropagation();
@@ -581,7 +589,7 @@ async function fireEvent(name, callback, arg1, arg2)
         // Special support for drag/drop
         if (arg1 instanceof DragEvent) {
             _dragDataTransferTypes = arg1.dataTransfer.types;
-            if (arg1.type == "drop")
+            if (arg1.type === 'drop')
                 handleDrop(arg1);
         }
     }
