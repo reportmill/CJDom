@@ -122,7 +122,15 @@ public class DataTransfer extends CJObject {
      */
     public void setDragImage(HTMLElement aImg, double xOffset, double yOffset)
     {
-        _jsObj.call("setDragImage", aImg, xOffset, yOffset);
+        _jsObj.call("setDragImage", aImg._jsObj, xOffset, yOffset);
+    }
+
+    /**
+     * Starts a drag for this data transfer and given element.
+     */
+    public void startDrag(HTMLElement image, double dx, double dy)
+    {
+        startDragImpl(_jsObj, image._jsObj, dx, dy);
     }
 
     /**
@@ -172,4 +180,9 @@ public class DataTransfer extends CJObject {
      * DataTransfer: getDropDataTransferFilesImpl().
      */
     public static native JSObject getDropDataTransferFilesImpl();
+
+    /**
+     * DataTransfer: startDragImpl().
+     */
+    private static native void startDragImpl(JSObject dataTransfer, JSObject image, double dx, double dy);
 }

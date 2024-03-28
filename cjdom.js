@@ -450,6 +450,23 @@ function Java_cjdom_DataTransfer_getDropDataTransferTypesImpl(lib)  { return _dr
  */
 function Java_cjdom_DataTransfer_getDropDataTransferFilesImpl(lib)  { return _dropDataTransferFiles; }
 
+// Drag gesture data transfer
+var _dragGestureDataTransfer;
+var _dragGestureDragImage;
+var _dragGestureDragImageX;
+var _dragGestureDragImageY;
+
+/**
+ * DataTransfer: startDragImpl().
+ */
+function Java_cjdom_DataTransfer_startDragImpl(lib, dataTransfer, dragImage, dx, dy)
+{
+    _dragGestureDataTransfer = dataTransfer;
+    _dragGestureDragImage = dragImage;
+    _dragGestureDragImageX = dx;
+    _dragGestureDragImageY = dy;
+}
+
 /**
  * Called on 'drop' event to cache data transfer, since it gets reset before CJ can use it.
  */
@@ -516,13 +533,47 @@ async function fireEvent(name, callback, arg1, arg2)
 
         // If MouseEvent, do some copy/paste
         if (arg1 instanceof MouseEvent) {
-            if (arg1.type == "mouseup")
+            if (arg1.type === 'mouseup') {
                 setTimeout(delayedClipboardWrite, 100);
+                _dragGestureDataTransfer = null; _dragGestureDragImage = null;
+            }
+        }
+
+        // Handle DragStart
+        var type = arg1.type;
+        if (type === 'dragstart') {
+
+            // If dragGestureDataTransfer not set, just suppress
+            if (_dragGestureDataTransfer === null) {
+                arg1.preventDefault();
+                arg1.stopPropagation();
+            }
+
+            // Otherwise, copy over dataTransfer and image and return
+            else {
+                var dataTransfer = arg1.dataTransfer;
+                var dragTypes = _dragGestureDataTransfer.types;
+                for (var type of dragTypes) {
+                    var dataStr = _dragGestureDataTransfer.getData(type);
+                    dataTransfer.setData(type, dataStr);
+                }
+                dataTransfer.setDragImage(_dragGestureDragImage, _dragGestureDragImageX, _dragGestureDragImageY);
+                //_dragGestureDragImage.parentNode.removeChild(_dragGestureDragImage);
+                _dragGestureDataTransfer = null; _dragGestureDragImage = null;
+                return;
+            }
+        }
+
+        // Handle DragEnd
+        else if (type === 'dragend') {
+            if (_dragGestureDataTransfer === null) {
+                arg1.preventDefault();
+                arg1.stopPropagation();
+            }
         }
 
         // Stop default/propagation for most events
-        var type = arg1.type;
-        if (type != "click" && type != "pointerdown") { // && type != "wheel") {
+        else if (type !== 'mousedown' && type !== 'mousemove' && type !== 'mouseup' && type !== 'click' && type !== 'pointerdown') { // && type != "wheel") {
             arg1.preventDefault();
             arg1.stopPropagation();
         }
@@ -864,6 +915,7 @@ let cjdomNativeMethods = {
     Java_cjdom_DataTransfer_getDropDataTransferImpl,
     Java_cjdom_DataTransfer_getDropDataTransferTypesImpl,
     Java_cjdom_DataTransfer_getDropDataTransferFilesImpl,
+    Java_cjdom_DataTransfer_startDragImpl,
 
     Java_cjdom_ClipboardItem_newClipboardItemForTypeAndString,
     Java_cjdom_ClipboardItem_newClipboardItemForBlob,
