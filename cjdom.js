@@ -451,7 +451,7 @@ function Java_cjdom_DataTransfer_getDropDataTransferTypesImpl(lib)  { return _dr
 function Java_cjdom_DataTransfer_getDropDataTransferFilesImpl(lib)  { return _dropDataTransferFiles; }
 
 // Drag gesture data transfer
-var _dragGestureDataTransfer;
+var _dragGestureDataTransfer = null;
 var _dragGestureDragImage;
 var _dragGestureDragImageX;
 var _dragGestureDragImageY;
