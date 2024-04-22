@@ -89,114 +89,131 @@ public class EventQueue {
      */
     private void eventLoop()
     {
-        while(true) {
+        while (true) {
 
             // Wait for next event
             Object[] eventRecordArray = getNextEvent();
 
-            // Get event type and function
-            String type = (String) eventRecordArray[0];
-            Object func = eventRecordArray[1];
+            // Process event
+            try { processEvent(eventRecordArray); }
 
-            switch (type) {
-
-                // Handle invocation
-                case "invocation":
-                    Runnable run = (Runnable) func;
-                    run.run();
-                    break;
-
-                // Handle KeyboardEvents
-                case "keydown":
-                case "keyup":
-                    EventListener<Event> keyLsnr = (EventListener<Event>) func;
-                    JSObject keyEventJS = (JSObject) eventRecordArray[2];
-                    Event keyEvent = new KeyboardEvent(keyEventJS);
-                    keyLsnr.handleEvent(keyEvent);
-                    break;
-
-                // Handle MouseEvents
-                case "mousedown":
-                case "mousemove":
-                case "mouseup":
-                case "pointerdown":
-                case "click":
-                case "contextmenu":
-                    EventListener<Event> mouseLsnr = (EventListener<Event>) func;
-                    JSObject mouseEventJS = (JSObject) eventRecordArray[2];
-                    Event mouseEvent = new MouseEvent(mouseEventJS);
-                    mouseLsnr.handleEvent(mouseEvent);
-                    break;
-
-                // Handle DragEvents
-                case "dragenter":
-                case "dragover":
-                case "dragexit":
-                case "drop":
-                case "dragstart":
-                case "dragend":
-                    EventListener<Event> dragLsnr = (EventListener<Event>) func;
-                    JSObject dragEventJS = (JSObject) eventRecordArray[2];
-                    Event dragEvent = new DragEvent(dragEventJS);
-                    dragLsnr.handleEvent(dragEvent);
-                    break;
-
-                // Handle TouchEvents
-                case "touchstart":
-                case "touchmove":
-                case "touchend":
-                    EventListener<Event> touchLsnr = (EventListener<Event>) func;
-                    JSObject touchEventJS = (JSObject) eventRecordArray[2];
-                    Event touchEvent = new TouchEvent(touchEventJS);
-                    touchLsnr.handleEvent(touchEvent);
-                    break;
-
-                // Handle wheel events
-                case "wheel":
-                    EventListener<Event> wheelLsnr = (EventListener<Event>) func;
-                    JSObject wheelJS = (JSObject) eventRecordArray[2];
-                    Event wheelEvent = new WheelEvent(wheelJS);
-                    wheelLsnr.handleEvent(wheelEvent);
-                    break;
-
-                // Handle resize events
-                case "load":
-                case "loadend":
-                case "resize":
-                case "select":
-                case "selectstart":
-                case "selectend":
-                case "focus":
-                case "blur":
-                    EventListener<Event> eventLsnr = (EventListener<Event>) func;
-                    JSObject eventJS = (JSObject) eventRecordArray[2];
-                    Event event = new Event(eventJS);
-                    eventLsnr.handleEvent(event);
-                    break;
-
-                // Handle promise
-                case "promise":
-                    Function<JSObject,Object> promiseThenFunc = (Function<JSObject,Object>) func;
-                    JSObject value = (JSObject) eventRecordArray[2];
-                    promiseThenFunc.apply(value);
-                    break;
-
-                // Handle Mutation
-                case "mutation":
-                    MutationObserver.Callback callback = (MutationObserver.Callback) func;
-                    JSObject mutationRecordsArrayHolder = (JSObject) eventRecordArray[2];
-                    JSObject mutationRecordsArrayJS = CJObject.getMemberImpl(mutationRecordsArrayHolder, "value");
-                    MutationRecord[] mutationRecords = MutationRecord.getMutationRecordArrayForArrayJS(mutationRecordsArrayJS);
-                    callback.handleMutations(mutationRecords);
-                    break;
-
-                // Handle unknown
-                default: System.out.println("EventQueue.eventLoop: Unknown event type: " + type);
+            // If exception is thrown, forward to UncaughtExceptionHandler or report
+            catch (Throwable t) {
+                Thread.UncaughtExceptionHandler uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+                if (uncaughtExceptionHandler != null)
+                    uncaughtExceptionHandler.uncaughtException(Thread.currentThread(), t);
+                else t.printStackTrace();
             }
 
             // If no longer main event thread, just return
             if (Thread.currentThread() != _eventThread)
                 return;
+        }
+    }
+
+    /**
+     * This method decodes given event array and forwards to handler/listener associated with it.
+     */
+    private void processEvent(Object[] eventRecordArray)
+    {
+        // Get event type and function
+        String type = (String) eventRecordArray[0];
+        Object func = eventRecordArray[1];
+
+        switch (type) {
+
+            // Handle invocation
+            case "invocation":
+                Runnable run = (Runnable) func;
+                run.run();
+                break;
+
+            // Handle KeyboardEvents
+            case "keydown":
+            case "keyup":
+                EventListener<Event> keyLsnr = (EventListener<Event>) func;
+                JSObject keyEventJS = (JSObject) eventRecordArray[2];
+                Event keyEvent = new KeyboardEvent(keyEventJS);
+                keyLsnr.handleEvent(keyEvent);
+                break;
+
+            // Handle MouseEvents
+            case "mousedown":
+            case "mousemove":
+            case "mouseup":
+            case "pointerdown":
+            case "click":
+            case "contextmenu":
+                EventListener<Event> mouseLsnr = (EventListener<Event>) func;
+                JSObject mouseEventJS = (JSObject) eventRecordArray[2];
+                Event mouseEvent = new MouseEvent(mouseEventJS);
+                mouseLsnr.handleEvent(mouseEvent);
+                break;
+
+            // Handle DragEvents
+            case "dragenter":
+            case "dragover":
+            case "dragexit":
+            case "drop":
+            case "dragstart":
+            case "dragend":
+                EventListener<Event> dragLsnr = (EventListener<Event>) func;
+                JSObject dragEventJS = (JSObject) eventRecordArray[2];
+                Event dragEvent = new DragEvent(dragEventJS);
+                dragLsnr.handleEvent(dragEvent);
+                break;
+
+            // Handle TouchEvents
+            case "touchstart":
+            case "touchmove":
+            case "touchend":
+                EventListener<Event> touchLsnr = (EventListener<Event>) func;
+                JSObject touchEventJS = (JSObject) eventRecordArray[2];
+                Event touchEvent = new TouchEvent(touchEventJS);
+                touchLsnr.handleEvent(touchEvent);
+                break;
+
+            // Handle wheel events
+            case "wheel":
+                EventListener<Event> wheelLsnr = (EventListener<Event>) func;
+                JSObject wheelJS = (JSObject) eventRecordArray[2];
+                Event wheelEvent = new WheelEvent(wheelJS);
+                wheelLsnr.handleEvent(wheelEvent);
+                break;
+
+            // Handle resize events
+            case "load":
+            case "loadend":
+            case "resize":
+            case "select":
+            case "selectstart":
+            case "selectend":
+            case "focus":
+            case "blur":
+                EventListener<Event> eventLsnr = (EventListener<Event>) func;
+                JSObject eventJS = (JSObject) eventRecordArray[2];
+                Event event = new Event(eventJS);
+                eventLsnr.handleEvent(event);
+                break;
+
+            // Handle promise
+            case "promise":
+                Function<JSObject,Object> promiseThenFunc = (Function<JSObject,Object>) func;
+                JSObject value = (JSObject) eventRecordArray[2];
+                promiseThenFunc.apply(value);
+                break;
+
+            // Handle Mutation
+            case "mutation":
+                MutationObserver.Callback callback = (MutationObserver.Callback) func;
+                JSObject mutationRecordsArrayHolder = (JSObject) eventRecordArray[2];
+                JSObject mutationRecordsArrayJS = CJObject.getMemberImpl(mutationRecordsArrayHolder, "value");
+                MutationRecord[] mutationRecords = MutationRecord.getMutationRecordArrayForArrayJS(mutationRecordsArrayJS);
+                callback.handleMutations(mutationRecords);
+                break;
+
+            // Handle unknown
+            default: System.out.println("EventQueue.eventLoop: Unknown event type: " + type);
         }
     }
 
@@ -309,7 +326,7 @@ public class EventQueue {
     private static native JSObject setPromiseThenImpl(JSObject promiseJS, Function<?,?> aFunc);
 
     /**
-     *
+     * This thread subclass is used to get and process events.
      */
     private class EventQueueThread extends Thread {
 
