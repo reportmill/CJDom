@@ -76,6 +76,14 @@ public class DataTransfer extends CJObject {
     }
 
     /**
+     * Set the data for a given type.
+     */
+    public void setData(String aType, byte[] theData)
+    {
+        _jsObj.call("setData", aType, theData);
+    }
+
+    /**
      * Returns the number of files.
      */
     public int getFileCount()  { return getFiles().length; }
