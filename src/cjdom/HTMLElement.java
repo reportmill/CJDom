@@ -66,12 +66,15 @@ public class HTMLElement extends Element implements EventTarget {
 
     public void blur()  { _jsObj.call("blur"); }
 
+    public void click()  { _jsObj.call("click"); }
+
     /**
      * Returns the wrapped HTML element for given tag name.
      */
     public static HTMLElement getElementForName(String tagName, JSObject jsObj)
     {
         switch (tagName.toLowerCase()) {
+            case "a": return new HTMLAnchorElement(jsObj);
             case "audio": return new HTMLAudioElement(jsObj);
             case "canvas": return new HTMLCanvasElement(jsObj);
             case "div": return new HTMLDivElement(jsObj);
