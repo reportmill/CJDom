@@ -79,6 +79,7 @@ public class HTMLElement extends Element implements EventTarget {
             case "canvas": return new HTMLCanvasElement(jsObj);
             case "div": return new HTMLDivElement(jsObj);
             case "img": return new HTMLImageElement(jsObj);
+            case "input": return new HTMLInputElement(jsObj);
             case "body": return new HTMLBodyElement(jsObj);
             case "html": return new HTMLHtmlElement(jsObj);
             case "iframe": return new HTMLIFrameElement(jsObj);
