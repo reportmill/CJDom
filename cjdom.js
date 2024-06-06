@@ -338,6 +338,17 @@ function Java_cjdom_Window_openImpl(lib, winJS, urlStr, targetStr, windowFeature
  */
 function Java_cjdom_Window_clearInterval(lib, anId)  { clearInterval(anId); }
 
+// An element that needs a click
+var _needsClickElement;
+
+/**
+ * HTMLElement setNeedsClickElement(): Called to set an element that needs a click.
+ */
+function Java_cjdom_HTMLElement_setNeedsClickElement(lib, needsClickElement)
+{
+    _needsClickElement = needsClickElement;
+}
+
 // Clipboard.read() ClipboardItems - read upon meta+v key press, write() upon meta-c
 var clipboardReadItems;
 var clipboardWriteItems;
@@ -390,6 +401,12 @@ function delayedClipboardWrite()
         catch (e) { console.log("delayedClipboardWrite:" + e); }
         clipboardReadItems = clipboardWriteItems;
         clipboardWriteItems = null;
+    }
+
+    // If NeedsClickElement is set, tell it to click (Safari)
+    if (_needsClickElement != null) {
+        _needsClickElement.click();
+        _needsClickElement = null;
     }
 }
 
@@ -916,6 +933,8 @@ let cjdomNativeMethods = {
     Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
     Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,
     Java_cjdom_Window_openImpl, Java_cjdom_Window_clearInterval,
+
+    Java_cjdom_HTMLElement_setNeedsClickElement,
 
     Java_cjdom_Clipboard_readClipboardItemsImpl,
     Java_cjdom_Clipboard_writeClipboardItemsImpl,

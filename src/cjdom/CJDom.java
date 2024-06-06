@@ -6,12 +6,6 @@ import netscape.javascript.JSObject;
  */
 public class CJDom {
 
-    // The platform string
-    private static String _platform;
-
-    // Returns whether platform is windows
-    private static Boolean _isWindows;
-
     /**
      * Log given object.
      */
@@ -24,27 +18,6 @@ public class CJDom {
         }
 
         else logImpl(obj);
-    }
-
-    /**
-     * Returns whether platform is windows.
-     */
-    public static boolean isWindows()
-    {
-        if (_isWindows != null) return _isWindows;
-        String platform = getPlatform();
-        return _isWindows = platform.contains("Win");
-    }
-
-    /**
-     * Returns the platform.
-     */
-    public static String getPlatform()
-    {
-        if (_platform != null) return _platform;
-        Window window = Window.current();
-        JSObject navigator = window.getMember("navigator");
-        return _platform = (String) navigator.getMember("platform");
     }
 
     /**

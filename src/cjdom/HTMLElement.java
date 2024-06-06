@@ -66,7 +66,12 @@ public class HTMLElement extends Element implements EventTarget {
 
     public void blur()  { _jsObj.call("blur"); }
 
-    public void click()  { _jsObj.call("click"); }
+    public void click()
+    {
+        if (Navigator.isSafari())
+            setNeedsClickElement(_jsObj);
+        else _jsObj.call("click");
+    }
 
     /**
      * Returns the wrapped HTML element for given tag name.
@@ -87,4 +92,9 @@ public class HTMLElement extends Element implements EventTarget {
             default: return new HTMLElement(jsObj);
         }
     }
+
+    /**
+     * HTMLElement setNeedsClickElement(): Called to set an element that needs a click.
+     */
+    private static native void setNeedsClickElement(JSObject needsClickElement);
 }

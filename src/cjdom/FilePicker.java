@@ -16,6 +16,9 @@ public class FilePicker {
     // The last read file bytes
     private byte[] _pickedFileBytes;
 
+    // The last input element
+    private HTMLInputElement _inputElement;
+
     /**
      * Constructor.
      */
@@ -41,37 +44,52 @@ public class FilePicker {
     {
         _filePickedHandler = filePickedHandler;
 
+        // Get inputElement
+        HTMLInputElement inputElement = getInputElement(fileTypes);
+
+        // Add to doc body and click
+        HTMLBodyElement.getBody().appendChild(inputElement);
+        inputElement.click();
+    }
+
+    /**
+     * Creates and returns the input element.
+     */
+    private HTMLInputElement getInputElement(String[] fileTypes)
+    {
+        // Remove last inputElement from page
+        if (_inputElement != null) {
+            Node parentNode = _inputElement.getParentNode();
+            if (parentNode != null)
+                parentNode.removeChild(_inputElement);
+        }
+
         // Create and configure inputElement
         HTMLDocument doc = HTMLDocument.getDocument();
         HTMLInputElement inputElement = (HTMLInputElement) doc.createElement("input");
         inputElement.setType("file");
         inputElement.setAcceptTypes(fileTypes);
         inputElement.getStyle().setCssText("display: none;");
-        inputElement.addEventListener("change", e -> handleFilePickerChange(inputElement, e));
+        inputElement.addEventListener("change", e -> handleFilePickerChange(e));
 
-        // Add to doc body
-        HTMLBodyElement body = doc.getBody();
-        body.appendChild(inputElement);
-        inputElement.click();
+        // Return
+        return _inputElement = inputElement;
     }
 
     /**
      * Called when user selects a file or cancels file picker.
      */
-    private void handleFilePickerChange(HTMLInputElement inputElement, Event changeEvent)
+    private void handleFilePickerChange(Event changeEvent)
     {
-        // Get file
+        // If file picked, read bytes and call handler
         File file = getFileForChangeEvent(changeEvent);
         if (file != null) {
             FileReader fileReader = new FileReader();
             fileReader.readBytesAndRunLater(file, () -> handleFilePickerFileLoaded(file, fileReader));
         }
-        else _filePickedHandler.accept(this);
 
-        // Remove inputElement from page
-        Node parentNode = inputElement.getParentNode();
-        if (parentNode != null)
-            parentNode.removeChild(inputElement);
+        // Otherwise just call handler
+        else _filePickedHandler.accept(this);
     }
 
     /**
