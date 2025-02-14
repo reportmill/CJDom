@@ -22,7 +22,7 @@ repositories {
 dependencies {
 
     // JSObject
-    implementation files("lib/cheerpj-awt.jar")
+    compileOnly files("lib/cheerpj-awt.jar")
 }
 
 // Need target to:
