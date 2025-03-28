@@ -867,6 +867,186 @@ function Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight(lib, uint8Cl
  */
 function Java_cjdom_CanvasGradient_addColorStopImpl(lib, gradientJS, offset, color)  { gradientJS.addColorStop(offset, color); }
 
+var _cntx;
+var _instructionStack; var _instructionIndex;
+var _intStack; var _intIndex;
+var _doubleStack; var _doubleIndex;
+var _stringStack; var _stringIndex;
+var _nativeStack; var _nativeIndex;
+
+/**
+ * CanvasRenderingContext2D: paintStacks().
+ */
+function Java_cjdom_CanvasRenderingContext2D_paintStacksImpl(lib, contextJS, instructionStack, instructionStackSize, intStack, doubleStack, stringStack, objectStack)
+{
+    _cntx = contextJS;
+    _instructionStack = instructionStack; _instructionIndex = 0;
+    _intStack = intStack; _intIndex = 0;
+    _doubleStack = doubleStack; _doubleIndex = 0;
+    _stringStack = stringStack; _stringIndex = 0;
+    _nativeStack = objectStack; _nativeIndex = 0;
+
+    while (_instructionIndex < instructionStackSize) {
+        switch (getInstruction()) {
+            case 1: setFont(); break;
+            case 2: setPaint(); break;
+            case 3: setStroke(); break;
+            case 4: setOpacity(); break;
+            case 5: drawShape(); break;
+            case 6: fillShape(); break;
+            case 7: clipShape(); break;
+            case 8: drawImage(); break;
+            case 9: drawImage2(); break;
+            case 10: drawString(); break;
+            case 11: strokeString(); break;
+            case 12: transform(); break;
+            case 13: setTransform(); break;
+            case 14: save(); break;
+            case 15: restore(); break;
+            default: System.out.println("Executor.exec: Unknown instruction"); break;
+        }
+    }
+}
+
+function setFont()
+{
+    _cntx.setFont(getNative());
+}
+
+function setPaint()
+{
+    cstr = getNative();
+    _cntx.fillStyle = cstr;
+    _cntx.strokeStyle = cstr;
+}
+
+function setStroke()
+{
+    _cntx.lineWidth = getDouble();
+}
+
+function setOpacity()
+{
+    _cntx.globalAlpha = getDouble();
+}
+
+function drawShape()
+{
+    setShape();
+    _cntx.stroke();
+}
+
+function fillShape()
+{
+    setShape();
+    _cntx.fill();
+}
+
+function clipShape()
+{
+    setShape();
+    _cntx.clip();
+}
+
+function drawImage2()
+{
+    var image = getNative();
+    _cntx.save();
+    setTransform();
+    _cntx.drawImage(image, 0, 0);
+    _cntx.restore();
+}
+
+function drawImage()
+{
+    var image = getNative();
+    var srcX = getDouble();
+    var srcY = getDouble();
+    var srcW = getDouble();
+    var srcH = getDouble();
+    var dx = getDouble();
+    var dy = getDouble();
+    var dw = getDouble();
+    var dh = getDouble();
+
+    // Correct source width/height for image dpi
+    // double scaleX = anImg.getDpiX() / 72;
+    // double scaleY = anImg.getDpiY() / 72;
+    // if (scaleX != 1 || scaleY != 1) {
+    //     srcX *= scaleX;
+    //     srcW *= scaleX;
+    //     srcY *= scaleY;
+    //     srcH *= scaleY;
+    // }
+
+    _cntx.drawImage(image, srcX, srcY, srcW, srcH, dx, dy, dw, dh);
+}
+
+/** Draw string at location with char spacing. */
+function drawString()
+{
+    var str = getString();
+    var x = getDouble();
+    var y = getDouble();
+    var cs = getDouble();
+    _cntx.fillText(str, x, y);
+}
+
+/** Stroke string at location with char spacing. */
+function strokeString()
+{
+    var str = getString();
+    var x = getDouble();
+    var y = getDouble();
+    var cs = getDouble();
+    _cntx.strokeText(str, x, y);
+}
+
+/**
+ * Transform by transform.
+ */
+function setTransform()
+{
+    var m0 = getDouble(); var m1 = getDouble();
+    var m2 = getDouble(); var m3 = getDouble();
+    var m4 = getDouble(); var m5 = getDouble();
+    _cntx.setTransform(m0, m1, m2, m3, m4, m5);
+}
+
+/** Transform by transform. */
+function transform()
+{
+    var m0 = getDouble(); var m1 = getDouble();
+    var m2 = getDouble(); var m3 = getDouble();
+    var m4 = getDouble(); var m5 = getDouble();
+    _cntx.transform(m0, m1, m2, m3, m4, m5);
+}
+
+function save()  { _cntx.save(); }
+
+function restore()  { _cntx.restore(); }
+
+function setShape()
+{
+    var opCount = getInt();
+    for (var i = 0; i < opCount; i++) {
+        var op = getInt();
+        switch (op) {
+            case 0: _cntx.moveTo(getDouble(), getDouble()); break;
+            case 1: _cntx.lineTo(getDouble(), getDouble()); break;
+            case 2: _cntx.bezierCurveTo(getDouble(), getDouble(), getDouble(), getDouble(), getDouble(), getDouble()); break;
+            case 3: _cntx.closePath(); break;
+        }
+    }
+}
+
+// Get stack values
+function getInstruction()  { return _instructionStack[_instructionIndex++]; }
+function getInt()  { return _intStack[_intIndex++]; }
+function getDouble()  { return _doubleStack[_doubleIndex++]; }
+function getString()  { return _stringStack[_stringIndex++]; }
+function getNative()  { return _nativeStack[_nativeIndex++]; }
+
 /**
  * Constant for registering with CJ.
  */
@@ -971,6 +1151,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CanvasRenderingContext2D_getImageDataImpl, Java_cjdom_CanvasRenderingContext2D_putImageDataImpl,
     Java_cjdom_CanvasRenderingContext2D_createLinearGradientImpl, Java_cjdom_CanvasRenderingContext2D_createRadialGradientImpl,
     Java_cjdom_CanvasRenderingContext2D_createPatternImpl,
+    Java_cjdom_CanvasRenderingContext2D_paintStacksImpl,
 
     Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight,
 

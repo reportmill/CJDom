@@ -416,6 +416,14 @@ public class CanvasRenderingContext2D extends CJObject {
     public void setImageSmoothingEnabled(boolean var1)  { } //setMemberBoolean("imageSmoothingEnabled", var1);
 
     /**
+     * CanvasRenderingContext2D: paintStacks().
+     */
+    public void paintStacks(int[] instructionStack, int instructionStackSize, int[] intStack, double[] doubleStack, String[] stringStack, Object[] objectStack)
+    {
+        paintStacksImpl(_jsObj, instructionStack, instructionStackSize, intStack, doubleStack, stringStack, objectStack);
+    }
+
+    /**
      * CanvasRenderingContext2D: setLineDashImpl().
      */
     private static native void setLineDashImpl(JSObject cntxJS, double[] dashArray);
@@ -478,7 +486,12 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: createPatternImpl().
      */
-    private static native JSObject createPatternImpl(JSObject contextJS, JSObject imageJS, String repetition);
+    private native JSObject createPatternImpl(JSObject contextJS, JSObject imageJS, String repetition);
+
+    /**
+     * CanvasRenderingContext2D: paintStacks().
+     */
+    private static native void paintStacksImpl(JSObject contextJS, int[] instructionStack, int instructionStackSize, int[] intStack, double[] doubleStack, String[] stringStack, Object[] objectStack);
 
     //boolean isPointInPath(double var1, double var3);
     //boolean isPointInStroke(double var1, double var3);
