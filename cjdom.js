@@ -1016,7 +1016,7 @@ function setTransform()
     var m0 = getDouble(); var m1 = getDouble();
     var m2 = getDouble(); var m3 = getDouble();
     var m4 = getDouble(); var m5 = getDouble();
-    _cntx.setTransform(m0, m1, m2, m3, m4, m5);
+    _cntx.setTransform(m0 * window.devicePixelRatio, m1, m2, m3 * window.devicePixelRatio, m4, m5);
 }
 
 /** Transform by transform. */
