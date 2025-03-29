@@ -868,7 +868,7 @@ function Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight(lib, uint8Cl
 function Java_cjdom_CanvasGradient_addColorStopImpl(lib, gradientJS, offset, color)  { gradientJS.addColorStop(offset, color); }
 
 var _cntx;
-var _instructionStack; var _instructionIndex;
+var _instructionStack;
 var _intStack; var _intIndex;
 var _doubleStack; var _doubleIndex;
 var _stringStack; var _stringIndex;
@@ -880,14 +880,16 @@ var _nativeStack; var _nativeIndex;
 function Java_cjdom_CanvasRenderingContext2D_paintStacksImpl(lib, contextJS, instructionStack, instructionStackSize, intStack, doubleStack, stringStack, objectStack)
 {
     _cntx = contextJS;
-    _instructionStack = instructionStack; _instructionIndex = 0;
+    _instructionStack = instructionStack;
     _intStack = intStack; _intIndex = 0;
     _doubleStack = doubleStack; _doubleIndex = 0;
     _stringStack = stringStack; _stringIndex = 0;
     _nativeStack = objectStack; _nativeIndex = 0;
 
-    while (_instructionIndex < instructionStackSize) {
-        switch (getInstruction()) {
+    _cntx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+
+    for (var i = 0; i < instructionStackSize; i++) {
+        switch (_instructionStack[i]) {
             case 1: setFont(); break;
             case 2: setPaint(); break;
             case 3: setStroke(); break;
@@ -903,6 +905,7 @@ function Java_cjdom_CanvasRenderingContext2D_paintStacksImpl(lib, contextJS, ins
             case 13: setTransform(); break;
             case 14: save(); break;
             case 15: restore(); break;
+            case 16: clearRect(); break;
             default: System.out.println("Executor.exec: Unknown instruction"); break;
         }
     }
@@ -910,7 +913,8 @@ function Java_cjdom_CanvasRenderingContext2D_paintStacksImpl(lib, contextJS, ins
 
 function setFont()
 {
-    _cntx.setFont(getNative());
+    var fontStr = getNative();
+    _cntx.font = fontStr;
 }
 
 function setPaint()
@@ -953,7 +957,8 @@ function drawImage2()
     var image = getNative();
     _cntx.save();
     setTransform();
-    _cntx.drawImage(image, 0, 0);
+    if (image != null)
+        _cntx.drawImage(image, 0, 0);
     _cntx.restore();
 }
 
@@ -979,7 +984,8 @@ function drawImage()
     //     srcH *= scaleY;
     // }
 
-    _cntx.drawImage(image, srcX, srcY, srcW, srcH, dx, dy, dw, dh);
+    if (image != null)
+        _cntx.drawImage(image, srcX, srcY, srcW, srcH, dx, dy, dw, dh);
 }
 
 /** Draw string at location with char spacing. */
@@ -1026,6 +1032,13 @@ function save()  { _cntx.save(); }
 
 function restore()  { _cntx.restore(); }
 
+function clearRect()
+{
+    var x = getDouble(); var y = getDouble();
+    var w = getDouble(); var h = getDouble();
+    _cntx.clearRect(x, y, w, h);
+}
+
 function setShape()
 {
     var opCount = getInt();
@@ -1041,7 +1054,6 @@ function setShape()
 }
 
 // Get stack values
-function getInstruction()  { return _instructionStack[_instructionIndex++]; }
 function getInt()  { return _intStack[_intIndex++]; }
 function getDouble()  { return _doubleStack[_doubleIndex++]; }
 function getString()  { return _stringStack[_stringIndex++]; }
