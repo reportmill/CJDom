@@ -917,14 +917,35 @@ function setFont(){ _cntx.font = getNative(); }
 
 function setPaint()
 {
-    cstr = getNative();
+    var cstr = getNative();
     _cntx.fillStyle = cstr;
     _cntx.strokeStyle = cstr;
 }
 
 function setStroke()
 {
+    // Set line width
     _cntx.lineWidth = getDouble();
+
+    // set line dash
+    var dashArrayLen = getInt();
+    var dashArray = [];
+    for (var i = 0; i < dashArrayLen; i++)
+        dashArray.push(getDouble());
+    _cntx.setLineDash(dashArray);
+
+    // Set line dash offset
+    _cntx.lineDashOffset = dashArrayLen > 0 ? getDouble() : 0;
+
+    // Set line cap
+    var lineCap = getInt();
+    _cntx.lineCap = lineCap === 0 ? 'round' : lineCap === 1 ? 'butt' : 'square';
+
+    // Set line join
+    var lineJoin = getInt();
+    _cntx.lineJoin = lineJoin === 0 ? 'round' : lineJoin === 1 ? 'bevel' : 'miter';
+    if (lineJoin === 2)
+        _cntx.miterLimit = getDouble();
 }
 
 function setOpacity(){ _cntx.globalAlpha = getDouble(); }
