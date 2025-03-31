@@ -418,9 +418,9 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: paintStacks().
      */
-    public void paintStacks(int[] instructionStack, int instructionStackSize, int[] intStack, double[] doubleStack, String[] stringStack, Object[] objectStack)
+    public void paintStacks(double contextScale, int[] instructionStack, int instructionStackSize, int[] intStack, double[] doubleStack, String[] stringStack, Object[] objectStack)
     {
-        paintStacksImpl(_jsObj, instructionStack, instructionStackSize, intStack, doubleStack, stringStack, objectStack);
+        paintStacksImpl(_jsObj, contextScale, instructionStack, instructionStackSize, intStack, doubleStack, stringStack, objectStack);
     }
 
     /**
@@ -491,7 +491,7 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: paintStacks().
      */
-    private static native void paintStacksImpl(JSObject contextJS, int[] instructionStack, int instructionStackSize, int[] intStack, double[] doubleStack, String[] stringStack, Object[] objectStack);
+    private static native void paintStacksImpl(JSObject contextJS, double contextScale, int[] instructionStack, int instructionStackSize, int[] intStack, double[] doubleStack, String[] stringStack, Object[] objectStack);
 
     //boolean isPointInPath(double var1, double var3);
     //boolean isPointInStroke(double var1, double var3);

@@ -868,6 +868,7 @@ function Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight(lib, uint8Cl
 function Java_cjdom_CanvasGradient_addColorStopImpl(lib, gradientJS, offset, color)  { gradientJS.addColorStop(offset, color); }
 
 var _cntx;
+var _cntxScale;
 var _instructionStack;
 var _intStack; var _intIndex;
 var _doubleStack; var _doubleIndex;
@@ -877,16 +878,17 @@ var _nativeStack; var _nativeIndex;
 /**
  * CanvasRenderingContext2D: paintStacks().
  */
-function Java_cjdom_CanvasRenderingContext2D_paintStacksImpl(lib, contextJS, instructionStack, instructionStackSize, intStack, doubleStack, stringStack, objectStack)
+function Java_cjdom_CanvasRenderingContext2D_paintStacksImpl(lib, contextJS, contextScale, instructionStack, instructionStackSize, intStack, doubleStack, stringStack, objectStack)
 {
     _cntx = contextJS;
+    _cntxScale = contextScale;
     _instructionStack = instructionStack;
     _intStack = intStack; _intIndex = 0;
     _doubleStack = doubleStack; _doubleIndex = 0;
     _stringStack = stringStack; _stringIndex = 0;
     _nativeStack = objectStack; _nativeIndex = 0;
 
-    _cntx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+    _cntx.setTransform(_cntxScale, 0, 0, _cntxScale, 0, 0);
 
     for (var i = 0; i < instructionStackSize; i++) {
         switch (_instructionStack[i]) {
@@ -911,11 +913,7 @@ function Java_cjdom_CanvasRenderingContext2D_paintStacksImpl(lib, contextJS, ins
     }
 }
 
-function setFont()
-{
-    var fontStr = getNative();
-    _cntx.font = fontStr;
-}
+function setFont(){ _cntx.font = getNative(); }
 
 function setPaint()
 {
@@ -929,10 +927,7 @@ function setStroke()
     _cntx.lineWidth = getDouble();
 }
 
-function setOpacity()
-{
-    _cntx.globalAlpha = getDouble();
-}
+function setOpacity(){ _cntx.globalAlpha = getDouble(); }
 
 function drawShape()
 {
@@ -1016,7 +1011,7 @@ function setTransform()
     var m0 = getDouble(); var m1 = getDouble();
     var m2 = getDouble(); var m3 = getDouble();
     var m4 = getDouble(); var m5 = getDouble();
-    _cntx.setTransform(m0 * window.devicePixelRatio, m1, m2, m3 * window.devicePixelRatio, m4, m5);
+    _cntx.setTransform(m0 * _cntxScale, m1, m2, m3 * _cntxScale, m4, m5);
 }
 
 /** Transform by transform. */
@@ -1042,6 +1037,16 @@ function clearRect()
 function setShape()
 {
     var opCount = getInt();
+
+    _cntx.beginPath();
+
+    // Handle rect shape
+    if (opCount === -1) {
+        _cntx.rect(getDouble(), getDouble(), getDouble(), getDouble());
+        return;
+    }
+
+    // Handle path shape: Iterate over path ops and add to context
     for (var i = 0; i < opCount; i++) {
         var op = getInt();
         switch (op) {
