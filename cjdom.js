@@ -990,7 +990,16 @@ function drawString()
     var x = getDouble();
     var y = getDouble();
     var cs = getDouble();
-    _cntx.fillText(str, x, y);
+    if (cs === 0)
+        _cntx.fillText(str, x, y);
+    else {
+        let charX = x;
+        for (let i = 0; i < str.length; i++) {
+            const char = str[i];
+            ctx.fillText(char, charX, y);
+            charX += ctx.measureText(char).width + cs;
+        }
+    }
 }
 
 /** Stroke string at location with char spacing. */
@@ -1000,7 +1009,16 @@ function strokeString()
     var x = getDouble();
     var y = getDouble();
     var cs = getDouble();
-    _cntx.strokeText(str, x, y);
+    if (cs === 0)
+        _cntx.strokeText(str, x, y);
+    else {
+        let charX = x;
+        for (let i = 0; i < str.length; i++) {
+            const char = str[i];
+            ctx.strokeText(char, charX, y);
+            charX += ctx.measureText(char).width + cs;
+        }
+    }
 }
 
 /**
