@@ -1017,8 +1017,8 @@ function drawString()
         let charX = x;
         for (let i = 0; i < str.length; i++) {
             const char = str[i];
-            ctx.fillText(char, charX, y);
-            charX += ctx.measureText(char).width + cs;
+            _cntx.fillText(char, charX, y);
+            charX += _cntx.measureText(char).width + cs;
         }
     }
 }
@@ -1036,8 +1036,8 @@ function strokeString()
         let charX = x;
         for (let i = 0; i < str.length; i++) {
             const char = str[i];
-            ctx.strokeText(char, charX, y);
-            charX += ctx.measureText(char).width + cs;
+            _cntx.strokeText(char, charX, y);
+            charX += _cntx.measureText(char).width + cs;
         }
     }
 }
