@@ -236,7 +236,15 @@ public class CanvasRenderingContext2D extends CJObject {
     public void closePath()  { _jsObj.call("closePath"); }
 
     /**
-     * CanvasRenderingContext2D: beginPath().
+     * CanvasRenderingContext2D: rect().
+     */
+    public void rect(double aX, double aY, double aW, double aH)
+    {
+        _jsObj.call("rect", aX, aY, aW, aH);
+    }
+
+    /**
+     * CanvasRenderingContext2D: clearRect().
      */
     public void clearRect(double aX, double aY, double aW, double aH)
     {
