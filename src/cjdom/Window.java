@@ -12,6 +12,9 @@ public class Window extends CJObject implements EventTarget {
     // The current document
     private static HTMLDocument _document;
 
+    // The current Location
+    private static Location _location;
+
     /**
      * Constructor.
      */
@@ -107,6 +110,17 @@ public class Window extends CJObject implements EventTarget {
 
         // Set and return
         return _window = window;
+    }
+
+    /**
+     * Returns the current location.
+     */
+    public static Location location()
+    {
+        if (_location != null) return _location;
+        Window window = current();
+        JSObject locationJS = window.getMember("location");
+        return _location = new Location(locationJS);
     }
 
     /**
