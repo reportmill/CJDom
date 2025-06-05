@@ -494,7 +494,7 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: createPatternImpl().
      */
-    private native JSObject createPatternImpl(JSObject contextJS, JSObject imageJS, String repetition);
+    private static native JSObject createPatternImpl(JSObject contextJS, JSObject imageJS, String repetition);
 
     /**
      * CanvasRenderingContext2D: paintStacks().
