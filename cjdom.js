@@ -909,7 +909,7 @@ function Java_cjdom_CanvasRenderingContext2D_paintStacksImpl(lib, contextJS, con
             case 15: restore(); break;
             case 16: clearRect(); break;
             case 17: setImageQuality(); break;
-            default: System.out.println("Executor.exec: Unknown instruction"); break;
+            default: console.log("CJDom.js-paintStacks: Unknown instruction"); break;
         }
     }
 }
