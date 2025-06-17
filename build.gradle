@@ -2,6 +2,7 @@ import java.text.SimpleDateFormat
 
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group 'com.reportmill'
@@ -11,8 +12,8 @@ sourceSets.main.java.srcDirs = ['src']
 sourceSets.main.resources.srcDirs = ['src']
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -23,6 +24,16 @@ dependencies {
 
     // JSObject
     compileOnly files("lib/cheerpj-awt.jar")
+}
+
+publishing {
+
+    publications {
+        gpr(MavenPublication) {
+            artifactId 'cjdom'
+            from(components.java)
+        }
+    }
 }
 
 // Need target to:

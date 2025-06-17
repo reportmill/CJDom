@@ -140,6 +140,21 @@ function Java_cjdom_Int8Array_newArrayForByteArray(lib, byteArray)  { return byt
 function Java_cjdom_Int8Array_newArrayForArrayBuffer(lib, arrayBufferJS)  { return new Int8Array(arrayBufferJS); }
 
 /**
+ * Int16Array: setImpl().
+ */
+function Java_cjdom_Int16Array_setImpl(lib, int16Array, index, aValue)  { int16Array[index] = aValue; }
+
+/**
+ * Int16Array: newArrayForLengthImpl().
+ */
+function Java_cjdom_Int16Array_newArrayForLengthImpl(lib, length)  { return new Int16Array(length); }
+
+/**
+ * Int16Array: newArrayForJavaArray().
+ */
+function Java_cjdom_Int16Array_newArrayForJavaArray(lib, javaArray, length)  { return javaArray; }
+
+/**
  * Int32Array: setImpl().
  */
 function Java_cjdom_Int32Array_setImpl(lib, int8Array, index, aValue)  { int8Array[index] = aValue; }
@@ -1138,6 +1153,10 @@ let cjdomNativeMethods = {
     Java_cjdom_Int8Array_newArrayForLengthImpl,
     Java_cjdom_Int8Array_newArrayForByteArray,
     Java_cjdom_Int8Array_newArrayForArrayBuffer,
+
+    Java_cjdom_Int16Array_setImpl,
+    Java_cjdom_Int16Array_newArrayForLengthImpl,
+    Java_cjdom_Int16Array_newArrayForJavaArray,
 
     Java_cjdom_Int32Array_setImpl,
     Java_cjdom_Int32Array_newArrayForLengthImpl,

@@ -50,6 +50,14 @@ public class HTMLElement extends Element implements EventTarget {
     }
 
     /**
+     * Sets a string representing the rendered text content of an element.
+     */
+    public void setInnerText(String aString)
+    {
+        setMemberString("innerText", aString);
+    }
+
+    /**
      * Sets whether html element has content editable.
      */
     public void setContentEditable(boolean aValue)

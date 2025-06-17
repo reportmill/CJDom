@@ -104,6 +104,16 @@ public class Node extends CJObject {
         return HTMLElement.getElementForName(nodeName, jsObj);
     }
 
+    /**
+     * Returns the text content property of the node.
+     */
+    public String getTextContent()  { return getMemberString("textContent"); }
+
+    /**
+     * Sets the text content property of the node.
+     */
+    public void setTextContent(String var1)  { setMemberString("textContent", var1); }
+
     //String getNodeValue();
     //void setNodeValue(String var1);
     //short getNodeType();
@@ -124,7 +134,5 @@ public class Node extends CJObject {
     //void setPrefix(String var1);
     //String getLocalName();
     //boolean hasAttributes();
-    //String getTextContent();
-    //void setTextContent(String var1);
     //Document getOwnerDocument();
 }

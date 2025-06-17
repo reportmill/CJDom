@@ -157,11 +157,11 @@ public interface GL2 {
 //    int CURRENT_PROGRAM = 35725;
 //    int NEVER = 512;
 //    int LESS = 513;
-//    int EQUAL = 514;
-//    int LEQUAL = 515;
-//    int GREATER = 516;
-//    int NOTEQUAL = 517;
-//    int GEQUAL = 518;
+    int EQUAL = 514;
+    int LEQUAL = 515;
+    int GREATER = 516;
+    int NOTEQUAL = 517;
+    int GEQUAL = 518;
 //    int ALWAYS = 519;
 //    int KEEP = 7680;
 //    int REPLACE = 7681;

@@ -193,7 +193,9 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     //void deleteRenderbuffer(WebGLRenderbuffer var1);
     //void deleteShader(WebGLShader var1);
     //void deleteTexture(WebGLTexture var1);
-    //void depthFunc(int var1);
+
+    public void depthFunc(int var1)  { _jsObj.call("depthFunc", var1); }
+
     //void depthMask(boolean var1);
     //void depthRange(float var1, float var2);
     //void detachShader(WebGLProgram var1, WebGLShader var2);
@@ -282,7 +284,12 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     //void texSubImage2D(int var1, int var2, int var3, int var4, int var5, int var6, ImageData var7);
     //void texSubImage2D(int var1, int var2, int var3, int var4, int var5, int var6, HTMLImageElement var7);
     //void texSubImage2D(int var1, int var2, int var3, int var4, int var5, int var6, HTMLCanvasElement var7);
-    //void uniform1f(WebGLUniformLocation var1, float var2);
+
+    public void uniform1f(WebGLUniformLocation uniformLocation, float var2)
+    {
+        _jsObj.call("uniform1f", uniformLocation._jsObj, var2);
+    }
+
     //void uniform1fv(WebGLUniformLocation var1, Float32Array var2);
     //void uniform1fv(WebGLUniformLocation var1, JSArrayReader<JSNumber> var2);
     //void uniform1fv(WebGLUniformLocation var1, @JSByRef float[] var2);

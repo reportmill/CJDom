@@ -33,6 +33,16 @@ public class Element extends Node {
     public void setId(String idStr)  { setMemberString("id", idStr); }
 
     /**
+     * Returns the class name.
+     */
+    public String getClassName()  { return getMemberString("className"); }
+
+    /**
+     * Sets the class name.
+     */
+    public void setClassName(String idStr)  { setMemberString("className", idStr); }
+
+    /**
      * Returns element attribute for attribute name.
      */
     public String getAttribute(String aName)  { return getMemberString(aName); }
