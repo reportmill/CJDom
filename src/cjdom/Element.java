@@ -43,6 +43,15 @@ public class Element extends Node {
     public void setClassName(String idStr)  { setMemberString("className", idStr); }
 
     /**
+     * Returns the class list.
+     */
+    public DOMTokenList getClassList()
+    {
+        JSObject jsObj = (JSObject) getMember("classList");
+        return new DOMTokenList(jsObj);
+    }
+
+    /**
      * Returns element attribute for attribute name.
      */
     public String getAttribute(String aName)  { return getMemberString(aName); }
