@@ -1,6 +1,8 @@
 package cjdom;
 import netscape.javascript.JSObject;
 
+import java.util.function.DoubleConsumer;
+
 /**
  * This class is a wrapper for Web API Window (https://developer.mozilla.org/en-US/docs/Web/API/Window).
  */
@@ -64,6 +66,14 @@ public class Window extends CJObject implements EventTarget {
      * Wrapper method for Web API method.
      */
     private static native void openImpl(JSObject winJS, String url, String target, String windowFeatures);
+
+    /**
+     * Request animation frame.
+     */
+    public static int requestAnimationFrame(DoubleConsumer callback)
+    {
+        return EventQueue.requestAnimationFrame(callback);
+    }
 
     /**
      * Schedules a runnable to execute after a delay of given milliseconds.

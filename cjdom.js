@@ -655,6 +655,14 @@ async function Java_cjdom_EventQueue_getNextEvent(lib)
 }
 
 /**
+ * EventQueue: requestAnimationFrameImpl().
+ */
+function Java_cjdom_EventQueue_requestAnimationFrameImpl(lib, aName, doubleFunction)
+{
+    requestAnimationFrame(timestamp => fireEvent(aName, doubleFunction, timestamp));
+}
+
+/**
  * EventQueue: setTimeoutImpl().
  */
 function Java_cjdom_EventQueue_setTimeoutImpl(lib, aName, aRun, aDelay)
@@ -1216,6 +1224,7 @@ let cjdomNativeMethods = {
     Java_cjdom_FileReader_newFileReader,
 
     Java_cjdom_EventQueue_getNextEvent,
+    Java_cjdom_EventQueue_requestAnimationFrameImpl,
     Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl,
     Java_cjdom_EventQueue_addEventListenerImpl, Java_cjdom_EventQueue_removeEventListenerImpl,
 

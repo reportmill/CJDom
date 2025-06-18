@@ -2,6 +2,7 @@ package cjdom;
 import netscape.javascript.JSObject;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.function.DoubleConsumer;
 import java.util.function.Function;
 
 /**
@@ -25,6 +26,7 @@ public class EventQueue {
     private static EventQueue _shared = new EventQueue();
 
     // Constants for event types
+    public static final String ANIMATION_EVENT = "animation";
     public static final String INVOCATION_EVENT = "invocation";
 
     /**
@@ -122,8 +124,15 @@ public class EventQueue {
 
         switch (type) {
 
-            // Handle invocation
-            case "invocation":
+            // Handle ANIMATION_EVENT
+            case ANIMATION_EVENT:
+                DoubleConsumer doubleConsumer = (DoubleConsumer) func;
+                double timestamp = eventRecordArray[2] instanceof Number num ? num.doubleValue() : 0;
+                doubleConsumer.accept(timestamp);
+                break;
+
+            // Handle INVOCATION_EVENT
+            case INVOCATION_EVENT:
                 Runnable run = (Runnable) func;
                 run.run();
                 break;
@@ -234,6 +243,14 @@ public class EventQueue {
     private static native Object[] getNextEvent();
 
     /**
+     * Request animation frame.
+     */
+    public static int requestAnimationFrame(DoubleConsumer callback)
+    {
+        return requestAnimationFrameImpl(ANIMATION_EVENT, callback);
+    }
+
+    /**
      * Sets a timeout.
      */
     public static void setTimeout(Runnable aRun, int aDelay)
@@ -295,6 +312,11 @@ public class EventQueue {
         JSObject thenPromiseJS = setPromiseThenImpl(promiseJS, aFunc);
         return new Promise<>(thenPromiseJS);
     }
+
+    /**
+     * EventQueue: requestAnimationFrameImpl().
+     */
+    private static native int requestAnimationFrameImpl(String aName, DoubleConsumer callback);
 
     /**
      * EventQueue: setTimeoutImpl().
