@@ -576,15 +576,15 @@ async function fireEvent(name, callback, arg1, arg2)
                 var key = arg1.key;
 
                 // Ignore meta+l (select address bar) and meta+alt+i (show dev tools)
-                if (key == "l" || arg1.altKey)
+                if (key === "l" || arg1.altKey)
                     return;
 
                 // If meta+C (copy) or meta+X (cut), write clipboardWriteItems
-                if (key == 'c' || key =='x')
+                if (key === 'c' || key ==='x')
                     setTimeout(delayedClipboardWrite, 100);
 
                 // If meta+V (paste), read and set clipboardReadItems
-                else if (key == 'v')
+                else if (key === 'v')
                     eagerClipboardRead();
             }
         }
