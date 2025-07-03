@@ -9,14 +9,17 @@ public class Navigator {
     // The navigator
     private static JSObject _navigator;
 
-    // The platform string
-    private static String _platform;
-
     // The user agent string
     private static String _userAgent;
 
     // Returns whether platform is windows
     private static Boolean _isWindows;
+
+    // Returns whether platform is mac
+    private static Boolean _isMac;
+
+    // Returns whether platform is iOS
+    private static Boolean _isIOS;
 
     // Returns whether user agent is Safari
     private static Boolean _isSafari;
@@ -37,8 +40,28 @@ public class Navigator {
     public static boolean isWindows()
     {
         if (_isWindows != null) return _isWindows;
-        String platform = getPlatform();
-        return _isWindows = platform.contains("Win");
+        String userAgent = getUserAgent();
+        return _isWindows = userAgent.contains("Win");
+    }
+
+    /**
+     * Returns whether platform is Mac.
+     */
+    public static boolean isMac()
+    {
+        if (_isMac != null) return _isMac;
+        String userAgent = getUserAgent();
+        return _isMac = userAgent.contains("Mac");
+    }
+
+    /**
+     * Returns whether platform is iOS.
+     */
+    public static boolean isIOS()
+    {
+        if (_isIOS != null) return _isIOS;
+        String userAgent = getUserAgent();
+        return _isIOS = userAgent.contains("iOS");
     }
 
     /**
@@ -56,9 +79,8 @@ public class Navigator {
      */
     public static String getPlatform()
     {
-        if (_platform != null) return _platform;
         JSObject navigator = getNavigator();
-        return _platform = (String) navigator.getMember("platform");
+        return (String) navigator.getMember("platform");
     }
 
     /**
