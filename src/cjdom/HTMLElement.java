@@ -33,29 +33,19 @@ public class HTMLElement extends Element implements EventTarget {
     public CSSStyleDeclaration getStyle()
     {
         if (_style != null) return _style;
-
         JSObject styleJS = getMember("style");
-        CSSStyleDeclaration style = new CSSStyleDeclaration(styleJS);
-
-        // Set and return
-        return _style = style;
+        return _style = new CSSStyleDeclaration(styleJS);
     }
 
     /**
      * Returns a string representing the rendered text content of an element.
      */
-    public String getInnerText()
-    {
-        return getMemberString("innerText");
-    }
+    public String getInnerText()  { return getMemberString("innerText"); }
 
     /**
      * Sets a string representing the rendered text content of an element.
      */
-    public void setInnerText(String aString)
-    {
-        setMemberString("innerText", aString);
-    }
+    public void setInnerText(String aString)  { setMemberString("innerText", aString); }
 
     /**
      * Sets whether html element has content editable.
@@ -70,15 +60,15 @@ public class HTMLElement extends Element implements EventTarget {
 
     public int getClientHeight()  { return getMemberInt("clientHeight"); }
 
-    public void focus()  { _jsObj.call("focus"); }
+    public void focus()  { call("focus"); }
 
-    public void blur()  { _jsObj.call("blur"); }
+    public void blur()  { call("blur"); }
 
     public void click()
     {
         if (Navigator.isSafari())
             setNeedsClickElement(_jsObj);
-        else _jsObj.call("click");
+        else call("click");
     }
 
     /**

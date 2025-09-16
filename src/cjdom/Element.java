@@ -47,7 +47,7 @@ public class Element extends Node {
      */
     public DOMTokenList getClassList()
     {
-        JSObject jsObj = (JSObject) getMember("classList");
+        JSObject jsObj = getMember("classList");
         return new DOMTokenList(jsObj);
     }
 
@@ -64,34 +64,15 @@ public class Element extends Node {
     /**
      * Returns the InnerHTML string.
      */
-    public String getInnerHTML()
-    {
-        return getInnerHTMLImpl(_jsObj).toString();
-    }
+    public String getInnerHTML()  { return getMemberString("innerHTML"); }
 
     /**
      * Sets the InnerHTML string.
      */
-    public void setInnerHTML(String htmlStr)
-    {
-        setInnerHTMLImpl(_jsObj, htmlStr);
-    }
+    public void setInnerHTML(String htmlStr)  { setMemberString("innerHTML", htmlStr); }
 
     /**
      * Set pointer capture.
      */
-    public void setPointerCapture(int anId)
-    {
-        _jsObj.call("setPointerCapture", anId);
-    }
-
-    /**
-     * Element method: Returns the InnerHTML string.
-     */
-    private static native String getInnerHTMLImpl(JSObject elementJS);
-
-    /**
-     * Element method: Sets the InnerHTML string.
-     */
-    private static native void setInnerHTMLImpl(JSObject elementJS, String htmlStr);
+    public void setPointerCapture(int anId)  { call("setPointerCapture", anId); }
 }

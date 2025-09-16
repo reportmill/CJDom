@@ -6,6 +6,9 @@ import netscape.javascript.JSObject;
  */
 public class Document extends Node implements EventTarget {
 
+    // The document HTML element
+    private HTMLHtmlElement _html;
+
     // The Body element
     private HTMLBodyElement _body;
 
@@ -18,18 +21,14 @@ public class Document extends Node implements EventTarget {
     }
 
     /**
-     * Creates the HTML element specified by tagName.
+     * Returns Document.documentElement for this document.
      */
-    public HTMLElement createElement(String tagName)
+    public HTMLHtmlElement getDocumentElement()
     {
-        JSObject jsObj = createElementImpl(_jsObj, tagName);
-        return HTMLElement.getElementForName(tagName, jsObj);
+        if (_html != null) return _html;
+        JSObject htmlElementJS = getMember("documentElement");
+        return _html = new HTMLHtmlElement(htmlElementJS);
     }
-
-    /**
-     * Document method: Creates the HTML element specified by tagName.
-     */
-    private static native JSObject createElementImpl(JSObject docJS, String tagName);
 
     /**
      * Returns the HTMLBodyElement for this document.
@@ -37,24 +36,37 @@ public class Document extends Node implements EventTarget {
     public HTMLBodyElement getBody()
     {
         if (_body != null) return _body;
-
-        // Get body
-        JSObject bodyJS = getBodyImpl(_jsObj);
-        HTMLBodyElement body = new HTMLBodyElement(bodyJS);
-
-        // Set and return
-        return _body = body;
+        JSObject bodyJS = getMember("body");
+        return _body = new HTMLBodyElement(bodyJS);
     }
 
+    /**
+     * Returns the HTMLHeadElement for this document.
+     */
     public HTMLHeadElement getHead()
     {
         JSObject headJS = getMember("head");
         return new HTMLHeadElement(headJS);
     }
 
+    /**
+     * Returns an object reference to the identified element.
+     */
+    public HTMLElement getElementById(String idStr)
+    {
+        JSObject elementJS = (JSObject) call("getElementById", idStr);
+        if (elementJS == null)
+            return null;
+        String tagName = CJObject.getMemberStringImpl(elementJS, "nodeName");
+        return HTMLElement.getElementForName(tagName, elementJS);
+    }
 
     /**
-     * Document method: Return document.body.
+     * Creates the HTML element specified by tagName.
      */
-    private static native JSObject getBodyImpl(JSObject docJS);
+    public HTMLElement createElement(String tagName)
+    {
+        JSObject elementJS = (JSObject) call("createElement", tagName);
+        return HTMLElement.getElementForName(tagName, elementJS);
+    }
 }

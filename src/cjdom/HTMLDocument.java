@@ -6,39 +6,12 @@ import netscape.javascript.JSObject;
  */
 public class HTMLDocument extends Document {
 
-    // The document HTML element
-    private HTMLHtmlElement _html;
-
     /**
      * Constructor.
      */
     public HTMLDocument(JSObject htmlDocument)
     {
         super(htmlDocument);
-    }
-
-    /**
-     * Return.
-     */
-    public HTMLHtmlElement getDocumentElement()
-    {
-        if (_html != null) return _html;
-
-        // Get
-        JSObject htmlElementJS = getMember("documentElement");
-        HTMLHtmlElement html = new HTMLHtmlElement(htmlElementJS);
-
-        // Set and return
-        return _html = html;
-    }
-
-    public HTMLElement getElementById(String idStr)
-    {
-        JSObject elementJS = (JSObject) _jsObj.call("getElementById", idStr);
-        if (elementJS == null)
-            return null;
-        String tagName = CJObject.getMemberStringImpl(elementJS, "nodeName");
-        return HTMLElement.getElementForName(tagName, elementJS);
     }
 
     /**

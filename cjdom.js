@@ -284,26 +284,6 @@ function Java_cjdom_Node_appendChildImpl(lib, parentJS, childJS)  { parentJS.app
  */
 function Java_cjdom_Node_removeChildImpl(lib, parentJS, childJS)  { parentJS.removeChild(childJS); }
 
-/**
- * Element method: Returns the InnerHTML string.
- */
-function Java_cjdom_Element_getInnerHTMLImpl(lib, elementJS)  { return elementJS.innerHTML; }
-
-/**
- * Element method: Sets the InnerHTML string.
- */
-function Java_cjdom_Element_setInnerHTMLImpl(lib, elementJS, htmlStr)  { elementJS.innerHTML = htmlStr; }
-
-/**
- * Document method: Return document.body.
- */
-function Java_cjdom_Document_getBodyImpl(lib, docObj)  { return docObj.body; }
-
-/**
- * Document method: Create and return new element for given tag name.
- */
-function Java_cjdom_Document_createElementImpl(lib, docJS, tagName)  { return docJS.createElement(tagName); }
-
 // An element that needs a click
 var _needsClickElement;
 
@@ -1146,10 +1126,6 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Node_getNodeNameImpl, Java_cjdom_Node_getParentNodeImpl,
     Java_cjdom_Node_appendChildImpl, Java_cjdom_Node_removeChildImpl,
-
-    Java_cjdom_Element_getInnerHTMLImpl, Java_cjdom_Element_setInnerHTMLImpl,
-
-    Java_cjdom_Document_getBodyImpl, Java_cjdom_Document_createElementImpl,
 
     Java_cjdom_HTMLElement_setNeedsClickElement,
 
