@@ -74,30 +74,14 @@ async function Java_cjdom_CJObject_awaitForPromise(lib, promiseJS)
 }
 
 /**
- * CJDom: logJS().
+ * CJWebEnv: windowImpl().
  */
-function Java_cjdom_CJDom_logJS(lib, anObj)  { console.log(anObj); }
+function Java_cjdom_CJWebEnv_windowImpl(lib, anObj)  { return window; }
 
 /**
- * CJDom: logImpl().
+ * CJWebEnv: consoleImpl().
  */
-function Java_cjdom_CJDom_logImpl(lib, anObj)  { console.log(anObj); }
-
-/**
- * CJDom method: Returns Viewport width.
- * Web suggested: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
- */
-function Java_cjdom_CJDom_getViewportWidth(lib)  { return document.documentElement.clientWidth; }
-
-/**
- * CJDom method: Returns Viewport height.
- */
-function Java_cjdom_CJDom_getViewportHeight(lib)  { return document.documentElement.clientHeight; }
-
-/**
- * CJDom method: Return device pixel ratio.
- */
-function Java_cjdom_CJDom_getDevicePixelRatio(lib)  { return window.devicePixelRatio; }
+function Java_cjdom_CJWebEnv_consoleImpl(lib, anObj)  { return console; }
 
 /**
  * Array: getImpl()
@@ -319,11 +303,6 @@ function Java_cjdom_Document_getBodyImpl(lib, docObj)  { return docObj.body; }
  * Document method: Create and return new element for given tag name.
  */
 function Java_cjdom_Document_createElementImpl(lib, docJS, tagName)  { return docJS.createElement(tagName); }
-
-/**
- * Window method.
- */
-function Java_cjdom_Window_currentImpl(lib)  { return window; }
 
 /**
  * Window method.
@@ -1149,10 +1128,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJObject_newObjectImpl,
     Java_cjdom_CJObject_awaitForPromise,
 
-    Java_cjdom_CJDom_logJS,
-    Java_cjdom_CJDom_logImpl,
-    Java_cjdom_CJDom_getViewportWidth, Java_cjdom_CJDom_getViewportHeight,
-    Java_cjdom_CJDom_getDevicePixelRatio,
+    Java_cjdom_CJWebEnv_windowImpl,
+    Java_cjdom_CJWebEnv_consoleImpl,
 
     Java_cjdom_Array_getImpl, Java_cjdom_Array_setImpl,
     Java_cjdom_Array_newArrayForLengthImpl,
@@ -1202,7 +1179,7 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Document_getBodyImpl, Java_cjdom_Document_createElementImpl,
 
-    Java_cjdom_Window_currentImpl, Java_cjdom_Window_getDocumentImpl,
+    Java_cjdom_Window_getDocumentImpl,
     Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,
     Java_cjdom_Window_openImpl, Java_cjdom_Window_clearInterval,
 

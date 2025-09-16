@@ -20,11 +20,16 @@ public class Window extends CJObject implements EventTarget {
     /**
      * Constructor.
      */
-    private Window(JSObject winJS)
+    public Window(JSObject winJS)
     {
         super();
         _jsObj = winJS;
     }
+
+    /**
+     * Returns the ratio of the resolution in physical pixels to the resolution in CSS pixels for the current display device.
+     */
+    public static double getDevicePixelRatio()  { return current().getMemberDouble("devicePixelRatio"); }
 
     /**
      * Return window InnerWidth.
@@ -114,12 +119,7 @@ public class Window extends CJObject implements EventTarget {
     public static Window current()
     {
         if (_window != null) return _window;
-
-        JSObject winJS = currentImpl();
-        Window window = new Window(winJS);
-
-        // Set and return
-        return _window = window;
+        return _window = CJWebEnv.get().window();
     }
 
     /**
@@ -132,11 +132,6 @@ public class Window extends CJObject implements EventTarget {
         JSObject locationJS = window.getMember("location");
         return _location = new Location(locationJS);
     }
-
-    /**
-     * Returns the current window.
-     */
-    public static native JSObject currentImpl();
 
     /**
      * Returns the current window.
