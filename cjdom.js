@@ -304,19 +304,6 @@ function Java_cjdom_Document_getBodyImpl(lib, docObj)  { return docObj.body; }
  */
 function Java_cjdom_Document_createElementImpl(lib, docJS, tagName)  { return docJS.createElement(tagName); }
 
-/**
- * Window method.
- */
-function Java_cjdom_Window_openImpl(lib, winJS, urlStr, targetStr, windowFeaturesStr)
-{
-    window.open(urlStr, targetStr, windowFeaturesStr);
-}
-
-/**
- * Stops intervals for given id.
- */
-function Java_cjdom_Window_clearInterval(lib, anId)  { clearInterval(anId); }
-
 // An element that needs a click
 var _needsClickElement;
 
@@ -1163,8 +1150,6 @@ let cjdomNativeMethods = {
     Java_cjdom_Element_getInnerHTMLImpl, Java_cjdom_Element_setInnerHTMLImpl,
 
     Java_cjdom_Document_getBodyImpl, Java_cjdom_Document_createElementImpl,
-
-    Java_cjdom_Window_openImpl, Java_cjdom_Window_clearInterval,
 
     Java_cjdom_HTMLElement_setNeedsClickElement,
 

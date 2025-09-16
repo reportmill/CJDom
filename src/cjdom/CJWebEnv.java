@@ -1,5 +1,6 @@
 package cjdom;
 import netscape.javascript.JSObject;
+import java.util.function.DoubleConsumer;
 
 /**
  * The web environment for CheerpJ.
@@ -45,12 +46,56 @@ public class CJWebEnv {
     }
 
     /**
+     * Wrapper method for Web API method.
+     */
+    public void open(String url, String target, String windowFeatures)
+    {
+        Window window = get().window();
+        window.call("open", url, target, windowFeatures);
+    }
+
+    /**
+     * Request animation frame.
+     */
+    public int requestAnimationFrame(DoubleConsumer callback)
+    {
+        return EventQueue.requestAnimationFrame(callback);
+    }
+
+    /**
+     * Schedules a runnable to execute after a delay of given milliseconds.
+     */
+    public void setTimeout(Runnable aRun, int aDelay)
+    {
+        EventQueue.setTimeout(aRun, aDelay);
+    }
+
+    /**
+     * Schedules a runnable to execute every time a given number of milliseconds elapses.
+     */
+    public int setInterval(Runnable aRun, int aPeriod)
+    {
+        //java.util.TimerTask timerTask = new TimerTask() { public void run()  { moveBalls(); } };
+        //new java.util.Timer().schedule(timerTask, 0, 25);
+        return EventQueue.setInterval(aRun, aPeriod);
+    }
+
+    /**
+     * Stops intervals for given id.
+     */
+    public void clearInterval(int anId)
+    {
+        Window window = get().window();
+        window.call("clearInterval", anId);
+    }
+
+    /**
      * Returns the current window.
      */
-    public static native JSObject windowImpl();
+    private static native JSObject windowImpl();
 
     /**
      * Returns the current console.
      */
-    public static native JSObject consoleImpl();
+    private static native JSObject consoleImpl();
 }

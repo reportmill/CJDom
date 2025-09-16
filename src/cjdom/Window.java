@@ -43,49 +43,38 @@ public class Window extends CJObject implements EventTarget {
     /**
      * Wrapper method for Web API method.
      */
-    public void open(String url, String target)
-    {
-        open(url, target, null);
-    }
+    public void open(String url, String target)  { open(url, target, null); }
 
     /**
      * Wrapper method for Web API method.
      */
     public void open(String url, String target, String windowFeatures)
     {
-        openImpl(_jsObj, url, target, windowFeatures);
+        CJWebEnv.get().open(url, target, windowFeatures);
     }
-
-    /**
-     * Wrapper method for Web API method.
-     */
-    private static native void openImpl(JSObject winJS, String url, String target, String windowFeatures);
 
     /**
      * Request animation frame.
      */
     public static int requestAnimationFrame(DoubleConsumer callback)
     {
-        return EventQueue.requestAnimationFrame(callback);
+        return CJWebEnv.get().requestAnimationFrame(callback);
     }
 
     /**
      * Schedules a runnable to execute after a delay of given milliseconds.
      */
-    public static void setTimeout(Runnable aRun, int aDelay)
-    {
-        EventQueue.setTimeout(aRun, aDelay);
-    }
+    public static void setTimeout(Runnable aRun, int aDelay)  { CJWebEnv.get().setTimeout(aRun, aDelay); }
 
     /**
      * Schedules a runnable to execute every time a given number of milliseconds elapses.
      */
-    public static int setInterval(Runnable aRun, int aPeriod)
-    {
-        //java.util.TimerTask timerTask = new TimerTask() { public void run()  { moveBalls(); } };
-        //new java.util.Timer().schedule(timerTask, 0, 25);
-        return EventQueue.setInterval(aRun, aPeriod);
-    }
+    public static int setInterval(Runnable aRun, int aPeriod)  { return CJWebEnv.get().setInterval(aRun, aPeriod); }
+
+    /**
+     * Stops intervals for given id.
+     */
+    public static void clearInterval(int anId)  { CJWebEnv.get().clearInterval(anId); }
 
     /**
      * Override to set URL hash.
@@ -96,11 +85,6 @@ public class Window extends CJObject implements EventTarget {
         String str = aString != null ? aString : "";
         setMemberStringImpl(locationJS, "hash", str);
     }
-
-    /**
-     * Stops intervals for given id.
-     */
-    public static native void clearInterval(int anId);
 
     /**
      * Returns the current window.

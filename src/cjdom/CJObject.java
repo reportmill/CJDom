@@ -87,6 +87,14 @@ public class CJObject {
     public void setMemberDouble(String aName, double aValue)  { setMemberDoubleImpl(_jsObj, aName, aValue); }
 
     /**
+     * Calls a method.
+     */
+    public Object call(String aName, Object... args)
+    {
+        return _jsObj.call(aName, args);
+    }
+
+    /**
      * Standard toString implementation.
      */
     public String toString()

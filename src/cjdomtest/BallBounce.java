@@ -28,17 +28,14 @@ public class BallBounce {
     private static final int MAX_BALL_COUNT = 1000;
 
     /**
-     * Create new BouncePane.
+     * Constructor.
      */
     public BallBounce()
     {
-        // Not using any Swing - maybe this is helpful
-        try { System.setProperty("java.awt.headless", "true"); }
-        catch(Throwable e) { System.err.println("Headless error: " + e); }
-
         // Get document and body
         HTMLDocument doc = HTMLDocument.getDocument();
         HTMLBodyElement body = doc.getBody();
+        body.getStyle().setCssText("margin:0;");
 
         // Get main element and register mouse listeners
         _mainEmt = body;
@@ -52,15 +49,14 @@ public class BallBounce {
         _mainEmt.addEventListener("touchend", e -> touchEnd((TouchEvent) e));
 
         // Add button
-        HTMLElement btn = doc.createElement("button");
-        btn.getStyle().setCssText("position:fixed;bottom:8px;right:8px;");
-        btn.setInnerHTML("Clear Balls");
-        body.appendChild(btn);
+        HTMLElement clearButton = doc.createElement("button");
+        clearButton.getStyle().setCssText("position:fixed;bottom:8px;right:8px;");
+        clearButton.setInnerHTML("Clear Balls");
+        body.appendChild(clearButton);
 
         // Seed some starter balls
         for (int i = 0; i < 10; i++)
             addBall(30, 30);
-        body.getStyle().setCssText("margin:0;");
     }
 
     /**
@@ -83,7 +79,7 @@ public class BallBounce {
 
         // Add ball
         Ball ball = new Ball(aX, aY);
-        _mainEmt.appendChild(ball.img);
+        _mainEmt.appendChild(ball._ballImage);
         _balls[_ballCount++] = ball;
         play();
     }
@@ -93,7 +89,7 @@ public class BallBounce {
      */
     public void removeBall(Ball aBall)
     {
-        _mainEmt.removeChild(aBall.img);
+        _mainEmt.removeChild(aBall._ballImage);
     }
 
     /**
@@ -256,32 +252,28 @@ public class BallBounce {
     public class Ball {
 
         // Image for ball
-        HTMLImageElement img;
+        private HTMLImageElement _ballImage;
 
         // Location of ball
-        double x, y;
+        private double _ballX, _ballY;
 
         // The ball velocity vector
-        double vx = Math.random() * 10 - 5;
-        double vy = Math.random() * 10 - 5;
+        private double _ballVX = Math.random() * 10 - 5;
+        private double _ballVY = Math.random() * 10 - 5;
 
         // The ball rotation
-        double roll;
+        private double _roll;
 
         /**
          * Create Ball.
          */
         public Ball(double aX, double aY)
         {
-            x = aX;
-            y = aY;
-            img = (HTMLImageElement) HTMLDocument.getDocument().createElement("img");
-
-            img.setSrc("http://reportmill.com/cj/PlayBall/Ball.png");
-            //Blob blob = new Blob(getClass().getResourceAsStream("Ball.png"), "image/png");
-            //String url = URL.createObjectURL(blob); img.setSrc(url);
-
-            img.getStyle().setCssText("position:absolute;left:" + aX + "px;top:" + aY + "px;");
+            _ballX = aX;
+            _ballY = aY;
+            _ballImage = (HTMLImageElement) HTMLDocument.getDocument().createElement("img");
+            _ballImage.setSrc("http://reportmill.com/images/Ball32.png");
+            _ballImage.getStyle().setCssText("position:absolute;left:" + aX + "px;top:" + aY + "px;");
         }
 
         /**
@@ -289,35 +281,35 @@ public class BallBounce {
          */
         public void moveBall()
         {
-            x += vx;
-            y += vy;
-            roll += vx > 0 ? 4 : -4;
+            _ballX += _ballVX;
+            _ballY += _ballVY;
+            _roll += _ballVX > 0 ? 4 : -4;
 
             // If ball hits wall, reflect velocity vector
-            if (!contains(x, y, 40, 40)) {
-                if (x < 0) {
-                    x = 0;
-                    vx = -vx;
+            if (!contains(_ballX, _ballY, 40, 40)) {
+                if (_ballX < 0) {
+                    _ballX = 0;
+                    _ballVX = -_ballVX;
                 }
-                else if (x + 40 > getWidth()) {
-                    x = getWidth() - 40;
-                    vx = -vx;
+                else if (_ballX + 40 > getWidth()) {
+                    _ballX = getWidth() - 40;
+                    _ballVX = -_ballVX;
                 }
-                if (y < 0) {
-                    y = 0;
-                    vy = -vy;
+                if (_ballY < 0) {
+                    _ballY = 0;
+                    _ballVY = -_ballVY;
                 }
-                else if (y + 40 > getHeight()) {
-                    y = getHeight() - 40;
-                    vy = -vy;
+                else if (_ballY + 40 > getHeight()) {
+                    _ballY = getHeight() - 40;
+                    _ballVY = -_ballVY;
                 }
             }
 
             // Move image
-            int rot = (int) Math.round(roll);
-            String str = "position:absolute;left:" + x + "px;top:" + y + "px;";
+            int rot = (int) Math.round(_roll);
+            String str = "position:absolute;left:" + _ballX + "px;top:" + _ballY + "px;";
             str += "transform:rotate(" + rot + "deg);-webkit-transform:rotate(" + rot + "deg);";
-            img.getStyle().setCssText(str);
+            _ballImage.getStyle().setCssText(str);
         }
     }
 }
