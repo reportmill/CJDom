@@ -1,6 +1,5 @@
 package cjdom;
 import netscape.javascript.JSObject;
-
 import java.util.function.DoubleConsumer;
 
 /**
@@ -34,22 +33,12 @@ public class Window extends CJObject implements EventTarget {
     /**
      * Return window InnerWidth.
      */
-    public int getInnerWidth()  { return getInnerWidthImpl(_jsObj); }
+    public int getInnerWidth()  { return getMemberInt("innerWidth"); }
 
     /**
      * Return window InnerHeight.
      */
-    public int getInnerHeight()  { return getInnerHeightImpl(_jsObj); }
-
-    /**
-     * Window method: Return window InnerWidth.
-     */
-    private static native int getInnerWidthImpl(JSObject winJS);
-
-    /**
-     * Window method: Return window InnerHeight.
-     */
-    private static native int getInnerHeightImpl(JSObject winJS);
+    public int getInnerHeight()  { return getMemberInt("innerHeight"); }
 
     /**
      * Wrapper method for Web API method.
@@ -139,16 +128,8 @@ public class Window extends CJObject implements EventTarget {
     public static HTMLDocument getDocument()
     {
         if (_document != null) return _document;
-
-        JSObject htmlDocumentJS = getDocumentImpl();
-        HTMLDocument doc = new HTMLDocument(htmlDocumentJS);
-
-        // Set and return
-        return _document = doc;
+        Window window = current();
+        JSObject documentJS = window.getMember("document");
+        return _document = new HTMLDocument(documentJS);
     }
-
-    /**
-     * Returns JavaScript Window.document.
-     */
-    private static native JSObject getDocumentImpl();
 }

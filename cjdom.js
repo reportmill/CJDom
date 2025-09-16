@@ -307,21 +307,6 @@ function Java_cjdom_Document_createElementImpl(lib, docJS, tagName)  { return do
 /**
  * Window method.
  */
-function Java_cjdom_Window_getDocumentImpl(lib)  { return window.document; }
-
-/**
- * Window method: Return window InnerWidth.
- */
-function Java_cjdom_Window_getInnerWidthImpl(lib, winJS)  { return winJS.innerWidth; }
-
-/**
- * Window method: Return window InnerHeight.
- */
-function Java_cjdom_Window_getInnerHeightImpl(lib, winJS)  { return winJS.innerHeight; }
-
-/**
- * Window method.
- */
 function Java_cjdom_Window_openImpl(lib, winJS, urlStr, targetStr, windowFeaturesStr)
 {
     window.open(urlStr, targetStr, windowFeaturesStr);
@@ -1179,8 +1164,6 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Document_getBodyImpl, Java_cjdom_Document_createElementImpl,
 
-    Java_cjdom_Window_getDocumentImpl,
-    Java_cjdom_Window_getInnerWidthImpl, Java_cjdom_Window_getInnerHeightImpl,
     Java_cjdom_Window_openImpl, Java_cjdom_Window_clearInterval,
 
     Java_cjdom_HTMLElement_setNeedsClickElement,
