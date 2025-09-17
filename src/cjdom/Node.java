@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Node (https://developer.mozilla.org/en-US/docs/Web/API/Node).
@@ -25,63 +24,35 @@ public class Node extends JSProxy {
     /**
      * Returns the node name: e.g.: div, img, canvas.
      */
-    public String getNodeName()
-    {
-        return getNodeNameImpl(_jsObj);
-    }
+    public String getNodeName()  { return getMemberString("nodeName"); }
 
     /**
      * Returns the parent node.
      */
     public Node getParentNode()
     {
-        Object parentNodeJS = getParentNodeImpl(_jsObj);
-        if (parentNodeJS == null)
-            return null;
-        return new HTMLElement(parentNodeJS);
+        Object parentNodeJS = getMember("parentNode");
+        return parentNodeJS != null ? new HTMLElement(parentNodeJS) : null;
     }
 
     /**
      * Add given child node.
      */
-    public void appendChild(Node childNode)
-    {
-        appendChildImpl(_jsObj, childNode._jsObj);
-    }
+    public void appendChild(Node childNode)  { call("appendChild", childNode._jsObj); }
 
     /**
      * Remove given child node.
      */
-    public void removeChild(Node childNode)
-    {
-        removeChildImpl(_jsObj, childNode._jsObj);
-    }
+    public void removeChild(Node childNode)  { call("removeChild", childNode._jsObj); }
 
     /**
-     * Node method: Return node name.
+     * Returns a copy of this node.
      */
-    private static native String getNodeNameImpl(JSObject nodeJS);
-
-    /**
-     * Node method: Return parentNode.
-     */
-    private static native JSObject getParentNodeImpl(JSObject nodeJS);
-
-    /**
-     * Node method: Add given child node.
-     */
-    private static native void appendChildImpl(JSObject parentJS, JSObject childJS);
-
-    /**
-     * Node method: Remove given child node.
-     */
-    private static native void removeChildImpl(JSObject parentJS, JSObject childJS);
-
     public Node cloneNode(boolean deep)
     {
-        JSObject jsObj = (JSObject) call("cloneNode", deep);
-        String name = getNodeName();
-        return HTMLElement.getElementForName(name, jsObj);
+        Object jsObj = call("cloneNode", deep);
+        String nodeName = getNodeName();
+        return HTMLElement.getElementForName(nodeName, jsObj);
     }
 
     /**
@@ -89,7 +60,7 @@ public class Node extends JSProxy {
      */
     public static Node getNodeForNodeJS(Object jsObj)
     {
-        String nodeName = getNodeNameImpl((JSObject) jsObj);
+        String nodeName = WebEnv.get().getMemberString(jsObj, "nodeName");
 
         if (nodeName.equals("#text"))
             return new Text(jsObj);

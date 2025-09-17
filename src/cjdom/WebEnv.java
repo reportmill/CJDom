@@ -132,4 +132,9 @@ public abstract class WebEnv<T> {
         Window window = get().window();
         window.call("clearInterval", anId);
     }
+
+    /**
+     * Performs click on given HTMLElement JS.
+     */
+    public void click(T jsObj)  { call(jsObj, "click"); }
 }

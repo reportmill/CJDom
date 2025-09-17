@@ -136,6 +136,17 @@ public class CJWebEnv extends WebEnv<JSObject> {
     }
 
     /**
+     * Override to handle Safari special.
+     */
+    @Override
+    public void click(JSObject jsObj)
+    {
+        if (Navigator.isSafari())
+            setNeedsClickElement(jsObj);
+        else super.click(jsObj);
+    }
+
+    /**
      * CJWebEnv method: getMemberImpl()
      */
     private static native JSObject getMemberImpl(JSObject jsObj, String aName);
@@ -204,4 +215,9 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * CJWebEnv method: awaitForPromiseImpl().
      */
     private static native Object awaitForPromiseImpl(JSObject aPromise);
+
+    /**
+     * CJWebEnv method: setNeedsClickElement(): Called to set an element that needs a click.
+     */
+    private static native void setNeedsClickElement(JSObject needsClickElement);
 }

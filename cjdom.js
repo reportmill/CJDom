@@ -70,6 +70,14 @@ function Java_cjdom_CJWebEnv_newObjectImpl(lib)  { return { }; }
  */
 async function Java_cjdom_CJWebEnv_awaitForPromiseImpl(lib, promiseJS)  { return await promiseJS; }
 
+// An element that needs a click
+var _needsClickElement;
+
+/**
+ * CJWebEnv setNeedsClickElement(): Called to set an element that needs a click.
+ */
+function Java_cjdom_CJWebEnv_setNeedsClickElement(lib, needsClickElement)  { _needsClickElement = needsClickElement; }
+
 /**
  * Array: getImpl()
  */
@@ -249,37 +257,6 @@ function Java_cjdom_Blob_createURL(lib, blobJS)  { return URL.createObjectURL(bl
 function Java_cjdom_File_createFileForNameAndTypeAndBytes(lib, name, type, int8ArrayJS)
 {
     return new File([ int8ArrayJS ], name, type ? { type: type } : null);
-}
-
-/**
- * Node method: Return node name.
- */
-function Java_cjdom_Node_getNodeNameImpl(lib, nodeJS)  { return nodeJS.nodeName; }
-
-/**
- * Node method: Return parentNode.
- */
-function Java_cjdom_Node_getParentNodeImpl(lib, nodeJS)  { return nodeJS.parentNode; }
-
-/**
- * Node method: Add given child node.
- */
-function Java_cjdom_Node_appendChildImpl(lib, parentJS, childJS)  { parentJS.appendChild(childJS); }
-
-/**
- * Node method: Remove given child node.
- */
-function Java_cjdom_Node_removeChildImpl(lib, parentJS, childJS)  { parentJS.removeChild(childJS); }
-
-// An element that needs a click
-var _needsClickElement;
-
-/**
- * HTMLElement setNeedsClickElement(): Called to set an element that needs a click.
- */
-function Java_cjdom_HTMLElement_setNeedsClickElement(lib, needsClickElement)
-{
-    _needsClickElement = needsClickElement;
 }
 
 // Clipboard.read() ClipboardItems - read upon meta+v key press, write() upon meta-c
@@ -1067,6 +1044,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_consoleImpl,
     Java_cjdom_CJWebEnv_newObjectImpl,
     Java_cjdom_CJWebEnv_awaitForPromiseImpl,
+    Java_cjdom_CJWebEnv_setNeedsClickElement,
 
     Java_cjdom_Array_getImpl, Java_cjdom_Array_setImpl,
     Java_cjdom_Array_newArrayForLengthImpl,
@@ -1108,11 +1086,6 @@ let cjdomNativeMethods = {
     Java_cjdom_Blob_createURL,
 
     Java_cjdom_File_createFileForNameAndTypeAndBytes,
-
-    Java_cjdom_Node_getNodeNameImpl, Java_cjdom_Node_getParentNodeImpl,
-    Java_cjdom_Node_appendChildImpl, Java_cjdom_Node_removeChildImpl,
-
-    Java_cjdom_HTMLElement_setNeedsClickElement,
 
     Java_cjdom_Clipboard_readClipboardItemsImpl,
     Java_cjdom_Clipboard_writeClipboardItemsImpl,
