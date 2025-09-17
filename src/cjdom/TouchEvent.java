@@ -99,7 +99,7 @@ public class TouchEvent extends UIEvent {
      */
     private static Touch[] getTouchArrayForTouchList(JSObject touchList)
     {
-        int length = getMemberIntImpl(touchList, "length");
+        int length = WebEnv.get().getMemberInt(touchList, "length");
 
         // Convert to Touches array
         Touch[] touches = new Touch[length];

@@ -83,7 +83,7 @@ public class Window extends CJObject implements EventTarget {
     {
         JSObject locationJS = getMember("location");
         String str = aString != null ? aString : "";
-        setMemberStringImpl(locationJS, "hash", str);
+        WebEnv.get().setMemberString(locationJS, "hash", str);
     }
 
     /**

@@ -57,7 +57,7 @@ public class Document extends Node implements EventTarget {
         JSObject elementJS = (JSObject) call("getElementById", idStr);
         if (elementJS == null)
             return null;
-        String tagName = CJObject.getMemberStringImpl(elementJS, "nodeName");
+        String tagName = WebEnv.get().getMemberString(elementJS, "nodeName");
         return HTMLElement.getElementForName(tagName, elementJS);
     }
 

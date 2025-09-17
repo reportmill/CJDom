@@ -109,7 +109,7 @@ public class FilePicker {
     {
         // Get changeEvent.target.files (just return if null)
         JSObject target = changeEvent.getMember("target");
-        JSObject filesList = CJObject.getMemberImpl(target, "files");
+        JSObject filesList = (JSObject) WebEnv.get().getMember(target, "files");
         if (filesList == null)
             return null;
 

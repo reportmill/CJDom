@@ -1,77 +1,54 @@
 
 
 /**
- * CJObject method: getMemberImpl()
+ * CJWebEnv method: getMemberImpl()
  */
-function Java_cjdom_CJObject_getMemberImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+function Java_cjdom_CJWebEnv_getMemberImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
- * CJObject method: setMemberImpl()
+ * CJWebEnv method: setMemberImpl()
  */
-function Java_cjdom_CJObject_setMemberImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
+function Java_cjdom_CJWebEnv_setMemberImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * CJObject method: getMemberStringImpl()
+ * CJWebEnv method: getMemberStringImpl()
  */
-function Java_cjdom_CJObject_getMemberStringImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+function Java_cjdom_CJWebEnv_getMemberStringImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
- * CJObject method: setMemberStringImpl()
+ * CJWebEnv method: setMemberStringImpl()
  */
-function Java_cjdom_CJObject_setMemberStringImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
+function Java_cjdom_CJWebEnv_setMemberStringImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * CJObject method: getMemberBooleanImpl()
+ * CJWebEnv method: getMemberBooleanImpl()
  */
-function Java_cjdom_CJObject_getMemberBooleanImpl(lib, jsObj, aName)  { return jsObj[aName] ? 1 : 0; }
+function Java_cjdom_CJWebEnv_getMemberBooleanImpl(lib, jsObj, aName)  { return jsObj[aName] ? 1 : 0; }
 
 /**
- * CJObject method: setMemberBooleanImpl()
+ * CJWebEnv method: setMemberBooleanImpl()
  */
-function Java_cjdom_CJObject_setMemberBooleanImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
+function Java_cjdom_CJWebEnv_setMemberBooleanImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * CJObject method: getMemberIntImpl()
+ * CJWebEnv method: getMemberIntImpl()
  */
-function Java_cjdom_CJObject_getMemberIntImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+function Java_cjdom_CJWebEnv_getMemberIntImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
- * CJObject method: setMemberIntImpl()
+ * CJWebEnv method: setMemberIntImpl()
  */
-function Java_cjdom_CJObject_setMemberIntImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
+function Java_cjdom_CJWebEnv_setMemberIntImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
- * CJObject method: getMemberFloatImpl()
+ * CJWebEnv method: getMemberDoubleImpl()
  */
-function Java_cjdom_CJObject_getMemberFloatImpl(lib, jsObj, aName)  { return jsObj[aName]; }
+function Java_cjdom_CJWebEnv_getMemberDoubleImpl(lib, jsObj, aName)  { return jsObj[aName]; }
 
 /**
- * CJObject method: setMemberFloatImpl()
+ * CJWebEnv method: setMemberDoubleImpl()
  */
-function Java_cjdom_CJObject_setMemberFloatImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
-
-/**
- * CJObject method: getMemberDoubleImpl()
- */
-function Java_cjdom_CJObject_getMemberDoubleImpl(lib, jsObj, aName)  { return jsObj[aName]; }
-
-/**
- * CJObject method: setMemberDoubleImpl()
- */
-function Java_cjdom_CJObject_setMemberDoubleImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
-
-/**
- * CJObject: newObjectImpl()
- */
-function Java_cjdom_CJObject_newObjectImpl(lib)  { return { }; }
-
-/**
- * CJObject method: awaitForPromise()
- */
-async function Java_cjdom_CJObject_awaitForPromise(lib, promiseJS)
-{
-    return await promiseJS;
-}
+function Java_cjdom_CJWebEnv_setMemberDoubleImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
  * CJWebEnv: windowImpl().
@@ -82,6 +59,16 @@ function Java_cjdom_CJWebEnv_windowImpl(lib, anObj)  { return window; }
  * CJWebEnv: consoleImpl().
  */
 function Java_cjdom_CJWebEnv_consoleImpl(lib, anObj)  { return console; }
+
+/**
+ * CJObject: newObjectImpl()
+ */
+function Java_cjdom_CJObject_newObjectImpl(lib)  { return { }; }
+
+/**
+ * CJObject method: awaitForPromise()
+ */
+async function Java_cjdom_CJObject_awaitForPromise(lib, promiseJS)  { return await promiseJS; }
 
 /**
  * Array: getImpl()
@@ -1071,17 +1058,16 @@ function getNative()  { return _nativeStack[_nativeIndex++]; }
  */
 let cjdomNativeMethods = {
 
-    Java_cjdom_CJObject_getMemberImpl, Java_cjdom_CJObject_setMemberImpl,
-    Java_cjdom_CJObject_getMemberStringImpl, Java_cjdom_CJObject_setMemberStringImpl,
-    Java_cjdom_CJObject_getMemberBooleanImpl, Java_cjdom_CJObject_setMemberBooleanImpl,
-    Java_cjdom_CJObject_getMemberIntImpl, Java_cjdom_CJObject_setMemberIntImpl,
-    Java_cjdom_CJObject_getMemberFloatImpl, Java_cjdom_CJObject_setMemberFloatImpl,
-    Java_cjdom_CJObject_getMemberDoubleImpl, Java_cjdom_CJObject_setMemberDoubleImpl,
-    Java_cjdom_CJObject_newObjectImpl,
-    Java_cjdom_CJObject_awaitForPromise,
-
+    Java_cjdom_CJWebEnv_getMemberImpl, Java_cjdom_CJWebEnv_setMemberImpl,
+    Java_cjdom_CJWebEnv_getMemberStringImpl, Java_cjdom_CJWebEnv_setMemberStringImpl,
+    Java_cjdom_CJWebEnv_getMemberBooleanImpl, Java_cjdom_CJWebEnv_setMemberBooleanImpl,
+    Java_cjdom_CJWebEnv_getMemberIntImpl, Java_cjdom_CJWebEnv_setMemberIntImpl,
+    Java_cjdom_CJWebEnv_getMemberDoubleImpl, Java_cjdom_CJWebEnv_setMemberDoubleImpl,
     Java_cjdom_CJWebEnv_windowImpl,
     Java_cjdom_CJWebEnv_consoleImpl,
+
+    Java_cjdom_CJObject_newObjectImpl,
+    Java_cjdom_CJObject_awaitForPromise,
 
     Java_cjdom_Array_getImpl, Java_cjdom_Array_setImpl,
     Java_cjdom_Array_newArrayForLengthImpl,

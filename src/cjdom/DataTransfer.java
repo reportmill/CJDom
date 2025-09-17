@@ -112,7 +112,7 @@ public class DataTransfer extends CJObject {
 
         // Get DataTransfer.files
         JSObject fileListJS = getMember("files");
-        int length = getMemberIntImpl(fileListJS, "length");
+        int length = WebEnv.get().getMemberInt(fileListJS, "length");
         File[] files = new File[length];
 
         // Iterate over file list and get files

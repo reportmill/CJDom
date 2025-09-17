@@ -32,7 +32,7 @@ public class NodeList extends CJObject {
      */
     public static Node[] getNodeArrayForNodeList(JSObject nodeList)
     {
-        int length = getMemberIntImpl(nodeList, "length");
+        int length = WebEnv.get().getMemberInt(nodeList, "length");
 
         // Convert to Node array
         Node[] nodeArray = new Node[length];

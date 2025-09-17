@@ -217,7 +217,7 @@ public class EventQueue {
             case "mutation":
                 MutationObserver.Callback callback = (MutationObserver.Callback) func;
                 JSObject mutationRecordsArrayHolder = (JSObject) eventRecordArray[2];
-                JSObject mutationRecordsArrayJS = CJObject.getMemberImpl(mutationRecordsArrayHolder, "value");
+                JSObject mutationRecordsArrayJS = (JSObject) WebEnv.get().getMember(mutationRecordsArrayHolder, "value");
                 MutationRecord[] mutationRecords = MutationRecord.getMutationRecordArrayForArrayJS(mutationRecordsArrayJS);
                 callback.handleMutations(mutationRecords);
                 break;

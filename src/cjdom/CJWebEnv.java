@@ -5,13 +5,71 @@ import java.util.function.DoubleConsumer;
 /**
  * The web environment for CheerpJ.
  */
-public class CJWebEnv extends WebEnv {
+public class CJWebEnv extends WebEnv<JSObject> {
 
     // The current Window
     private Window _window;
 
     // The current Console
     private Console _console;
+
+    /**
+     * Returns a named member of a JavaScript object.
+     */
+    public JSObject getMember(JSObject jsObj, String aName)  { return getMemberImpl(jsObj, aName); }
+
+    /**
+     * Sets a named member of a JavaScript object.
+     */
+    public void setMember(JSObject jsObj, String aName, JSObject aValue)  { setMemberImpl(jsObj, aName, aValue); }
+
+    /**
+     * Returns a named member of a JavaScript object.
+     */
+    public String getMemberString(JSObject jsObj, String aName)  { return getMemberStringImpl(jsObj, aName); }
+
+    /**
+     * Sets a named member of a JavaScript object.
+     */
+    public void setMemberString(JSObject jsObj, String aName, String aValue)  { setMemberStringImpl(jsObj, aName, aValue); }
+
+    /**
+     * Returns a named member of a JavaScript object.
+     */
+    public boolean getMemberBoolean(JSObject jsObj, String aName)  { return getMemberBooleanImpl(jsObj, aName) > 0; }
+
+    /**
+     * Sets a named member of a JavaScript object.
+     */
+    public void setMemberBoolean(JSObject jsObj, String aName, boolean aValue)  { setMemberBooleanImpl(jsObj, aName, aValue); }
+
+    /**
+     * Returns a named member of a JavaScript object as int.
+     */
+    public int getMemberInt(JSObject jsObj, String aName)  { return getMemberIntImpl(jsObj, aName); }
+
+    /**
+     * Sets a named member of a JavaScript object.
+     */
+    public void setMemberInt(JSObject jsObj, String aName, int aValue)  { setMemberIntImpl(jsObj, aName, aValue); }
+
+    /**
+     * Returns a named member of a JavaScript object as double.
+     */
+    public double getMemberDouble(JSObject jsObj, String aName)  { return getMemberDoubleImpl(jsObj, aName); }
+
+    /**
+     * Sets a named member of a JavaScript object as double.
+     */
+    public void setMemberDouble(JSObject jsObj, String aName, double aValue)  { setMemberDoubleImpl(jsObj, aName, aValue); }
+
+    /**
+     * Calls a method.
+     */
+    public Object call(JSObject jsObj, String aName, Object... args)
+    {
+        return jsObj.call(aName, args);
+    }
 
     /**
      * Returns the current window.
@@ -58,6 +116,56 @@ public class CJWebEnv extends WebEnv {
         //new java.util.Timer().schedule(timerTask, 0, 25);
         return EventQueue.setInterval(aRun, aPeriod);
     }
+
+    /**
+     * CJWebEnv method: getMemberImpl()
+     */
+    private static native JSObject getMemberImpl(JSObject jsObj, String aName);
+
+    /**
+     * CJWebEnv method: setMemberImpl()
+     */
+    private static native void setMemberImpl(JSObject jsObj, String aName, JSObject aValue);
+
+    /**
+     * CJWebEnv method: getMemberImpl()
+     */
+    private static native String getMemberStringImpl(JSObject jsObj, String aName);
+
+    /**
+     * CJWebEnv method: setMemberStringImpl()
+     */
+    private static native void setMemberStringImpl(JSObject jsObj, String aName, String aValue);
+
+    /**
+     * CJWebEnv method: getMemberBooleanImpl(). Sometimes problem returning boolean?
+     */
+    private static native int getMemberBooleanImpl(JSObject jsObj, String aName);
+
+    /**
+     * CJWebEnv method: setMemberBooleanImpl()
+     */
+    private static native void setMemberBooleanImpl(JSObject jsObj, String aName, boolean aValue);
+
+    /**
+     * CJWebEnv method: getMemberIntImpl()
+     */
+    private static native int getMemberIntImpl(JSObject jsObj, String aName);
+
+    /**
+     * CJWebEnv method: setMemberIntImpl()
+     */
+    private static native void setMemberIntImpl(JSObject jsObj, String aName, int aValue);
+
+    /**
+     * CJWebEnv method: getMemberDoubleImpl()
+     */
+    private static native double getMemberDoubleImpl(JSObject jsObj, String aName);
+
+    /**
+     * CJWebEnv method: setMemberDoubleImpl()
+     */
+    private static native void setMemberDoubleImpl(JSObject jsObj, String aName, double aValue);
 
     /**
      * Returns the current window.

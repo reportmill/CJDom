@@ -35,7 +35,7 @@ public class MutationObserver extends CJObject {
         // Convert options to dictionary object
         JSObject optionsJS = CJObject.newObjectImpl();
         for (Option option : theOptions)
-            CJObject.setMemberBooleanImpl(optionsJS, option.name(), true);
+            WebEnv.get().setMemberBoolean(optionsJS, option.name(), true);
 
         EventQueue.addMutationObserver(this, targetNode, optionsJS);
     }
