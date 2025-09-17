@@ -4,7 +4,7 @@ import netscape.javascript.JSObject;
 /**
  * Base class for objects that wrap JavaScript objects.
  */
-public class CJObject {
+public class JSProxy {
 
     // The JavaScript Blob object
     protected JSObject _jsObj;
@@ -12,7 +12,7 @@ public class CJObject {
     /**
      * Constructor.
      */
-    public CJObject()
+    public JSProxy()
     {
         super();
     }
@@ -20,10 +20,10 @@ public class CJObject {
     /**
      * Constructor.
      */
-    public CJObject(JSObject jsObj)
+    public JSProxy(Object jsObj)
     {
         super();
-        _jsObj = jsObj;
+        _jsObj = (JSObject) jsObj;
     }
 
     /**

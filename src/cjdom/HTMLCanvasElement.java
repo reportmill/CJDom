@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API HTMLImageElement (https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement).
@@ -9,7 +8,7 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
     /**
      * Constructor.
      */
-    public HTMLCanvasElement(JSObject jsObj)
+    public HTMLCanvasElement(Object jsObj)
     {
         super(jsObj);
     }
@@ -39,7 +38,7 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
      */
     public Object getContext(String contextType)
     {
-        JSObject contextJS = (JSObject) call("getContext", contextType);
+        Object contextJS = call("getContext", contextType);
         if (contextType.equals("webgl"))
             return new WebGLRenderingContext(contextJS);
         return new CanvasRenderingContext2D(contextJS);
@@ -50,7 +49,7 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
      */
     public DOMRect getBoundingClientRect()
     {
-        JSObject contextJS = (JSObject) call("getBoundingClientRect");
+        Object contextJS = call("getBoundingClientRect");
         return new DOMRect(contextJS);
     }
 

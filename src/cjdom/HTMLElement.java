@@ -12,7 +12,7 @@ public class HTMLElement extends Element implements EventTarget {
     /**
      * Constructor.
      */
-    public HTMLElement(JSObject jsoObj)
+    public HTMLElement(Object jsoObj)
     {
         super(jsoObj);
     }
@@ -33,7 +33,7 @@ public class HTMLElement extends Element implements EventTarget {
     public CSSStyleDeclaration getStyle()
     {
         if (_style != null) return _style;
-        JSObject styleJS = getMember("style");
+        Object styleJS = getMember("style");
         return _style = new CSSStyleDeclaration(styleJS);
     }
 
@@ -74,7 +74,7 @@ public class HTMLElement extends Element implements EventTarget {
     /**
      * Returns the wrapped HTML element for given tag name.
      */
-    public static HTMLElement getElementForName(String tagName, JSObject jsObj)
+    public static HTMLElement getElementForName(String tagName, Object jsObj)
     {
         switch (tagName.toLowerCase()) {
             case "a": return new HTMLAnchorElement(jsObj);

@@ -4,7 +4,7 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API Node (https://developer.mozilla.org/en-US/docs/Web/API/Node).
  */
-public class Node extends CJObject {
+public class Node extends JSProxy {
 
     /**
      * Constructor.
@@ -17,7 +17,7 @@ public class Node extends CJObject {
     /**
      * Constructor.
      */
-    public Node(JSObject jsObj)
+    public Node(Object jsObj)
     {
         super(jsObj);
     }
@@ -35,7 +35,7 @@ public class Node extends CJObject {
      */
     public Node getParentNode()
     {
-        JSObject parentNodeJS = getParentNodeImpl(_jsObj);
+        Object parentNodeJS = getParentNodeImpl(_jsObj);
         if (parentNodeJS == null)
             return null;
         return new HTMLElement(parentNodeJS);
@@ -87,17 +87,10 @@ public class Node extends CJObject {
     /**
      * Returns a new node for given JS node.
      */
-    public static Node getNodeForNode(JSObject jsObj)
+    public static Node getNodeForNodeJS(Object jsObj)
     {
-        String nodeName = getNodeNameImpl(jsObj);
-        return getNodeForNodeAndName(jsObj, nodeName);
-    }
+        String nodeName = getNodeNameImpl((JSObject) jsObj);
 
-    /**
-     * Returns a new node for given JS node and node name.
-     */
-    public static Node getNodeForNodeAndName(JSObject jsObj, String nodeName)
-    {
         if (nodeName.equals("#text"))
             return new Text(jsObj);
 

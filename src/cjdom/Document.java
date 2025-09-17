@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Document (https://developer.mozilla.org/en-US/docs/Web/API/Document).
@@ -15,7 +14,7 @@ public class Document extends Node implements EventTarget {
     /**
      * Constructor.
      */
-    public Document(JSObject jsObj)
+    public Document(Object jsObj)
     {
         super(jsObj);
     }
@@ -26,7 +25,7 @@ public class Document extends Node implements EventTarget {
     public HTMLHtmlElement getDocumentElement()
     {
         if (_html != null) return _html;
-        JSObject htmlElementJS = getMember("documentElement");
+        Object htmlElementJS = getMember("documentElement");
         return _html = new HTMLHtmlElement(htmlElementJS);
     }
 
@@ -36,7 +35,7 @@ public class Document extends Node implements EventTarget {
     public HTMLBodyElement getBody()
     {
         if (_body != null) return _body;
-        JSObject bodyJS = getMember("body");
+        Object bodyJS = getMember("body");
         return _body = new HTMLBodyElement(bodyJS);
     }
 
@@ -45,7 +44,7 @@ public class Document extends Node implements EventTarget {
      */
     public HTMLHeadElement getHead()
     {
-        JSObject headJS = getMember("head");
+        Object headJS = getMember("head");
         return new HTMLHeadElement(headJS);
     }
 
@@ -54,7 +53,7 @@ public class Document extends Node implements EventTarget {
      */
     public HTMLElement getElementById(String idStr)
     {
-        JSObject elementJS = (JSObject) call("getElementById", idStr);
+        Object elementJS = call("getElementById", idStr);
         if (elementJS == null)
             return null;
         String tagName = WebEnv.get().getMemberString(elementJS, "nodeName");
@@ -66,7 +65,7 @@ public class Document extends Node implements EventTarget {
      */
     public HTMLElement createElement(String tagName)
     {
-        JSObject elementJS = (JSObject) call("createElement", tagName);
+        Object elementJS = call("createElement", tagName);
         return HTMLElement.getElementForName(tagName, elementJS);
     }
 }

@@ -9,7 +9,7 @@ public class Uint8ClampedArray extends TypedArray {
     /**
      * Constructor.
      */
-    public Uint8ClampedArray(JSObject arrayJS)
+    public Uint8ClampedArray(Object arrayJS)
     {
         super(arrayJS);
     }

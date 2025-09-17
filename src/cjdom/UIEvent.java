@@ -8,7 +8,7 @@ public class UIEvent extends Event {
     /**
      * Constructor.
      */
-    public UIEvent(netscape.javascript.JSObject eventJS)
+    public UIEvent(Object eventJS)
     {
         super(eventJS);
     }

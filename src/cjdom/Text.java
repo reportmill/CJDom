@@ -8,7 +8,7 @@ public class Text extends CharacterData {
     /**
      * Constructor.
      */
-    public Text(netscape.javascript.JSObject jsObj)
+    public Text(Object jsObj)
     {
         super(jsObj);
     }

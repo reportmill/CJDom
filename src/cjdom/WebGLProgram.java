@@ -1,15 +1,14 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API WebGLProgram (https://developer.mozilla.org/en-US/docs/Web/API/WebGLProgram).
  */
-public class WebGLProgram extends CJObject {
+public class WebGLProgram extends JSProxy {
 
     /**
      * Constructor.
      */
-    public WebGLProgram(JSObject programJS)
+    public WebGLProgram(Object programJS)
     {
         super(programJS);
     }

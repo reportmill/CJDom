@@ -21,7 +21,7 @@ public class MouseEvent extends UIEvent {
     /**
      * Constructor.
      */
-    public MouseEvent(netscape.javascript.JSObject eventJS)
+    public MouseEvent(Object eventJS)
     {
         super(eventJS);
     }

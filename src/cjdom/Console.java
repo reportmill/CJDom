@@ -1,15 +1,14 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Console (https://developer.mozilla.org/en-US/docs/Web/API/Console).
  */
-public class Console extends CJObject {
+public class Console extends JSProxy {
 
     /**
      * Constructor.
      */
-    public Console(JSObject winJS)
+    public Console(Object winJS)
     {
         super(winJS);
     }
@@ -20,8 +19,8 @@ public class Console extends CJObject {
     public static void log(Object anObj)
     {
         Object obj = anObj;
-        if (anObj instanceof CJObject)
-            obj = ((CJObject) anObj)._jsObj;
+        if (anObj instanceof JSProxy)
+            obj = ((JSProxy) anObj)._jsObj;
 
         Console console = WebEnv.get().console();
         console.call("log", obj);

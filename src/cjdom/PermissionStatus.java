@@ -1,12 +1,9 @@
 package cjdom;
-import netscape.javascript.JSObject;
-
-import java.util.function.Function;
 
 /**
  * This class is a wrapper for Web API PermissionStatus (https://developer.mozilla.org/en-US/docs/Web/API/PermissionStatus).
  */
-public class PermissionStatus extends CJObject {
+public class PermissionStatus extends JSProxy {
 
     // Constant for state
     public enum State { Granted, Denied, Prompt }
@@ -14,7 +11,7 @@ public class PermissionStatus extends CJObject {
     /**
      * Constructor.
      */
-    public PermissionStatus(JSObject promiseJS)
+    public PermissionStatus(Object promiseJS)
     {
         super(promiseJS);
     }

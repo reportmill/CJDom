@@ -4,7 +4,7 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API MutationObserver (https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
  */
-public class MutationObserver extends CJObject {
+public class MutationObserver extends JSProxy {
 
     // The callback
     private Callback _callback;

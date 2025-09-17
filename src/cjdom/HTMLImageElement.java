@@ -1,7 +1,5 @@
 package cjdom;
 
-import netscape.javascript.JSObject;
-
 /**
  * This class is a wrapper for Web API HTMLImageElement (https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement).
  */
@@ -10,7 +8,7 @@ public class HTMLImageElement extends HTMLElement implements CanvasImageSource {
     /**
      * Constructor.
      */
-    public HTMLImageElement(JSObject jsObj)
+    public HTMLImageElement(Object jsObj)
     {
         super(jsObj);
     }

@@ -4,12 +4,12 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API ImageData (https://developer.mozilla.org/en-US/docs/Web/API/ImageData).
  */
-public class ImageData extends CJObject {
+public class ImageData extends JSProxy {
 
     /**
      * Constructor.
      */
-    public ImageData(JSObject imageDataJS)
+    public ImageData(Object imageDataJS)
     {
         super(imageDataJS);
     }
@@ -38,7 +38,7 @@ public class ImageData extends CJObject {
      */
     public Uint8ClampedArray getData()
     {
-        JSObject arrayJS = getMember("data");
+        Object arrayJS = getMember("data");
         return new Uint8ClampedArray(arrayJS);
     }
 

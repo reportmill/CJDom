@@ -141,7 +141,7 @@ public class EventQueue {
             case "keydown":
             case "keyup":
                 EventListener<Event> keyLsnr = (EventListener<Event>) func;
-                JSObject keyEventJS = (JSObject) eventRecordArray[2];
+                Object keyEventJS = eventRecordArray[2];
                 Event keyEvent = new KeyboardEvent(keyEventJS);
                 keyLsnr.handleEvent(keyEvent);
                 break;
@@ -154,7 +154,7 @@ public class EventQueue {
             case "click":
             case "contextmenu":
                 EventListener<Event> mouseLsnr = (EventListener<Event>) func;
-                JSObject mouseEventJS = (JSObject) eventRecordArray[2];
+                Object mouseEventJS = eventRecordArray[2];
                 Event mouseEvent = new MouseEvent(mouseEventJS);
                 mouseLsnr.handleEvent(mouseEvent);
                 break;
@@ -167,7 +167,7 @@ public class EventQueue {
             case "dragstart":
             case "dragend":
                 EventListener<Event> dragLsnr = (EventListener<Event>) func;
-                JSObject dragEventJS = (JSObject) eventRecordArray[2];
+                Object dragEventJS = eventRecordArray[2];
                 Event dragEvent = new DragEvent(dragEventJS);
                 dragLsnr.handleEvent(dragEvent);
                 break;
@@ -177,7 +177,7 @@ public class EventQueue {
             case "touchmove":
             case "touchend":
                 EventListener<Event> touchLsnr = (EventListener<Event>) func;
-                JSObject touchEventJS = (JSObject) eventRecordArray[2];
+                Object touchEventJS = eventRecordArray[2];
                 Event touchEvent = new TouchEvent(touchEventJS);
                 touchLsnr.handleEvent(touchEvent);
                 break;
@@ -185,7 +185,7 @@ public class EventQueue {
             // Handle wheel events
             case "wheel":
                 EventListener<Event> wheelLsnr = (EventListener<Event>) func;
-                JSObject wheelJS = (JSObject) eventRecordArray[2];
+                Object wheelJS = eventRecordArray[2];
                 Event wheelEvent = new WheelEvent(wheelJS);
                 wheelLsnr.handleEvent(wheelEvent);
                 break;
@@ -201,7 +201,7 @@ public class EventQueue {
             case "blur":
             case "change":
                 EventListener<Event> eventLsnr = (EventListener<Event>) func;
-                JSObject eventJS = (JSObject) eventRecordArray[2];
+                Object eventJS = eventRecordArray[2];
                 Event event = new Event(eventJS);
                 eventLsnr.handleEvent(event);
                 break;
@@ -216,7 +216,7 @@ public class EventQueue {
             // Handle Mutation
             case "mutation":
                 MutationObserver.Callback callback = (MutationObserver.Callback) func;
-                JSObject mutationRecordsArrayHolder = (JSObject) eventRecordArray[2];
+                Object mutationRecordsArrayHolder = eventRecordArray[2];
                 JSObject mutationRecordsArrayJS = (JSObject) WebEnv.get().getMember(mutationRecordsArrayHolder, "value");
                 MutationRecord[] mutationRecords = MutationRecord.getMutationRecordArrayForArrayJS(mutationRecordsArrayJS);
                 callback.handleMutations(mutationRecords);
@@ -271,7 +271,7 @@ public class EventQueue {
      */
     public static void addEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
     {
-        CJObject jsobj = (CJObject) eventTarget;
+        JSProxy jsobj = (JSProxy) eventTarget;
         int lsnrId = System.identityHashCode(eventLsnr);
         addEventListenerImpl(jsobj._jsObj, aName, eventLsnr, lsnrId, useCapture);
     }
@@ -281,7 +281,7 @@ public class EventQueue {
      */
     public static void removeEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
     {
-        CJObject jsobj = (CJObject) eventTarget;
+        JSProxy jsobj = (JSProxy) eventTarget;
         int lsnrId = System.identityHashCode(eventLsnr);
         removeEventListenerImpl(jsobj._jsObj, aName, eventLsnr, lsnrId, useCapture);
     }
@@ -309,7 +309,7 @@ public class EventQueue {
     public static <T,V> Promise<V> setPromiseThen(Promise<T> aPromise, Function<? super T, ? extends V> aFunc)
     {
         JSObject promiseJS = aPromise._jsObj;
-        JSObject thenPromiseJS = setPromiseThenImpl(promiseJS, aFunc);
+        Object thenPromiseJS = setPromiseThenImpl(promiseJS, aFunc);
         return new Promise<>(thenPromiseJS);
     }
 

@@ -4,12 +4,12 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API Blob (https://developer.mozilla.org/en-US/docs/Web/API/Blob).
  */
-public class Blob extends CJObject {
+public class Blob extends JSProxy {
 
     /**
      * Constructor.
      */
-    public Blob(netscape.javascript.JSObject jsObj)
+    public Blob(Object jsObj)
     {
         super(jsObj);
     }
@@ -29,7 +29,7 @@ public class Blob extends CJObject {
      */
     public String getText()
     {
-        JSObject promiseJS = (JSObject) call("text");
+        Object promiseJS = call("text");
         return (String) WebEnv.get().awaitForPromise(promiseJS);
     }
 

@@ -5,12 +5,12 @@ import java.util.stream.Stream;
 /**
  * This class is a wrapper for Web API Clipboard (https://developer.mozilla.org/en-US/docs/Web/API/Clipboard).
  */
-public class Clipboard extends CJObject {
+public class Clipboard extends JSProxy {
 
     /**
      * Constructor.
      */
-    public Clipboard(JSObject eventJS)
+    public Clipboard(Object eventJS)
     {
         super(eventJS);
     }
@@ -21,7 +21,7 @@ public class Clipboard extends CJObject {
     public static ClipboardItem[] readClipboardItems()
     {
         Object[] clipboardItemsJS = readClipboardItemsImpl();
-        return Stream.of(clipboardItemsJS).map(item -> new ClipboardItem((JSObject) item)).toArray(size -> new ClipboardItem[size]);
+        return Stream.of(clipboardItemsJS).map(item -> new ClipboardItem(item)).toArray(size -> new ClipboardItem[size]);
     }
 
     /**

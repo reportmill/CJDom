@@ -1,10 +1,9 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API CSSStyleDeclaration (https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration).
  */
-public class CSSStyleDeclaration extends CJObject {
+public class CSSStyleDeclaration extends JSProxy {
 
     /**
      * Constructor.
@@ -17,7 +16,7 @@ public class CSSStyleDeclaration extends CJObject {
     /**
      * Constructor.
      */
-    public CSSStyleDeclaration(JSObject jsObj)
+    public CSSStyleDeclaration(Object jsObj)
     {
         super(jsObj);
     }

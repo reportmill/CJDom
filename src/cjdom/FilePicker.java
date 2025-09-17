@@ -108,8 +108,8 @@ public class FilePicker {
     private static File getFileForChangeEvent(Event changeEvent)
     {
         // Get changeEvent.target.files (just return if null)
-        JSObject target = changeEvent.getMember("target");
-        JSObject filesList = (JSObject) WebEnv.get().getMember(target, "files");
+        Object target = changeEvent.getMember("target");
+        Object filesList = WebEnv.get().getMember(target, "files");
         if (filesList == null)
             return null;
 

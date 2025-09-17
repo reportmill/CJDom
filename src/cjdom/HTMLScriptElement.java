@@ -8,7 +8,7 @@ public class HTMLScriptElement extends HTMLElement {
     /**
      * Constructor.
      */
-    public HTMLScriptElement(netscape.javascript.JSObject jsObj)
+    public HTMLScriptElement(Object jsObj)
     {
         super(jsObj);
     }
@@ -38,15 +38,9 @@ public class HTMLScriptElement extends HTMLElement {
 //
 //    String getSrc();
 //
-    public void setSrc(String srcString)
-    {
-        setMemberString("src", srcString);
-    }
+    public void setSrc(String srcString)  { setMemberString("src", srcString); }
 
-    public void setAsync(boolean aValue)
-    {
-        setMemberBoolean("async", aValue);
-    }
+    public void setAsync(boolean aValue)  { setMemberBoolean("async", aValue); }
 
 //
 //    String getType();

@@ -1,16 +1,15 @@
 package cjdom;
-import netscape.javascript.JSObject;
 import java.util.function.Function;
 
 /**
  * This class is a wrapper for Web API Promise (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
  */
-public class Promise<T> extends CJObject {
+public class Promise<T> extends JSProxy {
 
     /**
      * Constructor.
      */
-    public Promise(JSObject promiseJS)
+    public Promise(Object promiseJS)
     {
         super(promiseJS);
     }

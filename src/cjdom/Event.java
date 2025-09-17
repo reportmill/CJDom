@@ -1,15 +1,14 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Event (https://developer.mozilla.org/en-US/docs/Web/API/Event).
  */
-public class Event extends CJObject {
+public class Event extends JSProxy {
 
     /**
      * Constructor.
      */
-    public Event(JSObject eventJS)
+    public Event(Object eventJS)
     {
         super(eventJS);
     }

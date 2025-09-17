@@ -4,12 +4,12 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API CanvasRenderingContext2D (https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D).
  */
-public class CanvasRenderingContext2D extends CJObject {
+public class CanvasRenderingContext2D extends JSProxy {
 
     /**
      * Constructor.
      */
-    public CanvasRenderingContext2D(JSObject renderingContextJS)
+    public CanvasRenderingContext2D(Object renderingContextJS)
     {
         super(renderingContextJS);
     }
@@ -272,7 +272,7 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public TextMetrics measureText(String aString)
     {
-        JSObject textMetricsJS = (JSObject) call("measureText", aString);
+        Object textMetricsJS = call("measureText", aString);
         return new TextMetrics(textMetricsJS);
     }
 
@@ -299,14 +299,14 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: drawImage().
      */
-    public void drawImage(CanvasImageSource anImage, double aX, double aY)  { drawImageImpl(_jsObj, ((CJObject) anImage)._jsObj, aX, aY); }
+    public void drawImage(CanvasImageSource anImage, double aX, double aY)  { drawImageImpl(_jsObj, ((JSProxy) anImage)._jsObj, aX, aY); }
 
     /**
      * CanvasRenderingContext2D: drawImage().
      */
     public void drawImage(CanvasImageSource anImage, double aX, double aY, double aW, double aH)
     {
-        drawImageImpl2(_jsObj, ((CJObject) anImage)._jsObj, aX, aY, aW, aH);
+        drawImageImpl2(_jsObj, ((JSProxy) anImage)._jsObj, aX, aY, aW, aH);
     }
 
     /**
@@ -314,7 +314,7 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public void drawImage(CanvasImageSource anImage, double srcX, double srcY, double srcW, double srcH, double destX, double destY, double destW, double destH)
     {
-        drawImageImpl3(_jsObj, ((CJObject) anImage)._jsObj, srcX, srcY, srcW, srcH, destX, destY, destW, destH);
+        drawImageImpl3(_jsObj, ((JSProxy) anImage)._jsObj, srcX, srcY, srcW, srcH, destX, destY, destW, destH);
     }
 
     /**
@@ -359,7 +359,7 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public CanvasPattern createPattern(CanvasImageSource image, String repetition)
     {
-        JSObject patternJS = createPatternImpl(_jsObj, ((CJObject) image)._jsObj, repetition);
+        JSObject patternJS = createPatternImpl(_jsObj, ((JSProxy) image)._jsObj, repetition);
         return new CanvasPattern(patternJS);
     }
 

@@ -45,7 +45,7 @@ public class LoadEventQueue {
      */
     public static void addLoadEventListener(EventTarget eventTarget, EventListener<?> eventLsnr)
     {
-        CJObject jsobj = (CJObject) eventTarget;
+        JSProxy jsobj = (JSProxy) eventTarget;
         addLoadEventListenerImpl(jsobj._jsObj, eventLsnr);
     }
 

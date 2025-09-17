@@ -1,15 +1,14 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API ArrayBuffer (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
  */
-public class ArrayBuffer extends CJObject {
+public class ArrayBuffer extends JSProxy {
 
     /**
      * Constructor.
      */
-    public ArrayBuffer(JSObject arrayBufferJS)
+    public ArrayBuffer(Object arrayBufferJS)
     {
         super(arrayBufferJS);
     }

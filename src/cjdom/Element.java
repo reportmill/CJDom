@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Element (https://developer.mozilla.org/en-US/docs/Web/API/Element).
@@ -9,7 +8,7 @@ public class Element extends Node {
     /**
      * Constructor.
      */
-    public Element(JSObject jsObj)
+    public Element(Object jsObj)
     {
         super(jsObj);
     }
@@ -39,7 +38,7 @@ public class Element extends Node {
      */
     public DOMTokenList getClassList()
     {
-        JSObject jsObj = getMember("classList");
+        Object jsObj = getMember("classList");
         return new DOMTokenList(jsObj);
     }
 

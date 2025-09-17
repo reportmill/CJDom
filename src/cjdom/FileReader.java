@@ -4,7 +4,7 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API FileReader (https://developer.mozilla.org/en-US/docs/Web/API/FileReader).
  */
-public class FileReader extends CJObject implements EventTarget {
+public class FileReader extends JSProxy implements EventTarget {
 
     /**
      * Constructor.
@@ -30,7 +30,7 @@ public class FileReader extends CJObject implements EventTarget {
      */
     public byte[] getResultBytes()
     {
-        JSObject arrayBufferJS = getMember("result");
+        Object arrayBufferJS = getMember("result");
         ArrayBuffer arrayBuffer = new ArrayBuffer(arrayBufferJS);
 
         Int8Array int8Array = new Int8Array(arrayBuffer);

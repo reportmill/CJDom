@@ -8,7 +8,7 @@ public class HTMLMediaElement extends HTMLElement {
     /**
      * Constructor.
      */
-    public HTMLMediaElement(netscape.javascript.JSObject jsObj)
+    public HTMLMediaElement(Object jsObj)
     {
         super(jsObj);
     }

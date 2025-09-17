@@ -8,7 +8,7 @@ public class CharacterData extends Node {
     /**
      * Constructor.
      */
-    public CharacterData(netscape.javascript.JSObject jsObj)
+    public CharacterData(Object jsObj)
     {
         super(jsObj);
     }
@@ -16,16 +16,10 @@ public class CharacterData extends Node {
     /**
      * Returns the string representing the textual data contained in this object.
      */
-    public String getData()
-    {
-        return getMemberString("data");
-    }
+    public String getData()  { return getMemberString("data"); }
 
     /**
      * Returns a number representing the size of the string contained in the object.
      */
-    public int getLength()
-    {
-        return getMemberInt("length");
-    }
+    public int getLength()  { return getMemberInt("length"); }
 }

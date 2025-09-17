@@ -1,15 +1,14 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Location (https://developer.mozilla.org/en-US/docs/Web/API/Location).
  */
-public class Location extends CJObject {
+public class Location extends JSProxy {
 
     /**
      * Constructor.
      */
-    protected Location(JSObject locationJS)
+    protected Location(Object locationJS)
     {
         super(locationJS);
     }

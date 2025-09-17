@@ -1,15 +1,14 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API WebGLRenderingContext (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext).
  */
-public class WebGLRenderingContext extends CJObject implements GL2 {
+public class WebGLRenderingContext extends JSProxy implements GL2 {
 
     /**
      * Constructor.
      */
-    public WebGLRenderingContext(JSObject contextJS)
+    public WebGLRenderingContext(Object contextJS)
     {
         super(contextJS);
     }
@@ -25,7 +24,7 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     //void bindRenderbuffer(int var1, WebGLRenderbuffer var2);
     public void bindTexture(int var1, WebGLTexture aTexture)
     {
-        JSObject textureJS = aTexture != null ? aTexture._jsObj : null;
+        Object textureJS = aTexture != null ? aTexture._jsObj : null;
         call("bindTexture", var1, textureJS);
     }
 
@@ -51,14 +50,14 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     public WebGLBuffer createBuffer()
     {
-        JSObject bufferJS = (JSObject) call("createBuffer");
+        Object bufferJS = call("createBuffer");
         return new WebGLBuffer(bufferJS);
     }
 
     //WebGLFramebuffer createFramebuffer();
     public WebGLProgram createProgram()
     {
-        JSObject programJS = (JSObject) call("createProgram");
+        Object programJS = call("createProgram");
         return new WebGLProgram(programJS);
     }
 
@@ -66,13 +65,13 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     public WebGLShader createShader(int var1)
     {
-        JSObject shaderJS = (JSObject) call("createShader", var1);
+        Object shaderJS = call("createShader", var1);
         return new WebGLShader(shaderJS);
     }
 
     public WebGLTexture createTexture()
     {
-        JSObject textureJS = (JSObject) call("createTexture");
+        Object textureJS = call("createTexture");
         return new WebGLTexture(textureJS);
     }
 
@@ -99,7 +98,7 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     public WebGLUniformLocation getUniformLocation(WebGLProgram program, String name)
     {
-        JSObject uniformLocationJS = (JSObject) call("getUniformLocation", program._jsObj, name);
+        Object uniformLocationJS = call("getUniformLocation", program._jsObj, name);
         return new WebGLUniformLocation(uniformLocationJS);
     }
 

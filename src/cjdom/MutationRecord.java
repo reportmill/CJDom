@@ -5,14 +5,14 @@ import java.util.stream.Stream;
 /**
  * This class is a wrapper for Web API MutationRecord (https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord).
  */
-public class MutationRecord extends CJObject {
+public class MutationRecord extends JSProxy {
 
     /**
      * Constructor.
      */
-    public MutationRecord(JSObject aJSObject)
+    public MutationRecord(Object jsObj)
     {
-        super(aJSObject);
+        super(jsObj);
     }
 
     /**

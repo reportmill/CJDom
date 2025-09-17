@@ -1,7 +1,5 @@
 package cjdom;
 
-import netscape.javascript.JSObject;
-
 /**
  * This class is a wrapper for Web API HTMLIFrameElement (https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement).
  */
@@ -10,7 +8,7 @@ public class HTMLIFrameElement extends HTMLElement {
     /**
      * Constructor.
      */
-    public HTMLIFrameElement(netscape.javascript.JSObject jsObj)
+    public HTMLIFrameElement(Object jsObj)
     {
         super(jsObj);
     }
@@ -60,7 +58,7 @@ public class HTMLIFrameElement extends HTMLElement {
 //
     public HTMLDocument getContentDocument()
     {
-        JSObject contentDocJS = getMember("contentDocument");
+        Object contentDocJS = getMember("contentDocument");
         return new HTMLDocument(contentDocJS);
     }
 }

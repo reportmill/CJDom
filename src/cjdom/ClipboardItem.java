@@ -4,12 +4,12 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API ClipboardItem (https://developer.mozilla.org/en-US/docs/Web/API/ClipboardItem).
  */
-public class ClipboardItem extends CJObject {
+public class ClipboardItem extends JSProxy {
 
     /**
      * Constructor.
      */
-    public ClipboardItem(JSObject eventJS)
+    public ClipboardItem(Object eventJS)
     {
         super(eventJS);
     }
@@ -37,7 +37,7 @@ public class ClipboardItem extends CJObject {
      */
     public String[] getTypes()
     {
-        JSObject typesArrayJS = getMember("types");
+        Object typesArrayJS = getMember("types");
         Array<String> typesArray = new Array<>(typesArrayJS);
         return typesArray.toArray(String.class);
     }
@@ -47,8 +47,8 @@ public class ClipboardItem extends CJObject {
      */
     public Blob getType(String aType)
     {
-        JSObject promiseJS = (JSObject) call("getType", aType);
-        JSObject blobJS = (JSObject) WebEnv.get().awaitForPromise(promiseJS);
+        Object promiseJS = call("getType", aType);
+        Object blobJS = WebEnv.get().awaitForPromise(promiseJS);
         return new Blob(blobJS);
     }
 

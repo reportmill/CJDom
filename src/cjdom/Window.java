@@ -5,7 +5,7 @@ import java.util.function.DoubleConsumer;
 /**
  * This class is a wrapper for Web API Window (https://developer.mozilla.org/en-US/docs/Web/API/Window).
  */
-public class Window extends CJObject implements EventTarget {
+public class Window extends JSProxy implements EventTarget {
 
     // The current Window
     private static Window _window;
@@ -19,7 +19,7 @@ public class Window extends CJObject implements EventTarget {
     /**
      * Constructor.
      */
-    public Window(JSObject winJS)
+    public Window(Object winJS)
     {
         super(winJS);
     }
@@ -91,7 +91,7 @@ public class Window extends CJObject implements EventTarget {
     {
         if (_location != null) return _location;
         Window window = get();
-        JSObject locationJS = window.getMember("location");
+        Object locationJS = window.getMember("location");
         return _location = new Location(locationJS);
     }
 
@@ -102,7 +102,7 @@ public class Window extends CJObject implements EventTarget {
     {
         if (_document != null) return _document;
         Window window = get();
-        JSObject documentJS = window.getMember("document");
+        Object documentJS = window.getMember("document");
         return _document = new HTMLDocument(documentJS);
     }
 }

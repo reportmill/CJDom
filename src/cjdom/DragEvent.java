@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API DragEvent (https://developer.mozilla.org/en-US/docs/Web/API/DragEvent).
@@ -9,7 +8,7 @@ public class DragEvent extends MouseEvent {
     /**
      * Constructor.
      */
-    public DragEvent(JSObject eventJS)
+    public DragEvent(Object eventJS)
     {
         super(eventJS);
     }
@@ -25,7 +24,7 @@ public class DragEvent extends MouseEvent {
             return dataTransfer;
 
         // Do version that would be used if drop data transfer didn't have to be cached
-        JSObject dataTransferJS = getMember("dataTransfer");
+        Object dataTransferJS = getMember("dataTransfer");
         return new DataTransfer(dataTransferJS);
     }
 }

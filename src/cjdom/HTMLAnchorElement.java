@@ -8,7 +8,7 @@ public class HTMLAnchorElement extends HTMLElement {
     /**
      * Constructor.
      */
-    public HTMLAnchorElement(netscape.javascript.JSObject jsObj)
+    public HTMLAnchorElement(Object jsObj)
     {
         super(jsObj);
     }

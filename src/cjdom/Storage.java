@@ -1,10 +1,9 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Storage (https://developer.mozilla.org/en-US/docs/Web/API/Storage).
  */
-public class Storage extends CJObject {
+public class Storage extends JSProxy {
 
     // The local storage
     private static Storage _localStorage;
@@ -12,7 +11,7 @@ public class Storage extends CJObject {
     /**
      * Constructor.
      */
-    public Storage(JSObject programJS)
+    public Storage(Object programJS)
     {
         super(programJS);
     }
@@ -39,7 +38,7 @@ public class Storage extends CJObject {
     {
         if (_localStorage != null) return _localStorage;
         Window window = Window.get();
-        JSObject localStorageJS = window.getMember("localStorage");
+        Object localStorageJS = window.getMember("localStorage");
         return _localStorage = new Storage(localStorageJS);
     }
 }

@@ -9,7 +9,7 @@ public class File extends Blob {
     /**
      * Constructor.
      */
-    public File(netscape.javascript.JSObject jsObj)
+    public File(Object jsObj)
     {
         super(jsObj);
     }

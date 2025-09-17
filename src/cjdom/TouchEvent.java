@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API TouchEvent (https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent).
@@ -9,7 +8,7 @@ public class TouchEvent extends UIEvent {
     /**
      * Constructor.
      */
-    public TouchEvent(netscape.javascript.JSObject jsObj)
+    public TouchEvent(Object jsObj)
     {
         super(jsObj);
     }
@@ -81,7 +80,7 @@ public class TouchEvent extends UIEvent {
      */
     public Touch[] getTouches()
     {
-        JSObject touchList = getMember("touches");
+        Object touchList = getMember("touches");
         return getTouchArrayForTouchList(touchList);
     }
 
@@ -90,21 +89,21 @@ public class TouchEvent extends UIEvent {
      */
     public Touch[] getChangedTouches()
     {
-        JSObject touchList = getMember("changedTouches");
+        Object touchList = getMember("changedTouches");
         return getTouchArrayForTouchList(touchList);
     }
 
     /**
      * Returns an array of touches for given JavaScript TouchList.
      */
-    private static Touch[] getTouchArrayForTouchList(JSObject touchList)
+    private static Touch[] getTouchArrayForTouchList(Object touchList)
     {
         int length = WebEnv.get().getMemberInt(touchList, "length");
 
         // Convert to Touches array
         Touch[] touches = new Touch[length];
         for (int i = 0; i < length; i++) {
-            JSObject touchJS = (JSObject) touchList.call("item", i);
+            Object touchJS = WebEnv.get().call(touchList, "item", i);
             touches[i] = new Touch(touchJS);
         }
 

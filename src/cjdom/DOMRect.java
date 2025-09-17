@@ -1,15 +1,14 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API DOMRect (https://developer.mozilla.org/en-US/docs/Web/API/DOMRect).
  */
-public class DOMRect extends CJObject {
+public class DOMRect extends JSProxy {
 
     /**
      * Constructor.
      */
-    public DOMRect(JSObject jsObj)
+    public DOMRect(Object jsObj)
     {
         super(jsObj);
     }

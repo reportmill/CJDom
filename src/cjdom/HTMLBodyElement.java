@@ -8,7 +8,7 @@ public class HTMLBodyElement extends HTMLElement {
     /**
      * Constructor.
      */
-    public HTMLBodyElement(netscape.javascript.JSObject jsObj)
+    public HTMLBodyElement(Object jsObj)
     {
         super(jsObj);
     }

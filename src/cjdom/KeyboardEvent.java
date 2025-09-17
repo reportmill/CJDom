@@ -17,15 +17,12 @@ public class KeyboardEvent extends UIEvent {
     /**
      * Constructor.
      */
-    public KeyboardEvent(netscape.javascript.JSObject eventJS)
+    public KeyboardEvent(Object eventJS)
     {
         super(eventJS);
     }
 
     public int getKeyCode()  { return getMemberInt("keyCode"); }
 
-    public String getKey()
-    {
-        return getMemberString("key");
-    }
+    public String getKey()  { return getMemberString("key"); }
 }

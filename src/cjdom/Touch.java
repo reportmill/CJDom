@@ -8,7 +8,7 @@ public class Touch extends Event {
     /**
      * Constructor.
      */
-    public Touch(netscape.javascript.JSObject jsObj)
+    public Touch(Object jsObj)
     {
         super(jsObj);
     }

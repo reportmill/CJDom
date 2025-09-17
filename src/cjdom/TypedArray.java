@@ -1,15 +1,14 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API ArrayBufferView (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBufferView).
  */
-public abstract class TypedArray extends CJObject {
+public abstract class TypedArray extends JSProxy {
 
     /**
      * Constructor.
      */
-    public TypedArray(JSObject objJS)
+    public TypedArray(Object objJS)
     {
         super(objJS);
     }

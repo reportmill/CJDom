@@ -1,16 +1,15 @@
 package cjdom;
-import netscape.javascript.JSObject;
 import java.util.stream.Stream;
 
 /**
  * This class is a wrapper for Web API DOMTokenList (https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList).
  */
-public class DOMTokenList extends CJObject {
+public class DOMTokenList extends JSProxy {
 
     /**
      * Constructor.
      */
-    public DOMTokenList(JSObject jsObj)
+    public DOMTokenList(Object jsObj)
     {
         super(jsObj);
     }

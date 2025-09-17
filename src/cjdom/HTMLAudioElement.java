@@ -8,7 +8,7 @@ public class HTMLAudioElement extends HTMLMediaElement {
     /**
      * Constructor.
      */
-    public HTMLAudioElement(netscape.javascript.JSObject jsObj)
+    public HTMLAudioElement(Object jsObj)
     {
         super(jsObj);
     }

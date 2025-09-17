@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 /**
  * This class is a wrapper for Web API DataTransfer (https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer).
  */
-public class DataTransfer extends CJObject {
+public class DataTransfer extends JSProxy {
 
     // The types
     private String[] _types;
@@ -19,7 +19,7 @@ public class DataTransfer extends CJObject {
     /**
      * Constructor.
      */
-    public DataTransfer(JSObject objectJS)
+    public DataTransfer(Object objectJS)
     {
         super(objectJS);
     }
@@ -54,7 +54,7 @@ public class DataTransfer extends CJObject {
         }
 
         // Get DataTransfer.types
-        JSObject typesArrayJS = getMember("types");
+        Object typesArrayJS = getMember("types");
         Array<String> typesArray = new Array<>(typesArrayJS);
         return typesArray.toArray(String.class);
     }
@@ -95,20 +95,20 @@ public class DataTransfer extends CJObject {
     {
         // If cached drag/drop data transfer, get cached files
         if (_cached) {
-            JSObject dropFilesArrayJS = getDropDataTransferFilesImpl();
+            Object dropFilesArrayJS = getDropDataTransferFilesImpl();
             Array<JSObject> dropFilesArray = new Array<>(dropFilesArrayJS);
             JSObject[] dropFilesJS = dropFilesArray.toArray(JSObject.class);
             return Stream.of(dropFilesJS).map(dropFileJS -> new File(dropFileJS)).toArray(size -> new File[size]);
         }
 
         // Get DataTransfer.files
-        JSObject fileListJS = getMember("files");
+        Object fileListJS = getMember("files");
         int length = WebEnv.get().getMemberInt(fileListJS, "length");
         File[] files = new File[length];
 
         // Iterate over file list and get files
         for (int i = 0; i < length; i++) {
-            JSObject fileJS = (JSObject) fileListJS.call("item", i);
+            Object fileJS = WebEnv.get().call(fileListJS, "item", i);
             files[i] = new File(fileJS);
         }
 
@@ -142,7 +142,7 @@ public class DataTransfer extends CJObject {
     public static DataTransfer getDropDataTransfer()
     {
         // Get cached data transfer
-        JSObject dropDataTransferJS = getDropDataTransferImpl();
+        Object dropDataTransferJS = getDropDataTransferImpl();
         if (dropDataTransferJS == null)
             return null;
 

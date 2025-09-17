@@ -4,15 +4,14 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API Array (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
  */
-public class Array<E> extends CJObject {
+public class Array<E> extends JSProxy {
 
     /**
      * Constructor.
      */
-    public Array(JSObject arrayJS)
+    public Array(Object arrayJS)
     {
-        super();
-        _jsObj = arrayJS;
+        super(arrayJS);
     }
 
     /**
@@ -54,8 +53,8 @@ public class Array<E> extends CJObject {
     public void set(int index, Object aValue)
     {
         Object value = aValue;
-        if (aValue instanceof CJObject)
-            value = ((CJObject) aValue)._jsObj;
+        if (aValue instanceof JSProxy)
+            value = ((JSProxy) aValue)._jsObj;
 
         setImpl(_jsObj, index, value);
     }

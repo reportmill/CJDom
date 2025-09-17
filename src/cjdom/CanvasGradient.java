@@ -4,12 +4,12 @@ import netscape.javascript.JSObject;
 /**
  * This class is a wrapper for Web API CanvasGradient (https://developer.mozilla.org/en-US/docs/Web/API/CanvasGradient).
  */
-public class CanvasGradient extends CJObject {
+public class CanvasGradient extends JSProxy {
 
     /**
      * Constructor.
      */
-    public CanvasGradient(JSObject gradientJS)
+    public CanvasGradient(Object gradientJS)
     {
         super(gradientJS);
     }

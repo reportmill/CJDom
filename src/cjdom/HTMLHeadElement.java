@@ -8,7 +8,7 @@ public class HTMLHeadElement extends HTMLElement {
     /**
      * Constructor.
      */
-    public HTMLHeadElement(netscape.javascript.JSObject jsObj)
+    public HTMLHeadElement(Object jsObj)
     {
         super(jsObj);
     }

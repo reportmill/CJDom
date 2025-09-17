@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API HTMLInputElement (https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement).
@@ -9,7 +8,7 @@ public class HTMLInputElement extends HTMLElement implements CanvasImageSource {
     /**
      * Constructor.
      */
-    public HTMLInputElement(JSObject jsObj)
+    public HTMLInputElement(Object jsObj)
     {
         super(jsObj);
     }
