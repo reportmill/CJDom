@@ -11,8 +11,7 @@ public class Console extends CJObject {
      */
     public Console(JSObject winJS)
     {
-        super();
-        _jsObj = winJS;
+        super(winJS);
     }
 
     /**

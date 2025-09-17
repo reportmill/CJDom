@@ -1,6 +1,5 @@
 package cjdom;
 import netscape.javascript.JSObject;
-
 import java.util.stream.Stream;
 
 /**
@@ -19,10 +18,7 @@ public class MutationRecord extends CJObject {
     /**
      * Returns a string representing the type of mutation.
      */
-    public String getType()
-    {
-        return (String) _jsObj.getMember("type");
-    }
+    public String getType()  { return getMemberString("type"); }
 
     /**
      * Returns the MutationObserver Option representing the type of mutation.

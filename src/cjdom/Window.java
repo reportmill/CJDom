@@ -21,8 +21,7 @@ public class Window extends CJObject implements EventTarget {
      */
     public Window(JSObject winJS)
     {
-        super();
-        _jsObj = winJS;
+        super(winJS);
     }
 
     /**
