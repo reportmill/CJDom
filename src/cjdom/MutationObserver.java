@@ -10,7 +10,7 @@ public class MutationObserver extends CJObject {
     private Callback _callback;
 
     // The mutation types that can be observed
-    public enum Option { attributes, childList, subtree, attributeFilter, attributeOldValue, characterData, characterDataOldValue };
+    public enum Option { attributes, childList, subtree, attributeFilter, attributeOldValue, characterData, characterDataOldValue }
 
     /**
      * Constructor.
@@ -33,7 +33,7 @@ public class MutationObserver extends CJObject {
     public void observe(Node targetNode, Option... theOptions)
     {
         // Convert options to dictionary object
-        JSObject optionsJS = CJObject.newObjectImpl();
+        JSObject optionsJS = (JSObject) WebEnv.get().newObject();
         for (Option option : theOptions)
             WebEnv.get().setMemberBoolean(optionsJS, option.name(), true);
 

@@ -76,6 +76,11 @@ public abstract class WebEnv<T> {
     public abstract Object call(T jsObj, String aName, Object... args);
 
     /**
+     * Evaluates given JavaScript string and returns result.
+     */
+    public abstract Object eval(T jsObj, String javaScript);
+
+    /**
      * Returns the current window.
      */
     public abstract Window window();
@@ -84,6 +89,16 @@ public abstract class WebEnv<T> {
      * Returns the current console.
      */
     public abstract Console console();
+
+    /**
+     * Returns a new JavaScript native object.
+     */
+    public Object newObject()  { return eval((T) window()._jsObj, "return { };"); }
+
+    /**
+     * Does await promise for given promise.
+     */
+    public abstract Object awaitForPromise(T aPromise);
 
     /**
      * Wrapper method for Web API method.

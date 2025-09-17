@@ -93,14 +93,4 @@ public class CJObject {
     {
         return getClass().getName();
     }
-
-    /**
-     * CJObject: newObjectImpl()
-     */
-    protected static native JSObject newObjectImpl();
-
-    /**
-     * CJObject method: awaitForPromise().
-     */
-    public static native Object awaitForPromise(JSObject aPromise);
 }

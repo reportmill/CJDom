@@ -72,6 +72,14 @@ public class CJWebEnv extends WebEnv<JSObject> {
     }
 
     /**
+     * Evaluates given JavaScript string and returns result.
+     */
+    public Object eval(JSObject jsObj, String javaScript)
+    {
+        return jsObj.eval(javaScript);
+    }
+
+    /**
      * Returns the current window.
      */
     public Window window()
@@ -90,6 +98,16 @@ public class CJWebEnv extends WebEnv<JSObject> {
         JSObject consoleJS = consoleImpl();
         return _console = new Console(consoleJS);
     }
+
+    /**
+     * Returns a new JavaScript native object.
+     */
+    public Object newObject()  { return newObjectImpl(); }
+
+    /**
+     * Does await promise for given promise.
+     */
+    public Object awaitForPromise(JSObject aPromise)  { return awaitForPromiseImpl(aPromise); }
 
     /**
      * Request animation frame.
@@ -176,4 +194,14 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * Returns the current console.
      */
     private static native JSObject consoleImpl();
+
+    /**
+     * CJWebEnv: newObjectImpl()
+     */
+    private static native JSObject newObjectImpl();
+
+    /**
+     * CJWebEnv method: awaitForPromiseImpl().
+     */
+    private static native Object awaitForPromiseImpl(JSObject aPromise);
 }

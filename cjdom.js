@@ -61,14 +61,14 @@ function Java_cjdom_CJWebEnv_windowImpl(lib, anObj)  { return window; }
 function Java_cjdom_CJWebEnv_consoleImpl(lib, anObj)  { return console; }
 
 /**
- * CJObject: newObjectImpl()
+ * CJWebEnv: newObjectImpl()
  */
-function Java_cjdom_CJObject_newObjectImpl(lib)  { return { }; }
+function Java_cjdom_CJWebEnv_newObjectImpl(lib)  { return { }; }
 
 /**
- * CJObject method: awaitForPromise()
+ * CJWebEnv method: awaitForPromiseImpl()
  */
-async function Java_cjdom_CJObject_awaitForPromise(lib, promiseJS)  { return await promiseJS; }
+async function Java_cjdom_CJWebEnv_awaitForPromiseImpl(lib, promiseJS)  { return await promiseJS; }
 
 /**
  * Array: getImpl()
@@ -1065,9 +1065,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_getMemberDoubleImpl, Java_cjdom_CJWebEnv_setMemberDoubleImpl,
     Java_cjdom_CJWebEnv_windowImpl,
     Java_cjdom_CJWebEnv_consoleImpl,
-
-    Java_cjdom_CJObject_newObjectImpl,
-    Java_cjdom_CJObject_awaitForPromise,
+    Java_cjdom_CJWebEnv_newObjectImpl,
+    Java_cjdom_CJWebEnv_awaitForPromiseImpl,
 
     Java_cjdom_Array_getImpl, Java_cjdom_Array_setImpl,
     Java_cjdom_Array_newArrayForLengthImpl,
