@@ -16,18 +16,18 @@ public class HTMLMediaElement extends HTMLElement {
     /**
      * Attempts to begin playback of the media.
      */
-    public void play()  { _jsObj.call("play"); }
+    public void play()  { call("play"); }
 
     /**
      * Pause playback of the media
      */
-    public void pause()  { _jsObj.call("pause"); }
+    public void pause()  { call("pause"); }
 
     /**
      * Resets the media element to its initial state and begins the process of selecting a media source and loading
      * the media in preparation for playback to begin at the beginning.
      */
-    public void load()  { _jsObj.call("load"); }
+    public void load()  { call("load"); }
 
     /**
      * Property indicates whether the media element has ended playback.

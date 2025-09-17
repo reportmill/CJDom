@@ -79,7 +79,7 @@ public class Node extends CJObject {
 
     public Node cloneNode(boolean deep)
     {
-        JSObject jsObj = (JSObject) _jsObj.call("cloneNode", deep);
+        JSObject jsObj = (JSObject) call("cloneNode", deep);
         String name = getNodeName();
         return HTMLElement.getElementForName(name, jsObj);
     }

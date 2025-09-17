@@ -39,7 +39,7 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
      */
     public Object getContext(String contextType)
     {
-        JSObject contextJS = (JSObject) _jsObj.call("getContext", contextType);
+        JSObject contextJS = (JSObject) call("getContext", contextType);
         if (contextType.equals("webgl"))
             return new WebGLRenderingContext(contextJS);
         return new CanvasRenderingContext2D(contextJS);
@@ -50,15 +50,12 @@ public class HTMLCanvasElement extends HTMLElement implements CanvasImageSource 
      */
     public DOMRect getBoundingClientRect()
     {
-        JSObject contextJS = (JSObject) _jsObj.call("getBoundingClientRect");
+        JSObject contextJS = (JSObject) call("getBoundingClientRect");
         return new DOMRect(contextJS);
     }
 
     /**
      * HTMLCanvasElement: toDataURL()
      */
-    public String toDataURL(String mimeType)
-    {
-        return (String) _jsObj.call("toDataURL", mimeType);
-    }
+    public String toDataURL(String mimeType)  { return (String) call("toDataURL", mimeType); }
 }

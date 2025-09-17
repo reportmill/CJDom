@@ -19,7 +19,7 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public void setTransform(double arg1, double arg2, double arg3, double arg4, double arg5, double arg6)
     {
-        _jsObj.call("setTransform", arg1, arg2, arg3, arg4, arg5, arg6);
+        call("setTransform", arg1, arg2, arg3, arg4, arg5, arg6);
     }
 
     /**
@@ -27,58 +27,58 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public void transform(double arg1, double arg2, double arg3, double arg4, double arg5, double arg6)
     {
-        _jsObj.call("transform", arg1, arg2, arg3, arg4, arg5, arg6);
+        call("transform", arg1, arg2, arg3, arg4, arg5, arg6);
     }
 
     /**
      * CanvasRenderingContext2D: translate().
      */
-    public void translate(double var1, double var2)  { _jsObj.call("translate", var1, var2); }
+    public void translate(double var1, double var2)  { call("translate", var1, var2); }
 
     /**
      * CanvasRenderingContext2D: rotate().
      */
-    public void rotate(double var1)  { _jsObj.call("rotate", var1); }
+    public void rotate(double var1)  { call("rotate", var1); }
 
     /**
      * CanvasRenderingContext2D: rotate().
      */
-    public void scale(double var1, double var3)  { _jsObj.call("scale", var1, var3); }
+    public void scale(double var1, double var3)  { call("scale", var1, var3); }
 
     /**
      * CanvasRenderingContext2D: save().
      */
-    public void save()  { _jsObj.call("save"); }
+    public void save()  { call("save"); }
 
     /**
      * CanvasRenderingContext2D: restore().
      */
-    public void restore()  { _jsObj.call("restore"); }
+    public void restore()  { call("restore"); }
 
     /**
      * CanvasRenderingContext2D: restore().
      */
-    public void fill()  { _jsObj.call("fill"); }
+    public void fill()  { call("fill"); }
 
     /**
      * CanvasRenderingContext2D: restore().
      */
-    public void stroke()  { _jsObj.call("stroke"); }
+    public void stroke()  { call("stroke"); }
 
     /**
      * CanvasRenderingContext2D: restore().
      */
-    public void clip()  { _jsObj.call("clip"); }
+    public void clip()  { call("clip"); }
 
     /**
      * CanvasRenderingContext2D: fillRect().
      */
-    public void fillRect(double aX, double aY, double aW, double aH)  { _jsObj.call("fillRect", aX, aY, aW, aH); }
+    public void fillRect(double aX, double aY, double aW, double aH)  { call("fillRect", aX, aY, aW, aH); }
 
     /**
      * CanvasRenderingContext2D: strokeRect().
      */
-    public void strokeRect(double aX, double aY, double aW, double aH)  { _jsObj.call("strokeRect", aX, aY, aW, aH); }
+    public void strokeRect(double aX, double aY, double aW, double aH)  { call("strokeRect", aX, aY, aW, aH); }
 
     /**
      * Returns the color, gradient or pattern used inside shapes.
@@ -210,37 +210,37 @@ public class CanvasRenderingContext2D extends CJObject {
     /**
      * CanvasRenderingContext2D: beginPath().
      */
-    public void beginPath()  { _jsObj.call("beginPath"); }
+    public void beginPath()  { call("beginPath"); }
 
     /**
      * CanvasRenderingContext2D: moveTo().
      */
-    public void moveTo(double aX, double aY)  { _jsObj.call("moveTo", aX, aY); }
+    public void moveTo(double aX, double aY)  { call("moveTo", aX, aY); }
 
     /**
      * CanvasRenderingContext2D: lineTo().
      */
-    public void lineTo(double aX, double aY)  { _jsObj.call("lineTo", aX, aY); }
+    public void lineTo(double aX, double aY)  { call("lineTo", aX, aY); }
 
     /**
      * CanvasRenderingContext2D: bezierCurveTo().
      */
     public void bezierCurveTo(double cp1x, double cp1y, double cp2x, double cp2y, double endX, double endY)
     {
-        _jsObj.call("bezierCurveTo", cp1x, cp1y, cp2x, cp2y, endX, endY);
+        call("bezierCurveTo", cp1x, cp1y, cp2x, cp2y, endX, endY);
     }
 
     /**
      * CanvasRenderingContext2D: closePath().
      */
-    public void closePath()  { _jsObj.call("closePath"); }
+    public void closePath()  { call("closePath"); }
 
     /**
      * CanvasRenderingContext2D: rect().
      */
     public void rect(double aX, double aY, double aW, double aH)
     {
-        _jsObj.call("rect", aX, aY, aW, aH);
+        call("rect", aX, aY, aW, aH);
     }
 
     /**
@@ -248,7 +248,7 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public void clearRect(double aX, double aY, double aW, double aH)
     {
-        _jsObj.call("clearRect", aX, aY, aW, aH);
+        call("clearRect", aX, aY, aW, aH);
     }
 
     //void arc(double var1, double var3, double var5, double var7, double var9, boolean var11);
@@ -272,7 +272,7 @@ public class CanvasRenderingContext2D extends CJObject {
      */
     public TextMetrics measureText(String aString)
     {
-        JSObject textMetricsJS = (JSObject) _jsObj.call("measureText", aString);
+        JSObject textMetricsJS = (JSObject) call("measureText", aString);
         return new TextMetrics(textMetricsJS);
     }
 

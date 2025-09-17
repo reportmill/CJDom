@@ -14,20 +14,11 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
         super(contextJS);
     }
 
-    public void activeTexture(int textureId)
-    {
-        _jsObj.call("activeTexture", textureId);
-    }
+    public void activeTexture(int textureId)  { call("activeTexture", textureId); }
 
-    public void attachShader(WebGLProgram aProgram, WebGLShader aShader)
-    {
-        _jsObj.call("attachShader", aProgram._jsObj, aShader._jsObj);
-    }
+    public void attachShader(WebGLProgram aProgram, WebGLShader aShader)  { call("attachShader", aProgram._jsObj, aShader._jsObj); }
 
-    public void bindBuffer(int var1, WebGLBuffer aBuffer)
-    {
-        _jsObj.call("bindBuffer", var1, aBuffer._jsObj);
-    }
+    public void bindBuffer(int var1, WebGLBuffer aBuffer)  { call("bindBuffer", var1, aBuffer._jsObj); }
 
     //void bindAttribLocation(WebGLProgram var1, int var2, String var3);
     //void bindFramebuffer(int var1, WebGLFramebuffer var2);
@@ -35,12 +26,12 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     public void bindTexture(int var1, WebGLTexture aTexture)
     {
         JSObject textureJS = aTexture != null ? aTexture._jsObj : null;
-        _jsObj.call("bindTexture", var1, textureJS);
+        call("bindTexture", var1, textureJS);
     }
 
     public void bufferData(int var1, TypedArray typedArray, int var3)
     {
-        _jsObj.call("bufferData", var1, typedArray._jsObj, var3);
+        call("bufferData", var1, typedArray._jsObj, var3);
     }
 
     //void bufferData(int var1, int var2, int var3);
@@ -48,11 +39,11 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     //void bufferSubData(int var1, int var2, ArrayBufferView var3);
     //void bufferSubData(int var1, int var2, ArrayBuffer var3);
 
-    public void clear(int var1)  { _jsObj.call("clear", var1); }
+    public void clear(int var1)  { call("clear", var1); }
 
     public void clearColor(float red, float green, float blue, float alpha)
     {
-        _jsObj.call("clearColor", red, green, blue, alpha);
+        call("clearColor", red, green, blue, alpha);
     }
 
     //void clearDepth(float var1);
@@ -60,14 +51,14 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     public WebGLBuffer createBuffer()
     {
-        JSObject bufferJS = (JSObject) _jsObj.call("createBuffer");
+        JSObject bufferJS = (JSObject) call("createBuffer");
         return new WebGLBuffer(bufferJS);
     }
 
     //WebGLFramebuffer createFramebuffer();
     public WebGLProgram createProgram()
     {
-        JSObject programJS = (JSObject) _jsObj.call("createProgram");
+        JSObject programJS = (JSObject) call("createProgram");
         return new WebGLProgram(programJS);
     }
 
@@ -75,67 +66,46 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     public WebGLShader createShader(int var1)
     {
-        JSObject shaderJS = (JSObject) _jsObj.call("createShader", var1);
+        JSObject shaderJS = (JSObject) call("createShader", var1);
         return new WebGLShader(shaderJS);
     }
 
     public WebGLTexture createTexture()
     {
-        JSObject textureJS = (JSObject) _jsObj.call("createTexture");
+        JSObject textureJS = (JSObject) call("createTexture");
         return new WebGLTexture(textureJS);
     }
 
-    public void deleteBuffer(WebGLBuffer aBuffer)
-    {
-        _jsObj.call("deleteBuffer", aBuffer._jsObj);
-    }
+    public void deleteBuffer(WebGLBuffer aBuffer)  { call("deleteBuffer", aBuffer._jsObj); }
 
-    public void disable(int var1)
-    {
-        _jsObj.call("disable", var1);
-    }
+    public void disable(int var1)  { call("disable", var1); }
 
-    public void disableVertexAttribArray(int var1)
-    {
-        _jsObj.call("disableVertexAttribArray", var1);
-    }
+    public void disableVertexAttribArray(int var1)  { call("disableVertexAttribArray", var1); }
 
-    public void drawArrays(int var1, int var2, int var3)
-    {
-        _jsObj.call("drawArrays", var1, var2, var3);
-    }
+    public void drawArrays(int var1, int var2, int var3)  { call("drawArrays", var1, var2, var3); }
 
-    public void drawElements(int var1, int var2, int var3, int var4)
-    {
-        _jsObj.call("drawElements", var1, var2, var3, var4);
-    }
+    public void drawElements(int var1, int var2, int var3, int var4)  { call("drawElements", var1, var2, var3, var4); }
 
-    public void enable(int var1)
-    {
-        _jsObj.call("enable", var1);
-    }
+    public void enable(int var1)  { call("enable", var1); }
 
-    public void enableVertexAttribArray(int var1)
-    {
-        _jsObj.call("enableVertexAttribArray", var1);
-    }
+    public void enableVertexAttribArray(int var1)  { call("enableVertexAttribArray", var1); }
 
     public int getAttribLocation(WebGLProgram aProgram, String var2)
     {
-        return (int) _jsObj.call("getAttribLocation", aProgram._jsObj, var2);
+        return (int) call("getAttribLocation", aProgram._jsObj, var2);
     }
 
     //JSObject getUniform(WebGLProgram var1, WebGLUniformLocation var2);
 
     public WebGLUniformLocation getUniformLocation(WebGLProgram program, String name)
     {
-        JSObject uniformLocationJS = (JSObject) _jsObj.call("getUniformLocation", program._jsObj, name);
+        JSObject uniformLocationJS = (JSObject) call("getUniformLocation", program._jsObj, name);
         return new WebGLUniformLocation(uniformLocationJS);
     }
 
     public void uniformMatrix4fv(WebGLUniformLocation uniformLocation, boolean var2, Float32Array floatArray)
     {
-        _jsObj.call("uniformMatrix4fv", uniformLocation._jsObj, var2, floatArray._jsObj);
+        call("uniformMatrix4fv", uniformLocation._jsObj, var2, floatArray._jsObj);
     }
 
     //void uniformMatrix2fv(WebGLUniformLocation var1, boolean var2, Float32Array var3);
@@ -147,20 +117,14 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     //void uniformMatrix4fv(WebGLUniformLocation var1, boolean var2, JSArrayReader<JSNumber> var3);
     //void uniformMatrix4fv(WebGLUniformLocation var1, boolean var2, @JSByRef float[] var3);
 
-    public void useProgram(WebGLProgram var1)
-    {
-        _jsObj.call("useProgram", var1._jsObj);
-    }
+    public void useProgram(WebGLProgram var1)  { call("useProgram", var1._jsObj); }
 
     public void vertexAttribPointer(int var1, int var2, int var3, boolean var4, int var5, int var6)
     {
-        _jsObj.call("vertexAttribPointer", var1, var2, var3, var4, var5, var6);
+        call("vertexAttribPointer", var1, var2, var3, var4, var5, var6);
     }
 
-    public void viewport(int aX, int aY, int aW, int aH)
-    {
-        _jsObj.call("viewport", aX, aY, aW, aH);
-    }
+    public void viewport(int aX, int aY, int aW, int aH)  { call("viewport", aX, aY, aW, aH); }
 
     //HTMLCanvasElement getCanvas();
 
@@ -181,7 +145,7 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     //void colorMask(boolean var1, boolean var2, boolean var3, boolean var4);
 
-    public void compileShader(WebGLShader aShader)  { _jsObj.call("compileShader", aShader._jsObj); }
+    public void compileShader(WebGLShader aShader)  { call("compileShader", aShader._jsObj); }
 
     //void compressedTexImage2D(int var1, int var2, int var3, int var4, int var5, int var6, ArrayBufferView var7);
     //void compressedTexSubImage2D(int var1, int var2, int var3, int var4, int var5, int var6, int var7, ArrayBufferView var8);
@@ -194,7 +158,7 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     //void deleteShader(WebGLShader var1);
     //void deleteTexture(WebGLTexture var1);
 
-    public void depthFunc(int var1)  { _jsObj.call("depthFunc", var1); }
+    public void depthFunc(int var1)  { call("depthFunc", var1); }
 
     //void depthMask(boolean var1);
     //void depthRange(float var1, float var2);
@@ -240,12 +204,9 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     //boolean isTexture(WebGLTexture var1);
     //void lineWidth(float var1);
 
-    public void linkProgram(WebGLProgram aProgram)  { _jsObj.call("linkProgram", aProgram._jsObj); }
+    public void linkProgram(WebGLProgram aProgram)  { call("linkProgram", aProgram._jsObj); }
 
-    public void pixelStorei(int var1, int var2)
-    {
-        _jsObj.call("pixelStorei", var1, var2);
-    }
+    public void pixelStorei(int var1, int var2)  { call("pixelStorei", var1, var2); }
 
     //void polygonOffset(float var1, float var2);
     //void readPixels(int var1, int var2, int var3, int var4, int var5, int var6, ArrayBufferView var7);
@@ -253,10 +214,7 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     //void sampleCoverage(float var1, boolean var2);
     //void scissor(int var1, int var2, int var3, int var4);
 
-    public void shaderSource(WebGLShader aShader, String var2)
-    {
-        _jsObj.call("shaderSource", aShader._jsObj, var2);
-    }
+    public void shaderSource(WebGLShader aShader, String var2)  { call("shaderSource", aShader._jsObj, var2); }
 
     //void stencilFunc(int var1, int var2, int var3);
     //void stencilFuncSeparate(int var1, int var2, int var3, int var4);
@@ -270,15 +228,12 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     public void texImage2D(int var1, int var2, int var3, int var4, int var5, HTMLCanvasElement aCanvas)
     {
-        _jsObj.call("texImage2D", var1, var2, var3, var4, var5, aCanvas._jsObj);
+        call("texImage2D", var1, var2, var3, var4, var5, aCanvas._jsObj);
     }
 
     //void texParameterf(int var1, int var2, float var3);
 
-    public void texParameteri(int var1, int var2, int var3)
-    {
-        _jsObj.call("texParameteri", var1, var2, var3);
-    }
+    public void texParameteri(int var1, int var2, int var3)  { call("texParameteri", var1, var2, var3); }
 
     //void texSubImage2D(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, ArrayBufferView var9);
     //void texSubImage2D(int var1, int var2, int var3, int var4, int var5, int var6, ImageData var7);
@@ -287,7 +242,7 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     public void uniform1f(WebGLUniformLocation uniformLocation, float var2)
     {
-        _jsObj.call("uniform1f", uniformLocation._jsObj, var2);
+        call("uniform1f", uniformLocation._jsObj, var2);
     }
 
     //void uniform1fv(WebGLUniformLocation var1, Float32Array var2);
@@ -296,7 +251,7 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     public void uniform1i(WebGLUniformLocation uniformLocation, int var2)
     {
-        _jsObj.call("uniform1i", uniformLocation._jsObj, var2);
+        call("uniform1i", uniformLocation._jsObj, var2);
     }
 
     //void uniform1iv(WebGLUniformLocation var1, Int32Array var2);
@@ -314,18 +269,18 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
 
     public void uniform3f(WebGLUniformLocation uniformLocation, float v0, float v1, float v2)
     {
-        _jsObj.call("uniform3f", uniformLocation._jsObj, v0, v1, v2);
+        call("uniform3f", uniformLocation._jsObj, v0, v1, v2);
     }
 
     public void uniform3fv(WebGLUniformLocation uniformLocation, float[] floatArray)
     {
-        //_jsObj.call("uniform3fv", uniformLocation._jsObj, floatArray); - this isn't working, acts like it gets zeros
-        _jsObj.call("uniform3f", uniformLocation._jsObj, floatArray[0], floatArray[1], floatArray[2]);
+        //call("uniform3fv", uniformLocation._jsObj, floatArray); - this isn't working, acts like it gets zeros
+        call("uniform3f", uniformLocation._jsObj, floatArray[0], floatArray[1], floatArray[2]);
     }
 
     public void uniform3fv(WebGLUniformLocation uniformLocation, Float32Array float32Array)
     {
-        _jsObj.call("uniform3fv", uniformLocation._jsObj, float32Array._jsObj);
+        call("uniform3fv", uniformLocation._jsObj, float32Array._jsObj);
     }
 
     //void uniform3fv(WebGLUniformLocation var1, JSArrayReader<JSNumber> var2);
@@ -342,7 +297,7 @@ public class WebGLRenderingContext extends CJObject implements GL2 {
     //void uniform4iv(WebGLUniformLocation var1, JSArrayReader<JSNumber> var2);
     //void uniform4iv(WebGLUniformLocation var1, @JSByRef int[] var2);
 
-    public void validateProgram(WebGLProgram aProgram)  { _jsObj.call("validateProgram", aProgram._jsObj); }
+    public void validateProgram(WebGLProgram aProgram)  { call("validateProgram", aProgram._jsObj); }
 
     //void vertexAttrib1f(int var1, float var2);
     //void vertexAttrib1fv(int var1, Float32Array var2);

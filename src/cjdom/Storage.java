@@ -17,32 +17,20 @@ public class Storage extends CJObject {
         super(programJS);
     }
 
-    public String getItem(String aKey)
-    {
-        return (String) _jsObj.call("getItem", aKey);
-    }
+    public String getItem(String aKey)  { return (String) call("getItem", aKey); }
 
     public void setItem(String aKey, String aValue)
     {
         if (aValue == null)
             removeItem(aKey);
-        else _jsObj.call("setItem", aKey, aValue);
+        else call("setItem", aKey, aValue);
     }
 
-    public void removeItem(String aKey)
-    {
-        _jsObj.call("removeItem", aKey);
-    }
+    public void removeItem(String aKey)  { call("removeItem", aKey); }
 
-    public String getKey(int anIndex)
-    {
-        return (String) _jsObj.call("key", anIndex);
-    }
+    public String getKey(int anIndex)  { return (String) call("key", anIndex); }
 
-    public void clear()
-    {
-        _jsObj.call("clear");
-    }
+    public void clear()  { call("clear"); }
 
     /**
      * Returns the shared local storage.
@@ -50,10 +38,8 @@ public class Storage extends CJObject {
     public static Storage getLocalStorage()
     {
         if (_localStorage != null) return _localStorage;
-
         Window window = Window.get();
         JSObject localStorageJS = window.getMember("localStorage");
-        Storage localStorage = new Storage(localStorageJS);
-        return _localStorage = localStorage;
+        return _localStorage = new Storage(localStorageJS);
     }
 }

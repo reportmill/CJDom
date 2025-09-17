@@ -25,6 +25,6 @@ public class Console extends CJObject {
             obj = ((CJObject) anObj)._jsObj;
 
         Console console = WebEnv.get().console();
-        console._jsObj.call("log", obj);
+        console.call("log", obj);
     }
 }

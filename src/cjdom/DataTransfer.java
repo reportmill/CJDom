@@ -62,26 +62,17 @@ public class DataTransfer extends CJObject {
     /**
      * Returns the data for a given type.
      */
-    public String getData(String aType)
-    {
-        return (String) _jsObj.call("getData", aType);
-    }
+    public String getData(String aType)  { return (String) call("getData", aType); }
 
     /**
      * Set the data for a given type.
      */
-    public void setData(String aType, String theData)
-    {
-        _jsObj.call("setData", aType, theData);
-    }
+    public void setData(String aType, String theData)  { call("setData", aType, theData); }
 
     /**
      * Set the data for a given type.
      */
-    public void setData(String aType, byte[] theData)
-    {
-        _jsObj.call("setData", aType, theData);
-    }
+    public void setData(String aType, byte[] theData)  { call("setData", aType, theData); }
 
     /**
      * Returns the number of files.

@@ -16,8 +16,5 @@ public class Text extends CharacterData {
     /**
      * Returns a string containing the text of all Text nodes logically adjacent to this Node, concatenated in document order.
      */
-    public String getWholeText()
-    {
-        return (String) _jsObj.call("wholeText");
-    }
+    public String getWholeText()  { return (String) call("wholeText"); }
 }

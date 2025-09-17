@@ -37,7 +37,7 @@ public class CSSStyleDeclaration extends CJObject {
      */
     public String getPropertyValue(String aString)
     {
-        return (String) _jsObj.call("getPropertyValue", aString);
+        return (String) call("getPropertyValue", aString);
     }
 
     /**
@@ -47,7 +47,7 @@ public class CSSStyleDeclaration extends CJObject {
     {
         if (aValue == null)
             removeProperty(aString);
-        else _jsObj.call("setProperty", aString, aValue);
+        else call("setProperty", aString, aValue);
     }
 
     /**
@@ -55,6 +55,6 @@ public class CSSStyleDeclaration extends CJObject {
      */
     public void removeProperty(String aString)
     {
-        _jsObj.call("removeProperty", aString);
+        call("removeProperty", aString);
     }
 }
