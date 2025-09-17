@@ -9,14 +9,6 @@ public class Element extends Node {
     /**
      * Constructor.
      */
-    public Element()
-    {
-        super();
-    }
-
-    /**
-     * Constructor.
-     */
     public Element(JSObject jsObj)
     {
         super(jsObj);
@@ -59,7 +51,7 @@ public class Element extends Node {
     /**
      * Sets element attribute for attribute name.
      */
-    public void setAttribute(String aName, String aValue)  { setMemberString(aName, aValue);}
+    public void setAttribute(String aName, String aValue)  { setMemberString(aName, aValue); }
 
     /**
      * Returns the InnerHTML string.

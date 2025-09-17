@@ -5,25 +5,13 @@ import java.util.function.DoubleConsumer;
 /**
  * The web environment for CheerpJ.
  */
-public class CJWebEnv {
+public class CJWebEnv extends WebEnv {
 
     // The current Window
     private Window _window;
 
     // The current Console
     private Console _console;
-
-    // The shared Env
-    private static CJWebEnv _shared;
-
-    /**
-     * Returns a shared instance.
-     */
-    public static CJWebEnv get()
-    {
-        if (_shared != null) return _shared;
-        return _shared = new CJWebEnv();
-    }
 
     /**
      * Returns the current window.
@@ -43,15 +31,6 @@ public class CJWebEnv {
         if (_console != null) return _console;
         JSObject consoleJS = consoleImpl();
         return _console = new Console(consoleJS);
-    }
-
-    /**
-     * Wrapper method for Web API method.
-     */
-    public void open(String url, String target, String windowFeatures)
-    {
-        Window window = get().window();
-        window.call("open", url, target, windowFeatures);
     }
 
     /**
@@ -78,15 +57,6 @@ public class CJWebEnv {
         //java.util.TimerTask timerTask = new TimerTask() { public void run()  { moveBalls(); } };
         //new java.util.Timer().schedule(timerTask, 0, 25);
         return EventQueue.setInterval(aRun, aPeriod);
-    }
-
-    /**
-     * Stops intervals for given id.
-     */
-    public void clearInterval(int anId)
-    {
-        Window window = get().window();
-        window.call("clearInterval", anId);
     }
 
     /**

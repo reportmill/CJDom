@@ -50,7 +50,7 @@ public class Window extends CJObject implements EventTarget {
      */
     public void open(String url, String target, String windowFeatures)
     {
-        CJWebEnv.get().open(url, target, windowFeatures);
+        WebEnv.get().open(url, target, windowFeatures);
     }
 
     /**
@@ -58,23 +58,23 @@ public class Window extends CJObject implements EventTarget {
      */
     public static int requestAnimationFrame(DoubleConsumer callback)
     {
-        return CJWebEnv.get().requestAnimationFrame(callback);
+        return WebEnv.get().requestAnimationFrame(callback);
     }
 
     /**
      * Schedules a runnable to execute after a delay of given milliseconds.
      */
-    public static void setTimeout(Runnable aRun, int aDelay)  { CJWebEnv.get().setTimeout(aRun, aDelay); }
+    public static void setTimeout(Runnable aRun, int aDelay)  { WebEnv.get().setTimeout(aRun, aDelay); }
 
     /**
      * Schedules a runnable to execute every time a given number of milliseconds elapses.
      */
-    public static int setInterval(Runnable aRun, int aPeriod)  { return CJWebEnv.get().setInterval(aRun, aPeriod); }
+    public static int setInterval(Runnable aRun, int aPeriod)  { return WebEnv.get().setInterval(aRun, aPeriod); }
 
     /**
      * Stops intervals for given id.
      */
-    public static void clearInterval(int anId)  { CJWebEnv.get().clearInterval(anId); }
+    public static void clearInterval(int anId)  { WebEnv.get().clearInterval(anId); }
 
     /**
      * Override to set URL hash.
@@ -92,7 +92,7 @@ public class Window extends CJObject implements EventTarget {
     public static Window current()
     {
         if (_window != null) return _window;
-        return _window = CJWebEnv.get().window();
+        return _window = WebEnv.get().window();
     }
 
     /**
