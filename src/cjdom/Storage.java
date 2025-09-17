@@ -51,7 +51,7 @@ public class Storage extends CJObject {
     {
         if (_localStorage != null) return _localStorage;
 
-        Window window = Window.current();
+        Window window = Window.get();
         JSObject localStorageJS = window.getMember("localStorage");
         Storage localStorage = new Storage(localStorageJS);
         return _localStorage = localStorage;

@@ -30,7 +30,7 @@ public class DomTests {
      */
     private static void testWindow()
     {
-        Window window = Window.current();
+        Window window = Window.get();
         Console.log(window);
         //window.open("http://abc.com", "_blank");
     }

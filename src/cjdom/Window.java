@@ -28,7 +28,7 @@ public class Window extends CJObject implements EventTarget {
     /**
      * Returns the ratio of the resolution in physical pixels to the resolution in CSS pixels for the current display device.
      */
-    public static double getDevicePixelRatio()  { return current().getMemberDouble("devicePixelRatio"); }
+    public static double getDevicePixelRatio()  { return get().getMemberDouble("devicePixelRatio"); }
 
     /**
      * Return window InnerWidth.
@@ -77,19 +77,9 @@ public class Window extends CJObject implements EventTarget {
     public static void clearInterval(int anId)  { WebEnv.get().clearInterval(anId); }
 
     /**
-     * Override to set URL hash.
-     */
-    public void setWindowLocationHash(String aString)
-    {
-        JSObject locationJS = getMember("location");
-        String str = aString != null ? aString : "";
-        WebEnv.get().setMemberString(locationJS, "hash", str);
-    }
-
-    /**
      * Returns the current window.
      */
-    public static Window current()
+    public static Window get()
     {
         if (_window != null) return _window;
         return _window = WebEnv.get().window();
@@ -101,7 +91,7 @@ public class Window extends CJObject implements EventTarget {
     public static Location location()
     {
         if (_location != null) return _location;
-        Window window = current();
+        Window window = get();
         JSObject locationJS = window.getMember("location");
         return _location = new Location(locationJS);
     }
@@ -112,7 +102,7 @@ public class Window extends CJObject implements EventTarget {
     public static HTMLDocument getDocument()
     {
         if (_document != null) return _document;
-        Window window = current();
+        Window window = get();
         JSObject documentJS = window.getMember("document");
         return _document = new HTMLDocument(documentJS);
     }

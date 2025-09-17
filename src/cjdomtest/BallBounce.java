@@ -62,12 +62,12 @@ public class BallBounce {
     /**
      * Returns page width.
      */
-    public int getWidth()  { return Window.current().getInnerWidth(); }
+    public int getWidth()  { return Window.get().getInnerWidth(); }
 
     /**
      * Returns page height.
      */
-    public int getHeight()  { return Window.current().getInnerHeight(); }
+    public int getHeight()  { return Window.get().getInnerHeight(); }
 
     /**
      * Add ball.

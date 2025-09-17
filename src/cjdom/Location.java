@@ -11,17 +11,23 @@ public class Location extends CJObject {
      */
     protected Location(JSObject locationJS)
     {
-        super();
-        _jsObj = locationJS;
+        super(locationJS);
     }
+
+    /**
+     * Returns the hash.
+     */
+    public String getHash()  { return getMemberString("hash"); }
+
+    /**
+     * Sets the hash.
+     */
+    public void setHash(String aValue)  { setMemberString("hash", aValue); }
 
     /**
      * Returns the pathname.
      */
-    public String pathname()
-    {
-        return getMemberString("pathname");
-    }
+    public String pathname()  { return getMemberString("pathname"); }
 
     /**
      * Returns the current location.

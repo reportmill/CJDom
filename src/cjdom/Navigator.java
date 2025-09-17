@@ -30,7 +30,7 @@ public class Navigator {
     private static JSObject getNavigator()
     {
         if (_navigator != null) return _navigator;
-        Window window = Window.current();
+        Window window = Window.get();
         return _navigator = window.getMember("navigator");
     }
 
