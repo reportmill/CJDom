@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 import java.util.stream.Stream;
 
 /**
@@ -50,17 +49,17 @@ public class MutationRecord extends JSProxy {
      */
     public Node[] getAddedNodes()
     {
-        JSObject addedNodesJS = getMember("addedNodes");
+        Object addedNodesJS = getMember("addedNodes");
         return NodeList.getNodeArrayForNodeList(addedNodesJS);
     }
 
     /**
      * Returns an array of nodes for given array of MutationRecords.
      */
-    public static MutationRecord[] getMutationRecordArrayForArrayJS(JSObject mutationRecordArrayJS)
+    public static MutationRecord[] getMutationRecordArrayForArrayJS(Object mutationRecordArrayJS)
     {
         Array<String> mutationRecordsArray = new Array<>(mutationRecordArrayJS);
-        JSObject[] mutationRecordsJS = mutationRecordsArray.toArray(JSObject.class);
+        Object[] mutationRecordsJS = mutationRecordsArray.toArray(Object.class);
         return Stream.of(mutationRecordsJS).map(mutRec -> new MutationRecord(mutRec)).toArray(size -> new MutationRecord[size]);
     }
 }

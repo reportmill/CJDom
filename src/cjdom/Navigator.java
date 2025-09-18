@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Navigator (https://developer.mozilla.org/en-US/docs/Web/API/Navigator).
@@ -7,7 +6,7 @@ import netscape.javascript.JSObject;
 public class Navigator {
 
     // The navigator
-    private static JSObject _navigator;
+    private static Object _navigator;
 
     // The user agent string
     private static String _userAgent;
@@ -27,7 +26,7 @@ public class Navigator {
     /**
      * Returns the navigator.
      */
-    private static JSObject getNavigator()
+    private static Object getNavigator()
     {
         if (_navigator != null) return _navigator;
         Window window = Window.get();
@@ -79,8 +78,8 @@ public class Navigator {
      */
     public static String getPlatform()
     {
-        JSObject navigator = getNavigator();
-        return (String) navigator.getMember("platform");
+        Object navigatorJS = getNavigator();
+        return WebEnv.get().getMemberString(navigatorJS, "platform");
     }
 
     /**
@@ -89,7 +88,7 @@ public class Navigator {
     public static String getUserAgent()
     {
         if (_userAgent != null) return _userAgent;
-        JSObject navigator = getNavigator();
-        return _userAgent = (String) navigator.getMember("userAgent");
+        Object navigatorJS = getNavigator();
+        return _userAgent = WebEnv.get().getMemberString(navigatorJS, "userAgent");
     }
 }

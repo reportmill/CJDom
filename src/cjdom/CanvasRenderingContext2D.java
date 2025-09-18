@@ -155,7 +155,7 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public Array<Number> getLineDash()
     {
-        JSObject arrayJS = getMember("getLineDash");
+        Object arrayJS = getMember("getLineDash");
         return new Array<>(arrayJS);
     }
 

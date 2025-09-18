@@ -34,12 +34,12 @@ public class JSProxy {
     /**
      * Returns a named member of a JavaScript object.
      */
-    public JSObject getMember(String aName)  { return (JSObject) WebEnv.get().getMember(_jsObj, aName); }
+    public Object getMember(String aName)  { return WebEnv.get().getMember(_jsObj, aName); }
 
     /**
      * Sets a named member of a JavaScript object.
      */
-    public void setMember(String aName, JSObject aValue)  { WebEnv.get().setMember(_jsObj, aName, aValue); }
+    public void setMember(String aName, Object aValue)  { WebEnv.get().setMember(_jsObj, aName, aValue); }
 
     /**
      * Returns a named member of a JavaScript object.
