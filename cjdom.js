@@ -780,11 +780,6 @@ function Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight(lib, uint8Cl
     return new ImageData(uint8ClampedArrayJS, aWidth, aHeight);
 }
 
-/**
- * CanvasGradient: addColorStopImpl().
- */
-function Java_cjdom_CanvasGradient_addColorStopImpl(lib, gradientJS, offset, color)  { gradientJS.addColorStop(offset, color); }
-
 var _cntx;
 var _cntxScale;
 var _instructionStack;
@@ -1126,6 +1121,4 @@ let cjdomNativeMethods = {
     Java_cjdom_CanvasRenderingContext2D_paintStacksImpl,
 
     Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight,
-
-    Java_cjdom_CanvasGradient_addColorStopImpl
 };

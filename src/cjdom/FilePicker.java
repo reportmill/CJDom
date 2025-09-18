@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 import java.util.function.Consumer;
 
 /**
@@ -114,9 +113,9 @@ public class FilePicker {
             return null;
 
         // Convert to File
-        Array<JSObject> dropFilesArray = new Array<>(filesList);
-        JSObject[] dropFilesJS = dropFilesArray.toArray(JSObject.class);
-        JSObject dropFileJS = dropFilesJS.length > 0 ? dropFilesJS[0] : null;
+        Array<Object> dropFilesArray = new Array<>(filesList);
+        Object[] dropFilesJS = dropFilesArray.toArray(Object.class);
+        Object dropFileJS = dropFilesJS.length > 0 ? dropFilesJS[0] : null;
         return dropFileJS != null ? new File(dropFileJS) : null;
     }
 }
