@@ -116,6 +116,14 @@ function Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSAndChannelIndexAndCoun
 }
 
 /**
+ * CJWebEnv: getFloat32ArrayForObject().
+ */
+function Java_cjdom_CJWebEnv_getFloat32ArrayForObject(lib, arrayObj)
+{
+    return arrayObj instanceof Float32Array ? arrayObj : new Float32Array(arrayObj);
+}
+
+/**
  * Array: newArrayForLength()
  */
 function Java_cjdom_Array_newArrayForLengthImpl(lib, length)  { return new Array(length); }
@@ -134,16 +142,6 @@ function Java_cjdom_Uint8ClampedArray_newArrayForShortsArray(lib, shortsArray)  
  * Uint16Array: newArrayForIntArray().
  */
 function Java_cjdom_Uint16Array_newArrayForIntArray(lib, intArray)  { return Uint16Array.from(intArray); }
-
-/**
- * Float32Array: newArrayForFloatArray().
- */
-function Java_cjdom_Float32Array_newArrayForFloatArray(lib, floatArray)  { return floatArray; }
-
-/**
- * Float32Array: fromImpl().
- */
-function Java_cjdom_Float32Array_fromImpl(lib, arrayLike)  { return Float32Array.from(arrayLike); }
 
 /**
  * Blob method: Creates a Blob from given bytes in JS.
@@ -952,13 +950,12 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_getBytesArrayForTypedArrayJSImpl,
     Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSImpl,
     Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl,
+    Java_cjdom_CJWebEnv_getFloat32ArrayForObject,
 
     Java_cjdom_Array_newArrayForLengthImpl,
 
     Java_cjdom_Int8Array_newArrayForByteArray,
     Java_cjdom_Uint16Array_newArrayForIntArray,
-    Java_cjdom_Float32Array_newArrayForFloatArray,
-    Java_cjdom_Float32Array_fromImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForShortsArray,
 
     Java_cjdom_Blob_createBlobForBytesAndType,

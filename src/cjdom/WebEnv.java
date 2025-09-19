@@ -167,4 +167,9 @@ public abstract class WebEnv<T> {
      * Returns an array of shorts for given typed array.
      */
     public abstract short[] getShortsArrayForChannelIndexAndCount(T typedArrayJS, int channelIndex, int channelCount);
+
+    /**
+     * Returns a typed array of given class for given input.
+     */
+    public abstract T getTypedArrayJSForClassAndObject(Class<?> aClass, Object arrayObject);
 }

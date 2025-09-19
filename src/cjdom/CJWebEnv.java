@@ -189,8 +189,15 @@ public class CJWebEnv extends WebEnv<JSObject> {
     }
 
     /**
-     * Returns a typed array for given
+     * Returns a typed array of given class for given input.
      */
+    @Override
+    public JSObject getTypedArrayJSForClassAndObject(Class<?> aClass, Object arrayObject)
+    {
+        if (aClass == Float32Array.class)
+            return getFloat32ArrayForObject(arrayObject);
+        throw new RuntimeException("CJWebEnv: No support for class " + aClass.getName());
+    }
 
     /**
      * CJWebEnv method: getMemberImpl()
@@ -296,4 +303,9 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * CJWebEnv: getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl()
      */
     private static native short[] getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl(JSObject typedArrayJS, int channelIndex, int channelCount);
+
+    /**
+     * CJWebEnv: getFloat32ArrayForObject().
+     */
+    private static native JSObject getFloat32ArrayForObject(Object arrayObject);
 }

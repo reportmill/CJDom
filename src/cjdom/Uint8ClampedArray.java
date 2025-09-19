@@ -24,11 +24,6 @@ public class Uint8ClampedArray extends TypedArray {
     }
 
     /**
-     * Returns array length.
-     */
-    public int getLength()  { return getMemberInt("length"); }
-
-    /**
      * Returns short value at given index.
      */
     public short get(int anIndex)
