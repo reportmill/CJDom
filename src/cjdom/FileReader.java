@@ -32,9 +32,7 @@ public class FileReader extends JSProxy implements EventTarget {
     {
         Object arrayBufferJS = getMember("result");
         ArrayBuffer arrayBuffer = new ArrayBuffer(arrayBufferJS);
-
-        Int8Array int8Array = new Int8Array(arrayBuffer);
-        return int8Array.getBytes();
+        return arrayBuffer.getBytes();
     }
 
     /**

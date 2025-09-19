@@ -17,15 +17,6 @@ public class Array<E> extends JSProxy {
     /**
      * Constructor.
      */
-    public Array(int length)
-    {
-        super();
-        _jsObj = newArrayForLengthImpl(length);
-    }
-
-    /**
-     * Constructor.
-     */
     public Array(Object[] theObjects)
     {
         super();

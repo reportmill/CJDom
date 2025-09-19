@@ -13,17 +13,14 @@ public class Uint16Array extends TypedArray {
     /**
      * Constructor.
      */
-    public Uint16Array(int[] theValues)
+    public Uint16Array(int[] intArray)
     {
         super(null);
-        int length = theValues.length;
-        short[] shortsArray = new short[length];
-        for (int i = 0; i < length; i++) shortsArray[i] = (short) theValues[i];
-        _jsObj = newArrayForJavaArray(shortsArray, length);
+        _jsObj = newArrayForIntArray(intArray);
     }
 
     /**
      * Returns a new Uint16Array (internal).
      */
-    private static native JSObject newArrayForJavaArray(short[] javaArray, int length);
+    private static native JSObject newArrayForIntArray(int[] intArray);
 }

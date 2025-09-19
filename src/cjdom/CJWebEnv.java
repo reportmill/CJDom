@@ -153,8 +153,18 @@ public class CJWebEnv extends WebEnv<JSObject> {
     }
 
     /**
+     * Returns an array of bytes for given array buffer.
+     */
+    @Override
+    public byte[] getBytesArrayForArrayBufferJS(JSObject arrayBufferJS)
+    {
+        return getBytesArrayForArrayBufferJSImpl(arrayBufferJS);
+    }
+
+    /**
      * Returns an array of bytes for this array.
      */
+    @Override
     public byte[] getBytesArrayForTypedArrayJS(JSObject typedArrayJS)
     {
         return getBytesArrayForTypedArrayJSImpl(typedArrayJS);
@@ -163,6 +173,7 @@ public class CJWebEnv extends WebEnv<JSObject> {
     /**
      * Returns an array of shorts for this array.
      */
+    @Override
     public short[] getShortsArrayForTypedArrayJS(JSObject typedArrayJS)
     {
         return getShortsArrayForTypedArrayJSImpl(typedArrayJS);
@@ -171,10 +182,15 @@ public class CJWebEnv extends WebEnv<JSObject> {
     /**
      * Returns an array of shorts for this array.
      */
+    @Override
     public short[] getShortsArrayForChannelIndexAndCount(JSObject typedArrayJS, int channelIndex, int channelCount)
     {
         return getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl(typedArrayJS, channelIndex, channelCount);
     }
+
+    /**
+     * Returns a typed array for given
+     */
 
     /**
      * CJWebEnv method: getMemberImpl()
@@ -260,6 +276,11 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * CJWebEnv method: setNeedsClickElement(): Called to set an element that needs a click.
      */
     private static native void setNeedsClickElement(JSObject needsClickElement);
+
+    /**
+     * CJWebEnv: getBytesArrayForArrayBufferJSImpl()
+     */
+    private static native byte[] getBytesArrayForArrayBufferJSImpl(JSObject typedArrayJS);
 
     /**
      * CJWebEnv: getBytesArrayForTypedArrayJSImpl()

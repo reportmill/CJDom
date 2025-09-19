@@ -89,6 +89,11 @@ var _needsClickElement;
 function Java_cjdom_CJWebEnv_setNeedsClickElement(lib, needsClickElement)  { _needsClickElement = needsClickElement; }
 
 /**
+ * CJWebEnv: getBytesArrayForArrayBufferJSImpl().
+ */
+function Java_cjdom_CJWebEnv_getBytesArrayForArrayBufferJSImpl(lib, arrayBufferJS)  { return new Int8Array(arrayBufferJS); }
+
+/**
  * CJWebEnv: getBytesArrayForTypedArrayJSImpl().
  */
 function Java_cjdom_CJWebEnv_getBytesArrayForTypedArrayJSImpl(lib, typedArrayJS)  { return Int8Array.from(typedArrayJS); }
@@ -121,22 +126,14 @@ function Java_cjdom_Array_newArrayForLengthImpl(lib, length)  { return new Array
 function Java_cjdom_Int8Array_newArrayForByteArray(lib, byteArray)  { return byteArray; }
 
 /**
- * Int8Array: newArrayForArrayBuffer().
- */
-function Java_cjdom_Int8Array_newArrayForArrayBuffer(lib, arrayBufferJS)  { return new Int8Array(arrayBufferJS); }
-
-/**
  * Uint8ClampedArray: newArrayForShortsArray().
  */
-function Java_cjdom_Uint8ClampedArray_newArrayForShortsArray(lib, uint16_Array)
-{
-    return Uint8ClampedArray.from(uint16_Array);
-}
+function Java_cjdom_Uint8ClampedArray_newArrayForShortsArray(lib, shortsArray)  { return Uint8ClampedArray.from(shortsArray); }
 
 /**
- * Uint16Array: newArrayForJavaArray().
+ * Uint16Array: newArrayForIntArray().
  */
-function Java_cjdom_Uint16Array_newArrayForJavaArray(lib, javaArray, length)  { return javaArray; }
+function Java_cjdom_Uint16Array_newArrayForIntArray(lib, intArray)  { return Uint16Array.from(intArray); }
 
 /**
  * Float32Array: newArrayForFloatArray().
@@ -951,6 +948,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_newObjectImpl,
     Java_cjdom_CJWebEnv_awaitForPromiseImpl,
     Java_cjdom_CJWebEnv_setNeedsClickElement,
+    Java_cjdom_CJWebEnv_getBytesArrayForArrayBufferJSImpl,
     Java_cjdom_CJWebEnv_getBytesArrayForTypedArrayJSImpl,
     Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSImpl,
     Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl,
@@ -958,13 +956,9 @@ let cjdomNativeMethods = {
     Java_cjdom_Array_newArrayForLengthImpl,
 
     Java_cjdom_Int8Array_newArrayForByteArray,
-    Java_cjdom_Int8Array_newArrayForArrayBuffer,
-
-    Java_cjdom_Uint16Array_newArrayForJavaArray,
-
+    Java_cjdom_Uint16Array_newArrayForIntArray,
     Java_cjdom_Float32Array_newArrayForFloatArray,
     Java_cjdom_Float32Array_fromImpl,
-
     Java_cjdom_Uint8ClampedArray_newArrayForShortsArray,
 
     Java_cjdom_Blob_createBlobForBytesAndType,

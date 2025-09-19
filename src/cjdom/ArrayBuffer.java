@@ -17,4 +17,9 @@ public class ArrayBuffer extends JSProxy {
      * Returns the ArrayBuffer.byteLength property.
      */
     public int getByteLength()  { return getMemberInt("byteLength"); }
+
+    /**
+     * Returns array buffer bytes.
+     */
+    public byte[] getBytes()  { return WebEnv.get().getBytesArrayForArrayBufferJS(_jsObj); }
 }

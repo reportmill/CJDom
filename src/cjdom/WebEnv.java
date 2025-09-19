@@ -149,17 +149,22 @@ public abstract class WebEnv<T> {
     public void click(T jsObj)  { call(jsObj, "click"); }
 
     /**
-     * Returns an array of bytes for this array.
+     * Returns an array of bytes for given array buffer.
+     */
+    public abstract byte[] getBytesArrayForArrayBufferJS(T arrayBufferJS);
+
+    /**
+     * Returns an array of bytes for given typed array.
      */
     public abstract byte[] getBytesArrayForTypedArrayJS(T typedArrayJS);
 
     /**
-     * Returns an array of shorts for this array.
+     * Returns an array of shorts for given typed array.
      */
     public abstract short[] getShortsArrayForTypedArrayJS(T typedArrayJS);
 
     /**
-     * Returns an array of shorts for this array.
+     * Returns an array of shorts for given typed array.
      */
     public abstract short[] getShortsArrayForChannelIndexAndCount(T typedArrayJS, int channelIndex, int channelCount);
 }
