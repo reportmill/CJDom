@@ -99,11 +99,6 @@ function Java_cjdom_Array_newArrayForLengthImpl(lib, length)  { return new Array
 function Java_cjdom_Int8Array_getImpl(lib, int8Array, index)  { return int8Array[index]; }
 
 /**
- * Int8Array: setImpl().
- */
-function Java_cjdom_Int8Array_setImpl(lib, int8Array, index, aValue)  { int8Array[index] = aValue; }
-
-/**
  * Int8Array: newArrayForLengthImpl().
  */
 function Java_cjdom_Int8Array_newArrayForLengthImpl(lib, length)  { return new Int8Array(length); }
@@ -119,11 +114,6 @@ function Java_cjdom_Int8Array_newArrayForByteArray(lib, byteArray)  { return byt
 function Java_cjdom_Int8Array_newArrayForArrayBuffer(lib, arrayBufferJS)  { return new Int8Array(arrayBufferJS); }
 
 /**
- * Int16Array: setImpl().
- */
-function Java_cjdom_Int16Array_setImpl(lib, int16Array, index, aValue)  { int16Array[index] = aValue; }
-
-/**
  * Int16Array: newArrayForLengthImpl().
  */
 function Java_cjdom_Int16Array_newArrayForLengthImpl(lib, length)  { return new Int16Array(length); }
@@ -132,11 +122,6 @@ function Java_cjdom_Int16Array_newArrayForLengthImpl(lib, length)  { return new 
  * Int16Array: newArrayForJavaArray().
  */
 function Java_cjdom_Int16Array_newArrayForJavaArray(lib, javaArray, length)  { return javaArray; }
-
-/**
- * Int32Array: setImpl().
- */
-function Java_cjdom_Int32Array_setImpl(lib, int8Array, index, aValue)  { int8Array[index] = aValue; }
 
 /**
  * Int32Array: newArrayForLengthImpl().
@@ -152,11 +137,6 @@ function Java_cjdom_Int32Array_newArrayForJavaArray(lib, javaArray, length)  { r
  * Uint8ClampedArray: getImpl().
  */
 function Java_cjdom_Uint8ClampedArray_getImpl(lib, jsObj, index)  { return jsObj[index]; }
-
-/**
- * Uint8ClampedArray: setImpl().
- */
-function Java_cjdom_Uint8ClampedArray_setImpl(lib, jsObj, index, aValue)  { jsObj[index] = aValue; }
 
 /**
  * Uint8ClampedArray: newArrayForLengthImpl().
@@ -189,11 +169,6 @@ function Java_cjdom_Uint8ClampedArray_getShortsArrayForChannelIndexAndCountImpl(
 }
 
 /**
- * Uint16Array: setImpl().
- */
-function Java_cjdom_Uint16Array_setImpl(lib, array, index, aValue)  { array[index] = aValue; }
-
-/**
  * Uint16Array: newArrayForLengthImpl().
  */
 function Java_cjdom_Uint16Array_newArrayForLengthImpl(lib, length)  { return new Uint16Array(length); }
@@ -204,11 +179,6 @@ function Java_cjdom_Uint16Array_newArrayForLengthImpl(lib, length)  { return new
 function Java_cjdom_Uint16Array_newArrayForJavaArray(lib, javaArray, length)  { return javaArray; }
 
 /**
- * Uint32Array: setImpl().
- */
-function Java_cjdom_Uint32Array_setImpl(lib, array, index, aValue)  { array[index] = aValue; }
-
-/**
  * Uint32Array: newArrayForLengthImpl().
  */
 function Java_cjdom_Uint32Array_newArrayForLengthImpl(lib, length)  { return new Uint32Array(length); }
@@ -217,11 +187,6 @@ function Java_cjdom_Uint32Array_newArrayForLengthImpl(lib, length)  { return new
  * Uint32Array: newArrayForJavaArray().
  */
 function Java_cjdom_Uint32Array_newArrayForJavaArray(lib, javaArray, length)  { return javaArray; }
-
-/**
- * Float32Array: setImpl().
- */
-function Java_cjdom_Float32Array_setImpl(lib, array, index, aValue)  { array[index] = aValue; }
 
 /**
  * Float32Array: newArrayForLengthImpl().
@@ -1044,33 +1009,28 @@ let cjdomNativeMethods = {
     Java_cjdom_Array_getImpl, Java_cjdom_Array_setImpl,
     Java_cjdom_Array_newArrayForLengthImpl,
 
-    Java_cjdom_Int8Array_getImpl, Java_cjdom_Int8Array_setImpl,
+    Java_cjdom_Int8Array_getImpl,
     Java_cjdom_Int8Array_newArrayForLengthImpl,
     Java_cjdom_Int8Array_newArrayForByteArray,
     Java_cjdom_Int8Array_newArrayForArrayBuffer,
 
-    Java_cjdom_Int16Array_setImpl,
     Java_cjdom_Int16Array_newArrayForLengthImpl,
     Java_cjdom_Int16Array_newArrayForJavaArray,
 
-    Java_cjdom_Int32Array_setImpl,
     Java_cjdom_Int32Array_newArrayForLengthImpl,
     Java_cjdom_Int32Array_newArrayForJavaArray,
 
-    Java_cjdom_Uint16Array_setImpl,
     Java_cjdom_Uint16Array_newArrayForLengthImpl,
     Java_cjdom_Uint16Array_newArrayForJavaArray,
 
-    Java_cjdom_Uint32Array_setImpl,
     Java_cjdom_Uint32Array_newArrayForLengthImpl,
     Java_cjdom_Uint32Array_newArrayForJavaArray,
 
-    Java_cjdom_Float32Array_setImpl,
     Java_cjdom_Float32Array_newArrayForLengthImpl,
     Java_cjdom_Float32Array_newArrayForFloatArray,
     Java_cjdom_Float32Array_fromImpl,
 
-    Java_cjdom_Uint8ClampedArray_getImpl, Java_cjdom_Uint8ClampedArray_setImpl,
+    Java_cjdom_Uint8ClampedArray_getImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForLengthImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForShortsArray,
     Java_cjdom_Uint8ClampedArray_getShortsArrayImpl,

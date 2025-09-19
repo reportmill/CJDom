@@ -37,11 +37,6 @@ public class Uint16Array extends TypedArray {
     }
 
     /**
-     * Sets the given value at given index.
-     */
-    private static native void setImpl(JSObject jsObj, int index, int aValue);
-
-    /**
      * Returns a new Uint16Array (internal).
      */
     private static native JSObject newArrayForLengthImpl(int aLen);

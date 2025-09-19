@@ -39,14 +39,6 @@ public class Int8Array extends TypedArray {
     public byte get(int index)  { return getImpl(_jsObj, index); }
 
     /**
-     * Sets the given value at given index.
-     */
-    public void set(int index, byte aValue)
-    {
-        setImpl(_jsObj, index, aValue);
-    }
-
-    /**
      * Returns the bytes.
      */
     public byte[] getBytes()
@@ -62,11 +54,6 @@ public class Int8Array extends TypedArray {
      * Returns the value at given index.
      */
     private static native byte getImpl(JSObject jsObj, int index);
-
-    /**
-     * Sets the given value at given index.
-     */
-    private static native void setImpl(JSObject jsObj, int index, byte aValue);
 
     /**
      * Int8Array method: newArrayForLengthImpl().

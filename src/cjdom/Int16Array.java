@@ -25,16 +25,6 @@ public class Int16Array extends TypedArray {
     }
 
     /**
-     * Sets the given value at given index.
-     */
-    public void set(int index, int aValue)  { setImpl(_jsObj, index, aValue); }
-
-    /**
-     * Sets the given value at given index.
-     */
-    private static native void setImpl(JSObject jsObj, int index, int aValue);
-
-    /**
      * Returns a new Int32Array (internal).
      */
     protected static native JSObject newArrayForLengthImpl(int aLen);

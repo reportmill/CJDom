@@ -34,11 +34,6 @@ public class Float32Array extends TypedArray {
     }
 
     /**
-     * Float32Array method: setImpl().
-     */
-    private static native void setImpl(JSObject jsObj, int index, double aValue);
-
-    /**
      * Float32Array method: newArrayForLengthImpl().
      */
     private static native JSObject newArrayForLengthImpl(int aLen);

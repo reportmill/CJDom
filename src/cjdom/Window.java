@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 import java.util.function.DoubleConsumer;
 
 /**
