@@ -9,15 +9,6 @@ public class Float32Array extends TypedArray {
     /**
      * Constructor.
      */
-    public Float32Array(int length)
-    {
-        super(null);
-        _jsObj = newArrayForLengthImpl(length);
-    }
-
-    /**
-     * Constructor.
-     */
     public Float32Array(float[] floatArray)
     {
         super(null);
@@ -32,11 +23,6 @@ public class Float32Array extends TypedArray {
         super(null);
         _jsObj = fromImpl(doubleArray);
     }
-
-    /**
-     * Float32Array method: newArrayForLengthImpl().
-     */
-    private static native JSObject newArrayForLengthImpl(int aLen);
 
     /**
      * Float32Array method: newArrayForFloatArray().

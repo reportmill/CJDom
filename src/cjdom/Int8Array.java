@@ -9,15 +9,6 @@ public class Int8Array extends TypedArray {
     /**
      * Constructor.
      */
-    public Int8Array(int length)
-    {
-        super(null);
-        _jsObj = newArrayForLengthImpl(length);
-    }
-
-    /**
-     * Constructor.
-     */
     public Int8Array(byte[] theBytes)
     {
         super(null);
@@ -54,11 +45,6 @@ public class Int8Array extends TypedArray {
      * Returns the value at given index.
      */
     private static native byte getImpl(JSObject jsObj, int index);
-
-    /**
-     * Int8Array method: newArrayForLengthImpl().
-     */
-    protected static native JSObject newArrayForLengthImpl(int aLen);
 
     /**
      * Int8Array method: newArrayForByteArray().
