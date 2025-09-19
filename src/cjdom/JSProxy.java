@@ -87,6 +87,16 @@ public class JSProxy {
     public Object call(String aName, Object... args)  { return WebEnv.get().call(_jsObj, aName, args); }
 
     /**
+     * Returns an indexed member of a JavaScript object.
+     */
+    public Object getSlot(int anIndex)  { return WebEnv.get().getSlot(_jsObj, anIndex); }
+
+    /**
+     * Sets an indexed member of a JavaScript object.
+     */
+    public void setSlot(int anIndex, Object aValue)  { WebEnv.get().setSlot(_jsObj, anIndex, aValue); }
+
+    /**
      * Standard toString implementation.
      */
     public String toString()

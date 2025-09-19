@@ -66,18 +66,24 @@ public class CJWebEnv extends WebEnv<JSObject> {
     /**
      * Calls a method.
      */
-    public Object call(JSObject jsObj, String aName, Object... args)
-    {
-        return jsObj.call(aName, args);
-    }
+    public Object call(JSObject jsObj, String aName, Object... args)  { return jsObj.call(aName, args); }
+
+    /**
+     * Returns an indexed member of a JavaScript object.
+     */
+    @Override
+    public Object getSlot(JSObject jsObj, int anIndex)  { return getSlotImpl(jsObj, anIndex); }
+
+    /**
+     * Sets an indexed member of a JavaScript object.
+     */
+    @Override
+    public void setSlot(JSObject jsObj, int anIndex, Object aValue)  { setSlotImpl(jsObj, anIndex, aValue); }
 
     /**
      * Evaluates given JavaScript string and returns result.
      */
-    public Object eval(JSObject jsObj, String javaScript)
-    {
-        return jsObj.eval(javaScript);
-    }
+    public Object eval(JSObject jsObj, String javaScript)  { return jsObj.eval(javaScript); }
 
     /**
      * Returns the current window.
@@ -219,6 +225,16 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * CJWebEnv method: setMemberDoubleImpl()
      */
     private static native void setMemberDoubleImpl(JSObject jsObj, String aName, double aValue);
+
+    /**
+     * CJWebEnv: getSlotImpl().
+     */
+    private static native Object getSlotImpl(JSObject jsObj, int index);
+
+    /**
+     * CJWebEnv: setSlotImpl().
+     */
+    private static native void setSlotImpl(JSObject jsObj, int index, Object aValue);
 
     /**
      * Returns the current window.

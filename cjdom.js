@@ -51,6 +51,16 @@ function Java_cjdom_CJWebEnv_getMemberDoubleImpl(lib, jsObj, aName)  { return js
 function Java_cjdom_CJWebEnv_setMemberDoubleImpl(lib, jsObj, aName, aValue)  { jsObj[aName] = aValue; }
 
 /**
+ * CJWebEnv: getSlotImpl()
+ */
+function Java_cjdom_CJWebEnv_getSlotImpl(lib, array, index)  { return array[index]; }
+
+/**
+ * CJWebEnv: setSlotImpl()
+ */
+function Java_cjdom_CJWebEnv_setSlotImpl(lib, array, index, aValue)  { array[index] = aValue; }
+
+/**
  * CJWebEnv: windowImpl().
  */
 function Java_cjdom_CJWebEnv_windowImpl(lib, anObj)  { return window; }
@@ -99,16 +109,6 @@ function Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSAndChannelIndexAndCoun
         int16_Array[i + 1] = typedArrayJS[j];
     return int16_Array;
 }
-
-/**
- * Array: getImpl()
- */
-function Java_cjdom_Array_getImpl(lib, array, index)  { return array[index]; }
-
-/**
- * Array: setImpl()
- */
-function Java_cjdom_Array_setImpl(lib, array, index, aValue)  { array[index] = aValue; }
 
 /**
  * Array: newArrayForLength()
@@ -945,6 +945,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_getMemberBooleanImpl, Java_cjdom_CJWebEnv_setMemberBooleanImpl,
     Java_cjdom_CJWebEnv_getMemberIntImpl, Java_cjdom_CJWebEnv_setMemberIntImpl,
     Java_cjdom_CJWebEnv_getMemberDoubleImpl, Java_cjdom_CJWebEnv_setMemberDoubleImpl,
+    Java_cjdom_CJWebEnv_getSlotImpl, Java_cjdom_CJWebEnv_setSlotImpl,
     Java_cjdom_CJWebEnv_windowImpl,
     Java_cjdom_CJWebEnv_consoleImpl,
     Java_cjdom_CJWebEnv_newObjectImpl,
@@ -954,10 +955,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSImpl,
     Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl,
 
-    Java_cjdom_Array_getImpl, Java_cjdom_Array_setImpl,
     Java_cjdom_Array_newArrayForLengthImpl,
 
-    Java_cjdom_Int8Array_getImpl,
     Java_cjdom_Int8Array_newArrayForByteArray,
     Java_cjdom_Int8Array_newArrayForArrayBuffer,
 
@@ -966,7 +965,6 @@ let cjdomNativeMethods = {
     Java_cjdom_Float32Array_newArrayForFloatArray,
     Java_cjdom_Float32Array_fromImpl,
 
-    Java_cjdom_Uint8ClampedArray_getImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForShortsArray,
 
     Java_cjdom_Blob_createBlobForBytesAndType,

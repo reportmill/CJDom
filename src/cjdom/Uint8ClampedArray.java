@@ -31,12 +31,11 @@ public class Uint8ClampedArray extends TypedArray {
     /**
      * Returns short value at given index.
      */
-    public short get(int anIndex)  { return (short) getImpl(_jsObj, anIndex); }
-
-    /**
-     * Uint8ClampedArray: getImpl().
-     */
-    private static native int getImpl(JSObject jsObj, int index);
+    public short get(int anIndex)
+    {
+        Number value = (Number) getSlot(anIndex);
+        return value.shortValue();
+    }
 
     /**
      * Uint8ClampedArray: newArrayForShortsArray()

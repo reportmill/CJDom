@@ -42,10 +42,7 @@ public class Array<E> extends JSProxy {
     /**
      * Returns value at given index.
      */
-    public E get(int index)
-    {
-        return (E) getImpl(_jsObj, index);
-    }
+    public E get(int index)  { return (E) getSlot(index); }
 
     /**
      * Sets the given value at given index.
@@ -55,8 +52,7 @@ public class Array<E> extends JSProxy {
         Object value = aValue;
         if (aValue instanceof JSProxy)
             value = ((JSProxy) aValue)._jsObj;
-
-        setImpl(_jsObj, index, value);
+        setSlot(index, value);
     }
 
     /**
@@ -79,16 +75,6 @@ public class Array<E> extends JSProxy {
         T[] array = (T[]) java.lang.reflect.Array.newInstance(aClass, length);
         return toArray(array);
     }
-
-    /**
-     * Array: getImpl().
-     */
-    private static native Object getImpl(JSObject jsObj, int index);
-
-    /**
-     * Array: setImpl().
-     */
-    private static native void setImpl(JSObject jsObj, int index, Object aValue);
 
     /**
      * Array: newArrayForLengthImpl().

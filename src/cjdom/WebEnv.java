@@ -76,6 +76,16 @@ public abstract class WebEnv<T> {
     public abstract Object call(T jsObj, String aName, Object... args);
 
     /**
+     * Returns an indexed member of a JavaScript object.
+     */
+    public abstract Object getSlot(T jsObj, int anIndex);
+
+    /**
+     * Sets an indexed member of a JavaScript object.
+     */
+    public abstract void setSlot(T jsObj, int anIndex, Object aValue);
+
+    /**
      * Evaluates given JavaScript string and returns result.
      */
     public abstract Object eval(T jsObj, String javaScript);
