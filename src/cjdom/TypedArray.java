@@ -14,4 +14,22 @@ public abstract class TypedArray extends JSProxy {
     }
 
     public int getLength()  { return getMemberInt("length"); }
+
+    /**
+     * Returns the bytes.
+     */
+    public byte[] getBytes()  { return WebEnv.get().getBytesArrayForTypedArrayJS(_jsObj); }
+
+    /**
+     * Returns an array of shorts for this array.
+     */
+    public short[] getShortsArray()  { return WebEnv.get().getShortsArrayForTypedArrayJS(_jsObj); }
+
+    /**
+     * Returns an array of shorts for this array.
+     */
+    public short[] getShortsArrayForChannelIndexAndCount(int channelIndex, int channelCount)
+    {
+        return WebEnv.get().getShortsArrayForChannelIndexAndCount(_jsObj, channelIndex, channelCount);
+    }
 }

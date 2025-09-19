@@ -34,22 +34,6 @@ public class Uint8ClampedArray extends TypedArray {
     public short get(int anIndex)  { return (short) getImpl(_jsObj, anIndex); }
 
     /**
-     * Returns an array of shorts for this array.
-     */
-    public short[] getShortsArray()
-    {
-        return getShortsArrayImpl(_jsObj);
-    }
-
-    /**
-     * Returns an array of shorts for this array.
-     */
-    public short[] getShortsArrayForChannelIndexAndCount(int channelIndex, int channelCount)
-    {
-        return getShortsArrayForChannelIndexAndCountImpl(_jsObj, channelIndex, channelCount);
-    }
-
-    /**
      * Uint8ClampedArray: getImpl().
      */
     private static native int getImpl(JSObject jsObj, int index);
@@ -58,14 +42,4 @@ public class Uint8ClampedArray extends TypedArray {
      * Uint8ClampedArray: newArrayForShortsArray()
      */
     private static native JSObject newArrayForShortsArray(short[] shortsArray);
-
-    /**
-     * Uint8ClampedArray: getShortsArray()
-     */
-    private static native short[] getShortsArrayImpl(JSObject jsArray);
-
-    /**
-     * Uint8ClampedArray: getShortsArrayForChannelIndexAndCountImpl()
-     */
-    private static native short[] getShortsArrayForChannelIndexAndCountImpl(JSObject jsArray, int channelIndex, int channelCount);
 }

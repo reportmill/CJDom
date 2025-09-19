@@ -25,28 +25,6 @@ public class Int8Array extends TypedArray {
     }
 
     /**
-     * Returns the value at given index.
-     */
-    public byte get(int index)  { return getImpl(_jsObj, index); }
-
-    /**
-     * Returns the bytes.
-     */
-    public byte[] getBytes()
-    {
-        int length = getLength();
-        byte[] bytes = new byte[length];
-        for (int i = 0; i < length; i++)
-            bytes[i] = get(i);
-        return bytes;
-    }
-
-    /**
-     * Returns the value at given index.
-     */
-    private static native byte getImpl(JSObject jsObj, int index);
-
-    /**
      * Int8Array method: newArrayForByteArray().
      */
     private static native JSObject newArrayForByteArray(byte[] javaArray);

@@ -79,6 +79,28 @@ var _needsClickElement;
 function Java_cjdom_CJWebEnv_setNeedsClickElement(lib, needsClickElement)  { _needsClickElement = needsClickElement; }
 
 /**
+ * CJWebEnv: getBytesArrayForTypedArrayJSImpl().
+ */
+function Java_cjdom_CJWebEnv_getBytesArrayForTypedArrayJSImpl(lib, typedArrayJS)  { return Int8Array.from(typedArrayJS); }
+
+/**
+ * CJWebEnv: getShortsArrayForTypedArrayJSImpl().
+ */
+function Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSImpl(lib, typedArrayJS)  { return Int16Array.from(typedArrayJS); }
+
+/**
+ * CJWebEnv: getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl().
+ */
+function Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl(lib, typedArrayJS, channelIndex, channelCount)
+{
+    var length = typedArrayJS.length / channelCount;
+    var int16_Array = new Int16Array(length);
+    for (let i = 0, j = channelIndex; i < length; i++, j = j + channelCount)
+        int16_Array[i + 1] = typedArrayJS[j];
+    return int16_Array;
+}
+
+/**
  * Array: getImpl()
  */
 function Java_cjdom_Array_getImpl(lib, array, index)  { return array[index]; }
@@ -94,11 +116,6 @@ function Java_cjdom_Array_setImpl(lib, array, index, aValue)  { array[index] = a
 function Java_cjdom_Array_newArrayForLengthImpl(lib, length)  { return new Array(length); }
 
 /**
- * Int8Array: getImpl().
- */
-function Java_cjdom_Int8Array_getImpl(lib, int8Array, index)  { return int8Array[index]; }
-
-/**
  * Int8Array method: newArrayForByteArray().
  */
 function Java_cjdom_Int8Array_newArrayForByteArray(lib, byteArray)  { return byteArray; }
@@ -109,33 +126,11 @@ function Java_cjdom_Int8Array_newArrayForByteArray(lib, byteArray)  { return byt
 function Java_cjdom_Int8Array_newArrayForArrayBuffer(lib, arrayBufferJS)  { return new Int8Array(arrayBufferJS); }
 
 /**
- * Uint8ClampedArray: getImpl().
- */
-function Java_cjdom_Uint8ClampedArray_getImpl(lib, jsObj, index)  { return jsObj[index]; }
-
-/**
  * Uint8ClampedArray: newArrayForShortsArray().
  */
 function Java_cjdom_Uint8ClampedArray_newArrayForShortsArray(lib, uint16_Array)
 {
     return Uint8ClampedArray.from(uint16_Array);
-}
-
-/**
- * Uint8ClampedArray: getShortsArrayImpl().
- */
-function Java_cjdom_Uint8ClampedArray_getShortsArrayImpl(lib, uint8_Array)  { return Int16Array.from(uint8_Array); }
-
-/**
- * Uint8ClampedArray: getShortsArrayForChannelIndexAndCountImpl().
- */
-function Java_cjdom_Uint8ClampedArray_getShortsArrayForChannelIndexAndCountImpl(lib, uint8_Array, channelIndex, channelCount)
-{
-    var length = uint8_Array.length / channelCount;
-    var int16_Array = new Int16Array(length);
-    for (let i = 0, j = channelIndex; i < length; i++, j = j + channelCount)
-        int16_Array[i + 1] = uint8_Array[j];
-    return int16_Array;
 }
 
 /**
@@ -955,6 +950,9 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_newObjectImpl,
     Java_cjdom_CJWebEnv_awaitForPromiseImpl,
     Java_cjdom_CJWebEnv_setNeedsClickElement,
+    Java_cjdom_CJWebEnv_getBytesArrayForTypedArrayJSImpl,
+    Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSImpl,
+    Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl,
 
     Java_cjdom_Array_getImpl, Java_cjdom_Array_setImpl,
     Java_cjdom_Array_newArrayForLengthImpl,
@@ -970,8 +968,6 @@ let cjdomNativeMethods = {
 
     Java_cjdom_Uint8ClampedArray_getImpl,
     Java_cjdom_Uint8ClampedArray_newArrayForShortsArray,
-    Java_cjdom_Uint8ClampedArray_getShortsArrayImpl,
-    Java_cjdom_Uint8ClampedArray_getShortsArrayForChannelIndexAndCountImpl,
 
     Java_cjdom_Blob_createBlobForBytesAndType,
 
