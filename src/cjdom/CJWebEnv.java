@@ -194,8 +194,14 @@ public class CJWebEnv extends WebEnv<JSObject> {
     @Override
     public JSObject getTypedArrayJSForClassAndObject(Class<?> aClass, Object arrayObject)
     {
+        if (aClass == Int8Array.class)
+            return getInt8ArrayForObject(arrayObject);
         if (aClass == Float32Array.class)
             return getFloat32ArrayForObject(arrayObject);
+        if (aClass == Uint16Array.class)
+            return getUint16ArrayForObject(arrayObject);
+        if (aClass == Uint8ClampedArray.class)
+            return getUint8ClampedArrayForObject(arrayObject);
         throw new RuntimeException("CJWebEnv: No support for class " + aClass.getName());
     }
 
@@ -305,7 +311,22 @@ public class CJWebEnv extends WebEnv<JSObject> {
     private static native short[] getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl(JSObject typedArrayJS, int channelIndex, int channelCount);
 
     /**
+     * CJWebEnv: getInt8ArrayForObject().
+     */
+    private static native JSObject getInt8ArrayForObject(Object arrayObject);
+
+    /**
      * CJWebEnv: getFloat32ArrayForObject().
      */
     private static native JSObject getFloat32ArrayForObject(Object arrayObject);
+
+    /**
+     * CJWebEnv: getUint16ArrayForObject().
+     */
+    private static native JSObject getUint16ArrayForObject(Object arrayObject);
+
+    /**
+     * CJWebEnv: getUint8ClampedArrayForObject().
+     */
+    private static native JSObject getUint8ClampedArrayForObject(Object arrayObject);
 }

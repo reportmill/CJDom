@@ -116,6 +116,14 @@ function Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSAndChannelIndexAndCoun
 }
 
 /**
+ * CJWebEnv: getInt8ArrayForObject().
+ */
+function Java_cjdom_CJWebEnv_getInt8ArrayForObject(lib, arrayObj)
+{
+    return arrayObj instanceof Int8Array ? arrayObj : new Int8Array(arrayObj);
+}
+
+/**
  * CJWebEnv: getFloat32ArrayForObject().
  */
 function Java_cjdom_CJWebEnv_getFloat32ArrayForObject(lib, arrayObj)
@@ -124,24 +132,25 @@ function Java_cjdom_CJWebEnv_getFloat32ArrayForObject(lib, arrayObj)
 }
 
 /**
+ * CJWebEnv: getUint16ArrayForObject().
+ */
+function Java_cjdom_CJWebEnv_getUint16ArrayForObject(lib, arrayObj)
+{
+    return arrayObj instanceof Uint16Array ? arrayObj : new Uint16Array(arrayObj);
+}
+
+/**
+ * CJWebEnv: getUint8ClampedArrayForObject().
+ */
+function Java_cjdom_CJWebEnv_getUint8ClampedArrayForObject(lib, arrayObj)
+{
+    return arrayObj instanceof Uint8ClampedArray ? arrayObj : new Uint8ClampedArray(arrayObj);
+}
+
+/**
  * Array: newArrayForLength()
  */
 function Java_cjdom_Array_newArrayForLengthImpl(lib, length)  { return new Array(length); }
-
-/**
- * Int8Array method: newArrayForByteArray().
- */
-function Java_cjdom_Int8Array_newArrayForByteArray(lib, byteArray)  { return byteArray; }
-
-/**
- * Uint8ClampedArray: newArrayForShortsArray().
- */
-function Java_cjdom_Uint8ClampedArray_newArrayForShortsArray(lib, shortsArray)  { return Uint8ClampedArray.from(shortsArray); }
-
-/**
- * Uint16Array: newArrayForIntArray().
- */
-function Java_cjdom_Uint16Array_newArrayForIntArray(lib, intArray)  { return Uint16Array.from(intArray); }
 
 /**
  * Blob method: Creates a Blob from given bytes in JS.
@@ -950,13 +959,12 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_getBytesArrayForTypedArrayJSImpl,
     Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSImpl,
     Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl,
+    Java_cjdom_CJWebEnv_getInt8ArrayForObject,
     Java_cjdom_CJWebEnv_getFloat32ArrayForObject,
+    Java_cjdom_CJWebEnv_getUint16ArrayForObject,
+    Java_cjdom_CJWebEnv_getUint8ClampedArrayForObject,
 
     Java_cjdom_Array_newArrayForLengthImpl,
-
-    Java_cjdom_Int8Array_newArrayForByteArray,
-    Java_cjdom_Uint16Array_newArrayForIntArray,
-    Java_cjdom_Uint8ClampedArray_newArrayForShortsArray,
 
     Java_cjdom_Blob_createBlobForBytesAndType,
 
