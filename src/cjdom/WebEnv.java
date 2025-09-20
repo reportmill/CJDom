@@ -177,4 +177,9 @@ public abstract class WebEnv<T> {
      * Returns a typed array of given class for given input.
      */
     public abstract T getTypedArrayJSForClassAndObject(Class<?> aClass, Object arrayObject);
+
+    /**
+     * Returns new ImageData for given short array of RGBA color components and width and height.
+     */
+    public abstract T newImageDataJSForRgbaArrayAndWidthAndHeight(Object arrayObject, int aWidth, int aHeight);
 }

@@ -212,6 +212,14 @@ public class CJWebEnv extends WebEnv<JSObject> {
     }
 
     /**
+     * Returns new ImageData for given short array of RGBA color components and width and height.
+     */
+    public JSObject newImageDataJSForRgbaArrayAndWidthAndHeight(Object arrayObject, int aWidth, int aHeight)
+    {
+        return newImageDataJSForRgbaArrayAndWidthAndHeightImpl(arrayObject, aWidth, aHeight);
+    }
+
+    /**
      * CJWebEnv method: getMemberImpl()
      */
     private static native JSObject getMemberImpl(JSObject jsObj, String aName);
@@ -340,4 +348,9 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * CJWebEnv: getUint8ClampedArrayForObject().
      */
     private static native JSObject getUint8ClampedArrayForObject(Object arrayObject);
+
+    /**
+     * CJWebEnv: newImageDataJSForRgbaArrayAndWidthAndHeightImpl().
+     */
+    private static native JSObject newImageDataJSForRgbaArrayAndWidthAndHeightImpl(Object arrayObject, int aWidth, int aHeight);
 }

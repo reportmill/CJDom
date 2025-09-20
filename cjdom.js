@@ -153,6 +153,15 @@ function Java_cjdom_CJWebEnv_getUint8ClampedArrayForObject(lib, arrayObj)
 }
 
 /**
+ * CJWebEnv: newImageDataJSForRgbaArrayAndWidthAndHeightImpl().
+ */
+function Java_cjdom_CJWebEnv_newImageDataJSForRgbaArrayAndWidthAndHeightImpl(lib, arrayObj, aWidth, aHeight)
+{
+    const uint8ClampedArrayJS = arrayObj instanceof Uint8ClampedArray ? arrayObj : new Uint8ClampedArray(arrayObj);
+    return new ImageData(uint8ClampedArrayJS, aWidth, aHeight);
+}
+
+/**
  * Blob method: Creates a Blob from given bytes in JS.
  */
 function Java_cjdom_Blob_createBlobForBytesAndType(lib, int8ArrayJS, typeStr)
@@ -686,14 +695,6 @@ function Java_cjdom_CanvasRenderingContext2D_createPatternImpl(lib, contextJS, i
     return contextJS.createPattern(imageJS, repetition);
 }
 
-/**
- * ImageData: newImageDataForArrayAndWidthAndHeight()
- */
-function Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight(lib, uint8ClampedArrayJS, aWidth, aHeight)
-{
-    return new ImageData(uint8ClampedArrayJS, aWidth, aHeight);
-}
-
 var _cntx;
 var _cntxScale;
 var _instructionStack;
@@ -964,6 +965,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_getFloat32ArrayForObject,
     Java_cjdom_CJWebEnv_getUint16ArrayForObject,
     Java_cjdom_CJWebEnv_getUint8ClampedArrayForObject,
+    Java_cjdom_CJWebEnv_newImageDataJSForRgbaArrayAndWidthAndHeightImpl,
 
     Java_cjdom_Blob_createBlobForBytesAndType,
 
@@ -1008,6 +1010,4 @@ let cjdomNativeMethods = {
     Java_cjdom_CanvasRenderingContext2D_createLinearGradientImpl, Java_cjdom_CanvasRenderingContext2D_createRadialGradientImpl,
     Java_cjdom_CanvasRenderingContext2D_createPatternImpl,
     Java_cjdom_CanvasRenderingContext2D_paintStacksImpl,
-
-    Java_cjdom_ImageData_newImageDataForArrayAndWidthAndHeight,
 };

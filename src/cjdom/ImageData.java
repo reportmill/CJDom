@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API ImageData (https://developer.mozilla.org/en-US/docs/Web/API/ImageData).
@@ -17,10 +16,9 @@ public class ImageData extends JSProxy {
     /**
      * Constructor.
      */
-    public ImageData(Uint8ClampedArray intArray, int aWidth, int aHeight)
+    public ImageData(short[] shortsArray, int aWidth, int aHeight)
     {
-        super();
-        _jsObj = newImageDataForArrayAndWidthAndHeight(intArray._jsObj, aWidth, aHeight);
+        super(WebEnv.get().newImageDataJSForRgbaArrayAndWidthAndHeight(shortsArray, aWidth, aHeight));
     }
 
     /**
@@ -41,9 +39,4 @@ public class ImageData extends JSProxy {
         Object arrayJS = getMember("data");
         return new Uint8ClampedArray(arrayJS);
     }
-
-    /**
-     * ImageData: newImageDataForArrayAndWidthAndHeight()
-     */
-    private static native JSObject newImageDataForArrayAndWidthAndHeight(JSObject uint8ClampedArrayJS, int aWidth, int aHeight);
 }
