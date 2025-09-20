@@ -153,6 +153,12 @@ public class CJWebEnv extends WebEnv<JSObject> {
     }
 
     /**
+     * Returns an array of given length.
+     */
+    @Override
+    public JSObject newArrayJSForLength(int aLength)  { return newArrayJSForLengthImpl(aLength); }
+
+    /**
      * Returns an array of bytes for given array buffer.
      */
     @Override
@@ -309,6 +315,11 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * CJWebEnv: getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl()
      */
     private static native short[] getShortsArrayForTypedArrayJSAndChannelIndexAndCountImpl(JSObject typedArrayJS, int channelIndex, int channelCount);
+
+    /**
+     * CJWebEnv: newArrayForLengthImpl().
+     */
+    private static native JSObject newArrayJSForLengthImpl(int aLength);
 
     /**
      * CJWebEnv: getInt8ArrayForObject().

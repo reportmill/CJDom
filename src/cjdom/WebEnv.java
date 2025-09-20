@@ -149,6 +149,11 @@ public abstract class WebEnv<T> {
     public void click(T jsObj)  { call(jsObj, "click"); }
 
     /**
+     * Returns an array of given length.
+     */
+    public abstract T newArrayJSForLength(int aLength);
+
+    /**
      * Returns an array of bytes for given array buffer.
      */
     public abstract byte[] getBytesArrayForArrayBufferJS(T arrayBufferJS);

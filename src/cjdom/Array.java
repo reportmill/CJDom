@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Array (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
@@ -19,8 +18,7 @@ public class Array<E> extends JSProxy {
      */
     public Array(Object[] theObjects)
     {
-        super();
-        _jsObj = newArrayForLengthImpl(theObjects.length);
+        super(WebEnv.get().newArrayJSForLength(theObjects.length));
         for (int i = 0; i < theObjects.length; i++)
             set(i, theObjects[i]);
     }
@@ -66,9 +64,4 @@ public class Array<E> extends JSProxy {
         T[] array = (T[]) java.lang.reflect.Array.newInstance(aClass, length);
         return toArray(array);
     }
-
-    /**
-     * Array: newArrayForLengthImpl().
-     */
-    protected static native JSObject newArrayForLengthImpl(int aLen);
 }

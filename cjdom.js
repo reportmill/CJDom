@@ -89,6 +89,11 @@ var _needsClickElement;
 function Java_cjdom_CJWebEnv_setNeedsClickElement(lib, needsClickElement)  { _needsClickElement = needsClickElement; }
 
 /**
+ * CJWebEnv: newArrayJSForLengthImpl().
+ */
+function Java_cjdom_CJWebEnv_newArrayJSForLengthImpl(lib, arrayLength)  { return new Array(arrayLength); }
+
+/**
  * CJWebEnv: getBytesArrayForArrayBufferJSImpl().
  */
 function Java_cjdom_CJWebEnv_getBytesArrayForArrayBufferJSImpl(lib, arrayBufferJS)  { return new Int8Array(arrayBufferJS); }
@@ -146,11 +151,6 @@ function Java_cjdom_CJWebEnv_getUint8ClampedArrayForObject(lib, arrayObj)
 {
     return arrayObj instanceof Uint8ClampedArray ? arrayObj : new Uint8ClampedArray(arrayObj);
 }
-
-/**
- * Array: newArrayForLength()
- */
-function Java_cjdom_Array_newArrayForLengthImpl(lib, length)  { return new Array(length); }
 
 /**
  * Blob method: Creates a Blob from given bytes in JS.
@@ -955,6 +955,7 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_newObjectImpl,
     Java_cjdom_CJWebEnv_awaitForPromiseImpl,
     Java_cjdom_CJWebEnv_setNeedsClickElement,
+    Java_cjdom_CJWebEnv_newArrayJSForLengthImpl,
     Java_cjdom_CJWebEnv_getBytesArrayForArrayBufferJSImpl,
     Java_cjdom_CJWebEnv_getBytesArrayForTypedArrayJSImpl,
     Java_cjdom_CJWebEnv_getShortsArrayForTypedArrayJSImpl,
@@ -963,8 +964,6 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_getFloat32ArrayForObject,
     Java_cjdom_CJWebEnv_getUint16ArrayForObject,
     Java_cjdom_CJWebEnv_getUint8ClampedArrayForObject,
-
-    Java_cjdom_Array_newArrayForLengthImpl,
 
     Java_cjdom_Blob_createBlobForBytesAndType,
 
