@@ -1,6 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
-
 import java.util.function.DoubleConsumer;
 
 /**
@@ -193,5 +191,15 @@ public abstract class WebEnv<T> {
     /**
      * Creates a URL for given blob.
      */
-    public abstract String createUrlForBlobJS(JSObject blobJS);
+    public abstract String createUrlForBlobJS(T blobJS);
+
+    /**
+     * Returns a new File for given name, type and bytes.
+     */
+    public abstract T newFileJSForNameAndTypeAndBytes(String aName, String aType, byte[] byteArray);
+
+    /**
+     * Returns a new FileReader.
+     */
+    public abstract T newFileReaderJS();
 }

@@ -235,6 +235,19 @@ public class CJWebEnv extends WebEnv<JSObject> {
     public String createUrlForBlobJS(JSObject blobJS)  { return createUrlForBlobJSImpl(blobJS); }
 
     /**
+     * Returns a new File for given name, type and bytes .
+     */
+    public JSObject newFileJSForNameAndTypeAndBytes(String aName, String aType, byte[] byteArray)
+    {
+        return newFileJSForNameAndTypeAndBytesImpl(aName, aType, byteArray);
+    }
+
+    /**
+     * Returns a new FileReader.
+     */
+    public JSObject newFileReaderJS()  { return newFileReaderJSImpl(); }
+
+    /**
      * CJWebEnv method: getMemberImpl()
      */
     private static native JSObject getMemberImpl(JSObject jsObj, String aName);
@@ -378,4 +391,14 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * CJWebEnv: createUrlForBlobJSImpl().
      */
     private static native String createUrlForBlobJSImpl(JSObject blobJS);
+
+    /**
+     * CJWebEnv: newFileJSForNameAndTypeAndBytesImpl().
+     */
+    private static native JSObject newFileJSForNameAndTypeAndBytesImpl(String aName, String aType, byte[] byteArray);
+
+    /**
+     * CJWebEnv: newFileReaderJSImpl().
+     */
+    private static native JSObject newFileReaderJSImpl();
 }

@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API FileReader (https://developer.mozilla.org/en-US/docs/Web/API/FileReader).
@@ -11,8 +10,7 @@ public class FileReader extends JSProxy implements EventTarget {
      */
     public FileReader()
     {
-        super();
-        _jsObj = newFileReader();
+        super(WebEnv.get().newFileReaderJS());
     }
 
     /**
@@ -43,9 +41,4 @@ public class FileReader extends JSProxy implements EventTarget {
         addEventListener("loadend", e -> aRun.run());
         readAsArrayBuffer(aBlob);
     }
-
-    /**
-     * FileReader: newFileReader().
-     */
-    private static native JSObject newFileReader();
 }

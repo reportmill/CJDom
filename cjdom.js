@@ -176,12 +176,18 @@ function Java_cjdom_CJWebEnv_newBlobJSForBytesAndTypeImpl(lib, arrayObj, typeStr
 function Java_cjdom_CJWebEnv_createUrlForBlobJSImpl(lib, blobJS)  { return URL.createObjectURL(blobJS); }
 
 /**
- * Creates a File from given bytes in JS.
+ * CJWebEnv: newFileJSForNameAndTypeAndBytesImpl().
  */
-function Java_cjdom_File_createFileForNameAndTypeAndBytes(lib, name, type, int8ArrayJS)
+function Java_cjdom_CJWebEnv_newFileJSForNameAndTypeAndBytesImpl(lib, name, type, arrayObj)
 {
-    return new File([ int8ArrayJS ], name, type ? { type: type } : null);
+    const int8Array = arrayObj instanceof Int8Array ? arrayObj : new Int8Array(arrayObj);
+    return new File([ int8Array ], name, type ? { type: type } : null);
 }
+
+/**
+ * CJWebEnv: newFileReaderJSImpl().
+ */
+function Java_cjdom_CJWebEnv_newFileReaderJSImpl(lib)  { return new FileReader(); }
 
 // Clipboard.read() ClipboardItems - read upon meta+v key press, write() upon meta-c
 var clipboardReadItems;
@@ -365,11 +371,6 @@ function handleDrop(dropEvent)
     for (var dropFile of dropDataTransfer.files)
         _dropDataTransferFiles.push(dropFile);
 }
-
-/**
- * FileReader: newFileReader().
- */
-function Java_cjdom_FileReader_newFileReader(lib)  { return new FileReader(); }
 
 // This wrapped promise is used to trigger getNextEvent
 var _eventNotifyMutex = null;
@@ -969,8 +970,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_newImageDataJSForRgbaArrayAndWidthAndHeightImpl,
     Java_cjdom_CJWebEnv_newBlobJSForBytesAndTypeImpl,
     Java_cjdom_CJWebEnv_createUrlForBlobJSImpl,
-
-    Java_cjdom_File_createFileForNameAndTypeAndBytes,
+    Java_cjdom_CJWebEnv_newFileJSForNameAndTypeAndBytesImpl,
+    Java_cjdom_CJWebEnv_newFileReaderJSImpl,
 
     Java_cjdom_Clipboard_readClipboardItemsImpl,
     Java_cjdom_Clipboard_writeClipboardItemsImpl,
@@ -984,8 +985,6 @@ let cjdomNativeMethods = {
     Java_cjdom_ClipboardItem_newClipboardItemForBlob,
 
     Java_cjdom_DataTransfer_newDataTransfer,
-
-    Java_cjdom_FileReader_newFileReader,
 
     Java_cjdom_EventQueue_getNextEvent,
     Java_cjdom_EventQueue_requestAnimationFrameImpl,
