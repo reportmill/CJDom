@@ -162,17 +162,18 @@ function Java_cjdom_CJWebEnv_newImageDataJSForRgbaArrayAndWidthAndHeightImpl(lib
 }
 
 /**
- * Blob method: Creates a Blob from given bytes in JS.
+ * CJWebEnv: Creates a Blob from given bytes in JS.
  */
-function Java_cjdom_Blob_createBlobForBytesAndType(lib, int8ArrayJS, typeStr)
+function Java_cjdom_CJWebEnv_newBlobJSForBytesAndTypeImpl(lib, arrayObj, typeStr)
 {
-    return new Blob([ int8ArrayJS ], typeStr ? { type: typeStr } : null);
+    const int8Array = arrayObj instanceof Int8Array ? arrayObj : new Int8Array(arrayObj);
+    return new Blob([ int8Array ], typeStr ? { type: typeStr } : null);
 }
 
 /**
- * Creates a URL from given blob.
+ * CJWebEnv: createUrlForBlobJSImpl().
  */
-function Java_cjdom_Blob_createURL(lib, blobJS)  { return URL.createObjectURL(blobJS); }
+function Java_cjdom_CJWebEnv_createUrlForBlobJSImpl(lib, blobJS)  { return URL.createObjectURL(blobJS); }
 
 /**
  * Creates a File from given bytes in JS.
@@ -966,10 +967,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_getUint16ArrayForObject,
     Java_cjdom_CJWebEnv_getUint8ClampedArrayForObject,
     Java_cjdom_CJWebEnv_newImageDataJSForRgbaArrayAndWidthAndHeightImpl,
-
-    Java_cjdom_Blob_createBlobForBytesAndType,
-
-    Java_cjdom_Blob_createURL,
+    Java_cjdom_CJWebEnv_newBlobJSForBytesAndTypeImpl,
+    Java_cjdom_CJWebEnv_createUrlForBlobJSImpl,
 
     Java_cjdom_File_createFileForNameAndTypeAndBytes,
 

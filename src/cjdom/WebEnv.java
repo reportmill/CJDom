@@ -1,4 +1,6 @@
 package cjdom;
+import netscape.javascript.JSObject;
+
 import java.util.function.DoubleConsumer;
 
 /**
@@ -182,4 +184,14 @@ public abstract class WebEnv<T> {
      * Returns new ImageData for given short array of RGBA color components and width and height.
      */
     public abstract T newImageDataJSForRgbaArrayAndWidthAndHeight(Object arrayObject, int aWidth, int aHeight);
+
+    /**
+     * Returns a new Blob for given byte array and type.
+     */
+    public abstract T newBlobJSForBytesAndType(byte[] byteArray, String aType);
+
+    /**
+     * Creates a URL for given blob.
+     */
+    public abstract String createUrlForBlobJS(JSObject blobJS);
 }

@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API Blob (https://developer.mozilla.org/en-US/docs/Web/API/Blob).
@@ -17,11 +16,9 @@ public class Blob extends JSProxy {
     /**
      * Constructor for given bytes and type.
      */
-    public Blob(byte[] theBytes, String aType)
+    public Blob(byte[] byteArray, String aType)
     {
-        super();
-        Int8Array int8Array = new Int8Array(theBytes);
-        _jsObj = createBlobForBytesAndType(int8Array._jsObj, aType);
+        super(WebEnv.get().newBlobJSForBytesAndType(byteArray, aType));
     }
 
     /**
@@ -36,18 +33,5 @@ public class Blob extends JSProxy {
     /**
      * Returns a URL for this blob.
      */
-    public String createURL()
-    {
-        return createURL(_jsObj);
-    }
-
-    /**
-     * Blob method: Creates a Blob from given bytes in JS.
-     */
-    private static native JSObject createBlobForBytesAndType(JSObject int8ArrayJS, String aType);
-
-    /**
-     * Creates a URL from given blob.
-     */
-    private static native String createURL(JSObject blobJS);
+    public String createURL()  { return WebEnv.get().createUrlForBlobJS(_jsObj); }
 }

@@ -220,6 +220,21 @@ public class CJWebEnv extends WebEnv<JSObject> {
     }
 
     /**
+     * Returns a new Blob for given byte array and type.
+     */
+    @Override
+    public JSObject newBlobJSForBytesAndType(byte[] byteArray, String aType)
+    {
+        return newBlobJSForBytesAndTypeImpl(byteArray, aType);
+    }
+
+    /**
+     * Creates a URL for given blob.
+     */
+    @Override
+    public String createUrlForBlobJS(JSObject blobJS)  { return createUrlForBlobJSImpl(blobJS); }
+
+    /**
      * CJWebEnv method: getMemberImpl()
      */
     private static native JSObject getMemberImpl(JSObject jsObj, String aName);
@@ -353,4 +368,14 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * CJWebEnv: newImageDataJSForRgbaArrayAndWidthAndHeightImpl().
      */
     private static native JSObject newImageDataJSForRgbaArrayAndWidthAndHeightImpl(Object arrayObject, int aWidth, int aHeight);
+
+    /**
+     * CJWebEnv: newBlobJSForBytesAndTypeImpl().
+     */
+    private static native JSObject newBlobJSForBytesAndTypeImpl(byte[] byteArray, String aType);
+
+    /**
+     * CJWebEnv: createUrlForBlobJSImpl().
+     */
+    private static native String createUrlForBlobJSImpl(JSObject blobJS);
 }
