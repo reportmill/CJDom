@@ -611,88 +611,88 @@ function Java_cjdom_LoadEventQueue_addLoadEventListenerImpl(lib, eventTargetJS, 
 }
 
 /**
- * CanvasRenderingContext2D: setLineDashImpl().
+ * CJCanvasRenderingContext2D: setLineDashImpl().
  */
-function Java_cjdom_CanvasRenderingContext2D_setLineDashImpl(lib, cntxJS, doubleArray)
+function Java_cjdom_CJCanvasRenderingContext2D_setLineDashImpl(lib, cntxJS, doubleArray)
 {
     var dashArray = Array.from(doubleArray);
     cntxJS.setLineDash(dashArray);
 }
 
 /**
- * CanvasRenderingContext2D: fillTextImpl().
+ * CJCanvasRenderingContext2D: fillTextImpl().
  */
-function Java_cjdom_CanvasRenderingContext2D_fillTextImpl(lib, cntxJS, aString, aX, aY)  { cntxJS.fillText(aString, aX, aY); }
+function Java_cjdom_CJCanvasRenderingContext2D_fillTextImpl(lib, cntxJS, aString, aX, aY)  { cntxJS.fillText(aString, aX, aY); }
 
 /**
- * CanvasRenderingContext2D: fillTextImpl().
+ * CJCanvasRenderingContext2D: fillTextImpl().
  */
-function Java_cjdom_CanvasRenderingContext2D_fillTextImpl2(lib, cntxJS, aString, aX, aY, maxWidth)  { cntxJS.fillText(aString, aX, aY, maxWidth); }
+function Java_cjdom_CJCanvasRenderingContext2D_fillTextImpl2(lib, cntxJS, aString, aX, aY, maxWidth)  { cntxJS.fillText(aString, aX, aY, maxWidth); }
 
 /**
- * CanvasRenderingContext2D: strokeText().
+ * CJCanvasRenderingContext2D: strokeText().
  */
-function Java_cjdom_CanvasRenderingContext2D_strokeTextImpl(lib, cntxJS, aString, aX, aY)  { cntxJS.strokeText(aString, aX, aY); }
+function Java_cjdom_CJCanvasRenderingContext2D_strokeTextImpl(lib, cntxJS, aString, aX, aY)  { cntxJS.strokeText(aString, aX, aY); }
 
 /**
- * CanvasRenderingContext2D: strokeText().
+ * CJCanvasRenderingContext2D: strokeText().
  */
-function Java_cjdom_CanvasRenderingContext2D_strokeTextImpl2(lib, cntxJS, aString, aX, aY, maxWidth)  { cntxJS.strokeText(aString, aX, aY, maxWidth); }
+function Java_cjdom_CJCanvasRenderingContext2D_strokeTextImpl2(lib, cntxJS, aString, aX, aY, maxWidth)  { cntxJS.strokeText(aString, aX, aY, maxWidth); }
 
 /**
- * CanvasRenderingContext2D: drawImageImpl().
+ * CJCanvasRenderingContext2D: drawImageImpl().
  */
-function Java_cjdom_CanvasRenderingContext2D_drawImageImpl(lib, cntxJS, imageJS, aX, aY)  { cntxJS.drawImage(imageJS, aX, aY); }
+function Java_cjdom_CJCanvasRenderingContext2D_drawImageImpl(lib, cntxJS, imageJS, aX, aY)  { cntxJS.drawImage(imageJS, aX, aY); }
 
 /**
- * CanvasRenderingContext2D: drawImageImpl().
+ * CJCanvasRenderingContext2D: drawImageImpl().
  */
-function Java_cjdom_CanvasRenderingContext2D_drawImageImpl2(lib, cntxJS, imageJS, aX, aY, aW, aH)  { cntxJS.drawImage(imageJS, aX, aY, aW, aH); }
+function Java_cjdom_CJCanvasRenderingContext2D_drawImageImpl2(lib, cntxJS, imageJS, aX, aY, aW, aH)  { cntxJS.drawImage(imageJS, aX, aY, aW, aH); }
 
 /**
- * CanvasRenderingContext2D: drawImageImpl().
+ * CJCanvasRenderingContext2D: drawImageImpl().
  */
-function Java_cjdom_CanvasRenderingContext2D_drawImageImpl3(lib, cntxJS, imageJS, srcX, srcY, srcW, srcH, destX, destY, destW, destH)
+function Java_cjdom_CJCanvasRenderingContext2D_drawImageImpl3(lib, cntxJS, imageJS, srcX, srcY, srcW, srcH, destX, destY, destW, destH)
 {
     cntxJS.drawImage(imageJS, srcX, srcY, srcW, srcH, destX, destY, destW, destH);
 }
 
 /**
- * CanvasRenderingContext2D: getImageData().
+ * CJCanvasRenderingContext2D: getImageData().
  */
-function Java_cjdom_CanvasRenderingContext2D_getImageDataImpl(lib, canvas, x, y, w, h)
+function Java_cjdom_CJCanvasRenderingContext2D_getImageDataImpl(lib, canvas, x, y, w, h)
 {
     return canvas.getImageData(x, y, w, h);
 }
 
 /**
- * CanvasRenderingContext2D: putImageDataImpl().
+ * CJCanvasRenderingContext2D: putImageDataImpl().
  */
-function Java_cjdom_CanvasRenderingContext2D_putImageDataImpl(lib, canvas, imageDataJS, aX, aY, dirtyX, dirtyY, dirtyW, dirtyH)
+function Java_cjdom_CJCanvasRenderingContext2D_putImageDataImpl(lib, canvas, imageDataJS, aX, aY, dirtyX, dirtyY, dirtyW, dirtyH)
 {
     canvas.putImageData(imageDataJS, aX, aY, dirtyX, dirtyY, dirtyW, dirtyH);
 }
 
 /**
- * CanvasRenderingContext2D: createLinearGradientImpl().
+ * CJCanvasRenderingContext2D: createLinearGradientImpl().
  */
-function Java_cjdom_CanvasRenderingContext2D_createLinearGradientImpl(lib, contextJS, x0, y0, x1, y1)
+function Java_cjdom_CJCanvasRenderingContext2D_createLinearGradientImpl(lib, contextJS, x0, y0, x1, y1)
 {
     return contextJS.createLinearGradient(x0, y0, x1, y1);
 }
 
 /**
- * CanvasRenderingContext2D: createRadialGradientImpl().
+ * CJCanvasRenderingContext2D: createRadialGradientImpl().
  */
-function Java_cjdom_CanvasRenderingContext2D_createRadialGradientImpl(lib, contextJS, x0, y0, r0, x1, y1, r1)
+function Java_cjdom_CJCanvasRenderingContext2D_createRadialGradientImpl(lib, contextJS, x0, y0, r0, x1, y1, r1)
 {
     return contextJS.createRadialGradient(x0, y0, r0, x1, y1, r1);
 }
 
 /**
- * CanvasRenderingContext2D: createPatternImpl().
+ * CJCanvasRenderingContext2D: createPatternImpl().
  */
-function Java_cjdom_CanvasRenderingContext2D_createPatternImpl(lib, contextJS, imageJS, repetition)
+function Java_cjdom_CJCanvasRenderingContext2D_createPatternImpl(lib, contextJS, imageJS, repetition)
 {
     return contextJS.createPattern(imageJS, repetition);
 }
@@ -706,9 +706,9 @@ var _stringStack; var _stringIndex;
 var _nativeStack; var _nativeIndex;
 
 /**
- * CanvasRenderingContext2D: paintStacks().
+ * CJCanvasRenderingContext2D: paintStacks().
  */
-function Java_cjdom_CanvasRenderingContext2D_paintStacksImpl(lib, contextJS, contextScale, instructionStack, instructionStackSize, intStack, doubleStack, stringStack, objectStack)
+function Java_cjdom_CJCanvasRenderingContext2D_paintStacksImpl(lib, contextJS, contextScale, instructionStack, instructionStackSize, intStack, doubleStack, stringStack, objectStack)
 {
     _cntx = contextJS;
     _cntxScale = contextScale;
@@ -993,12 +993,18 @@ let cjdomNativeMethods = {
     Java_cjdom_LoadEventQueue_getNextEvent,
     Java_cjdom_LoadEventQueue_addLoadEventListenerImpl,
 
-    Java_cjdom_CanvasRenderingContext2D_setLineDashImpl,
-    Java_cjdom_CanvasRenderingContext2D_fillTextImpl, Java_cjdom_CanvasRenderingContext2D_fillTextImpl2,
-    Java_cjdom_CanvasRenderingContext2D_strokeTextImpl, Java_cjdom_CanvasRenderingContext2D_strokeTextImpl2,
-    Java_cjdom_CanvasRenderingContext2D_drawImageImpl, Java_cjdom_CanvasRenderingContext2D_drawImageImpl2, Java_cjdom_CanvasRenderingContext2D_drawImageImpl3,
-    Java_cjdom_CanvasRenderingContext2D_getImageDataImpl, Java_cjdom_CanvasRenderingContext2D_putImageDataImpl,
-    Java_cjdom_CanvasRenderingContext2D_createLinearGradientImpl, Java_cjdom_CanvasRenderingContext2D_createRadialGradientImpl,
-    Java_cjdom_CanvasRenderingContext2D_createPatternImpl,
-    Java_cjdom_CanvasRenderingContext2D_paintStacksImpl,
+    Java_cjdom_CJCanvasRenderingContext2D_setLineDashImpl,
+    Java_cjdom_CJCanvasRenderingContext2D_fillTextImpl,
+    Java_cjdom_CJCanvasRenderingContext2D_fillTextImpl2,
+    Java_cjdom_CJCanvasRenderingContext2D_strokeTextImpl,
+    Java_cjdom_CJCanvasRenderingContext2D_strokeTextImpl2,
+    Java_cjdom_CJCanvasRenderingContext2D_drawImageImpl,
+    Java_cjdom_CJCanvasRenderingContext2D_drawImageImpl2,
+    Java_cjdom_CJCanvasRenderingContext2D_drawImageImpl3,
+    Java_cjdom_CJCanvasRenderingContext2D_getImageDataImpl,
+    Java_cjdom_CJCanvasRenderingContext2D_putImageDataImpl,
+    Java_cjdom_CJCanvasRenderingContext2D_createLinearGradientImpl,
+    Java_cjdom_CJCanvasRenderingContext2D_createRadialGradientImpl,
+    Java_cjdom_CJCanvasRenderingContext2D_createPatternImpl,
+    Java_cjdom_CJCanvasRenderingContext2D_paintStacksImpl,
 };

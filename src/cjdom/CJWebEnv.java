@@ -361,6 +361,16 @@ public class CJWebEnv extends WebEnv<JSObject> {
     public DataTransfer getDropDataTransfer()  { return CJDataTransfer.getDropDataTransfer(); }
 
     /**
+     * Returns the rendering context object for given type string and JavaScript object.
+     */
+    public Object getRenderingContext(String contextType, JSObject jsObj)
+    {
+        if (contextType.equals("2d"))
+            return new CJCanvasRenderingContext2D(jsObj);
+        return new WebGLRenderingContext(jsObj);
+    }
+
+    /**
      * CJWebEnv method: getMemberImpl()
      */
     private static native JSObject getMemberImpl(JSObject jsObj, String aName);

@@ -283,4 +283,9 @@ public abstract class WebEnv<T> {
      * Returns the DataTransfer from last drop.
      */
     public abstract DataTransfer getDropDataTransfer();
+
+    /**
+     * Returns the rendering context object for given type string and JavaScript object.
+     */
+    public abstract Object getRenderingContext(String contextType, T jsObj);
 }

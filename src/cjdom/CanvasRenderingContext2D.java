@@ -1,13 +1,9 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API CanvasRenderingContext2D (https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D).
  */
 public class CanvasRenderingContext2D extends JSProxy {
-
-    // The rendering context object
-    private JSObject _cntxJS;
 
     /**
      * Constructor.
@@ -15,7 +11,6 @@ public class CanvasRenderingContext2D extends JSProxy {
     public CanvasRenderingContext2D(Object renderingContextJS)
     {
         super(renderingContextJS);
-        _cntxJS = (JSObject) _jsObj;
     }
 
     /**
@@ -168,7 +163,7 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public void setLineDash(double[] dashArray)
     {
-        setLineDashImpl(_cntxJS, dashArray != null ? dashArray : new double[0]);
+        System.err.println("CanvasRenderingContext2D.setLineDash: not implemented yet");
     }
 
     /**
@@ -242,18 +237,12 @@ public class CanvasRenderingContext2D extends JSProxy {
     /**
      * CanvasRenderingContext2D: rect().
      */
-    public void rect(double aX, double aY, double aW, double aH)
-    {
-        call("rect", aX, aY, aW, aH);
-    }
+    public void rect(double aX, double aY, double aW, double aH)  { call("rect", aX, aY, aW, aH); }
 
     /**
      * CanvasRenderingContext2D: clearRect().
      */
-    public void clearRect(double aX, double aY, double aW, double aH)
-    {
-        call("clearRect", aX, aY, aW, aH);
-    }
+    public void clearRect(double aX, double aY, double aW, double aH)  { call("clearRect", aX, aY, aW, aH); }
 
     //void arc(double var1, double var3, double var5, double var7, double var9, boolean var11);
     //void arc(double var1, double var3, double var5, double var7, double var9);
@@ -283,34 +272,49 @@ public class CanvasRenderingContext2D extends JSProxy {
     /**
      * CanvasRenderingContext2D: fillText().
      */
-    public void fillText(String aString, double aX, double aY)  { fillTextImpl(_cntxJS, aString, aX, aY); }
+    public void fillText(String aString, double aX, double aY)
+    {
+        System.err.println("CanvasRenderingContext2D.fillText: not implemented yet");
+    }
 
     /**
      * CanvasRenderingContext2D: fillText().
      */
-    public void fillText(String aString, double aX, double aY, double maxWidth)  { fillTextImpl2(_cntxJS, aString, aX, aY, maxWidth); }
+    public void fillText(String aString, double aX, double aY, double maxWidth)
+    {
+        System.err.println("CanvasRenderingContext2D.fillText: not implemented yet");
+    }
 
     /**
      * CanvasRenderingContext2D: strokeText().
      */
-    public void strokeText(String aString, double aX, double aY)  { strokeTextImpl(_cntxJS, aString, aX, aY); }
+    public void strokeText(String aString, double aX, double aY)
+    {
+        System.err.println("CanvasRenderingContext2D.strokeText: not implemented yet");
+    }
 
     /**
      * CanvasRenderingContext2D: strokeText().
      */
-    public void strokeText(String aString, double aX, double aY, double maxWidth)  { strokeTextImpl2(_cntxJS, aString, aX, aY, maxWidth); }
+    public void strokeText(String aString, double aX, double aY, double maxWidth)
+    {
+        System.err.println("CanvasRenderingContext2D.strokeText: not implemented yet");
+    }
 
     /**
      * CanvasRenderingContext2D: drawImage().
      */
-    public void drawImage(CanvasImageSource anImage, double aX, double aY)  { drawImageImpl(_cntxJS, (JSObject) ((JSProxy) anImage)._jsObj, aX, aY); }
+    public void drawImage(CanvasImageSource anImage, double aX, double aY)
+    {
+        System.err.println("CanvasRenderingContext2D.drawImage 1: not implemented yet");
+    }
 
     /**
      * CanvasRenderingContext2D: drawImage().
      */
     public void drawImage(CanvasImageSource anImage, double aX, double aY, double aW, double aH)
     {
-        drawImageImpl2(_cntxJS, (JSObject) ((JSProxy) anImage)._jsObj, aX, aY, aW, aH);
+        System.err.println("CanvasRenderingContext2D.drawImage 2: not implemented yet");
     }
 
     /**
@@ -318,7 +322,7 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public void drawImage(CanvasImageSource anImage, double srcX, double srcY, double srcW, double srcH, double destX, double destY, double destW, double destH)
     {
-        drawImageImpl3(_cntxJS, (JSObject) ((JSProxy) anImage)._jsObj, srcX, srcY, srcW, srcH, destX, destY, destW, destH);
+        System.err.println("CanvasRenderingContext2D.drawImage 3: not implemented yet");
     }
 
     /**
@@ -326,8 +330,8 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public ImageData getImageData(int aX, int aY, int aW, int aH)
     {
-        JSObject imageDataJS = getImageDataImpl(_cntxJS, aX, aY, aW, aH);
-        return new ImageData(imageDataJS);
+        System.err.println("CanvasRenderingContext2D.getImageData: not implemented yet");
+        return null;
     }
 
     /**
@@ -335,7 +339,7 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public void putImageData(ImageData imageData, double aX, double aY, double dirtyX, double dirtyY, double dirtyW, double dirtyH)
     {
-        putImageDataImpl(_cntxJS, (JSObject) imageData._jsObj, aX, aY, dirtyX, dirtyY, dirtyW, dirtyH);
+        System.err.println("CanvasRenderingContext2D.putImageData: not implemented yet");
     }
 
     //void putImageData(ImageData var1, double aX, double aY);
@@ -345,8 +349,8 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public CanvasGradient createLinearGradient(double x0, double y0, double x1, double y1)
     {
-        JSObject gradientJS = createLinearGradientImpl(_cntxJS, x0, y0, x1, y1);
-        return new CanvasGradient(gradientJS);
+        System.err.println("CanvasRenderingContext2D.createLinearGradient: not implemented yet");
+        return null;
     }
 
     /**
@@ -354,8 +358,8 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public CanvasGradient createRadialGradient(double x0, double y0, double r0, double x1, double y1, double r1)
     {
-        JSObject gradientJS = createRadialGradientImpl(_cntxJS, x0, y0, r0, x1, y1, r1);
-        return new CanvasGradient(gradientJS);
+        System.err.println("CanvasRenderingContext2D.createRadialGradient: not implemented yet");
+        return null;
     }
 
     /**
@@ -363,8 +367,8 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public CanvasPattern createPattern(CanvasImageSource image, String repetition)
     {
-        JSObject patternJS = createPatternImpl(_cntxJS, (JSObject) ((JSProxy) image)._jsObj, repetition);
-        return new CanvasPattern(patternJS);
+        System.err.println("CanvasRenderingContext2D.createPattern: not implemented yet");
+        return null;
     }
 
     /**
@@ -432,78 +436,8 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public void paintStacks(double contextScale, int[] instructionStack, int instructionStackSize, int[] intStack, double[] doubleStack, String[] stringStack, Object[] objectStack)
     {
-        paintStacksImpl(_cntxJS, contextScale, instructionStack, instructionStackSize, intStack, doubleStack, stringStack, objectStack);
+        System.err.println("CanvasRenderingContext2D.paintStacks: Not implemented yet");
     }
-
-    /**
-     * CanvasRenderingContext2D: setLineDashImpl().
-     */
-    private static native void setLineDashImpl(JSObject cntxJS, double[] dashArray);
-
-    /**
-     * CanvasRenderingContext2D: fillTextImpl().
-     */
-    private static native void fillTextImpl(JSObject cntxJS, String aString, double aX, double aY);
-
-    /**
-     * CanvasRenderingContext2D: fillTextImpl().
-     */
-    private static native void fillTextImpl2(JSObject cntxJS, String aString, double aX, double aY, double maxWidth);
-
-    /**
-     * CanvasRenderingContext2D: strokeText().
-     */
-    private static native void strokeTextImpl(JSObject cntxJS, String aString, double aX, double aY);
-
-    /**
-     * CanvasRenderingContext2D: strokeText().
-     */
-    private static native void strokeTextImpl2(JSObject cntxJS, String aString, double aX, double aY, double maxWidth);
-
-    /**
-     * CanvasRenderingContext2D: drawImageImpl().
-     */
-    private static native void drawImageImpl(JSObject cntxJS, JSObject imageJS, double aX, double aY);
-
-    /**
-     * CanvasRenderingContext2D: drawImageImpl().
-     */
-    private static native void drawImageImpl2(JSObject cntxJS, JSObject imageJS, double aX, double aY, double aW, double aH);
-
-    /**
-     * CanvasRenderingContext2D: drawImageImpl().
-     */
-    private static native void drawImageImpl3(JSObject cntxJS, JSObject imageJS, double srcX, double srcY, double srcW, double srcH, double destX, double destY, double destW, double destH);
-
-    /**
-     * CanvasRenderingContext2D_getImageDataImpl().
-     */
-    private static native JSObject getImageDataImpl(JSObject canvasJS, int aX, int aY, int aW, int aH);
-
-    /**
-     * CanvasRenderingContext2D_putImageDataImpl().
-     */
-    private static native void putImageDataImpl(JSObject canvasJS, JSObject imageDataJS, double aX, double aY, double dirtyX, double dirtyY, double dirtyW, double dirtyH);
-
-    /**
-     * CanvasRenderingContext2D: createLinearGradientImpl().
-     */
-    private static native JSObject createLinearGradientImpl(JSObject contextJS, double x0, double y0, double x1, double y1);
-
-    /**
-     * CanvasRenderingContext2D: createRadialGradientImpl().
-     */
-    private static native JSObject createRadialGradientImpl(JSObject contextJS, double x0, double y0, double r0, double x1, double y1, double r1);
-
-    /**
-     * CanvasRenderingContext2D: createPatternImpl().
-     */
-    private static native JSObject createPatternImpl(JSObject contextJS, JSObject imageJS, String repetition);
-
-    /**
-     * CanvasRenderingContext2D: paintStacks().
-     */
-    private static native void paintStacksImpl(JSObject contextJS, double contextScale, int[] instructionStack, int instructionStackSize, int[] intStack, double[] doubleStack, String[] stringStack, Object[] objectStack);
 
     //boolean isPointInPath(double var1, double var3);
     //boolean isPointInStroke(double var1, double var3);
