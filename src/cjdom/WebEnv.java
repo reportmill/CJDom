@@ -1,5 +1,6 @@
 package cjdom;
 import java.util.function.DoubleConsumer;
+import java.util.function.Function;
 
 /**
  * This class is an adapter for this package, implementing the fundamental functionality to make it work with
@@ -232,4 +233,39 @@ public abstract class WebEnv<T> {
      * Writes a given JavaScript array of ClipboardItem JavaScript objects to clipboard.
      */
     public abstract void writeClipboardItemsJS(Object clipboardItemsJS);
+
+    /**
+     * Registers an event handler of a specific event type on the EventTarget.
+     */
+    public abstract void addEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture);
+
+    /**
+     * Removes an event handler of a specific event type from the EventTarget.
+     */
+    public abstract void removeEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture);
+
+    /**
+     * Registers an event handler of a specific event type on the EventTarget.
+     */
+    public abstract void addLoadEventListener(EventTarget eventTarget, EventListener<?> eventLsnr);
+
+    /**
+     * Returns whether current thread is event thread.
+     */
+    public abstract boolean isEventThread();
+
+    /**
+     * Starts a new event thread.
+     */
+    public abstract void startNewEventThreadAndWait();
+
+    /**
+     * Stops a new event thread (after delay so this thread can finish).
+     */
+    public abstract void stopEventThreadAndNotify();
+
+    /**
+     * Sets a promise.then() function.
+     */
+    public abstract <T,V> Promise<V> setPromiseThen(Promise<T> aPromise, Function<? super T, ? extends V> aFunc);
 }

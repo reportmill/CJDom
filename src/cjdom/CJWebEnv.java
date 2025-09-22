@@ -1,6 +1,7 @@
 package cjdom;
 import netscape.javascript.JSObject;
 import java.util.function.DoubleConsumer;
+import java.util.function.Function;
 
 /**
  * The web environment for CheerpJ.
@@ -292,6 +293,57 @@ public class CJWebEnv extends WebEnv<JSObject> {
      */
     @Override
     public void writeClipboardItemsJS(Object clipboardItemsJS)  { writeClipboardItemsImpl((JSObject) clipboardItemsJS); }
+
+    /**
+     * Registers an event handler of a specific event type on the EventTarget.
+     */
+    @Override
+    public void addEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
+    {
+        EventQueue.addEventListener(eventTarget, aName, eventLsnr, useCapture);
+    }
+
+    /**
+     * Removes an event handler of a specific event type from the EventTarget.
+     */
+    @Override
+    public void removeEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
+    {
+        EventQueue.removeEventListener(eventTarget, aName, eventLsnr, useCapture);
+    }
+
+    /**
+     * Registers an event handler of a specific event type on the EventTarget.
+     */
+    @Override
+    public void addLoadEventListener(EventTarget eventTarget, EventListener<?> eventLsnr)
+    {
+        LoadEventQueue.addLoadEventListener(eventTarget, eventLsnr);
+    }
+
+    /**
+     * Returns whether current thread is event thread.
+     */
+    @Override
+    public boolean isEventThread()  { return EventQueue.isEventThread(); }
+
+    /**
+     * Starts a new event thread.
+     */
+    public void startNewEventThreadAndWait()  { EventQueue.getShared().startNewEventThreadAndWait(); }
+
+    /**
+     * Stops a new event thread (after delay so this thread can finish).
+     */
+    public void stopEventThreadAndNotify()  { EventQueue.getShared().stopEventThreadAndNotify(); }
+
+    /**
+     * Sets a promise.then() function.
+     */
+    public <T,V> Promise<V> setPromiseThen(Promise<T> aPromise, Function<? super T, ? extends V> aFunc)
+    {
+        return EventQueue.setPromiseThen(aPromise, aFunc);
+    }
 
     /**
      * CJWebEnv method: getMemberImpl()

@@ -16,7 +16,7 @@ public class Promise<T> extends JSProxy {
 
     public <V> Promise<V> then(Function<? super T, ? extends V> onFulfilled)
     {
-        return EventQueue.setPromiseThen(this, onFulfilled);
+        return WebEnv.get().setPromiseThen(this, onFulfilled);
     }
 
     public void catch_(Function<?,?> onRejected)

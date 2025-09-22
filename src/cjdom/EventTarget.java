@@ -18,15 +18,7 @@ public interface EventTarget {
      */
     default void addEventListener(String aName, EventListener<?> eventLsnr, boolean useCapture)
     {
-        EventQueue.addEventListener(this, aName, eventLsnr, useCapture);
-    }
-
-    /**
-     * Registers an event handler of a specific event type on the EventTarget.
-     */
-    default void addLoadEventListener(EventListener<?> eventLsnr)
-    {
-        LoadEventQueue.addLoadEventListener(this, eventLsnr);
+        WebEnv.get().addEventListener(this, aName, eventLsnr, useCapture);
     }
 
     /**
@@ -42,6 +34,14 @@ public interface EventTarget {
      */
     default void removeEventListener(String aName, EventListener<?> eventLsnr, boolean useCapture)
     {
-        EventQueue.removeEventListener(this, aName, eventLsnr, useCapture);
+        WebEnv.get().removeEventListener(this, aName, eventLsnr, useCapture);
+    }
+
+    /**
+     * Registers an event handler of a specific event type on the EventTarget.
+     */
+    default void addLoadEventListener(EventListener<?> eventLsnr)
+    {
+        WebEnv.get().addLoadEventListener(this, eventLsnr);
     }
 }
