@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API ClipboardItem (https://developer.mozilla.org/en-US/docs/Web/API/ClipboardItem).
@@ -17,10 +16,9 @@ public class ClipboardItem extends JSProxy {
     /**
      * Constructor.
      */
-    public ClipboardItem(String aType, String aValue)
+    public ClipboardItem(String mimeType, String dataString)
     {
-        super(null);
-        _jsObj = newClipboardItemForTypeAndString(aType, aValue);
+        super(WebEnv.get().newClipboardItemForMimeTypeAndDataString(mimeType, dataString));
     }
 
     /**
@@ -28,8 +26,7 @@ public class ClipboardItem extends JSProxy {
      */
     public ClipboardItem(Blob aBlob)
     {
-        super(null);
-        _jsObj = newClipboardItemForBlob(aBlob._jsObj);
+        super(WebEnv.get().newClipboardItemForBlobJS(aBlob.getJS()));
     }
 
     /**
@@ -51,14 +48,4 @@ public class ClipboardItem extends JSProxy {
         Object blobJS = WebEnv.get().awaitForPromise(promiseJS);
         return new Blob(blobJS);
     }
-
-    /**
-     * ClipboardItem: newClipboardItemForTypeAndString()
-     */
-    private static native JSObject newClipboardItemForTypeAndString(String aType, String aString);
-
-    /**
-     * ClipboardItem: newClipboardItemForBlob()
-     */
-    private static native JSObject newClipboardItemForBlob(JSObject blobJS);
 }

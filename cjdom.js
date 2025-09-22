@@ -205,6 +205,25 @@ function Java_cjdom_CJWebEnv_addMutationObserverImpl(lib, mutationObserverJS, no
     mutationObserverJS.observe(nodeJS, optionsObj);
 }
 
+/**
+ * CJWebEnv: newClipboardItemForMimeTypeAndDataStringImpl()
+ */
+function Java_cjdom_CJWebEnv_newClipboardItemForMimeTypeAndDataStringImpl(lib, type, string)
+{
+    var blob = new Blob([ string ], { type });
+    var entry = { [blob.type]: blob };
+    return new ClipboardItem(entry);
+}
+
+/**
+ * CJWebEnv: newClipboardItemForBlobImpl()
+ */
+function Java_cjdom_CJWebEnv_newClipboardItemForBlobImpl(lib, blob)
+{
+    var entry = { [blob.type]: blob };
+    return new ClipboardItem(entry);
+}
+
 // Clipboard.read() ClipboardItems - read upon meta+v key press, write() upon meta-c
 var clipboardReadItems;
 var clipboardWriteItems;
@@ -277,25 +296,6 @@ async function eagerClipboardRead()
 
     // Can happen on Safari iOS with localhost
     catch (e) { console.log("eagerClipboardRead:" + e); }
-}
-
-/**
- * ClipboardItem: newClipboardItemForTypeAndString()
- */
-function Java_cjdom_ClipboardItem_newClipboardItemForTypeAndString(lib, type, string)
-{
-    var blob = new Blob([ string ], { type });
-    var entry = { [blob.type]: blob };
-    return new ClipboardItem(entry);
-}
-
-/**
- * ClipboardItem: newClipboardItemForBlob()
- */
-function Java_cjdom_ClipboardItem_newClipboardItemForBlob(lib, blob)
-{
-    var entry = { [blob.type]: blob };
-    return new ClipboardItem(entry);
 }
 
 /**
@@ -974,19 +974,17 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_newFileReaderJSImpl,
     Java_cjdom_CJWebEnv_newMutationObserverImpl,
     Java_cjdom_CJWebEnv_addMutationObserverImpl,
+    Java_cjdom_CJWebEnv_newClipboardItemForMimeTypeAndDataStringImpl,
+    Java_cjdom_CJWebEnv_newClipboardItemForBlobImpl,
 
     Java_cjdom_Clipboard_readClipboardItemsImpl,
     Java_cjdom_Clipboard_writeClipboardItemsImpl,
 
+    Java_cjdom_DataTransfer_newDataTransfer,
     Java_cjdom_DataTransfer_getDropDataTransferImpl,
     Java_cjdom_DataTransfer_getDropDataTransferTypesImpl,
     Java_cjdom_DataTransfer_getDropDataTransferFilesImpl,
     Java_cjdom_DataTransfer_startDragImpl,
-
-    Java_cjdom_ClipboardItem_newClipboardItemForTypeAndString,
-    Java_cjdom_ClipboardItem_newClipboardItemForBlob,
-
-    Java_cjdom_DataTransfer_newDataTransfer,
 
     Java_cjdom_EventQueue_getNextEvent,
     Java_cjdom_EventQueue_requestAnimationFrameImpl,

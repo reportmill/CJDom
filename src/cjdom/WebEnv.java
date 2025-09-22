@@ -212,4 +212,14 @@ public abstract class WebEnv<T> {
      * Registers a mutation observer to observe given node for given mutations types object.
      */
     public abstract void addMutationObserver(MutationObserver mutationObserver, Node aNode, Object optionsObjJS);
+
+    /**
+     * Returns a new ClipboardItem for given mime type and data string.
+     */
+    public abstract Object newClipboardItemForMimeTypeAndDataString(String mimeType, String dataString);
+
+    /**
+     * Returns a new ClipboardItem for given Blob JS.
+     */
+    public abstract Object newClipboardItemForBlobJS(Object blobJS);
 }

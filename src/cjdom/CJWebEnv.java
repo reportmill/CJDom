@@ -262,6 +262,19 @@ public class CJWebEnv extends WebEnv<JSObject> {
     }
 
     /**
+     * Returns a new ClipboardItem for given mime type and data string.
+     */
+    public Object newClipboardItemForMimeTypeAndDataString(String mimeType, String dataString)
+    {
+        return newClipboardItemForMimeTypeAndDataStringImpl(mimeType, dataString);
+    }
+
+    /**
+     * Returns a new ClipboardItem for given Blob JS.
+     */
+    public Object newClipboardItemForBlobJS(Object blobJS)  { return newClipboardItemForBlobImpl((JSObject) blobJS); }
+
+    /**
      * CJWebEnv method: getMemberImpl()
      */
     private static native JSObject getMemberImpl(JSObject jsObj, String aName);
@@ -425,4 +438,14 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * CJWebEnv: addMutationObserverImpl().
      */
     private static native void addMutationObserverImpl(JSObject mutationObserverJS, JSObject nodeJS, MutationObserver.Callback callback, JSObject optionsObj);
+
+    /**
+     * CJWebEnv: newClipboardItemForMimeTypeAndDataStringImpl()
+     */
+    private static native JSObject newClipboardItemForMimeTypeAndDataStringImpl(String mimeType, String dataString);
+
+    /**
+     * CJWebEnv: newClipboardItemForBlobImpl()
+     */
+    private static native JSObject newClipboardItemForBlobImpl(JSObject blobJS);
 }
