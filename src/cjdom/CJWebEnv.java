@@ -248,6 +248,20 @@ public class CJWebEnv extends WebEnv<JSObject> {
     public JSObject newFileReaderJS()  { return newFileReaderJSImpl(); }
 
     /**
+     * Returns a new MutationObserver.
+     */
+    public JSObject newMutationObserver(MutationObserver.Callback aCallback)  { return newMutationObserverImpl(aCallback); }
+
+    /**
+     * Registers a mutation observer to observe given node for given mutations types object.
+     */
+    public void addMutationObserver(MutationObserver mutationObserver, Node aNode, Object optionsObjJS)
+    {
+        MutationObserver.Callback callback = mutationObserver.getCallback();
+        addMutationObserverImpl((JSObject) mutationObserver.getJS(), (JSObject) aNode.getJS(), callback, (JSObject) optionsObjJS);
+    }
+
+    /**
      * CJWebEnv method: getMemberImpl()
      */
     private static native JSObject getMemberImpl(JSObject jsObj, String aName);
@@ -401,4 +415,14 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * CJWebEnv: newFileReaderJSImpl().
      */
     private static native JSObject newFileReaderJSImpl();
+
+    /**
+     * CJWebEnv: newMutationObserverImpl().
+     */
+    private static native JSObject newMutationObserverImpl(MutationObserver.Callback aCallback);
+
+    /**
+     * CJWebEnv: addMutationObserverImpl().
+     */
+    private static native void addMutationObserverImpl(JSObject mutationObserverJS, JSObject nodeJS, MutationObserver.Callback callback, JSObject optionsObj);
 }

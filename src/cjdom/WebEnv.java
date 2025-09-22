@@ -202,4 +202,14 @@ public abstract class WebEnv<T> {
      * Returns a new FileReader.
      */
     public abstract T newFileReaderJS();
+
+    /**
+     * Returns a new MutationObserver.
+     */
+    public abstract T newMutationObserver(MutationObserver.Callback aCallback);
+
+    /**
+     * Registers a mutation observer to observe given node for given mutations types object.
+     */
+    public abstract void addMutationObserver(MutationObserver mutationObserver, Node aNode, Object optionsObjJS);
 }

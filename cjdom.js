@@ -189,6 +189,22 @@ function Java_cjdom_CJWebEnv_newFileJSForNameAndTypeAndBytesImpl(lib, name, type
  */
 function Java_cjdom_CJWebEnv_newFileReaderJSImpl(lib)  { return new FileReader(); }
 
+/**
+ * CJWebEnv: newMutationObserverImpl().
+ */
+function Java_cjdom_CJWebEnv_newMutationObserverImpl(lib, aCallback)
+{
+    return new MutationObserver((mutationRecords, observer) => mutationObserved(aCallback, mutationRecords));
+}
+
+/**
+ * CJWebEnv: addMutationObserverImpl().
+ */
+function Java_cjdom_CJWebEnv_addMutationObserverImpl(lib, mutationObserverJS, nodeJS, callback, optionsObj)
+{
+    mutationObserverJS.observe(nodeJS, optionsObj);
+}
+
 // Clipboard.read() ClipboardItems - read upon meta+v key press, write() upon meta-c
 var clipboardReadItems;
 var clipboardWriteItems;
@@ -525,14 +541,6 @@ function Java_cjdom_EventQueue_removeEventListenerImpl(lib, eventTarget, aName, 
 }
 
 /**
- * EventQueue: addMutationObserverImpl().
- */
-function Java_cjdom_EventQueue_addMutationObserverImpl(lib, mutationObserverJS, nodeJS, callback, optionsObj)
-{
-    mutationObserverJS.observe(nodeJS, optionsObj);
-}
-
-/**
  * Called when mutation observed. Have to wrap mutation records, since event array is returned as Object[] and JNI doesn't know
  * whether to convert the array to JSObject or Object[].
  */
@@ -548,14 +556,6 @@ function Java_cjdom_EventQueue_setPromiseThenImpl(lib, promiseWrapper, aFunc)
 {
     let promise = promiseWrapper[0]; // Could pass a mutex in to supported chained promises with a fireEventAndWait() method
     return [ promise.then(value => fireEvent("promise", aFunc, value, null)) ];
-}
-
-/**
- * MutationObserver: newMutationObserverImpl().
- */
-function Java_cjdom_MutationObserver_newMutationObserverImpl(lib, aCallback)
-{
-    return new MutationObserver((mutationRecords, observer) => mutationObserved(aCallback, mutationRecords));
 }
 
 // This wrapped promise is used to trigger getNextEvent
@@ -972,6 +972,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_createUrlForBlobJSImpl,
     Java_cjdom_CJWebEnv_newFileJSForNameAndTypeAndBytesImpl,
     Java_cjdom_CJWebEnv_newFileReaderJSImpl,
+    Java_cjdom_CJWebEnv_newMutationObserverImpl,
+    Java_cjdom_CJWebEnv_addMutationObserverImpl,
 
     Java_cjdom_Clipboard_readClipboardItemsImpl,
     Java_cjdom_Clipboard_writeClipboardItemsImpl,
@@ -990,12 +992,7 @@ let cjdomNativeMethods = {
     Java_cjdom_EventQueue_requestAnimationFrameImpl,
     Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl,
     Java_cjdom_EventQueue_addEventListenerImpl, Java_cjdom_EventQueue_removeEventListenerImpl,
-
-    Java_cjdom_EventQueue_addMutationObserverImpl,
-
     Java_cjdom_EventQueue_setPromiseThenImpl,
-
-    Java_cjdom_MutationObserver_newMutationObserverImpl,
 
     Java_cjdom_LoadEventQueue_getNextEvent,
     Java_cjdom_LoadEventQueue_addLoadEventListenerImpl,

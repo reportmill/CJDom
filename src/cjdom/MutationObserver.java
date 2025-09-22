@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * This class is a wrapper for Web API MutationObserver (https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
@@ -17,8 +16,7 @@ public class MutationObserver extends JSProxy {
      */
     public MutationObserver(Callback aCallback)
     {
-        super();
-        _jsObj = newMutationObserverImpl(aCallback);
+        super(WebEnv.get().newMutationObserver(aCallback));
         _callback = aCallback;
     }
 
@@ -33,11 +31,11 @@ public class MutationObserver extends JSProxy {
     public void observe(Node targetNode, Option... theOptions)
     {
         // Convert options to dictionary object
-        JSObject optionsJS = (JSObject) WebEnv.get().newObject();
+        Object optionsJS = WebEnv.get().newObject();
         for (Option option : theOptions)
             WebEnv.get().setMemberBoolean(optionsJS, option.name(), true);
 
-        EventQueue.addMutationObserver(this, targetNode, optionsJS);
+        WebEnv.get().addMutationObserver(this, targetNode, optionsJS);
     }
 
     /**
@@ -56,9 +54,4 @@ public class MutationObserver extends JSProxy {
         // Called when mutation is observed
         void handleMutations(MutationRecord[] mutationRecords);
     }
-
-    /**
-     * MutationObserver: newMutationObserverImpl().
-     */
-    protected static native JSObject newMutationObserverImpl(Callback aCallback);
 }
