@@ -214,6 +214,7 @@ public class CJWebEnv extends WebEnv<JSObject> {
     /**
      * Returns new ImageData for given short array of RGBA color components and width and height.
      */
+    @Override
     public JSObject newImageDataJSForRgbaArrayAndWidthAndHeight(Object arrayObject, int aWidth, int aHeight)
     {
         return newImageDataJSForRgbaArrayAndWidthAndHeightImpl(arrayObject, aWidth, aHeight);
@@ -237,6 +238,7 @@ public class CJWebEnv extends WebEnv<JSObject> {
     /**
      * Returns a new File for given name, type and bytes .
      */
+    @Override
     public JSObject newFileJSForNameAndTypeAndBytes(String aName, String aType, byte[] byteArray)
     {
         return newFileJSForNameAndTypeAndBytesImpl(aName, aType, byteArray);
@@ -245,16 +247,19 @@ public class CJWebEnv extends WebEnv<JSObject> {
     /**
      * Returns a new FileReader.
      */
+    @Override
     public JSObject newFileReaderJS()  { return newFileReaderJSImpl(); }
 
     /**
      * Returns a new MutationObserver.
      */
+    @Override
     public JSObject newMutationObserver(MutationObserver.Callback aCallback)  { return newMutationObserverImpl(aCallback); }
 
     /**
      * Registers a mutation observer to observe given node for given mutations types object.
      */
+    @Override
     public void addMutationObserver(MutationObserver mutationObserver, Node aNode, Object optionsObjJS)
     {
         MutationObserver.Callback callback = mutationObserver.getCallback();
@@ -264,6 +269,7 @@ public class CJWebEnv extends WebEnv<JSObject> {
     /**
      * Returns a new ClipboardItem for given mime type and data string.
      */
+    @Override
     public Object newClipboardItemForMimeTypeAndDataString(String mimeType, String dataString)
     {
         return newClipboardItemForMimeTypeAndDataStringImpl(mimeType, dataString);
@@ -272,7 +278,20 @@ public class CJWebEnv extends WebEnv<JSObject> {
     /**
      * Returns a new ClipboardItem for given Blob JS.
      */
+    @Override
     public Object newClipboardItemForBlobJS(Object blobJS)  { return newClipboardItemForBlobImpl((JSObject) blobJS); }
+
+    /**
+     * Returns an array of ClipboardItem JavaScript objects from clipboard.
+     */
+    @Override
+    public Object[] readClipboardItemsJS()  { return readClipboardItemsImpl(); }
+
+    /**
+     * Writes a given JavaScript array of ClipboardItem JavaScript objects to clipboard.
+     */
+    @Override
+    public void writeClipboardItemsJS(Object clipboardItemsJS)  { writeClipboardItemsImpl((JSObject) clipboardItemsJS); }
 
     /**
      * CJWebEnv method: getMemberImpl()
@@ -448,4 +467,14 @@ public class CJWebEnv extends WebEnv<JSObject> {
      * CJWebEnv: newClipboardItemForBlobImpl()
      */
     private static native JSObject newClipboardItemForBlobImpl(JSObject blobJS);
+
+    /**
+     * CJWebEnv: readClipboardItemsImpl()
+     */
+    private static native Object[] readClipboardItemsImpl();
+
+    /**
+     * CJWebEnv: writeClipboardItemsImpl()
+     */
+    private static native void writeClipboardItemsImpl(JSObject clipboardItemsJS);
 }

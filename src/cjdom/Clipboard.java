@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 import java.util.stream.Stream;
 
 /**
@@ -20,7 +19,7 @@ public class Clipboard extends JSProxy {
      */
     public static ClipboardItem[] readClipboardItems()
     {
-        Object[] clipboardItemsJS = readClipboardItemsImpl();
+        Object[] clipboardItemsJS = WebEnv.get().readClipboardItemsJS();
         return Stream.of(clipboardItemsJS).map(item -> new ClipboardItem(item)).toArray(size -> new ClipboardItem[size]);
     }
 
@@ -30,16 +29,6 @@ public class Clipboard extends JSProxy {
     public static void writeClipboardItems(ClipboardItem[] clipboardItems)
     {
         Array<ClipboardItem> clipboardItemsArray = new Array<>(clipboardItems);
-        writeClipboardItemsImpl((JSObject) clipboardItemsArray._jsObj);
+        WebEnv.get().writeClipboardItemsJS(clipboardItemsArray._jsObj);
     }
-
-    /**
-     * Clipboard: readClipboardItemsImpl()
-     */
-    private static native Object[] readClipboardItemsImpl();
-
-    /**
-     * Clipboard: writeClipboardItemsImpl()
-     */
-    public static native void writeClipboardItemsImpl(JSObject clipboardItemsJS);
 }

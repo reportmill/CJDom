@@ -222,4 +222,14 @@ public abstract class WebEnv<T> {
      * Returns a new ClipboardItem for given Blob JS.
      */
     public abstract Object newClipboardItemForBlobJS(Object blobJS);
+
+    /**
+     * Returns an array of ClipboardItem JavaScript objects from clipboard.
+     */
+    public abstract Object[] readClipboardItemsJS();
+
+    /**
+     * Writes a given JavaScript array of ClipboardItem JavaScript objects to clipboard.
+     */
+    public abstract void writeClipboardItemsJS(Object clipboardItemsJS);
 }

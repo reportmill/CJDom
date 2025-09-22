@@ -229,9 +229,9 @@ var clipboardReadItems;
 var clipboardWriteItems;
 
 /**
- * Clipboard: readClipboardItemsImpl()
+ * CJWebEnv: readClipboardItemsImpl()
  */
-async function Java_cjdom_Clipboard_readClipboardItemsImpl(lib)
+async function Java_cjdom_CJWebEnv_readClipboardItemsImpl(lib)
 {
     // If clipboardReadItems set, clear and return
     if (clipboardReadItems != null) {
@@ -252,9 +252,9 @@ async function Java_cjdom_Clipboard_readClipboardItemsImpl(lib)
 }
 
 /**
- * Clipboard: writeClipboardItemsImpl().
+ * CJWebEnv: writeClipboardItemsImpl().
  */
-async function Java_cjdom_Clipboard_writeClipboardItemsImpl(lib, clipboardItems)
+async function Java_cjdom_CJWebEnv_writeClipboardItemsImpl(lib, clipboardItems)
 {
     // Will fail on Safari because this is not directly triggered from user event
     try {
@@ -976,9 +976,8 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_addMutationObserverImpl,
     Java_cjdom_CJWebEnv_newClipboardItemForMimeTypeAndDataStringImpl,
     Java_cjdom_CJWebEnv_newClipboardItemForBlobImpl,
-
-    Java_cjdom_Clipboard_readClipboardItemsImpl,
-    Java_cjdom_Clipboard_writeClipboardItemsImpl,
+    Java_cjdom_CJWebEnv_readClipboardItemsImpl,
+    Java_cjdom_CJWebEnv_writeClipboardItemsImpl,
 
     Java_cjdom_DataTransfer_newDataTransfer,
     Java_cjdom_DataTransfer_getDropDataTransferImpl,
