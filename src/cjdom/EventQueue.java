@@ -271,9 +271,9 @@ public class EventQueue {
      */
     public static void addEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
     {
-        JSProxy jsobj = (JSProxy) eventTarget;
+        JSProxy jsproxy = (JSProxy) eventTarget;
         int lsnrId = System.identityHashCode(eventLsnr);
-        addEventListenerImpl(jsobj._jsObj, aName, eventLsnr, lsnrId, useCapture);
+        addEventListenerImpl((JSObject) jsproxy._jsObj, aName, eventLsnr, lsnrId, useCapture);
     }
 
     /**
@@ -281,9 +281,9 @@ public class EventQueue {
      */
     public static void removeEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
     {
-        JSProxy jsobj = (JSProxy) eventTarget;
+        JSProxy jsproxy = (JSProxy) eventTarget;
         int lsnrId = System.identityHashCode(eventLsnr);
-        removeEventListenerImpl(jsobj._jsObj, aName, eventLsnr, lsnrId, useCapture);
+        removeEventListenerImpl((JSObject) jsproxy._jsObj, aName, eventLsnr, lsnrId, useCapture);
     }
 
     /**
@@ -291,8 +291,8 @@ public class EventQueue {
      */
     public static <T,V> Promise<V> setPromiseThen(Promise<T> aPromise, Function<? super T, ? extends V> aFunc)
     {
-        JSObject promiseJS = aPromise._jsObj;
-        Object thenPromiseJS = setPromiseThenImpl(promiseJS, aFunc);
+        Object promiseJS = aPromise._jsObj;
+        Object thenPromiseJS = setPromiseThenImpl((JSObject) promiseJS, aFunc);
         return new Promise<>(thenPromiseJS);
     }
 

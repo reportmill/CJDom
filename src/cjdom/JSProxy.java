@@ -1,5 +1,4 @@
 package cjdom;
-import netscape.javascript.JSObject;
 
 /**
  * Base class for objects that wrap JavaScript objects.
@@ -7,7 +6,7 @@ import netscape.javascript.JSObject;
 public class JSProxy {
 
     // The JavaScript Blob object
-    protected JSObject _jsObj;
+    protected Object _jsObj;
 
     /**
      * Constructor.
@@ -23,7 +22,7 @@ public class JSProxy {
     public JSProxy(Object jsObj)
     {
         super();
-        _jsObj = (JSObject) jsObj;
+        _jsObj = jsObj;
     }
 
     /**

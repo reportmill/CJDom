@@ -30,7 +30,7 @@ public class Clipboard extends JSProxy {
     public static void writeClipboardItems(ClipboardItem[] clipboardItems)
     {
         Array<ClipboardItem> clipboardItemsArray = new Array<>(clipboardItems);
-        writeClipboardItemsImpl(clipboardItemsArray._jsObj);
+        writeClipboardItemsImpl((JSObject) clipboardItemsArray._jsObj);
     }
 
     /**

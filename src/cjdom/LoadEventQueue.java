@@ -45,8 +45,8 @@ public class LoadEventQueue {
      */
     public static void addLoadEventListener(EventTarget eventTarget, EventListener<?> eventLsnr)
     {
-        JSProxy jsobj = (JSProxy) eventTarget;
-        addLoadEventListenerImpl(jsobj._jsObj, eventLsnr);
+        JSProxy jsproxy = (JSProxy) eventTarget;
+        addLoadEventListenerImpl((JSObject) jsproxy._jsObj, eventLsnr);
     }
 
     /**
