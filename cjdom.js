@@ -299,9 +299,9 @@ async function eagerClipboardRead()
 }
 
 /**
- * DataTransfer: newDataTransfer().
+ * CJDataTransfer: newDataTransfer().
  */
-function Java_cjdom_DataTransfer_newDataTransfer(lib)  { return new DataTransfer(); }
+function Java_cjdom_CJDataTransfer_newDataTransfer(lib)  { return new DataTransfer(); }
 
 // Cached drag drop data
 var _dragDataTransferTypes;
@@ -309,19 +309,19 @@ var _dropDataTransfer;
 var _dropDataTransferFiles
 
 /**
- * DataTransfer: getDropDataTransferImpl().
+ * CJDataTransfer: getDropDataTransferImpl().
  */
-function Java_cjdom_DataTransfer_getDropDataTransferImpl(lib)  { return _dropDataTransfer; }
+function Java_cjdom_CJDataTransfer_getDropDataTransferImpl(lib)  { return _dropDataTransfer; }
 
 /**
- * DataTransfer: getDropDataTransferTypesImpl().
+ * CJDataTransfer: getDropDataTransferTypesImpl().
  */
-function Java_cjdom_DataTransfer_getDropDataTransferTypesImpl(lib)  { return _dragDataTransferTypes; }
+function Java_cjdom_CJDataTransfer_getDropDataTransferTypesImpl(lib)  { return _dragDataTransferTypes; }
 
 /**
- * DataTransfer: getDropDataTransferFilesImpl().
+ * CJDataTransfer: getDropDataTransferFilesImpl().
  */
-function Java_cjdom_DataTransfer_getDropDataTransferFilesImpl(lib)  { return _dropDataTransferFiles; }
+function Java_cjdom_CJDataTransfer_getDropDataTransferFilesImpl(lib)  { return _dropDataTransferFiles; }
 
 // Drag gesture data transfer
 var _dragGestureDataTransfer = null;
@@ -330,9 +330,9 @@ var _dragGestureDragImageX;
 var _dragGestureDragImageY;
 
 /**
- * DataTransfer: startDragImpl().
+ * CJDataTransfer: startDragImpl().
  */
-function Java_cjdom_DataTransfer_startDragImpl(lib, dataTransfer, dragImage, dx, dy)
+function Java_cjdom_CJDataTransfer_startDragImpl(lib, dataTransfer, dragImage, dx, dy)
 {
     _dragGestureDataTransfer = dataTransfer;
     _dragGestureDragImage = dragImage;
@@ -979,18 +979,17 @@ let cjdomNativeMethods = {
     Java_cjdom_CJWebEnv_readClipboardItemsImpl,
     Java_cjdom_CJWebEnv_writeClipboardItemsImpl,
 
-    Java_cjdom_DataTransfer_newDataTransfer,
-    Java_cjdom_DataTransfer_getDropDataTransferImpl,
-    Java_cjdom_DataTransfer_getDropDataTransferTypesImpl,
-    Java_cjdom_DataTransfer_getDropDataTransferFilesImpl,
-    Java_cjdom_DataTransfer_startDragImpl,
+    Java_cjdom_CJDataTransfer_newDataTransfer,
+    Java_cjdom_CJDataTransfer_getDropDataTransferImpl,
+    Java_cjdom_CJDataTransfer_getDropDataTransferTypesImpl,
+    Java_cjdom_CJDataTransfer_getDropDataTransferFilesImpl,
+    Java_cjdom_CJDataTransfer_startDragImpl,
 
     Java_cjdom_EventQueue_getNextEvent,
     Java_cjdom_EventQueue_requestAnimationFrameImpl,
     Java_cjdom_EventQueue_setTimeoutImpl, Java_cjdom_EventQueue_setIntervalImpl,
     Java_cjdom_EventQueue_addEventListenerImpl, Java_cjdom_EventQueue_removeEventListenerImpl,
     Java_cjdom_EventQueue_setPromiseThenImpl,
-
     Java_cjdom_LoadEventQueue_getNextEvent,
     Java_cjdom_LoadEventQueue_addLoadEventListenerImpl,
 

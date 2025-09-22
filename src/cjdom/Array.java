@@ -1,4 +1,6 @@
 package cjdom;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is a wrapper for Web API Array (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
@@ -42,6 +44,18 @@ public class Array<E> extends JSProxy {
         if (aValue instanceof JSProxy)
             value = ((JSProxy) aValue)._jsObj;
         setSlot(index, value);
+    }
+
+    /**
+     * Returns a list for this array.
+     */
+    public List<E> toList()
+    {
+        int length = getLength();
+        List<E> list = new ArrayList<>(length);
+        for (int i = 0; i < length; i++)
+            list.add(get(i));
+        return list;
     }
 
     /**

@@ -330,20 +330,35 @@ public class CJWebEnv extends WebEnv<JSObject> {
     /**
      * Starts a new event thread.
      */
+    @Override
     public void startNewEventThreadAndWait()  { EventQueue.getShared().startNewEventThreadAndWait(); }
 
     /**
      * Stops a new event thread (after delay so this thread can finish).
      */
+    @Override
     public void stopEventThreadAndNotify()  { EventQueue.getShared().stopEventThreadAndNotify(); }
 
     /**
      * Sets a promise.then() function.
      */
+    @Override
     public <T,V> Promise<V> setPromiseThen(Promise<T> aPromise, Function<? super T, ? extends V> aFunc)
     {
         return EventQueue.setPromiseThen(aPromise, aFunc);
     }
+
+    /**
+     * Returns a new DataTransfer for given DataTransfer JavaScript object.
+     */
+    @Override
+    public DataTransfer newDataTransferForDataTransferJS(JSObject jsObj)  { return new CJDataTransfer(jsObj); }
+
+    /**
+     * Returns the DataTransfer from last drop.
+     */
+    @Override
+    public DataTransfer getDropDataTransfer()  { return CJDataTransfer.getDropDataTransfer(); }
 
     /**
      * CJWebEnv method: getMemberImpl()

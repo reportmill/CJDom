@@ -268,4 +268,19 @@ public abstract class WebEnv<T> {
      * Sets a promise.then() function.
      */
     public abstract <T,V> Promise<V> setPromiseThen(Promise<T> aPromise, Function<? super T, ? extends V> aFunc);
+
+    /**
+     * Returns a new DataTransfer for given DataTransfer JavaScript object.
+     */
+    public DataTransfer newDataTransfer()  { return newDataTransferForDataTransferJS(null); }
+
+    /**
+     * Returns a new DataTransfer for given DataTransfer JavaScript object.
+     */
+    public abstract DataTransfer newDataTransferForDataTransferJS(T jsObj);
+
+    /**
+     * Returns the DataTransfer from last drop.
+     */
+    public abstract DataTransfer getDropDataTransfer();
 }
