@@ -1,7 +1,6 @@
 package cjdom;
 import netscape.javascript.JSObject;
 import webapi.*;
-
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
 
@@ -15,6 +14,14 @@ public class CJWebEnv extends WebEnv<JSObject> {
 
     // The current Console
     private Console _console;
+
+    /**
+     * Constructor.
+     */
+    public CJWebEnv()
+    {
+        super();
+    }
 
     /**
      * Returns a named member of a JavaScript object.

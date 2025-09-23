@@ -12,7 +12,19 @@ public class DomTests {
     public static void main(String[] args)
     {
         Console.log("Hello World!");
-        testAll();
+        testAddHelloWorldDiv();
+    }
+
+    /**
+     * This test adds a hello world div to the document.
+     */
+    public static void testAddHelloWorldDiv()
+    {
+        HTMLDocument doc = HTMLDocument.getDocument();
+        HTMLDivElement div = (HTMLDivElement) doc.createElement("div");
+        div.setInnerText("Hello World Everyone!");
+        HTMLBodyElement body = HTMLBodyElement.getBody();
+        body.appendChild(div);
     }
 
     /**
