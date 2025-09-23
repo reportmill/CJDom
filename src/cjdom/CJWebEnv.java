@@ -1,5 +1,7 @@
 package cjdom;
 import netscape.javascript.JSObject;
+import webapi.*;
+
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
 

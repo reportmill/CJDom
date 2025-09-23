@@ -1,5 +1,9 @@
 package cjdom;
 import netscape.javascript.JSObject;
+import webapi.Event;
+import webapi.EventListener;
+import webapi.EventTarget;
+import webapi.JSProxy;
 
 /**
  * This class is meant to handle JavaScript load callbacks.
@@ -46,7 +50,7 @@ public class LoadEventQueue {
     public static void addLoadEventListener(EventTarget eventTarget, EventListener<?> eventLsnr)
     {
         JSProxy jsproxy = (JSProxy) eventTarget;
-        addLoadEventListenerImpl((JSObject) jsproxy._jsObj, eventLsnr);
+        addLoadEventListenerImpl((JSObject) jsproxy.getJS(), eventLsnr);
     }
 
     /**

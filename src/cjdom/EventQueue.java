@@ -1,5 +1,6 @@
 package cjdom;
 import netscape.javascript.JSObject;
+import webapi.*;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.function.DoubleConsumer;
@@ -273,7 +274,7 @@ public class EventQueue {
     {
         JSProxy jsproxy = (JSProxy) eventTarget;
         int lsnrId = System.identityHashCode(eventLsnr);
-        addEventListenerImpl((JSObject) jsproxy._jsObj, aName, eventLsnr, lsnrId, useCapture);
+        addEventListenerImpl((JSObject) jsproxy.getJS(), aName, eventLsnr, lsnrId, useCapture);
     }
 
     /**
@@ -283,7 +284,7 @@ public class EventQueue {
     {
         JSProxy jsproxy = (JSProxy) eventTarget;
         int lsnrId = System.identityHashCode(eventLsnr);
-        removeEventListenerImpl((JSObject) jsproxy._jsObj, aName, eventLsnr, lsnrId, useCapture);
+        removeEventListenerImpl((JSObject) jsproxy.getJS(), aName, eventLsnr, lsnrId, useCapture);
     }
 
     /**
@@ -291,7 +292,7 @@ public class EventQueue {
      */
     public static <T,V> Promise<V> setPromiseThen(Promise<T> aPromise, Function<? super T, ? extends V> aFunc)
     {
-        Object promiseJS = aPromise._jsObj;
+        Object promiseJS = aPromise.getJS();
         Object thenPromiseJS = setPromiseThenImpl((JSObject) promiseJS, aFunc);
         return new Promise<>(thenPromiseJS);
     }

@@ -1,5 +1,5 @@
 package cjdomtest;
-import cjdom.*;
+import webapi.*;
 
 /**
  * A simple app to bounce balls around page.

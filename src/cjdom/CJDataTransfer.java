@@ -1,5 +1,6 @@
 package cjdom;
 import netscape.javascript.JSObject;
+import webapi.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class CJDataTransfer extends DataTransfer {
     @Override
     public void startDrag(HTMLElement image, double dx, double dy)
     {
-        startDragImpl((JSObject) _jsObj, (JSObject) image._jsObj, dx, dy);
+        startDragImpl((JSObject) _jsObj, (JSObject) image.getJS(), dx, dy);
     }
 
     /**

@@ -1,5 +1,5 @@
 package cjdomtest;
-import cjdom.*;
+import webapi.*;
 
 /**
  * Some tests.

@@ -1,5 +1,6 @@
 package cjdom;
 import netscape.javascript.JSObject;
+import webapi.*;
 
 /**
  * This class is a wrapper for Web API CanvasRenderingContext2D (https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D).
@@ -55,7 +56,7 @@ public class CJCanvasRenderingContext2D extends CanvasRenderingContext2D {
      * CanvasRenderingContext2D: drawImage().
      */
     @Override
-    public void drawImage(CanvasImageSource anImage, double aX, double aY)  { drawImageImpl(_cntxJS, (JSObject) ((JSProxy) anImage)._jsObj, aX, aY); }
+    public void drawImage(CanvasImageSource anImage, double aX, double aY)  { drawImageImpl(_cntxJS, (JSObject) ((JSProxy) anImage).getJS(), aX, aY); }
 
     /**
      * CanvasRenderingContext2D: drawImage().
@@ -63,7 +64,7 @@ public class CJCanvasRenderingContext2D extends CanvasRenderingContext2D {
     @Override
     public void drawImage(CanvasImageSource anImage, double aX, double aY, double aW, double aH)
     {
-        drawImageImpl2(_cntxJS, (JSObject) ((JSProxy) anImage)._jsObj, aX, aY, aW, aH);
+        drawImageImpl2(_cntxJS, (JSObject) ((JSProxy) anImage).getJS(), aX, aY, aW, aH);
     }
 
     /**
@@ -72,7 +73,7 @@ public class CJCanvasRenderingContext2D extends CanvasRenderingContext2D {
     @Override
     public void drawImage(CanvasImageSource anImage, double srcX, double srcY, double srcW, double srcH, double destX, double destY, double destW, double destH)
     {
-        drawImageImpl3(_cntxJS, (JSObject) ((JSProxy) anImage)._jsObj, srcX, srcY, srcW, srcH, destX, destY, destW, destH);
+        drawImageImpl3(_cntxJS, (JSObject) ((JSProxy) anImage).getJS(), srcX, srcY, srcW, srcH, destX, destY, destW, destH);
     }
 
     /**
@@ -91,7 +92,7 @@ public class CJCanvasRenderingContext2D extends CanvasRenderingContext2D {
     @Override
     public void putImageData(ImageData imageData, double aX, double aY, double dirtyX, double dirtyY, double dirtyW, double dirtyH)
     {
-        putImageDataImpl(_cntxJS, (JSObject) imageData._jsObj, aX, aY, dirtyX, dirtyY, dirtyW, dirtyH);
+        putImageDataImpl(_cntxJS, (JSObject) imageData.getJS(), aX, aY, dirtyX, dirtyY, dirtyW, dirtyH);
     }
 
     /**
@@ -120,7 +121,7 @@ public class CJCanvasRenderingContext2D extends CanvasRenderingContext2D {
     @Override
     public CanvasPattern createPattern(CanvasImageSource image, String repetition)
     {
-        JSObject patternJS = createPatternImpl(_cntxJS, (JSObject) ((JSProxy) image)._jsObj, repetition);
+        JSObject patternJS = createPatternImpl(_cntxJS, (JSObject) ((JSProxy) image).getJS(), repetition);
         return new CanvasPattern(patternJS);
     }
 
