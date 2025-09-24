@@ -37,6 +37,9 @@ public class JxWebEnv extends WebEnv<JsObject> {
     // The current Window
     private Window _window;
 
+    // The current Window JavaScript object
+    private JsObject _windowJS;
+
     // The current Console
     private Console _console;
 
@@ -64,20 +67,17 @@ public class JxWebEnv extends WebEnv<JsObject> {
         _frame = _browser.mainFrame().get();
 
         // After load, call the function
-        JsObject window = _frame.executeJavaScript("window");
-        _window = new Window(window);
+        _windowJS = _frame.executeJavaScript("window");
+        _window = new Window(_windowJS);
         JsObject console = _frame.executeJavaScript("console");
         _console = new Console(console);
 
         SwingUtilities.invokeLater(() -> showFrame(_engine, _browser));
-
-//        String debugUrl = _browser.devTools().remoteDebuggingUrl().get();
-//        try { Desktop.getDesktop().browse(new URI(debugUrl)); }
-//        catch (Exception e) { e.printStackTrace(); }
-//        try { Thread.sleep(300_000); } // 5 minutes to play with DevTools
-//        catch (InterruptedException ignored) {}
     }
 
+    /**
+     * Shows the browser view in a new window.
+     */
     private void showFrame(Engine engine, Browser browser)
     {
         JFrame frame = new JFrame("JxBrowser Swing");
@@ -212,64 +212,51 @@ public class JxWebEnv extends WebEnv<JsObject> {
     /**
      * Returns the current window.
      */
-    public Window window()
-    {
-        if (_window != null) return _window;
-        return _window = null;
-    }
+    @Override
+    public Window window()  { return _window; }
 
     /**
      * Returns the current console.
      */
-    public Console console()
-    {
-        if (_console != null) return _console;
-        return _console = null;
-    }
+    @Override
+    public Console console()  { return _console; }
 
     /**
      * Does await promise for given promise.
      */
+    @Override
     public Object awaitForPromise(JsObject aPromise)  { return null; }
-
-    /**
-     * Wrapper method for Web API method.
-     */
-    public void open(String url, String target, String windowFeatures)
-    {
-        Window window = get().window();
-        window.call("open", url, target, windowFeatures);
-    }
 
     /**
      * Request animation frame.
      */
+    @Override
     public int requestAnimationFrame(DoubleConsumer callback)  { return 0; }
 
     /**
      * Schedules a runnable to execute after a delay of given milliseconds.
      */
+    @Override
     public void setTimeout(Runnable aRun, int aDelay)
     {
-        // Get window and function JavaScript objects
-        JsObject windowJS = (JsObject) get().window().getJS();
+        // Get function JavaScript object
         Object functionJS = getFunctionJSForRunnable(aRun);
 
         // Use setTimeout to call it
-        call(windowJS, "setTimeout", functionJS, aDelay);
+        call(_windowJS, "setTimeout", functionJS, aDelay);
     }
 
     /**
      * Schedules a runnable to execute every time a given number of milliseconds elapses.
      */
+    @Override
     public int setInterval(Runnable aRun, int aPeriod)
     {
-        // Get window and function JavaScript objects
-        JsObject windowJS = (JsObject) get().window().getJS();
+        // Get function JavaScript object
         Object functionJS = getFunctionJSForRunnable(aRun);
 
         // Call setInterval and return id
-        Number number = (Number) call(windowJS, "setInterval", functionJS, aPeriod);
+        Number number = (Number) call(_windowJS, "setInterval", functionJS, aPeriod);
         return number.intValue();
     }
 
@@ -278,8 +265,7 @@ public class JxWebEnv extends WebEnv<JsObject> {
      */
     private Object getFunctionJSForRunnable(Runnable aRun)
     {
-        JsObject windowJS = (JsObject) get().window().getJS();
-        windowJS.putProperty("javaRunnable", new JxRunnable(aRun));
+        _windowJS.putProperty("javaRunnable", new JxRunnable(aRun));
         return eval("window.javaRunnable.run");
     }
 
@@ -293,97 +279,114 @@ public class JxWebEnv extends WebEnv<JsObject> {
     /**
      * Returns an array of given length.
      */
+    @Override
     public JsObject newArrayJSForLength(int aLength)  { return null; }
 
     /**
      * Returns an array of bytes for given array buffer.
      */
+    @Override
     public byte[] getBytesArrayForArrayBufferJS(JsObject arrayBufferJS)  { return null;}
 
     /**
      * Returns an array of bytes for given typed array.
      */
+    @Override
     public byte[] getBytesArrayForTypedArrayJS(JsObject typedArrayJS)  { return null; }
 
     /**
      * Returns an array of shorts for given typed array.
      */
+    @Override
     public short[] getShortsArrayForTypedArrayJS(JsObject typedArrayJS)  { return null; }
 
     /**
      * Returns an array of shorts for given typed array.
      */
+    @Override
     public short[] getShortsArrayForChannelIndexAndCount(JsObject typedArrayJS, int channelIndex, int channelCount)  { return null; }
 
     /**
      * Returns a typed array of given class for given input.
      */
+    @Override
     public JsObject getTypedArrayJSForClassAndObject(Class<?> aClass, Object arrayObject)  { return null; }
 
     /**
      * Returns new ImageData for given short array of RGBA color components and width and height.
      */
+    @Override
     public JsObject newImageDataJSForRgbaArrayAndWidthAndHeight(Object arrayObject, int aWidth, int aHeight)  { return null; }
 
     /**
      * Returns a new Blob for given byte array and type.
      */
+    @Override
     public JsObject newBlobJSForBytesAndType(byte[] byteArray, String aType)  { return null; }
 
     /**
      * Creates a URL for given blob.
      */
+    @Override
     public String createUrlForBlobJS(JsObject blobJS)  { return null; }
 
     /**
      * Returns a new File for given name, type and bytes.
      */
+    @Override
     public JsObject newFileJSForNameAndTypeAndBytes(String aName, String aType, byte[] byteArray)  { return null; }
 
     /**
      * Returns a new FileReader.
      */
+    @Override
     public JsObject newFileReaderJS()  { return null; }
 
     /**
      * Returns a new MutationObserver.
      */
+    @Override
     public JsObject newMutationObserver(MutationObserver.Callback aCallback)  { return null; }
 
     /**
      * Registers a mutation observer to observe given node for given mutations types object.
      */
-    public void addMutationObserver(MutationObserver mutationObserver, Node aNode, Object optionsObjJS)  { return; }
+    @Override
+    public void addMutationObserver(MutationObserver mutationObserver, Node aNode, Object optionsObjJS)  { }
 
     /**
      * Returns a new ClipboardItem for given mime type and data string.
      */
+    @Override
     public Object newClipboardItemForMimeTypeAndDataString(String mimeType, String dataString)  { return null; }
 
     /**
      * Returns a new ClipboardItem for given Blob JS.
      */
+    @Override
     public Object newClipboardItemForBlobJS(Object blobJS)  { return null; }
 
     /**
      * Returns an array of ClipboardItem JavaScript objects from clipboard.
      */
+    @Override
     public Object[] readClipboardItemsJS()  { return null; }
 
     /**
      * Writes a given JavaScript array of ClipboardItem JavaScript objects to clipboard.
      */
+    @Override
     public void writeClipboardItemsJS(Object clipboardItemsJS)  { }
 
     /**
      * Registers an event handler of a specific event type on the EventTarget.
      */
+    @Override
     public void addEventListener(EventTarget eventTarget, String eventType, EventListener<?> eventLsnr, boolean useCapture)
     {
         // Get JavaScript function for event listener
-        JsObject windowJS = (JsObject) get().window().getJS();
-        windowJS.putProperty("javaEventLsnr", (JsFunctionCallback) args -> handleEventListenerEvent(eventLsnr, eventType, args[0]));
-        Object eventLsnrJS = windowJS.property("javaEventLsnr").get();
+        _windowJS.putProperty("javaEventLsnr", (JsFunctionCallback) args -> handleEventListenerEvent(eventLsnr, eventType, args[0]));
+        Object eventLsnrJS = _windowJS.property("javaEventLsnr").get();
 
         // Add to active event listeners
         String key = System.identityHashCode(eventTarget) + eventType + System.identityHashCode(eventLsnr);
@@ -417,6 +420,7 @@ public class JxWebEnv extends WebEnv<JsObject> {
     /**
      * Removes an event handler of a specific event type from the EventTarget.
      */
+    @Override
     public void removeEventListener(EventTarget eventTarget, String eventType, EventListener<?> eventLsnr, boolean useCapture)
     {
         String key = System.identityHashCode(eventTarget) + eventType + System.identityHashCode(eventLsnr);
@@ -430,40 +434,48 @@ public class JxWebEnv extends WebEnv<JsObject> {
     /**
      * Registers an event handler of a specific event type on the EventTarget.
      */
+    @Override
     public void addLoadEventListener(EventTarget eventTarget, EventListener<?> eventLsnr)  { }
 
     /**
      * Returns whether current thread is event thread.
      */
+    @Override
     public boolean isEventThread()  { return true; }
 
     /**
      * Starts a new event thread.
      */
+    @Override
     public void startNewEventThreadAndWait()  { }
 
     /**
      * Stops a new event thread (after delay so this thread can finish).
      */
+    @Override
     public void stopEventThreadAndNotify()  { }
 
     /**
      * Sets a promise.then() function.
      */
+    @Override
     public <T,V> Promise<V> setPromiseThen(Promise<T> aPromise, Function<? super T, ? extends V> aFunc)  { return null; }
 
     /**
      * Returns a new DataTransfer for given DataTransfer JavaScript object.
      */
+    @Override
     public DataTransfer newDataTransferForDataTransferJS(JsObject jsObj)  { return null; }
 
     /**
      * Returns the DataTransfer from last drop.
      */
+    @Override
     public DataTransfer getDropDataTransfer()  { return null; }
 
     /**
      * Returns the rendering context object for given type string and JavaScript object.
      */
+    @Override
     public Object getRenderingContext(String contextType, JsObject jsObj)  { return null; }
 }
