@@ -346,8 +346,8 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public CanvasGradient createLinearGradient(double x0, double y0, double x1, double y1)
     {
-        System.err.println("CanvasRenderingContext2D.createLinearGradient: not implemented yet");
-        return null;
+        Object gradientJS = call("createLinearGradient", x0, y0, x1, y1);
+        return new CanvasGradient(gradientJS);
     }
 
     /**
@@ -355,8 +355,8 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public CanvasGradient createRadialGradient(double x0, double y0, double r0, double x1, double y1, double r1)
     {
-        System.err.println("CanvasRenderingContext2D.createRadialGradient: not implemented yet");
-        return null;
+        Object gradientJS = call("createRadialGradient", x0, y0, r0, x1, y1, r1);
+        return new CanvasGradient(gradientJS);
     }
 
     /**
@@ -364,8 +364,9 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public CanvasPattern createPattern(CanvasImageSource image, String repetition)
     {
-        System.err.println("CanvasRenderingContext2D.createPattern: not implemented yet");
-        return null;
+        JSProxy imageProxy = (JSProxy) image;
+        Object patternJS = call("createPattern", imageProxy.getJS(), repetition);
+        return new CanvasPattern(patternJS);
     }
 
     /**
