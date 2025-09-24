@@ -1,13 +1,12 @@
 package jxbrowser;
 import com.teamdev.jxbrowser.browser.Browser;
-import com.teamdev.jxbrowser.dom.event.EventType;
 import com.teamdev.jxbrowser.engine.Engine;
 import com.teamdev.jxbrowser.engine.EngineOptions;
 import com.teamdev.jxbrowser.engine.RenderingMode;
-import com.teamdev.jxbrowser.event.Observer;
 import com.teamdev.jxbrowser.frame.Frame;
 import com.teamdev.jxbrowser.js.JsAccessible;
 import com.teamdev.jxbrowser.js.JsArray;
+import com.teamdev.jxbrowser.js.JsFunctionCallback;
 import com.teamdev.jxbrowser.view.swing.BrowserView;
 import webapi.*;
 import java.awt.event.WindowAdapter;
@@ -52,7 +51,7 @@ public class JxWebEnv extends WebEnv<JsObject> {
 
     private void init()
     {
-        System.setProperty("jxbrowser.license.key", "");
+        System.setProperty("jxbrowser.license.key", JxKey.key);
 
         // Create the Engine + Browser
         EngineOptions engineOptions = EngineOptions.newBuilder(RenderingMode.HARDWARE_ACCELERATED).remoteDebuggingPort(8888).build();
@@ -252,17 +251,12 @@ public class JxWebEnv extends WebEnv<JsObject> {
      */
     public void setTimeout(Runnable aRun, int aDelay)
     {
-        // Get runnable for JxBrowser
-        JxRunnable jxRunnable = new JxRunnable(aRun, "javaTimeoutRun_" + System.identityHashCode(aRun));
-
-        // Inject our Runnable under a property
-        Window window = get().window();
-        JsObject windowJS = (JsObject) window.getJS();
-        windowJS.putProperty(jxRunnable.name, jxRunnable);
+        // Get window and function JavaScript objects
+        JsObject windowJS = (JsObject) get().window().getJS();
+        Object functionJS = getFunctionJSForRunnable(aRun);
 
         // Use setTimeout to call it
-        String javaScript = String.format("setTimeout(function() { %s.run(); }, %d);", jxRunnable.name, aDelay);
-        _frame.executeJavaScript(javaScript);
+        call(windowJS, "setTimeout", functionJS, aDelay);
     }
 
     /**
@@ -270,49 +264,30 @@ public class JxWebEnv extends WebEnv<JsObject> {
      */
     public int setInterval(Runnable aRun, int aPeriod)
     {
-        // Get runnable for JxBrowser
-        JxRunnable jxRunnable = new JxRunnable(aRun, "javaRun_" + System.identityHashCode(aRun));
-
-        // Inject our Runnable under a property
+        // Get window and function JavaScript objects
         JsObject windowJS = (JsObject) get().window().getJS();
-        windowJS.putProperty(jxRunnable.name, jxRunnable);
+        Object functionJS = getFunctionJSForRunnable(aRun);
 
-        // Use setInterval to call it
-        String javaScript = String.format("setInterval(function() { %s.run(); }, %d);", jxRunnable.name, aPeriod);
-        Number number = _frame.executeJavaScript(javaScript);
-        _intervals.put(number, jxRunnable);
+        // Call setInterval and return id
+        Number number = (Number) call(windowJS, "setInterval", functionJS, aPeriod);
         return number.intValue();
     }
 
-    // A record to wrap a runnable
-    public record JxRunnable(Runnable runnable, String name) {
-
-        @JsAccessible
-        public void run()
-        {
-            runnable.run();
-
-            if (name.startsWith("javaTimeout")) {
-                JsObject windowJS = (JsObject) get().window().getJS();
-                windowJS.removeProperty(name);
-            }
-        }
+    /**
+     * Returns a JavaScript function for given runnable.
+     */
+    private Object getFunctionJSForRunnable(Runnable aRun)
+    {
+        JsObject windowJS = (JsObject) get().window().getJS();
+        windowJS.putProperty("javaRunnable", new JxRunnable(aRun));
+        return eval("window.javaRunnable.run");
     }
 
-    // A map of current intervals
-    private static Map<Number,JxRunnable> _intervals = new HashMap<>();
+    // A record to wrap a runnable
+    public record JxRunnable(Runnable runnable) {
 
-    @Override
-    public void clearInterval(int anId)
-    {
-        super.clearInterval(anId);
-
-        // Get JxRunnable for interval id and remove property
-        JxRunnable jxRunnable = _intervals.remove(anId);
-        if (jxRunnable != null) {
-            JsObject windowJS = (JsObject) get().window().getJS();
-            windowJS.removeProperty(jxRunnable.name);
-        }
+        @JsAccessible
+        public void run()  { runnable.run(); }
     }
 
     /**
@@ -403,35 +378,54 @@ public class JxWebEnv extends WebEnv<JsObject> {
     /**
      * Registers an event handler of a specific event type on the EventTarget.
      */
-    public void addEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)
+    public void addEventListener(EventTarget eventTarget, String eventType, EventListener<?> eventLsnr, boolean useCapture)
     {
+        // Get JavaScript function for event listener
+        JsObject windowJS = (JsObject) get().window().getJS();
+        windowJS.putProperty("javaEventLsnr", (JsFunctionCallback) args -> handleEventListenerEvent(eventLsnr, eventType, args[0]));
+        Object eventLsnrJS = windowJS.property("javaEventLsnr").get();
+
+        // Add to active event listeners
+        String key = System.identityHashCode(eventTarget) + eventType + System.identityHashCode(eventLsnr);
+        _activeEventListeners.put(key, eventLsnrJS);
+
+        // Add JavaScript event listener to event target
         JSProxy jsProxy = (JSProxy) eventTarget;
-        com.teamdev.jxbrowser.dom.event.EventTarget eventTargetJS = (com.teamdev.jxbrowser.dom.event.EventTarget) jsProxy.getJS();
-        EventType eventType = EventType.of(aName);
-        Observer<com.teamdev.jxbrowser.dom.event.Event> observer = e -> handleEvent(e, (EventListener<Event>) eventLsnr, aName);
-        eventTargetJS.addEventListener(eventType, observer, useCapture);
+        jsProxy.call("addEventListener", eventType, eventLsnrJS, useCapture);
     }
 
-    public void handleEvent(com.teamdev.jxbrowser.event.Event eventJS, EventListener<Event> eventLsnr, String eventType)
+    // A map of events
+    private Map<String,Object> _activeEventListeners = new HashMap<>();
+
+    /**
+     * Called when JavaScript event listener is called.
+     */
+    private Object handleEventListenerEvent(EventListener<?> eventLsnr, String eventType, Object eventJS)
     {
-        Event uiEvent = null;
-        if (eventType.contains("mouse")) {
-            com.teamdev.jxbrowser.dom.event.MouseEvent mouseEvent = (com.teamdev.jxbrowser.dom.event.MouseEvent) eventJS;
-            JsObject obj = newObject();
-            obj.putProperty("clientX", mouseEvent.clientLocation().x());
-            obj.putProperty("clientY", mouseEvent.clientLocation().y());
-            obj.putProperty("pageX", mouseEvent.pageLocation().x());
-            obj.putProperty("pageY", mouseEvent.pageLocation().y());
-            obj.putProperty("button", mouseEvent.button().number());
-            uiEvent = new MouseEvent(obj);
-        }
-        eventLsnr.handleEvent(uiEvent);
+        Event event = switch (eventType) {
+            case "mousedown", "mousemove", "mouseup" -> new MouseEvent(eventJS);
+            case "keydown", "keyup" -> new KeyboardEvent(eventJS);
+            case "touchstart", "touchmove", "touchend" -> new TouchEvent(eventJS);
+            case "wheel" -> new WheelEvent(eventJS);
+            case "pointerdown" -> new Event(eventJS);
+            default -> throw new IllegalArgumentException("Unknown event type: " + eventType);
+        };
+        ((EventListener<Event>) eventLsnr).handleEvent(event);
+        return null;
     }
 
     /**
      * Removes an event handler of a specific event type from the EventTarget.
      */
-    public void removeEventListener(EventTarget eventTarget, String aName, EventListener<?> eventLsnr, boolean useCapture)  { }
+    public void removeEventListener(EventTarget eventTarget, String eventType, EventListener<?> eventLsnr, boolean useCapture)
+    {
+        String key = System.identityHashCode(eventTarget) + eventType + System.identityHashCode(eventLsnr);
+        Object eventLsnrJS = _activeEventListeners.remove(key);
+        if (eventLsnrJS != null) {
+            JSProxy jsProxy = (JSProxy) eventTarget;
+            jsProxy.call("removeEventListener", eventType, eventLsnrJS, useCapture);
+        }
+    }
 
     /**
      * Registers an event handler of a specific event type on the EventTarget.
