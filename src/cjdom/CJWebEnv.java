@@ -93,7 +93,12 @@ public class CJWebEnv extends WebEnv<JSObject> {
     /**
      * Evaluates given JavaScript string and returns result.
      */
-    public Object eval(JSObject jsObj, String javaScript)  { return jsObj.eval(javaScript); }
+    @Override
+    public Object eval(String javaScript)
+    {
+        JSObject windowJS = (JSObject) window().getJS();
+        return windowJS.eval(javaScript);
+    }
 
     /**
      * Returns the current window.
@@ -118,7 +123,7 @@ public class CJWebEnv extends WebEnv<JSObject> {
     /**
      * Returns a new JavaScript native object.
      */
-    public Object newObject()  { return newObjectImpl(); }
+    public JSObject newObject()  { return newObjectImpl(); }
 
     /**
      * Does await promise for given promise.

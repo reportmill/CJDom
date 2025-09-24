@@ -97,7 +97,7 @@ public abstract class WebEnv<T> {
     /**
      * Evaluates given JavaScript string and returns result.
      */
-    public abstract Object eval(T jsObj, String javaScript);
+    public abstract Object eval(String javaScript);
 
     /**
      * Returns the current window.
@@ -112,7 +112,7 @@ public abstract class WebEnv<T> {
     /**
      * Returns a new JavaScript native object.
      */
-    public Object newObject()  { return eval((T) window()._jsObj, "return { };"); }
+    public T newObject()  { return (T) eval("new Object();"); }
 
     /**
      * Does await promise for given promise.

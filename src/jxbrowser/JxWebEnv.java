@@ -52,7 +52,7 @@ public class JxWebEnv extends WebEnv<JsObject> {
 
     private void init()
     {
-        System.setProperty("jxbrowser.license.key", "OK6AEKNYF46RGAZ6SF61FNV0W223M5HS4YIF1HC7NIWNEWV66KNJU6Z87S63UHJAVIKN9YJWBWV02HKOJJGCV587M0L5QTW1JYKR9OAY66DMA8JV4BFUSCITL9V0E9O6XCB6G5BXUT5EMTQP8");
+        System.setProperty("jxbrowser.license.key", "");
 
         // Create the Engine + Browser
         EngineOptions engineOptions = EngineOptions.newBuilder(RenderingMode.HARDWARE_ACCELERATED).remoteDebuggingPort(8888).build();
@@ -207,7 +207,8 @@ public class JxWebEnv extends WebEnv<JsObject> {
     /**
      * Evaluates given JavaScript string and returns result.
      */
-    public Object eval(JsObject jsObj, String javaScript)  { return null; }
+    @Override
+    public Object eval(String javaScript)  { return _frame.executeJavaScript(javaScript); }
 
     /**
      * Returns the current window.
@@ -226,11 +227,6 @@ public class JxWebEnv extends WebEnv<JsObject> {
         if (_console != null) return _console;
         return _console = null;
     }
-
-    /**
-     * Returns a new JavaScript native object.
-     */
-    public Object newObject()  { return eval((JsObject) window().getJS(), "return { };"); }
 
     /**
      * Does await promise for given promise.
@@ -421,7 +417,7 @@ public class JxWebEnv extends WebEnv<JsObject> {
         Event uiEvent = null;
         if (eventType.contains("mouse")) {
             com.teamdev.jxbrowser.dom.event.MouseEvent mouseEvent = (com.teamdev.jxbrowser.dom.event.MouseEvent) eventJS;
-            JsObject obj = _frame.executeJavaScript("new Object();");
+            JsObject obj = newObject();
             obj.putProperty("clientX", mouseEvent.clientLocation().x());
             obj.putProperty("clientY", mouseEvent.clientLocation().y());
             obj.putProperty("pageX", mouseEvent.pageLocation().x());
