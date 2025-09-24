@@ -210,7 +210,7 @@ public abstract class WebEnv<T> {
     /**
      * Returns a new FileReader.
      */
-    public abstract T newFileReaderJS();
+    public T newFileReaderJS()  { return (T) eval("new FileReader();"); }
 
     /**
      * Returns a new MutationObserver.

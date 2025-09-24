@@ -20,8 +20,7 @@ import webapi.Window;
 import javax.swing.*;
 
 /**
- * This class is an adapter for this package, implementing the fundamental functionality to make it work with
- * CheerpJ, TeaVM, JxBrowser.
+ * This class is a WebEnv implementation for JxBrowser.
  */
 public class JxWebEnv extends WebEnv<JsObject> {
 
@@ -52,6 +51,9 @@ public class JxWebEnv extends WebEnv<JsObject> {
         init();
     }
 
+    /**
+     * Initialize JxBrowser environment.
+     */
     private void init()
     {
         System.setProperty("jxbrowser.license.key", JxKey.key);
@@ -61,7 +63,7 @@ public class JxWebEnv extends WebEnv<JsObject> {
         _engine = Engine.newInstance(engineOptions);
         _browser = _engine.newBrowser();
 
-        _browser.navigation().loadHtml("<html><body></body></html>");
+        //_browser.navigation().loadHtml("<html><body></body></html>");
 
         // Load a page with a JS function
         _frame = _browser.mainFrame().get();
@@ -337,12 +339,6 @@ public class JxWebEnv extends WebEnv<JsObject> {
     public JsObject newFileJSForNameAndTypeAndBytes(String aName, String aType, byte[] byteArray)  { return null; }
 
     /**
-     * Returns a new FileReader.
-     */
-    @Override
-    public JsObject newFileReaderJS()  { return null; }
-
-    /**
      * Returns a new MutationObserver.
      */
     @Override
@@ -477,5 +473,10 @@ public class JxWebEnv extends WebEnv<JsObject> {
      * Returns the rendering context object for given type string and JavaScript object.
      */
     @Override
-    public Object getRenderingContext(String contextType, JsObject jsObj)  { return null; }
+    public Object getRenderingContext(String contextType, JsObject jsObj)
+    {
+        if (contextType.equals("2d"))
+            return new JxCanvasRenderingContext2D(jsObj);
+        return new WebGLRenderingContext(jsObj);
+    }
 }

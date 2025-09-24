@@ -272,41 +272,30 @@ public class CanvasRenderingContext2D extends JSProxy {
     /**
      * CanvasRenderingContext2D: fillText().
      */
-    public void fillText(String aString, double aX, double aY)
-    {
-        System.err.println("CanvasRenderingContext2D.fillText: not implemented yet");
-    }
+    public void fillText(String aString, double aX, double aY)  { call("fillText", aString, aX, aY); }
 
     /**
      * CanvasRenderingContext2D: fillText().
      */
-    public void fillText(String aString, double aX, double aY, double maxWidth)
-    {
-        System.err.println("CanvasRenderingContext2D.fillText: not implemented yet");
-    }
+    public void fillText(String aString, double aX, double aY, double maxWidth)  { call("fillText", aString, aX, aY, maxWidth); }
 
     /**
      * CanvasRenderingContext2D: strokeText().
      */
-    public void strokeText(String aString, double aX, double aY)
-    {
-        System.err.println("CanvasRenderingContext2D.strokeText: not implemented yet");
-    }
+    public void strokeText(String aString, double aX, double aY)  { call("strokeText", aString, aX, aY); }
 
     /**
      * CanvasRenderingContext2D: strokeText().
      */
-    public void strokeText(String aString, double aX, double aY, double maxWidth)
-    {
-        System.err.println("CanvasRenderingContext2D.strokeText: not implemented yet");
-    }
+    public void strokeText(String aString, double aX, double aY, double maxWidth)  { call("strokeText", aString, aX, aY, maxWidth); }
 
     /**
      * CanvasRenderingContext2D: drawImage().
      */
     public void drawImage(CanvasImageSource anImage, double aX, double aY)
     {
-        System.err.println("CanvasRenderingContext2D.drawImage 1: not implemented yet");
+        JSProxy jsProxy = (JSProxy) anImage;
+        call("drawImage", jsProxy.getJS(), aX, aY);
     }
 
     /**
@@ -314,7 +303,8 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public void drawImage(CanvasImageSource anImage, double aX, double aY, double aW, double aH)
     {
-        System.err.println("CanvasRenderingContext2D.drawImage 2: not implemented yet");
+        JSProxy jsProxy = (JSProxy) anImage;
+        call("drawImage", jsProxy.getJS(), aX, aY, aW, aH);
     }
 
     /**
@@ -322,7 +312,8 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public void drawImage(CanvasImageSource anImage, double srcX, double srcY, double srcW, double srcH, double destX, double destY, double destW, double destH)
     {
-        System.err.println("CanvasRenderingContext2D.drawImage 3: not implemented yet");
+        JSProxy jsProxy = (JSProxy) anImage;
+        call("drawImage", jsProxy.getJS(), srcX, srcY, srcW, srcH, destX, destY, destW, destH);
     }
 
     /**
@@ -330,19 +321,22 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public ImageData getImageData(int aX, int aY, int aW, int aH)
     {
-        System.err.println("CanvasRenderingContext2D.getImageData: not implemented yet");
-        return null;
+        Object imageDataJS = call("getImageData", aX, aY, aW, aH);
+        return new ImageData(imageDataJS);
     }
+
+    /**
+     * Put image data.
+     */
+    public void putImageData(ImageData imageData, double aX, double aY)  { call("putImageData", imageData.getJS(), aX, aY); }
 
     /**
      * Put image data.
      */
     public void putImageData(ImageData imageData, double aX, double aY, double dirtyX, double dirtyY, double dirtyW, double dirtyH)
     {
-        System.err.println("CanvasRenderingContext2D.putImageData: not implemented yet");
+        call("putImageData", imageData.getJS(), aX, aY, dirtyX, dirtyY, dirtyW, dirtyH);
     }
-
-    //void putImageData(ImageData var1, double aX, double aY);
 
     /**
      * Creates a linear gradient along the line connecting two given coordinates.
