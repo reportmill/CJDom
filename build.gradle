@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'com.teamdev.jxbrowser' version '2.0.0'
 }
 
 group 'com.reportmill'
@@ -20,7 +21,15 @@ repositories {
     mavenCentral()
 }
 
+jxbrowser {
+    version = '8.12.1'
+    repository = "https://us-maven.pkg.dev/jxbrowser/releases"
+}
+
 dependencies {
+
+    implementation jxbrowser.currentPlatform
+    implementation jxbrowser.swing
 
     // JSObject
     compileOnly files("lib/cheerpj-awt.jar")

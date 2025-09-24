@@ -1,6 +1,6 @@
 package webapi;
 import cjdom.CJWebEnv;
-
+import jxbrowser.JxWebEnv;
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
 
@@ -21,7 +21,13 @@ public abstract class WebEnv<T> {
     /**
      * Returns a shared instance.
      */
-    private static WebEnv<?> createEnv()  { return new CJWebEnv(); }
+    private static WebEnv<?> createEnv()
+    {
+        String javaVendor = System.getProperty("java.vendor");
+        if (javaVendor.contains("Leaning"))
+            return new CJWebEnv();
+        return new JxWebEnv();
+    }
 
     /**
      * Returns a named member of a JavaScript object.
