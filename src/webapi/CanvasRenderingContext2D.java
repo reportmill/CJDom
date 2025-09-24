@@ -1,4 +1,5 @@
 package webapi;
+import java.util.Arrays;
 
 /**
  * This class is a wrapper for Web API CanvasRenderingContext2D (https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D).
@@ -163,7 +164,9 @@ public class CanvasRenderingContext2D extends JSProxy {
      */
     public void setLineDash(double[] dashArray)
     {
-        System.err.println("CanvasRenderingContext2D.setLineDash: not implemented yet");
+        Double[] wrappedDoubles = Arrays.stream(dashArray).boxed().toArray(Double[]::new);
+        Array<Double> dashArray2 = new Array<>(wrappedDoubles);
+        call("setLineDash", dashArray2.getJS());
     }
 
     /**

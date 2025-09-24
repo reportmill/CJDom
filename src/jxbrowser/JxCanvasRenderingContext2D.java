@@ -2,7 +2,7 @@ package jxbrowser;
 import webapi.*;
 
 /**
- * This class is a wrapper for Web API CanvasRenderingContext2D (https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D).
+ * This class is a CanvasRenderingContext2D subclass for JxBrowser.
  */
 public class JxCanvasRenderingContext2D extends CanvasRenderingContext2D {
 
@@ -12,15 +12,6 @@ public class JxCanvasRenderingContext2D extends CanvasRenderingContext2D {
     public JxCanvasRenderingContext2D(Object renderingContextJS)
     {
         super(renderingContextJS);
-    }
-
-    /**
-     * CanvasRenderingContext2D: setLineDash().
-     */
-    @Override
-    public void setLineDash(double[] dashArray)
-    {
-        //setLineDashImpl(_cntxJS, dashArray != null ? dashArray : new double[0]);
     }
 
     /**
