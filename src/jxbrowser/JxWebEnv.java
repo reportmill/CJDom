@@ -4,9 +4,7 @@ import com.teamdev.jxbrowser.engine.Engine;
 import com.teamdev.jxbrowser.engine.EngineOptions;
 import com.teamdev.jxbrowser.engine.RenderingMode;
 import com.teamdev.jxbrowser.frame.Frame;
-import com.teamdev.jxbrowser.js.JsAccessible;
-import com.teamdev.jxbrowser.js.JsArray;
-import com.teamdev.jxbrowser.js.JsFunctionCallback;
+import com.teamdev.jxbrowser.js.*;
 import com.teamdev.jxbrowser.view.swing.BrowserView;
 import webapi.*;
 import java.awt.event.WindowAdapter;
@@ -15,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
-import com.teamdev.jxbrowser.js.JsObject;
 import webapi.Window;
 import javax.swing.*;
 
@@ -73,6 +70,19 @@ public class JxWebEnv extends WebEnv<JsObject> {
         _window = new Window(_windowJS);
         JsObject console = _frame.executeJavaScript("console");
         _console = new Console(console);
+
+        // Define functions
+        String function = """
+                window.getClassName = function(obj) { var className = obj.constructor.name; console.log('class name: ' + className); return className; };
+                window.newInstanceForClassNameAndArgs = function() {
+                    const args = Array.from(arguments);
+                    const className = args.shift();
+                    return new globalThis[className](...args);
+                };
+                window.newBlobJSForBytesAndType = function(arrayBuffer, mimeType) { return new Blob([ arrayBuffer ], mimeType ? { type: mimeType } : null); }
+                window.createUrlForBlob = function(obj) { return URL.createObjectURL(obj); };
+                """;
+        _frame.executeJavaScript(function);
 
         SwingUtilities.invokeLater(() -> showFrame(_engine, _browser));
     }
@@ -206,6 +216,15 @@ public class JxWebEnv extends WebEnv<JsObject> {
     }
 
     /**
+     * Returns a new instance for given class name and args.
+     */
+    public JsObject newInstanceForClassNameAndArgs(Object... args)
+    {
+        JsObject obj = _windowJS.call("newInstanceForClassNameAndArgs", args);
+        return obj;
+    }
+
+    /**
      * Evaluates given JavaScript string and returns result.
      */
     @Override
@@ -282,7 +301,7 @@ public class JxWebEnv extends WebEnv<JsObject> {
      * Returns an array of given length.
      */
     @Override
-    public JsObject newArrayJSForLength(int aLength)  { return null; }
+    public JsObject newArrayJSForLength(int aLength)  { return newInstanceForClassNameAndArgs("Array", aLength); }
 
     /**
      * Returns an array of bytes for given array buffer.
@@ -291,19 +310,19 @@ public class JxWebEnv extends WebEnv<JsObject> {
     public byte[] getBytesArrayForArrayBufferJS(JsObject arrayBufferJS)  { return null;}
 
     /**
-     * Returns an array of bytes for given typed array.
+     * Returns an array of bytes for given typed array. !!! Only needed for nothing !!!
      */
     @Override
     public byte[] getBytesArrayForTypedArrayJS(JsObject typedArrayJS)  { return null; }
 
     /**
-     * Returns an array of shorts for given typed array.
+     * Returns an array of shorts for given typed array. !!! Only needed for Emboss !!!
      */
     @Override
     public short[] getShortsArrayForTypedArrayJS(JsObject typedArrayJS)  { return null; }
 
     /**
-     * Returns an array of shorts for given typed array.
+     * Returns an array of shorts for given typed array. !!! Only needed for Emboss !!!
      */
     @Override
     public short[] getShortsArrayForChannelIndexAndCount(JsObject typedArrayJS, int channelIndex, int channelCount)  { return null; }
@@ -312,49 +331,88 @@ public class JxWebEnv extends WebEnv<JsObject> {
      * Returns a typed array of given class for given input.
      */
     @Override
-    public JsObject getTypedArrayJSForClassAndObject(Class<?> aClass, Object arrayObject)  { return null; }
+    public JsObject getTypedArrayJSForClassAndObject(Class<?> aClass, Object arrayObject)
+    {
+        String className = aClass.getSimpleName();
+        JsObject arrayJS = newInstanceForClassNameAndArgs(className, arrayObject);
+        return arrayJS;
+    }
 
     /**
      * Returns new ImageData for given short array of RGBA color components and width and height.
      */
     @Override
-    public JsObject newImageDataJSForRgbaArrayAndWidthAndHeight(Object arrayObject, int aWidth, int aHeight)  { return null; }
+    public JsObject newImageDataJSForRgbaArrayAndWidthAndHeight(Object arrayObject, int aWidth, int aHeight)
+    {
+        JsObject imageDataJS = newInstanceForClassNameAndArgs("ImageData", arrayObject, aWidth, aHeight);
+        return imageDataJS;
+    }
 
     /**
      * Returns a new Blob for given byte array and type.
      */
     @Override
-    public JsObject newBlobJSForBytesAndType(byte[] byteArray, String aType)  { return null; }
+    public JsObject newBlobJSForBytesAndType(byte[] byteArray, String aType)
+    {
+        //const int8Array = arrayObj instanceof Int8Array ? arrayObj : new Int8Array(arrayObj);
+        //return new Blob([ int8Array ], typeStr ? { type: typeStr } : null);
+        JsObject blobJS = _windowJS.call("newBlobJSForBytesAndType", byteArray, aType);
+        return blobJS;
+    }
 
     /**
      * Creates a URL for given blob.
      */
     @Override
-    public String createUrlForBlobJS(JsObject blobJS)  { return null; }
+    public String createUrlForBlobJS(JsObject blobJS)
+    {
+        //return URL.createObjectURL(blobJS);
+        return _windowJS.call("createUrlForBlob", blobJS);
+    }
 
     /**
      * Returns a new File for given name, type and bytes.
      */
     @Override
-    public JsObject newFileJSForNameAndTypeAndBytes(String aName, String aType, byte[] byteArray)  { return null; }
+    public JsObject newFileJSForNameAndTypeAndBytes(String aName, String aType, byte[] byteArray)
+    {
+        //const int8Array = arrayObj instanceof Int8Array ? arrayObj : new Int8Array(arrayObj);
+        //return new File([ int8Array ], name, type ? { type: type } : null);
+        return null;
+    }
 
     /**
      * Returns a new MutationObserver.
      */
     @Override
-    public JsObject newMutationObserver(MutationObserver.Callback aCallback)  { return null; }
+    public JsObject newMutationObserver(MutationObserver.Callback aCallback)
+    {
+        //return new MutationObserver((mutationRecords, observer) => mutationObserved(aCallback, mutationRecords));
+        return null;
+    }
 
     /**
      * Registers a mutation observer to observe given node for given mutations types object.
      */
     @Override
-    public void addMutationObserver(MutationObserver mutationObserver, Node aNode, Object optionsObjJS)  { }
+    public void addMutationObserver(MutationObserver mutationObserver, Node aNode, Object optionsObjJS)
+    {
+        //MutationObserver.Callback callback = mutationObserver.getCallback();
+        //addMutationObserverImpl((JSObject) mutationObserver.getJS(), (JSObject) aNode.getJS(), callback, (JSObject) optionsObjJS);
+            //mutationObserverJS.observe(nodeJS, optionsObj);
+    }
 
     /**
      * Returns a new ClipboardItem for given mime type and data string.
      */
     @Override
-    public Object newClipboardItemForMimeTypeAndDataString(String mimeType, String dataString)  { return null; }
+    public Object newClipboardItemForMimeTypeAndDataString(String mimeType, String dataString)
+    {
+        //var blob = new Blob([ string ], { type });
+        //var entry = { [blob.type]: blob };
+        //return new ClipboardItem(entry);
+        return null;
+    }
 
     /**
      * Returns a new ClipboardItem for given Blob JS.
@@ -406,8 +464,7 @@ public class JxWebEnv extends WebEnv<JsObject> {
             case "keydown", "keyup" -> new KeyboardEvent(eventJS);
             case "touchstart", "touchmove", "touchend" -> new TouchEvent(eventJS);
             case "wheel" -> new WheelEvent(eventJS);
-            case "pointerdown" -> new Event(eventJS);
-            default -> throw new IllegalArgumentException("Unknown event type: " + eventType);
+            default -> new Event(eventJS);
         };
         ((EventListener<Event>) eventLsnr).handleEvent(event);
         return null;
@@ -426,12 +483,6 @@ public class JxWebEnv extends WebEnv<JsObject> {
             jsProxy.call("removeEventListener", eventType, eventLsnrJS, useCapture);
         }
     }
-
-    /**
-     * Registers an event handler of a specific event type on the EventTarget.
-     */
-    @Override
-    public void addLoadEventListener(EventTarget eventTarget, EventListener<?> eventLsnr)  { }
 
     /**
      * Returns whether current thread is event thread.
@@ -479,4 +530,7 @@ public class JxWebEnv extends WebEnv<JsObject> {
             return new JxCanvasRenderingContext2D(jsObj);
         return new WebGLRenderingContext(jsObj);
     }
+
+    // Returns class name for given object
+    private String getClassName(Object jsObj)  { return _windowJS.call("getClassName", jsObj); }
 }

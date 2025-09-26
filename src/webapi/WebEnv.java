@@ -255,7 +255,10 @@ public abstract class WebEnv<T> {
     /**
      * Registers an event handler of a specific event type on the EventTarget.
      */
-    public abstract void addLoadEventListener(EventTarget eventTarget, EventListener<?> eventLsnr);
+    public void addLoadEventListener(EventTarget eventTarget, EventListener<?> eventLsnr)
+    {
+        addEventListener(eventTarget, "load", eventLsnr, false);
+    }
 
     /**
      * Returns whether current thread is event thread.
