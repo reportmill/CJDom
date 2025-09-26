@@ -294,7 +294,11 @@ public class JxWebEnv extends WebEnv<JsObject> {
     public record JxRunnable(Runnable runnable) {
 
         @JsAccessible
-        public void run()  { runnable.run(); }
+        public void run()
+        {
+            try { runnable.run(); }
+            catch (Exception e) { e.printStackTrace(); }
+        }
     }
 
     /**
@@ -532,5 +536,5 @@ public class JxWebEnv extends WebEnv<JsObject> {
     }
 
     // Returns class name for given object
-    private String getClassName(Object jsObj)  { return _windowJS.call("getClassName", jsObj); }
+    public String getClassName(Object jsObj)  { return _windowJS.call("getClassName", jsObj); }
 }
