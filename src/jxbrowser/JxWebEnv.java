@@ -93,6 +93,7 @@ public class JxWebEnv extends WebEnv<JsObject> {
     private void showFrame(Engine engine, Browser browser)
     {
         JFrame frame = new JFrame("JxBrowser Swing");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) { engine.close(); }
@@ -467,6 +468,7 @@ public class JxWebEnv extends WebEnv<JsObject> {
             case "mousedown", "mousemove", "mouseup" -> new MouseEvent(eventJS);
             case "keydown", "keyup" -> new KeyboardEvent(eventJS);
             case "touchstart", "touchmove", "touchend" -> new TouchEvent(eventJS);
+            case "dragenter", "dragover", "dragexit", "drop", "dragstart", "dragend" -> new DragEvent(eventJS);
             case "wheel" -> new WheelEvent(eventJS);
             default -> new Event(eventJS);
         };
